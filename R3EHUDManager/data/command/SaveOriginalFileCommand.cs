@@ -14,7 +14,6 @@ namespace R3EHUDManager.data.command
     class SaveOriginalFileCommand : ICommand
     {
         private readonly LocationModel locationModel;
-        private const string BACKUP_NAME = "hud_options.xml.backup";
 
         public SaveOriginalFileCommand(LocationModel locationModel)
         {
@@ -23,11 +22,9 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
-            string backupPath = Path.Combine(Application.UserAppDataPath, BACKUP_NAME);
-
-            if (!File.Exists(backupPath))
+            if (!File.Exists(locationModel.HudOptionsBackupPath))
             {
-                File.Copy(locationModel.HudOptionsPath, backupPath);
+                File.Copy(locationModel.HudOptionsPath, locationModel.HudOptionsBackupPath);
             }
         }
     }

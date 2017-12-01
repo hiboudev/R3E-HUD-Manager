@@ -18,6 +18,8 @@ namespace R3EHUDManager
     {
         public event EventHandler MyEventHandler;
         public const string EVENT_SAVE_CLICKED = "saveClicked";
+        public const string EVENT_RELOAD_CLICKED = "reloadClicked";
+        public const string EVENT_RELOAD_DEFAULT_CLICKED = "reloadDefaultClicked";
 
         public Form1()
         {
@@ -38,14 +40,28 @@ namespace R3EHUDManager
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
 
-            Button saveButton = new Button()
+            FlowLayoutPanel buttonsPanel = new FlowLayoutPanel()
             {
-                Text = "Save",
+                Dock = DockStyle.Top,
+                Height = 30,
             };
-            saveButton.Click += (sender, args) => dispatchEvent(new BaseEventArgs(EVENT_SAVE_CLICKED));
 
-            Controls.Add(saveButton);
+            buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+            buttonsPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
+            buttonsPanel.Controls.Add(GetButton("Default", EVENT_RELOAD_DEFAULT_CLICKED));
+
+            Controls.Add(buttonsPanel);
             Controls.Add(screenView);
+        }
+
+        private Button GetButton(string text, string eventType)
+        {
+            Button button = new Button()
+            {
+                Text = text,
+            };
+            button.Click += (sender, args) => dispatchEvent(new BaseEventArgs(eventType));
+            return button;
         }
 
         public void dispatchEvent(BaseEventArgs args)

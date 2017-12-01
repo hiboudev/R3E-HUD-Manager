@@ -30,6 +30,8 @@ namespace R3EHUDManager
 
             Injector.MapCommand(typeof(ScreenView), ScreenView.EVENT_POSITION_CHANGED, typeof(MovePlaceholderCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
+            Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand)); 
+            Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_DEFAULT_CLICKED, typeof(ReloadDefaultHudDataCommand)); 
         }
     }
 }
