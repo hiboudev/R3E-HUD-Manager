@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using da2mvc.command;
+using System.Windows.Forms;
 
 namespace R3EHUDManager.data.command
 {
@@ -25,7 +26,15 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
-            placeHolderCollection.AddRange(parser.Parse(locationModel.HudOptionsPath));
+            try
+            {
+                placeHolderCollection.AddRange(parser.Parse(locationModel.HudOptionsPath));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while parsing HUD xml file, application will exit.\n" + e.Message, "Error");
+                Environment.Exit(0);
+            }
         }
     }
 }
