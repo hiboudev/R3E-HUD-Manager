@@ -25,8 +25,6 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
-            // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus".
-            parser.FixFile(locationModel.HudOptionsPath);
             placeHolderCollection.AddRange(parser.Parse(locationModel.HudOptionsPath));
         }
     }

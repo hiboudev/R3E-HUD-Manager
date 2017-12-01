@@ -18,17 +18,6 @@ namespace R3EHUDManager.data.parser
     {
         private static Regex ITEM_NAME_EXP = new Regex($"(.*) ({ItemType.POSITION}|{ItemType.SIZE}|{ItemType.ANCHOR})");
         
-        internal void FixFile(string hudOptionsPath)
-        {
-            // TODO check file lock (try/catch when writing)
-            string fileContent = File.ReadAllText(hudOptionsPath);
-            if (fileContent.Contains("CarStatus Anchor"))
-            {
-                fileContent = fileContent.Replace("CarStatus Anchor", "Car Status Anchor");
-                File.WriteAllText(hudOptionsPath, fileContent);
-            }
-        }
-
         internal void Write(string hudOptionsPath, List<PlaceholderModel> placeholders)
         {
             string fileContent = File.ReadAllText(hudOptionsPath);
@@ -50,58 +39,24 @@ namespace R3EHUDManager.data.parser
 
             foreach (XmlNode node in list)
             {
-                Debug.WriteLine(node.Name);
-                Debug.WriteLine(node.Attributes["type"].Value);
                 if(node.Name == "name")
                 {
-                    if (elementNames.ContainsKey(node.InnerText))
+                    Debug.WriteLine(node.Name);
+                    // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
+                    string innerText = node.InnerText == "CarStatus Anchor" ? "Car Status Anchor" : node.InnerText;
+                    if (elementNames.ContainsKey(innerText))
                     {
-                        nextVector = elementNames[node.InnerText];
+                        nextVector = elementNames[innerText];
                     }
                 }
                 else if (nextVector != null && node.Name == "value" && node.Attributes["type"].Value == ValueType.VECTOR)
                 {
-                    Debug.WriteLine(node.Name);
-                    Debug.WriteLine(node.InnerText);
                     node.InnerText = nextVector;
-                    Debug.WriteLine(node.InnerText);
                     nextVector = null;
                 }
             }
 
             doc.Save(hudOptionsPath);
-
-
-
-            //MemoryStream memStream = new MemoryStream();
-
-            //using (XmlReader xmlReader = XmlReader.Create(new StringReader(fileContent)))
-            //{
-            //    using (XmlWriter xmlWriter = XmlWriter.Create(memStream))
-            //    {
-
-            //        while (xmlReader.Read())
-            //        {
-            //            if (xmlReader.NodeType == XmlNodeType.CDATA)
-            //            {
-            //                string elementName = xmlReader.Value;
-            //                if (elementNames.ContainsKey(elementName))
-            //                {
-            //                    xmlReader.ReadToFollowing("value");
-
-            //                    xmlReader.MoveToFirstAttribute();
-            //                    string valueType = xmlReader.Value;
-
-            //                    if (valueType != ValueType.VECTOR) throw new Exception($"Expected value is a {ValueType.VECTOR}");
-
-            //                }
-            //            }
-            //            else
-            //                xmlWriter.WriteNode(xmlReader.Read);
-            //        }
-
-            //    }
-            //}
         }
 
         internal List<PlaceholderModel> Parse(string hudOptionsPath)
@@ -154,10 +109,14 @@ namespace R3EHUDManager.data.parser
             return placeHolders.Values.ToList();
         }
 
-        private GeometricItem GetGeometricItem(string name)
+        private GeometricItem GetGeometricItem(string xmlName)
         {
-            MatchCollection matches = ITEM_NAME_EXP.Matches(name);
-            return new GeometricItem(matches[0].Groups[1].Value, matches[0].Groups[2].Value);
+            MatchCollection matches = ITEM_NAME_EXP.Matches(xmlName);
+            string name = matches[0].Groups[1].Value;
+
+            // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
+            if (name == "CarStatus") name = "Car Status";
+            return new GeometricItem(name, matches[0].Groups[2].Value);
         }
 
         private bool IsGeometricItem(string name)
