@@ -43,7 +43,7 @@ namespace R3EHUDManager.placeholder.view
                 };
                 view.PositionChanged += OnViewPositionChanged;
                 view.Location = GetLocation(placeHolder, view);// GetCoordinate(placeHolder.Position, new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN), new Point(SCREEN_MARGIN, SCREEN_MARGIN));
-                view.AnchorPosition = GetCoordinate(placeHolder.Anchor, view.Size, new Point());
+                view.AnchorPosition = GetCoordinate(placeHolder.Anchor, view.AnchorArea, new Point());
 
                 views.Add(placeHolder.Name, view);
             }

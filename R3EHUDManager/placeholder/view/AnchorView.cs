@@ -17,7 +17,7 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
-            Size = new Size(10, 10);
+            Size = new Size(4, 4);
             BackColor = Color.Red;
         }
     }

@@ -21,8 +21,13 @@ namespace R3EHUDManager.placeholder.view
 
         public Point AnchorPosition
         {
-            get { return new Point(anchor.Location.X + anchor.Width / 2, anchor.Location.Y + anchor.Height/ 2); }
-            set { anchor.Location = new Point(value.X - anchor.Width / 2, value.Y - anchor.Height / 2); }
+            get => new Point(Width * anchor.Location.X / AnchorArea.Width, Height * anchor.Location.Y / AnchorArea.Height);
+            set { anchor.Location = value; }
+        }
+
+        public Size AnchorArea
+        {
+            get => new Size(Width - anchor.Width, Height - anchor.Height);
         }
 
         private void InitializeUI()
