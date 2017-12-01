@@ -9,8 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Test_MVC.events;
-using Test_MVC.injection;
+using da2mvc.events;
+using da2mvc.injection;
 
 namespace R3EHUDManager
 {

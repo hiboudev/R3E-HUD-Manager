@@ -8,8 +8,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Test_MVC.command;
-using Test_MVC.events;
+using da2mvc.command;
+using da2mvc.events;
 
 namespace R3EHUDManager.data.command
 {

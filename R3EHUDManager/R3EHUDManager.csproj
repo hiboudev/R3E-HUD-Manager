@@ -52,6 +52,7 @@
     <Compile Include="coordinates\R3ePoint.cs" />
     <Compile Include="data\command\LoadHudDataCommand.cs" />
     <Compile Include="data\command\SaveHudCommand.cs" />
+    <Compile Include="data\command\SaveOriginalFileCommand.cs" />
     <Compile Include="data\parser\HudOptionsParser.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

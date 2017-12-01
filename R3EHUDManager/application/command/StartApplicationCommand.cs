@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Test_MVC.command;
-using Test_MVC.injection;
+using da2mvc.command;
+using da2mvc.injection;
 
 namespace R3EHUDManager.application.command
 {
@@ -16,6 +16,7 @@ namespace R3EHUDManager.application.command
         public void Execute()
         {
             Injector.ExecuteCommand(typeof(FindR3eHomeDirectoryCommand));
+            Injector.ExecuteCommand(typeof(SaveOriginalFileCommand));
             Injector.ExecuteCommand(typeof(LoadHudDataCommand));
         }
     }
