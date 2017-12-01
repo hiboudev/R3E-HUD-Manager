@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using da2mvc.injection;
+using R3EHUDManager.location.command;
 
 namespace R3EHUDManager
 {

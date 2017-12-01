@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 555);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "R3E HUD Manager";
             this.ResumeLayout(false);
 
         }

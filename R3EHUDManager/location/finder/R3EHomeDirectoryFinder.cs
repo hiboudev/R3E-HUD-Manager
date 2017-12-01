@@ -22,19 +22,10 @@ namespace R3EHUDManager.location.finder
 
             string[] r3EDirectories = Directory.GetDirectories(simbinPath, $"{BASE_R3E_DIR_NAME}*");
 
-            switch (r3EDirectories.Length)
-            {
-                case 0:
-                    throw new Exception("No R3E directory in user documents.");
+            if (r3EDirectories.Length == 0)
+                return null;
 
-                case 1:
-                    Debug.WriteLine($"++ Found one directory: {r3EDirectories[0]}");
-                    return r3EDirectories[0];
-
-                default:
-                    Debug.WriteLine("++ Found several directories");
-                    return SearchActiveR3EDirectory(r3EDirectories);
-            }
+            return SearchActiveR3EDirectory(r3EDirectories);
         }
 
         private string SearchActiveR3EDirectory(string[] r3EDirectories)

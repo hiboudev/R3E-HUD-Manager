@@ -22,6 +22,12 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
+            if (!File.Exists(locationModel.HudOptionsPath))
+            {
+                MessageBox.Show("HUD file 'hud_options.xml' not found, application will exit.", "Error");
+                Environment.Exit(0);
+            }
+
             if (!File.Exists(locationModel.HudOptionsBackupPath))
             {
                 File.Copy(locationModel.HudOptionsPath, locationModel.HudOptionsBackupPath);

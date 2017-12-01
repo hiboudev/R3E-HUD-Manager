@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using da2mvc.command;
 using System.Windows.Forms;
+using da2mvc.events;
 
 namespace R3EHUDManager.location.command
 {
@@ -23,10 +24,19 @@ namespace R3EHUDManager.location.command
             this.locationModel = locationModel;
             this.finder = finder;
         }
-
+        
         public void Execute()
         {
-            locationModel.R3eHomeBasePath = finder.GetPath();
+            string R3eHomePath = finder.GetPath();
+            if (R3eHomePath != null)
+            {
+                locationModel.R3eHomeBasePath = R3eHomePath;
+            }
+            else
+            {
+                MessageBox.Show("Can't find R3E user directory, application will exit.", "Error");
+                Environment.Exit(0);
+            }
         }
     }
 }
