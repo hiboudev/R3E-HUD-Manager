@@ -41,7 +41,6 @@ namespace R3EHUDManager.data.parser
             {
                 if(node.Name == "name")
                 {
-                    Debug.WriteLine(node.Name);
                     // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
                     string innerText = node.InnerText == "CarStatus Anchor" ? "Car Status Anchor" : node.InnerText;
                     if (elementNames.ContainsKey(innerText))

@@ -27,7 +27,7 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
-            BackColor = Color.PaleVioletRed;
+            BackColor = Color.LightGray;
         }
 
         internal void DisplayPlaceHolders(List<PlaceholderModel> placeHolders)

@@ -48,7 +48,7 @@ namespace R3EHUDManager
 
             buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
             buttonsPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
-            buttonsPanel.Controls.Add(GetButton("Default", EVENT_RELOAD_DEFAULT_CLICKED));
+            buttonsPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
 
             Controls.Add(buttonsPanel);
             Controls.Add(screenView);
