@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3EHUDManager", "R3EHUDManager\R3EHUDManager.csproj", "{0AB4C7A0-06A8-47B6-932D-D0CB51010730}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35961FCD-2DE2-4619-8E74-851A836CBA79}
+	EndGlobalSection
+EndGlobal
