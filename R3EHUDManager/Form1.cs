@@ -46,9 +46,9 @@ namespace R3EHUDManager
                 Height = 30,
             };
 
-            buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
             buttonsPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
             buttonsPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
+            buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
 
             Controls.Add(buttonsPanel);
             Controls.Add(screenView);
