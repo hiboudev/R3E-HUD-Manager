@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.coordinates;
+using R3EHUDManager.graphics;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -7,17 +8,29 @@ namespace R3EHUDManager.placeholder.view
 {
     class PlaceholderView : Panel
     {
-        public string PlaceholderName { get => label.Text; set => label.Text = value; }
         public event EventHandler PositionChanged;
         public event EventHandler Dragging;
         private Label label;
         private Point dragStartPosition;
         private Point dragMouseOffset;
         private AnchorView anchor;
+        private readonly string placeholderName;
+        private readonly double sizeRatio;
+        private Bitmap image;
 
-        public PlaceholderView()
+        public string PlaceholderName { get => placeholderName; }
+
+        public PlaceholderView(string placeholderName, double sizeRatio)
         {
+            this.placeholderName = placeholderName;
+            this.sizeRatio = sizeRatio;
             InitializeUI();
+            Disposed += OnDispose;
+        }
+
+        private void OnDispose(object sender, EventArgs e)
+        {
+            if (image != null) image.Dispose();
         }
 
         public Point AnchorPosition
@@ -30,28 +43,29 @@ namespace R3EHUDManager.placeholder.view
         {
             get => new Size(Width - anchor.Width, Height - anchor.Height);
         }
+        public Size FullSize { get; private set; }
 
         private void InitializeUI()
         {
-            //Image myimage = new Bitmap(@"_graphical_assets\motec.png");
-            //BackgroundImage = myimage;
-            //Size = myimage.Size;
+            Image originalImage = new Bitmap(GraphicalAsset.GetPlaceholderImage(placeholderName));
 
-            //AutoSize = true;
-            //AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            Size = new Size(100, 30);
+            int width = (int)((double)originalImage.PhysicalDimension.Width * sizeRatio);
+            int height = (int)((double)originalImage.PhysicalDimension.Height * sizeRatio);
+
+            image = new Bitmap(originalImage, new Size(width, height));
+            originalImage.Dispose();
+
+            BackgroundImage = image;
+            Size = new Size(width, height);
 
             BackColor = Color.LightGray;
-            //BorderStyle = BorderStyle.FixedSingle;
 
             label = new Label()
             {
-                //AutoSize = true,
-                BackColor = Color.Orange,
-                Enabled = false, // TODO no mouseEnabled ?
-                TextAlign = ContentAlignment.MiddleCenter,
-                Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.FixedSingle,
+                Text = placeholderName,
+                AutoSize = true,
+                BackColor = Color.WhiteSmoke,
+                ForeColor = Color.Black,
             };
 
 
@@ -93,5 +107,7 @@ namespace R3EHUDManager.placeholder.view
                 PositionChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+
+        
     }
 }

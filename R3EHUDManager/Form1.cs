@@ -32,6 +32,11 @@ namespace R3EHUDManager
             InitializeComponent();
             InitializeUI();
 
+            Shown += OnFormShown;
+        }
+
+        private void OnFormShown(object sender, EventArgs e)
+        {
             Injector.ExecuteCommand(typeof(StartApplicationCommand));
         }
 

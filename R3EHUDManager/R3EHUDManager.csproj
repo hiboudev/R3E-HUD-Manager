@@ -97,12 +97,16 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="graphics\GraphicalAsset.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
     <Compile Include="placeholder\view\AnchorView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="placeholder\view\BackgroundView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="placeholder\view\PlaceholderView.cs">
@@ -155,10 +159,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_graphical_assets\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\ffbgraph.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="_graphical_assets\motec.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="test_icon.ico" />
+    <Content Include="_graphical_assets\positionbar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\trackmap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\virtualmirror.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

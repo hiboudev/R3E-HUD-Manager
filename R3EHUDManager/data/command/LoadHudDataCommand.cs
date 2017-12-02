@@ -26,15 +26,18 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
+            List<PlaceholderModel> placeholders = null;
             try
             {
-                placeHolderCollection.AddRange(parser.Parse(locationModel.HudOptionsPath));
+                placeholders = parser.Parse(locationModel.HudOptionsPath);
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error while parsing HUD xml file, application will exit.\n" + e.Message, "Error");
                 Environment.Exit(0);
             }
+
+            placeHolderCollection.AddRange(placeholders);
         }
     }
 }
