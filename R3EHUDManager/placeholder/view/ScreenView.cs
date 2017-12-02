@@ -17,7 +17,8 @@ namespace R3EHUDManager.placeholder.view
     {
         private Dictionary<string, PlaceholderView> views;
         private const int SCREEN_MARGIN = 100;
-        public event EventHandler MyEventHandler;
+        public event EventHandler MvcEventHandler;
+
         public const string EVENT_POSITION_CHANGED = "positionChanged";
 
         public ScreenView()
@@ -58,7 +59,7 @@ namespace R3EHUDManager.placeholder.view
             Point position = new Point(view.Location.X - SCREEN_MARGIN + view.AnchorPosition.X, view.Location.Y - SCREEN_MARGIN + view.AnchorPosition.Y);
             Size size = new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN);
 
-            dispatchEvent(new PlaceHolderMovedEventArgs(EVENT_POSITION_CHANGED,
+            DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_POSITION_CHANGED,
                 ((PlaceholderView)sender).PlaceholderName,
                 Coordinates.ToR3e(position, size)));
         }
@@ -94,9 +95,9 @@ namespace R3EHUDManager.placeholder.view
                     new Size(Width - SCREEN_MARGIN * 2, Height - SCREEN_MARGIN * 2)));
         }
 
-        public void dispatchEvent(BaseEventArgs args)
+        public void DispatchEvent(BaseEventArgs args)
         {
-            MyEventHandler?.Invoke(this, args);
+            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

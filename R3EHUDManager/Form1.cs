@@ -16,7 +16,8 @@ namespace R3EHUDManager
 {
     public partial class Form1 : Form, IEventDispatcher
     {
-        public event EventHandler MyEventHandler;
+        public event EventHandler MvcEventHandler;
+
         public const string EVENT_SAVE_CLICKED = "saveClicked";
         public const string EVENT_RELOAD_CLICKED = "reloadClicked";
         public const string EVENT_RELOAD_DEFAULT_CLICKED = "reloadDefaultClicked";
@@ -60,13 +61,13 @@ namespace R3EHUDManager
             {
                 Text = text,
             };
-            button.Click += (sender, args) => dispatchEvent(new BaseEventArgs(eventType));
+            button.Click += (sender, args) => DispatchEvent(new BaseEventArgs(eventType));
             return button;
         }
 
-        public void dispatchEvent(BaseEventArgs args)
+        public void DispatchEvent(BaseEventArgs args)
         {
-            MyEventHandler?.Invoke(this, args);
+            MvcEventHandler?.Invoke(this, args);
         }
 
     }
