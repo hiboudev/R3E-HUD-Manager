@@ -43,9 +43,11 @@ namespace R3EHUDManager.placeholder.view
                     PlaceholderName = placeHolder.Name,
                 };
                 view.PositionChanged += OnViewPositionChanged;
+                view.Dragging += OnPlaceholderDragging;
+
                 view.Location = GetLocation(placeHolder, view);// GetCoordinate(placeHolder.Position, new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN), new Point(SCREEN_MARGIN, SCREEN_MARGIN));
                 view.AnchorPosition = GetCoordinate(placeHolder.Anchor, view.AnchorArea, new Point());
-
+                
                 views.Add(placeHolder.Name, view);
             }
 
@@ -93,6 +95,12 @@ namespace R3EHUDManager.placeholder.view
                 new Rectangle(
                     new Point(SCREEN_MARGIN, SCREEN_MARGIN),
                     new Size(Width - SCREEN_MARGIN * 2, Height - SCREEN_MARGIN * 2)));
+        }
+
+        private void OnPlaceholderDragging(object sender, EventArgs e)
+        {
+            // To avoid flickering, synchronize the update with mouseMove.
+            Update();
         }
 
         public void DispatchEvent(BaseEventArgs args)

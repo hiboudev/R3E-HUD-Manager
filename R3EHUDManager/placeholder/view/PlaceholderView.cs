@@ -9,6 +9,7 @@ namespace R3EHUDManager.placeholder.view
     {
         public string PlaceholderName { get => label.Text; set => label.Text = value; }
         public event EventHandler PositionChanged;
+        public event EventHandler Dragging;
         private Label label;
         private Point dragStartPosition;
         private Point dragMouseOffset;
@@ -32,6 +33,10 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
+            //Image myimage = new Bitmap(@"_graphical_assets\motec.png");
+            //BackgroundImage = myimage;
+            //Size = myimage.Size;
+
             //AutoSize = true;
             //AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Size = new Size(100, 30);
@@ -75,6 +80,8 @@ namespace R3EHUDManager.placeholder.view
             var location = Location;
             location.Offset(e.Location.X - dragMouseOffset.X, e.Location.Y - dragMouseOffset.Y);
             Location = location;
+
+            Dragging?.Invoke(this, EventArgs.Empty);
         }
 
         void StopDrag(object sender, MouseEventArgs e)
