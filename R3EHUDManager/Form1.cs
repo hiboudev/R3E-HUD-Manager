@@ -24,8 +24,8 @@ namespace R3EHUDManager
 
         public Form1()
         {
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
+            //FormBorderStyle = FormBorderStyle.FixedSingle;
+            //MaximizeBox = false;
 
             Mappings.InitializeMappings(this);
 
@@ -56,8 +56,8 @@ namespace R3EHUDManager
             buttonsPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
             buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
 
-            Controls.Add(buttonsPanel);
             Controls.Add(screenView);
+            Controls.Add(buttonsPanel);
         }
 
         private Button GetButton(string text, string eventType)
