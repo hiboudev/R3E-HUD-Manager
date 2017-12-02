@@ -30,7 +30,7 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
-            parser.Write(location.HudOptionsPath, placeholders.Placeholders);
+            parser.Write(location.HudOptionsFile, placeholders.Placeholders);
         }
     }
 }

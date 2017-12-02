@@ -10,11 +10,16 @@ namespace R3EHUDManager.location.model
 {
     class LocationModel
     {
-        public string R3eHomeBasePath { get; internal set; }
+        public string R3eHomeBaseDirectory { get; internal set; }
 
-        public string HudOptionsPath { get => Path.Combine(R3eHomeBasePath, "UserData", "hud_options.xml"); }
+        public string HudOptionsFile { get => Path.Combine(R3eHomeBaseDirectory, "UserData", "hud_options.xml"); }
 
-        public string HudOptionsBackupPath { get => Path.Combine(Application.UserAppDataPath, "hud_options.xml.backup"); }
+        public string HudOptionsBackupFileName { get => "hud_options.xml.backup"; }
+
+        public string HudOptionsBackupFile { get => Path.Combine(Application.UserAppDataPath, HudOptionsBackupFileName); }
         
+        public string AppDataDirectory { get => Application.UserAppDataPath; }
+
+        public string HudOldBackupsDirectory { get => Path.Combine(Application.UserAppDataPath, "Old Backups"); }
     }
 }

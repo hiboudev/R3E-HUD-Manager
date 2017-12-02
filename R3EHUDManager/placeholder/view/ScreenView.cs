@@ -105,6 +105,10 @@ namespace R3EHUDManager.placeholder.view
 
         private void UpdateScreenSize()
         {
+            // When minimizing the window, size is zero.
+            if (Width == 0 && Height == 0)
+                return;
+
             double screenRatio = (double)(Width - SCREEN_MARGIN * 2) / (Height - SCREEN_MARGIN * 2);
 
             if(screenRatio < BASE_ASPECT_RATIO)

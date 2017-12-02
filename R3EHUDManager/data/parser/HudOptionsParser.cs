@@ -18,45 +18,6 @@ namespace R3EHUDManager.data.parser
     {
         private static Regex ITEM_NAME_EXP = new Regex($"(.*) ({ItemType.POSITION}|{ItemType.SIZE}|{ItemType.ANCHOR})");
         
-        internal void Write(string hudOptionsPath, List<PlaceholderModel> placeholders)
-        {
-            string fileContent = File.ReadAllText(hudOptionsPath);
-
-            Dictionary<string, string> elementNames = new Dictionary<string, string>();
-            foreach(PlaceholderModel model in placeholders)
-            {
-                elementNames.Add($"{model.Name} {ItemType.POSITION}", GetVector(model.Position));
-                elementNames.Add($"{model.Name} {ItemType.SIZE}", GetVector(model.Size));
-                elementNames.Add($"{model.Name} {ItemType.ANCHOR}", GetVector(model.Anchor));
-            }
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(hudOptionsPath);
-            XmlNode root = doc.DocumentElement;
-            XmlNodeList list = root.ChildNodes;
-
-            string nextVector = null;
-
-            foreach (XmlNode node in list)
-            {
-                if(node.Name == "name")
-                {
-                    // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
-                    string innerText = node.InnerText == "CarStatus Anchor" ? "Car Status Anchor" : node.InnerText;
-                    if (elementNames.ContainsKey(innerText))
-                    {
-                        nextVector = elementNames[innerText];
-                    }
-                }
-                else if (nextVector != null && node.Name == "value" && node.Attributes["type"].Value == ValueType.VECTOR)
-                {
-                    node.InnerText = nextVector;
-                    nextVector = null;
-                }
-            }
-
-            doc.Save(hudOptionsPath);
-        }
 
         internal List<PlaceholderModel> Parse(string hudOptionsPath)
         {
@@ -106,6 +67,54 @@ namespace R3EHUDManager.data.parser
             }
 
             return placeHolders.Values.ToList();
+        }
+
+        internal void Write(string hudOptionsPath, List<PlaceholderModel> placeholders)
+        {
+            string fileContent = File.ReadAllText(hudOptionsPath);
+
+            Dictionary<string, string> elementNames = new Dictionary<string, string>();
+            foreach (PlaceholderModel model in placeholders)
+            {
+                elementNames.Add($"{model.Name} {ItemType.POSITION}", GetVector(model.Position));
+                elementNames.Add($"{model.Name} {ItemType.SIZE}", GetVector(model.Size));
+                elementNames.Add($"{model.Name} {ItemType.ANCHOR}", GetVector(model.Anchor));
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(hudOptionsPath);
+            XmlNode root = doc.DocumentElement;
+            XmlNodeList list = root.ChildNodes;
+
+            string nextVector = null;
+
+            foreach (XmlNode node in list)
+            {
+                if (node.Name == "name")
+                {
+                    // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
+                    string innerText = node.InnerText == "CarStatus Anchor" ? "Car Status Anchor" : node.InnerText;
+                    if (elementNames.ContainsKey(innerText))
+                    {
+                        nextVector = elementNames[innerText];
+                    }
+                }
+                else if (nextVector != null && node.Name == "value" && node.Attributes["type"].Value == ValueType.VECTOR)
+                {
+                    node.InnerText = nextVector;
+                    nextVector = null;
+                }
+            }
+
+            doc.Save(hudOptionsPath);
+        }
+
+        internal int GetVersion(string path)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
+            int versionNumber = Convert.ToInt32(doc.DocumentElement.GetElementsByTagName("latestVersion")[0].InnerText);
+            return versionNumber;
         }
 
         private GeometricItem GetGeometricItem(string xmlName)

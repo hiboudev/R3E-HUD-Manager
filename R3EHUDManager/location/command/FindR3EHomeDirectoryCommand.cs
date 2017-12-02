@@ -30,7 +30,7 @@ namespace R3EHUDManager.location.command
             string R3eHomePath = finder.GetPath();
             if (R3eHomePath != null)
             {
-                locationModel.R3eHomeBasePath = R3eHomePath;
+                locationModel.R3eHomeBaseDirectory = R3eHomePath;
             }
             else
             {

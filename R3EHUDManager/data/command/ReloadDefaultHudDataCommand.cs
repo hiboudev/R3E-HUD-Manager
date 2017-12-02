@@ -25,7 +25,7 @@ namespace R3EHUDManager.data.command
 
         public void Execute()
         {
-            placeHolderCollection.AddRange(parser.Parse(locationModel.HudOptionsBackupPath));
+            placeHolderCollection.AddRange(parser.Parse(locationModel.HudOptionsBackupFile));
         }
     }
 }

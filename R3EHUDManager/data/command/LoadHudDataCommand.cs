@@ -29,7 +29,7 @@ namespace R3EHUDManager.data.command
             List<PlaceholderModel> placeholders = null;
             try
             {
-                placeholders = parser.Parse(locationModel.HudOptionsPath);
+                placeholders = parser.Parse(locationModel.HudOptionsFile);
             }
             catch (Exception e)
             {
