@@ -14,8 +14,8 @@ namespace R3EHUDManager.placeholder.model
     {
         private Dictionary<string, PlaceholderModel> placeHolders = new Dictionary<string, PlaceholderModel>();
         public event EventHandler MvcEventHandler;
-
         public const string EVENT_PLACE_HOLDERS_ADDED = "placeHoldersAdded";
+        public const string EVENT_PLACE_HOLDER_UPDATED = "placeHolderUpdated";
         public List<PlaceholderModel> Placeholders { get => placeHolders.Values.ToList(); }
 
         public void AddRange(List<PlaceholderModel> placeHolders)
@@ -27,6 +27,7 @@ namespace R3EHUDManager.placeholder.model
         internal void UpdatePlaceholder(string placeholderName, R3ePoint position)
         {
             placeHolders[placeholderName].Position = position.Clone();
+            DispatchEvent(new PlaceHolderModelEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.POSITION));
         }
 
         public void DispatchEvent(BaseEventArgs args)

@@ -14,10 +14,10 @@ namespace R3EHUDManager.placeholder.model
         public R3ePoint Anchor { get; internal set; }
         public R3ePoint Size { get; internal set; }
 
-        public PlaceholderModel(string name, R3ePoint position, R3ePoint anchor, R3ePoint size)
+        public PlaceholderModel(string name, R3ePoint location, R3ePoint anchor, R3ePoint size)
         {
             Name = name;
-            Position = position;
+            Position = location;
             Anchor = anchor;
             Size = size;
         }

@@ -100,9 +100,11 @@
     <Compile Include="graphics\GraphicalAsset.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
+    <Compile Include="placeholder\events\PlaceHolderModelEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
+    <Compile Include="placeholder\model\UpdateType.cs" />
     <Compile Include="placeholder\view\AnchorView.cs">
       <SubType>Component</SubType>
     </Compile>

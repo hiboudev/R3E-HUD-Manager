@@ -21,6 +21,7 @@ namespace R3EHUDManager.placeholder.view
         public event EventHandler MvcEventHandler;
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
         private double BASE_ASPECT_RATIO = (double)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
+
         private Size screenSize = new Size(100, 100);
 
         public const string EVENT_POSITION_CHANGED = "positionChanged";
@@ -65,6 +66,11 @@ namespace R3EHUDManager.placeholder.view
 
             Controls.AddRange(views.Values.ToArray());
             backgroundView.SendToBack();
+        }
+
+        internal void UpdatePlaceholder(PlaceholderModel placeholder, UpdateType updateType)
+        {
+            views[placeholder.Name].Update(updateType);
         }
 
         private void UpdatePlaceholdersPosition()

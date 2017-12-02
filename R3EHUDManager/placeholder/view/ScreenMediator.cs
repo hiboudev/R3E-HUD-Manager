@@ -15,6 +15,13 @@ namespace R3EHUDManager.placeholder.view
         public ScreenMediator()
         {
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDERS_ADDED, OnPlaceHoldersAdded);
+            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
+        }
+
+        private void OnPlaceHolderUpdated(BaseEventArgs args)
+        {
+            PlaceHolderModelEventArgs typedArgs = (PlaceHolderModelEventArgs)args;
+            ((ScreenView)View).UpdatePlaceholder(typedArgs.Placeholder, typedArgs.UpdateType);
         }
 
         private void OnPlaceHoldersAdded(BaseEventArgs args)

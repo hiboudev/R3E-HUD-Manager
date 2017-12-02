@@ -2,6 +2,7 @@
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.model;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -65,6 +66,16 @@ namespace R3EHUDManager.placeholder.view
             screenRatio = (double)screenSize.Width / ScreenView.BASE_RESOLUTION.Width;
             RedrawImage();
             RefreshLocation();
+        }
+
+        internal void Update(UpdateType updateType)
+        {
+            switch (updateType)
+            {
+                case UpdateType.POSITION:
+                    RefreshLocation();
+                    break;
+            }
         }
 
         private void InitializeUI()

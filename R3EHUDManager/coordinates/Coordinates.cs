@@ -21,7 +21,7 @@ namespace R3EHUDManager.coordinates
         {
             double x = size.Width * (point.X + 1) / 2;
             double y = size.Height - size.Height * (point.Y + 1) / 2;
-            return new Point((int)x, (int)y);
+            return new Point((int)Math.Round(x), (int)Math.Round(y));
         }
     }
 }
