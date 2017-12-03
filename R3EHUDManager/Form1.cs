@@ -44,6 +44,7 @@ namespace R3EHUDManager
 
         private void InitializeUI()
         {
+            MinimumSize = new Size(400, 400);
             //Padding = new Padding(50);
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
