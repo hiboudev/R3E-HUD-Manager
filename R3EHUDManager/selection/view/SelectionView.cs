@@ -90,20 +90,12 @@ namespace R3EHUDManager.selection.view
 
         private void SelectAnchorPreset()
         {
-            string presetName = R3ePointPreset.GetPresetName(Selection.Anchor);
-            if (presetName != null)
-                anchorPresets.SelectedItem = presetName;
-            else
-                anchorPresets.SelectedItem = null;
+            anchorPresets.SelectedItem = R3ePointPreset.GetPresetName(Selection.Anchor);
         }
 
         private void SelectPositionPreset()
         {
-            string presetName = R3ePointPreset.GetPresetName(Selection.Position);
-            if (presetName != null)
-                positionPresets.SelectedItem = presetName;
-            else
-                positionPresets.SelectedItem = null;
+            positionPresets.SelectedItem = R3ePointPreset.GetPresetName(Selection.Position);
         }
 
         private void OnValueChanged(object sender, EventArgs e)
