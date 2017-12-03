@@ -15,6 +15,7 @@ namespace R3EHUDManager.placeholder.view
 
         public BackgroundView()
         {
+            DoubleBuffered = true;
             Disposed += OnDispose;
         }
 
@@ -26,7 +27,7 @@ namespace R3EHUDManager.placeholder.view
         public void SetSize(Size size)
         {
             if (bitmap != null) bitmap.Dispose();
-
+            
             bitmap = new Bitmap(GraphicalAsset.GetBackground(), size);
             Size = size;
             BackgroundImage = bitmap;

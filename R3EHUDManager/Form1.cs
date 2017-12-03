@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using da2mvc.events;
 using da2mvc.injection;
+using R3EHUDManager.selection.view;
 
 namespace R3EHUDManager
 {
@@ -55,6 +56,9 @@ namespace R3EHUDManager
             buttonsPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
             buttonsPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
             buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+
+            SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
+            buttonsPanel.Controls.Add(selectionView);
 
             Controls.Add(screenView);
             Controls.Add(buttonsPanel);

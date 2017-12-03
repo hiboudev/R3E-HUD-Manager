@@ -11,6 +11,7 @@ using da2mvc.events;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
+using R3EHUDManager.application.events;
 
 namespace R3EHUDManager.placeholder.view
 {
@@ -19,12 +20,15 @@ namespace R3EHUDManager.placeholder.view
         private Dictionary<string, PlaceholderView> views;
         private const int SCREEN_MARGIN = 70;
         public event EventHandler MvcEventHandler;
+        
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
         private double BASE_ASPECT_RATIO = (double)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
 
         private Size screenSize = new Size(100, 100);
 
-        public const string EVENT_POSITION_CHANGED = "positionChanged";
+        public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
+        public const string EVENT_PLACEHOLDER_SELECTED = "placeholderSelected";
+
         private BackgroundView backgroundView;
 
         public ScreenView()
@@ -35,7 +39,7 @@ namespace R3EHUDManager.placeholder.view
         private void InitializeUI()
         {
             BackColor = Color.DarkSlateGray;
-
+            
             backgroundView = new BackgroundView
             {
                 Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN)
@@ -60,12 +64,24 @@ namespace R3EHUDManager.placeholder.view
 
                 view.PositionChanged += OnViewPositionChanged;
                 view.Dragging += OnPlaceholderDragging;
+                view.MouseDown += OnPlaceholderMouseDown;
 
                 views.Add(model.Name, view);
             }
 
             Controls.AddRange(views.Values.ToArray());
             backgroundView.SendToBack();
+        }
+
+        internal void SelectPlaceholder(PlaceholderModel placeholder, bool selected)
+        {
+            PlaceholderView view = views[placeholder.Name];
+            view.SetSelected(selected);
+        }
+
+        private void OnPlaceholderMouseDown(object sender, MouseEventArgs e)
+        {
+            DispatchEvent(new StringEventArgs(EVENT_PLACEHOLDER_SELECTED, ((PlaceholderView)sender).Model.Name));
         }
 
         internal void UpdatePlaceholder(PlaceholderModel placeholder, UpdateType updateType)
@@ -98,7 +114,7 @@ namespace R3EHUDManager.placeholder.view
         {
             PlaceholderView view = (PlaceholderView)sender;
 
-            DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_POSITION_CHANGED,
+            DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED,
                 ((PlaceholderView)sender).Model.Name, view.GetR3eLocation()));
         }
 

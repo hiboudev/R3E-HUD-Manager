@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.placeholder.events
 {
-    class PlaceHolderModelEventArgs : BaseEventArgs
+    class PlaceHolderUpdateEventArgs : BaseEventArgs
     {
-        public PlaceHolderModelEventArgs(string eventName, PlaceholderModel placeholder, UpdateType updateType) : base(eventName)
+        public PlaceHolderUpdateEventArgs(string eventName, PlaceholderModel placeholder, UpdateType updateType) : base(eventName)
         {
             Placeholder = placeholder;
             UpdateType = updateType;

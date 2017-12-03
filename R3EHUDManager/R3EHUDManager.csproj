@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="application\command\StartApplicationCommand.cs" />
+    <Compile Include="application\events\StringEventArgs.cs" />
     <Compile Include="coordinates\Coordinates.cs" />
     <Compile Include="coordinates\R3ePoint.cs" />
     <Compile Include="data\command\LoadHudDataCommand.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="graphics\GraphicalAsset.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
-    <Compile Include="placeholder\events\PlaceHolderModelEventArgs.cs" />
+    <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
@@ -124,6 +125,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="selection\command\SelectPlaceholderCommand.cs" />
+    <Compile Include="selection\events\SelectionModelEventArgs.cs" />
+    <Compile Include="selection\model\SelectionModel.cs" />
+    <Compile Include="selection\view\SelectionMediator.cs" />
+    <Compile Include="selection\view\SelectionView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,5 +189,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -78,6 +78,11 @@ namespace R3EHUDManager.placeholder.view
             }
         }
 
+        internal void SetSelected(bool selected)
+        {
+            label.BackColor = selected ? Color.GreenYellow : Color.WhiteSmoke;
+        }
+
         private void InitializeUI()
         {
             BackColor = Color.Black;
@@ -88,6 +93,7 @@ namespace R3EHUDManager.placeholder.view
                 AutoSize = true,
                 BackColor = Color.WhiteSmoke,
                 ForeColor = Color.Black,
+                Enabled = false,
             };
 
 

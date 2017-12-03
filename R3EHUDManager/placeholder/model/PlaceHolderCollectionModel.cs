@@ -27,7 +27,12 @@ namespace R3EHUDManager.placeholder.model
         internal void UpdatePlaceholder(string placeholderName, R3ePoint position)
         {
             placeHolders[placeholderName].Position = position.Clone();
-            DispatchEvent(new PlaceHolderModelEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.POSITION));
+            DispatchEvent(new PlaceHolderUpdateEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.POSITION));
+        }
+
+        public PlaceholderModel Get(string placeholderName)
+        {
+            return placeHolders[placeholderName];
         }
 
         public void DispatchEvent(BaseEventArgs args)
