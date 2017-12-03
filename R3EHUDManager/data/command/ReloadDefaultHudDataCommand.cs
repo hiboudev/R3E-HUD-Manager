@@ -42,7 +42,8 @@ namespace R3EHUDManager.data.command
                 Environment.Exit(0);
             }
 
-            placeHolderCollection.AddRange(placeholders);
+            if (placeholders != null)
+                placeHolderCollection.AddRange(placeholders);
         }
     }
 }
