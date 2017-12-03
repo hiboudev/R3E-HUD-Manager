@@ -8,6 +8,7 @@ namespace R3EHUDManager.placeholder.model
 {
     enum UpdateType
     {
-        POSITION
+        POSITION,
+        ANCHOR
     }
 }

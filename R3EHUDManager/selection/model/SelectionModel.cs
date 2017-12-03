@@ -25,5 +25,15 @@ namespace R3EHUDManager.selection.model
             selected = placeholder;
             DispatchEvent(new SelectionModelEventArgs(EVENT_SELECTED, selected));
         }
+
+        public void Unselect()
+        {
+            if (selected == null) return;
+
+            PlaceholderModel oldSelected = selected;
+            selected = null;
+
+            DispatchEvent(new SelectionModelEventArgs(EVENT_UNSELECTED, oldSelected));
+        }
     }
 }

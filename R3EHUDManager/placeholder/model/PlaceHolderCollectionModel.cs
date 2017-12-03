@@ -24,10 +24,16 @@ namespace R3EHUDManager.placeholder.model
             DispatchEvent(new PlaceHolderCollectionEventArgs(EVENT_PLACE_HOLDERS_ADDED, this.placeHolders.Values.ToList()));
         }
 
-        internal void UpdatePlaceholder(string placeholderName, R3ePoint position)
+        internal void UpdatePlaceholderPosition(string placeholderName, R3ePoint position)
         {
             placeHolders[placeholderName].Position = position.Clone();
             DispatchEvent(new PlaceHolderUpdateEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.POSITION));
+        }
+
+        internal void UpdatePlaceholderAnchor(string placeholderName, R3ePoint anchor)
+        {
+            placeHolders[placeholderName].Anchor = anchor.Clone();
+            DispatchEvent(new PlaceHolderUpdateEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.ANCHOR));
         }
 
         public PlaceholderModel Get(string placeholderName)

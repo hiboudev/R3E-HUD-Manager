@@ -1,20 +1,20 @@
-﻿using R3EHUDManager.placeholder.events;
+﻿using da2mvc.command;
+using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.command;
 
 namespace R3EHUDManager.placeholder.command
 {
-    class MovePlaceholderCommand : ICommand
+    class MoveAnchorCommand : ICommand
     {
-        private readonly PlaceHolderMovedEventArgs args;
+        private readonly AnchorMovedEventArgs args;
         private readonly PlaceHolderCollectionModel collectionModel;
 
-        public MovePlaceholderCommand(PlaceHolderMovedEventArgs args, PlaceHolderCollectionModel collectionModel)
+        public MoveAnchorCommand(AnchorMovedEventArgs args, PlaceHolderCollectionModel collectionModel)
         {
             this.args = args;
             this.collectionModel = collectionModel;
@@ -22,7 +22,7 @@ namespace R3EHUDManager.placeholder.command
 
         public void Execute()
         {
-            collectionModel.UpdatePlaceholderPosition(args.PlaceholderName, args.Position);
+            collectionModel.UpdatePlaceholderAnchor(args.PlaceholderName, args.Anchor);
         }
     }
 }

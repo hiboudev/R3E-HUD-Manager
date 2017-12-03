@@ -8,18 +8,23 @@ namespace R3EHUDManager.coordinates
 {
     class R3ePoint
     {
+        public double X { get; }
+        public double Y { get; }
+
         public R3ePoint(double x, double y)
         {
             X = x;
             Y = y;
         }
 
-        public double X { get; }
-        public double Y { get; }
-
         internal R3ePoint Clone()
         {
             return new R3ePoint(X, Y);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is R3ePoint && ((R3ePoint)obj).X == X && ((R3ePoint)obj).Y == Y;
         }
     }
 }

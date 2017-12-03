@@ -5,10 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.placeholder.model;
+using da2mvc.events;
+using System.Diagnostics;
+using R3EHUDManager.placeholder.events;
+using R3EHUDManager.coordinates;
 
 namespace R3EHUDManager.selection.view
 {
-    class SelectionView : Panel
+    class SelectionView : Panel, IEventDispatcher
     {
         private NumericUpDown stepperX;
         private Label label1;
@@ -17,7 +21,15 @@ namespace R3EHUDManager.selection.view
         private Label label3;
         private NumericUpDown stepperSize;
         private Label nameField;
+
+        public event EventHandler MvcEventHandler;
+        public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
+        public const string EVENT_ANCHOR_MOVED = "anchorMoved";
+        private ComboBox anchorPresets;
+        private Label label4;
+
         public PlaceholderModel Selection { get; private set; }
+        private bool holdChangeEvent = false;
 
         public SelectionView()
         {
@@ -30,22 +42,73 @@ namespace R3EHUDManager.selection.view
             Enabled = false;
 
             stepperX.DecimalPlaces = stepperY.DecimalPlaces = stepperSize.DecimalPlaces = 3;
-            stepperX.Minimum = -3;
-            stepperX.Maximum = 3;
-            stepperY.Minimum = -1;
-            stepperY.Maximum = 1;
-            stepperSize.Minimum = (decimal)0.1;
-            stepperSize.Maximum = 4;
+            stepperX.Minimum = stepperY.Minimum = stepperSize.Minimum = decimal.MinValue;
+            stepperX.Maximum = stepperY.Maximum = stepperSize.Maximum = decimal.MaxValue;
+            //stepperX.Minimum = -3;
+            //stepperX.Maximum = 3;
+            //stepperY.Minimum = -1;
+            //stepperY.Maximum = 1;
+            //stepperSize.Minimum = (decimal)0.1;
+            //stepperSize.Maximum = 4;
+
+            stepperX.ValueChanged += OnValueChanged;
+            stepperY.ValueChanged += OnValueChanged;
+            stepperSize.ValueChanged += OnValueChanged;
 
             stepperX.Increment = stepperY.Increment = stepperSize.Increment = (decimal)0.001;
+
+
+            anchorPresets.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            foreach (string presetName in AnchorPreset.presets.Keys)
+            {
+                anchorPresets.Items.Add(presetName);
+            }
+            anchorPresets.SelectionChangeCommitted += OnAnchorPresetSelected;
+        }
+
+        private void OnAnchorPresetSelected(object sender, EventArgs e)
+        {
+            string name = anchorPresets.SelectedItem.ToString();
+            R3ePoint anchor = AnchorPreset.GetPreset(name);
+            if(anchor != null)
+            {
+                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, anchor));
+            }
+        }
+
+        private void SelectAnchorPreset()
+        {
+            string presetName = AnchorPreset.GetPresetName(Selection.Anchor);
+            if (presetName != null)
+                anchorPresets.SelectedItem = presetName;
+        }
+
+        private void OnValueChanged(object sender, EventArgs e)
+        {
+            if (holdChangeEvent) return;
+
+            if(sender == stepperX)
+            {
+                DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, new R3ePoint((double)stepperX.Value, Selection.Position.Y)));
+            }
+            else if (sender == stepperY)
+            {
+                DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, new R3ePoint(Selection.Position.X, (double)stepperY.Value)));
+            }
         }
 
         internal void UpdateData()
         {
             nameField.Text = Selection.Name;
+
+            holdChangeEvent = true;
             stepperX.Value = (decimal)Selection.Position.X;
             stepperY.Value = (decimal)Selection.Position.Y;
             stepperSize.Value = (decimal)Selection.Size.X;
+            holdChangeEvent = false;
+
+            SelectAnchorPreset();
         }
 
         internal void SetSelected(PlaceholderModel placeholder)
@@ -61,9 +124,13 @@ namespace R3EHUDManager.selection.view
         {
             Selection = null;
             nameField.Text = "";
+            holdChangeEvent = true;
             stepperX.Value = 0;
             stepperY.Value = 0;
             stepperSize.Value = 1;
+            holdChangeEvent = false;
+
+            anchorPresets.SelectedItem = null;
 
             Enabled = false;
         }
@@ -77,6 +144,8 @@ namespace R3EHUDManager.selection.view
             this.stepperY = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.stepperSize = new System.Windows.Forms.NumericUpDown();
+            this.anchorPresets = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.stepperX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepperY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stepperSize)).BeginInit();
@@ -138,9 +207,28 @@ namespace R3EHUDManager.selection.view
             this.stepperSize.Size = new System.Drawing.Size(68, 20);
             this.stepperSize.TabIndex = 7;
             // 
+            // anchorList
+            // 
+            this.anchorPresets.FormattingEnabled = true;
+            this.anchorPresets.Location = new System.Drawing.Point(476, 6);
+            this.anchorPresets.Name = "anchorList";
+            this.anchorPresets.Size = new System.Drawing.Size(121, 21);
+            this.anchorPresets.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(429, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Anchor";
+            // 
             // SelectionView
             // 
             this.ClientSize = new System.Drawing.Size(613, 380);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.anchorPresets);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.stepperSize);
             this.Controls.Add(this.label2);
@@ -155,6 +243,11 @@ namespace R3EHUDManager.selection.view
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

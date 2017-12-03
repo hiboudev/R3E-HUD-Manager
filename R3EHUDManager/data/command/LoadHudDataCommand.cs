@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using da2mvc.command;
 using System.Windows.Forms;
+using R3EHUDManager.selection.model;
 
 namespace R3EHUDManager.data.command
 {
@@ -16,16 +17,20 @@ namespace R3EHUDManager.data.command
         private readonly LocationModel locationModel;
         private readonly HudOptionsParser parser;
         private readonly PlaceHolderCollectionModel placeHolderCollection;
+        private readonly SelectionModel selectionModel;
 
-        public LoadHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection)
+        public LoadHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel)
         {
             this.locationModel = locationModel;
             this.parser = parser;
             this.placeHolderCollection = placeHolderCollection;
+            this.selectionModel = selectionModel;
         }
 
         public void Execute()
         {
+            selectionModel.Unselect();
+
             List<PlaceholderModel> placeholders = null;
             try
             {

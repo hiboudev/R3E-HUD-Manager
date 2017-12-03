@@ -75,12 +75,17 @@ namespace R3EHUDManager.placeholder.view
                 case UpdateType.POSITION:
                     RefreshLocation();
                     break;
+
+                case UpdateType.ANCHOR:
+                    RefreshLocation();
+                    break;
             }
         }
 
         internal void SetSelected(bool selected)
         {
             label.BackColor = selected ? Color.GreenYellow : Color.WhiteSmoke;
+            label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
         }
 
         private void InitializeUI()

@@ -10,22 +10,24 @@
     <AssemblyName>R3E HUD Manager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>ftp://damien%4054.37.159.200/R3EHUDManager_install_files/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://54.37.159.200/R3EHUDManager_update/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>R3E HUD Manager</ProductName>
     <PublisherName>ChatCureuil</PublisherName>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>5</ApplicationRevision>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>12</ApplicationRevision>
     <ApplicationVersion>0.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -66,6 +68,9 @@
   <PropertyGroup>
     <ApplicationIcon>test_icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="da2MVC">
       <HintPath>..\..\da2MVC\da2MVC\bin\Release\da2MVC.dll</HintPath>
@@ -99,10 +104,13 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="graphics\GraphicalAsset.cs" />
+    <Compile Include="placeholder\command\MoveAnchorCommand.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
+    <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
+    <Compile Include="selection\view\AnchorPreset.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
     <Compile Include="placeholder\model\UpdateType.cs" />
