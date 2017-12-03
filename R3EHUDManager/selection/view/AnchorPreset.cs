@@ -16,15 +16,15 @@ namespace R3EHUDManager.selection.view
             presets = new Dictionary<string, R3ePoint>
             {
                 { "Top Left", new R3ePoint(-1, 1) },
-                { "Top Middle", new R3ePoint(0, 1) },
+                { "Top Center", new R3ePoint(0, 1) },
                 { "Top Right", new R3ePoint(1, 1) },
 
-                { "Left Center", new R3ePoint(-1, 0) },
-                { "Center", new R3ePoint(0, 0) },
-                { "Right Center", new R3ePoint(1, 0) },
+                { "Middle Left", new R3ePoint(-1, 0) },
+                { "Middle Center", new R3ePoint(0, 0) },
+                { "Middle Right", new R3ePoint(1, 0) },
 
                 { "Bottom Left", new R3ePoint(-1, -1) },
-                { "Bottom Middle", new R3ePoint(0, -1) },
+                { "Bottom Center", new R3ePoint(0, -1) },
                 { "Bottom Right", new R3ePoint(1, -1) }
             };
         }

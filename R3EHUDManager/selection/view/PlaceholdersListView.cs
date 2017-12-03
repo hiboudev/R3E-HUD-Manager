@@ -37,7 +37,6 @@ namespace R3EHUDManager.selection.view
                 Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4),
                 TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.LightGray,
-                //Font = new Font(Font, FontStyle.Bold),
             };
 
             list = new ListBox
