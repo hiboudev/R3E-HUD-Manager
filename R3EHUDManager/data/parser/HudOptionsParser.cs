@@ -17,7 +17,9 @@ namespace R3EHUDManager.data.parser
     class HudOptionsParser
     {
         private static Regex ITEM_NAME_EXP = new Regex($"(.*) ({ItemType.POSITION}|{ItemType.SIZE}|{ItemType.ANCHOR})");
-        
+
+        // TODO S3S should remove unnecessary stuff from the XML.
+        private static HashSet<string> geometricItemBlackList = new HashSet<string>(new string[] { "Apexhunt Display", "Car Status" });
 
         internal List<PlaceholderModel> Parse(string hudOptionsPath)
         {
@@ -36,8 +38,7 @@ namespace R3EHUDManager.data.parser
                     
                     GeometricItem item = GetGeometricItem(name);
 
-                    // TODO S3S should remove unnecessary stuff from the XML.
-                    if (item.Name == "Apexhunt Display")
+                    if (geometricItemBlackList.Contains(item.Name))
                         continue;
 
                     if (!placeHolders.ContainsKey(item.Name))
