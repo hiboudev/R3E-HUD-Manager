@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using da2mvc.events;
 using da2mvc.injection;
 using R3EHUDManager.selection.view;
+using System.Reflection;
 
 namespace R3EHUDManager
 {

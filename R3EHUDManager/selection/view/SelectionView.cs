@@ -54,6 +54,7 @@ namespace R3EHUDManager.selection.view
             stepperX.ValueChanged += OnValueChanged;
             stepperY.ValueChanged += OnValueChanged;
             stepperSize.ValueChanged += OnValueChanged;
+            stepperSize.Enabled = false;
 
             stepperX.Increment = stepperY.Increment = stepperSize.Increment = (decimal)0.001;
 
