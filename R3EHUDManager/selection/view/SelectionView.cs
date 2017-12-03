@@ -18,13 +18,9 @@ namespace R3EHUDManager.selection.view
     class SelectionView : FlowLayoutPanel, IEventDispatcher
     {
         private NumericUpDown stepperX;
-        private Label label1;
-        private Label label2;
         private NumericUpDown stepperY;
-        private Label label3;
         private NumericUpDown stepperSize;
         private Label nameField;
-        private Label labelX;
 
         public event EventHandler MvcEventHandler;
         public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
@@ -32,7 +28,6 @@ namespace R3EHUDManager.selection.view
         public const string EVENT_PLACEHOLDER_RESIZED = "placeholderResized";
         private ComboBox anchorPresets;
         private ComboBox positionPresets;
-        private Label label4;
 
         public PlaceholderModel Selection { get; private set; }
         private bool holdChangeEvent = false;

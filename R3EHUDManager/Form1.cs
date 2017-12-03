@@ -57,7 +57,11 @@ namespace R3EHUDManager
             };
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
-            selectionView.Margin = new Padding(3, 3, 20, 3);
+
+            PlaceholdersListView listView = (PlaceholdersListView)Injector.GetInstance(typeof(PlaceholdersListView));
+            listView.Dock = DockStyle.Left;
+            listView.Width = 90;
+
 
             topBarPanel.Controls.Add(selectionView);
 
@@ -67,6 +71,7 @@ namespace R3EHUDManager
 
             Controls.Add(screenView);
             Controls.Add(topBarPanel);
+            Controls.Add(listView);
         }
 
         private Button GetButton(string text, string eventType)

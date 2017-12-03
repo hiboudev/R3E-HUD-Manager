@@ -138,6 +138,10 @@
     <Compile Include="selection\command\SelectPlaceholderCommand.cs" />
     <Compile Include="selection\events\SelectionModelEventArgs.cs" />
     <Compile Include="selection\model\SelectionModel.cs" />
+    <Compile Include="selection\view\PlaceholdersListMediator.cs" />
+    <Compile Include="selection\view\PlaceholdersListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="selection\view\SelectionMediator.cs" />
     <Compile Include="selection\view\SelectionView.cs">
       <SubType>Component</SubType>

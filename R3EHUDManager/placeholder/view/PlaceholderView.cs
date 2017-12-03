@@ -106,14 +106,13 @@ namespace R3EHUDManager.placeholder.view
                 Enabled = false,
             };
 
-
-            anchor = new AnchorView();
-            anchor.Enabled = false;
+            anchor = new AnchorView
+            {
+                Enabled = false
+            };
 
             Controls.Add(anchor);
             Controls.Add(label);
-
-            MouseEnter += (sender, args) => BringToFront();
 
             MouseDown += StartDrag;
             MouseUp += StopDrag;

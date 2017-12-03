@@ -77,6 +77,7 @@ namespace R3EHUDManager.placeholder.view
         {
             PlaceholderView view = views[placeholder.Name];
             view.SetSelected(selected);
+            view.BringToFront();
         }
 
         private void OnPlaceholderMouseDown(object sender, MouseEventArgs e)

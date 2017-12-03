@@ -33,6 +33,7 @@ namespace R3EHUDManager
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
+            Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -43,6 +44,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_MOVED, typeof(MovePlaceholderCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_ANCHOR_MOVED, typeof(MoveAnchorCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_RESIZED, typeof(ResizePlaceholderCommand));
+            Injector.MapCommand(typeof(PlaceholdersListView), PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED, typeof(SelectPlaceholderCommand));
         }
     }
 }
