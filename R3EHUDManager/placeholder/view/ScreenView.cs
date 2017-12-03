@@ -38,7 +38,7 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
-            BackColor = Color.DarkSlateGray;
+            BackColor = Color.FromArgb(47,79,89);
             
             backgroundView = new BackgroundView
             {

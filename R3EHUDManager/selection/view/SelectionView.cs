@@ -182,7 +182,7 @@ namespace R3EHUDManager.selection.view
             Panel comboY = NewHCombo(labelY, stepperY);
             Panel comboSize = NewHCombo(labelSize, stepperSize);
 
-            comboSize.Margin = new Padding(comboSize.Margin.Left, comboSize.Margin.Top, comboSize.Margin.Right, 20);
+            comboSize.Margin = new Padding(comboSize.Margin.Left, comboSize.Margin.Top, comboSize.Margin.Right, 8);
 
             Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, labelAnchor, anchorPresets });
         }
@@ -214,7 +214,8 @@ namespace R3EHUDManager.selection.view
             {
                 Size = new Size(90, 20),
                 DropDownStyle = ComboBoxStyle.DropDownList,
-            };
+                Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4),
+        };
         }
 
         private NumericUpDown NewStepper()
