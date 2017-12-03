@@ -93,6 +93,17 @@ namespace R3EHUDManager.selection.view
             string presetName = R3ePointPreset.GetPresetName(Selection.Anchor);
             if (presetName != null)
                 anchorPresets.SelectedItem = presetName;
+            else
+                anchorPresets.SelectedItem = null;
+        }
+
+        private void SelectPositionPreset()
+        {
+            string presetName = R3ePointPreset.GetPresetName(Selection.Position);
+            if (presetName != null)
+                positionPresets.SelectedItem = presetName;
+            else
+                positionPresets.SelectedItem = null;
         }
 
         private void OnValueChanged(object sender, EventArgs e)
@@ -125,6 +136,7 @@ namespace R3EHUDManager.selection.view
             holdChangeEvent = false;
 
             SelectAnchorPreset();
+            SelectPositionPreset();
         }
 
         internal void SetSelected(PlaceholderModel placeholder)
@@ -147,6 +159,7 @@ namespace R3EHUDManager.selection.view
             holdChangeEvent = false;
 
             anchorPresets.SelectedItem = null;
+            positionPresets.SelectedItem = null;
 
             Enabled = false;
         }
