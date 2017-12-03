@@ -15,6 +15,7 @@ using R3EHUDManager.selection.view;
 using System.Reflection;
 using System.Globalization;
 using System.Threading;
+using System.Diagnostics;
 
 namespace R3EHUDManager
 {
@@ -28,10 +29,6 @@ namespace R3EHUDManager
 
         public Form1()
         {
-            //MessageBox.Show(Application.UserAppDataPath);
-            //FormBorderStyle = FormBorderStyle.FixedSingle;
-            //MaximizeBox = false;
-
             Mappings.InitializeMappings(this);
 
             InitializeComponent();
@@ -48,26 +45,25 @@ namespace R3EHUDManager
         private void InitializeUI()
         {
             MinimumSize = new Size(400, 400);
-            //Padding = new Padding(50);
+
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
 
             FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Top,
-                Height = 35,
+                Height = 32,
                 WrapContents = false,
-        };
+            };
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
-            //selectionView.Dock = DockStyle.Fill;
+            selectionView.Margin = new Padding(3, 3, 20, 3);
+
+            topBarPanel.Controls.Add(selectionView);
 
             topBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
             topBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
             topBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
-
-            topBarPanel.Controls.Add(selectionView);
-
 
             Controls.Add(screenView);
             Controls.Add(topBarPanel);
@@ -78,6 +74,7 @@ namespace R3EHUDManager
             Button button = new Button()
             {
                 Text = text,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
             };
             button.Click += (sender, args) => DispatchEvent(new BaseEventArgs(eventType));
             return button;
