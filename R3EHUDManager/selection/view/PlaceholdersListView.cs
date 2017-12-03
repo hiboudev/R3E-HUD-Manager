@@ -8,6 +8,7 @@ using R3EHUDManager.placeholder.model;
 using System.Diagnostics;
 using da2mvc.events;
 using R3EHUDManager.application.events;
+using System.Drawing;
 
 namespace R3EHUDManager.selection.view
 {
@@ -29,7 +30,8 @@ namespace R3EHUDManager.selection.view
             list = new ListBox
             {
                 BorderStyle = BorderStyle.None,
-                Dock = DockStyle.Fill
+                Dock = DockStyle.Fill,
+                BackColor = Color.WhiteSmoke,
             };
 
             list.SelectedIndexChanged += OnSelectedIndexChanged;
@@ -48,7 +50,7 @@ namespace R3EHUDManager.selection.view
         {
             list.Items.Clear();
 
-            foreach(PlaceholderModel model in placeHolders)
+            foreach(PlaceholderModel model in placeHolders.OrderBy(x=>x.Name).ToList())
             {
                 list.Items.Add(model.Name);
             }
