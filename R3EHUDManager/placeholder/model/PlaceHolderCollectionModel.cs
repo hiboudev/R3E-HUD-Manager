@@ -36,6 +36,12 @@ namespace R3EHUDManager.placeholder.model
             DispatchEvent(new PlaceHolderUpdateEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.ANCHOR));
         }
 
+        internal void UpdatePlaceholderSize(string placeholderName, decimal size)
+        {
+            placeHolders[placeholderName].Size = new R3ePoint((double)size, (double)size);
+            DispatchEvent(new PlaceHolderUpdateEventArgs(EVENT_PLACE_HOLDER_UPDATED, placeHolders[placeholderName], UpdateType.SIZE));
+        }
+
         public PlaceholderModel Get(string placeholderName)
         {
             return placeHolders[placeholderName];

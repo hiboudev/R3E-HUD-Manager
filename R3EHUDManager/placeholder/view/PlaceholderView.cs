@@ -79,6 +79,11 @@ namespace R3EHUDManager.placeholder.view
                 case UpdateType.ANCHOR:
                     RefreshLocation();
                     break;
+
+                case UpdateType.SIZE:
+                    RedrawImage();
+                    RefreshLocation();
+                    break;
             }
         }
 
@@ -112,6 +117,7 @@ namespace R3EHUDManager.placeholder.view
 
             MouseDown += StartDrag;
             MouseUp += StopDrag;
+            MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
         }
 
         private void RedrawImage()
@@ -120,8 +126,8 @@ namespace R3EHUDManager.placeholder.view
 
             Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
 
-            int width = (int)((double)originalImage.PhysicalDimension.Width * screenRatio);
-            int height = (int)((double)originalImage.PhysicalDimension.Height * screenRatio);
+            int width = (int)(originalImage.PhysicalDimension.Width * screenRatio * Model.Size.X);
+            int height = (int)(originalImage.PhysicalDimension.Height * screenRatio * Model.Size.Y);
 
             image = new Bitmap(originalImage, new Size(width, height));
 

@@ -9,6 +9,8 @@ using da2mvc.events;
 using System.Diagnostics;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.coordinates;
+using System.Threading;
+using System.Globalization;
 
 namespace R3EHUDManager.selection.view
 {
@@ -25,6 +27,7 @@ namespace R3EHUDManager.selection.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
         public const string EVENT_ANCHOR_MOVED = "anchorMoved";
+        public const string EVENT_PLACEHOLDER_RESIZED = "placeholderResized";
         private ComboBox anchorPresets;
         private Label label4;
 
@@ -48,13 +51,12 @@ namespace R3EHUDManager.selection.view
             //stepperX.Maximum = 3;
             //stepperY.Minimum = -1;
             //stepperY.Maximum = 1;
-            //stepperSize.Minimum = (decimal)0.1;
+            stepperSize.Minimum = (decimal)0.1;
             //stepperSize.Maximum = 4;
 
             stepperX.ValueChanged += OnValueChanged;
             stepperY.ValueChanged += OnValueChanged;
             stepperSize.ValueChanged += OnValueChanged;
-            stepperSize.Enabled = false;
 
             stepperX.Increment = stepperY.Increment = stepperSize.Increment = (decimal)0.001;
 
@@ -97,6 +99,10 @@ namespace R3EHUDManager.selection.view
             {
                 DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, new R3ePoint(Selection.Position.X, (double)stepperY.Value)));
             }
+            else if (sender == stepperSize)
+            {
+                DispatchEvent(new PlaceHolderResizedEventArgs(EVENT_PLACEHOLDER_RESIZED, Selection.Name, stepperSize.Value));
+            }
         }
 
         internal void UpdateData()
@@ -106,7 +112,8 @@ namespace R3EHUDManager.selection.view
             holdChangeEvent = true;
             stepperX.Value = (decimal)Selection.Position.X;
             stepperY.Value = (decimal)Selection.Position.Y;
-            stepperSize.Value = (decimal)Selection.Size.X;
+            if((decimal)Selection.Size.X > stepperSize.Minimum)
+                stepperSize.Value = (decimal)Selection.Size.X;
             holdChangeEvent = false;
 
             SelectAnchorPreset();

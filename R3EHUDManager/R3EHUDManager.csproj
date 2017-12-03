@@ -10,24 +10,22 @@
     <AssemblyName>R3E HUD Manager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>ftp://damien%4054.37.159.200/R3EHUDManager_install_files/</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://54.37.159.200/R3EHUDManager_update/</InstallUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>R3E HUD Manager</ProductName>
     <PublisherName>ChatCureuil</PublisherName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>0.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -106,8 +104,10 @@
     <Compile Include="graphics\GraphicalAsset.cs" />
     <Compile Include="placeholder\command\MoveAnchorCommand.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
+    <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
+    <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
     <Compile Include="selection\view\AnchorPreset.cs" />

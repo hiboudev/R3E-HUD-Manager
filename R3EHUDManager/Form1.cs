@@ -13,6 +13,8 @@ using da2mvc.events;
 using da2mvc.injection;
 using R3EHUDManager.selection.view;
 using System.Reflection;
+using System.Globalization;
+using System.Threading;
 
 namespace R3EHUDManager
 {
@@ -26,6 +28,7 @@ namespace R3EHUDManager
 
         public Form1()
         {
+            //MessageBox.Show(Application.UserAppDataPath);
             //FormBorderStyle = FormBorderStyle.FixedSingle;
             //MaximizeBox = false;
 
