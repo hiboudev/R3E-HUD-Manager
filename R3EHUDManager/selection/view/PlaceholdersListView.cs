@@ -9,6 +9,7 @@ using System.Diagnostics;
 using da2mvc.events;
 using R3EHUDManager.application.events;
 using System.Drawing;
+using System.Reflection;
 
 namespace R3EHUDManager.selection.view
 {
@@ -27,6 +28,18 @@ namespace R3EHUDManager.selection.view
 
         private void InitializeUI()
         {
+            Label title = new Label()
+            {
+                Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                Height = 15,
+                Text = "Placeholders",
+                Dock = DockStyle.Top,
+                Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4),
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.LightGray,
+                //Font = new Font(Font, FontStyle.Bold),
+            };
+
             list = new ListBox
             {
                 BorderStyle = BorderStyle.None,
@@ -37,6 +50,7 @@ namespace R3EHUDManager.selection.view
             list.SelectedIndexChanged += OnSelectedIndexChanged;
 
             Controls.Add(list);
+            Controls.Add(title);
         }
 
         private void OnSelectedIndexChanged(object sender, EventArgs e)

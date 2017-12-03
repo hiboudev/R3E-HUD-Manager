@@ -49,29 +49,33 @@ namespace R3EHUDManager
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
 
-            FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
+            FlowLayoutPanel toolBarPanel = new FlowLayoutPanel()
             {
-                Dock = DockStyle.Top,
-                Height = 32,
+                FlowDirection = FlowDirection.TopDown,
+                Dock = DockStyle.Left,
+                AutoSize = true,
                 WrapContents = false,
             };
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
+            selectionView.FlowDirection = FlowDirection.TopDown;
+            selectionView.Margin = new Padding(selectionView.Margin.Left, selectionView.Margin.Top, selectionView.Margin.Right, 10);
 
             PlaceholdersListView listView = (PlaceholdersListView)Injector.GetInstance(typeof(PlaceholdersListView));
-            listView.Dock = DockStyle.Left;
-            listView.Width = 90;
+            listView.Height = 200;
+            listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
 
-            topBarPanel.Controls.Add(selectionView);
+            toolBarPanel.Controls.Add(selectionView);
+            toolBarPanel.Controls.Add(listView);
 
-            topBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
-            topBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
-            topBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+            toolBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
+            toolBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
+            toolBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
 
             Controls.Add(screenView);
-            Controls.Add(topBarPanel);
-            Controls.Add(listView);
+            Controls.Add(toolBarPanel);
+            
         }
 
         private Button GetButton(string text, string eventType)
@@ -79,7 +83,7 @@ namespace R3EHUDManager
             Button button = new Button()
             {
                 Text = text,
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right,
             };
             button.Click += (sender, args) => DispatchEvent(new BaseEventArgs(eventType));
             return button;

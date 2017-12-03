@@ -89,7 +89,7 @@ namespace R3EHUDManager.placeholder.view
 
         internal void SetSelected(bool selected)
         {
-            label.BackColor = selected ? Color.GreenYellow : Color.WhiteSmoke;
+            label.BackColor = selected ? Color.DeepSkyBlue : Color.WhiteSmoke;
             label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
         }
 

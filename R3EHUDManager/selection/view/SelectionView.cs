@@ -153,7 +153,6 @@ namespace R3EHUDManager.selection.view
 
         private void InitializeComponent()
         {
-            FlowDirection = FlowDirection.LeftToRight;
             AutoSize = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             WrapContents = false;
@@ -170,8 +169,8 @@ namespace R3EHUDManager.selection.view
             Label labelX = NewSimpleLabel("X");
             Label labelY = NewSimpleLabel("Y");
             Label labelSize = NewSimpleLabel("Size");
-            Label labelAnchor = NewSimpleLabel("Anchor");
-            Label labelPosition = NewSimpleLabel("Position");
+            Label labelAnchor = NewSimpleLabel("Anchor presets");
+            Label labelPosition = NewSimpleLabel("Position presets");
 
             stepperX = NewStepper();
             stepperY = NewStepper();
@@ -179,7 +178,34 @@ namespace R3EHUDManager.selection.view
             anchorPresets = NewComboBox();
             positionPresets = NewComboBox();
 
-            Controls.AddRange(new Control[] { nameField, labelX, stepperX, labelY, stepperY, labelSize, stepperSize, labelPosition, positionPresets, labelAnchor, anchorPresets });
+            Panel comboX = NewHCombo(labelX, stepperX);
+            Panel comboY = NewHCombo(labelY, stepperY);
+            Panel comboSize = NewHCombo(labelSize, stepperSize);
+
+            comboSize.Margin = new Padding(comboSize.Margin.Left, comboSize.Margin.Top, comboSize.Margin.Right, 20);
+
+            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, labelAnchor, anchorPresets });
+        }
+
+        private Panel NewHCombo(Label label, NumericUpDown stepper)
+        {
+            FlowLayoutPanel panel = new FlowLayoutPanel
+            {
+                WrapContents = false,
+                AutoSize = true,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            };
+
+            label.Anchor= AnchorStyles.Top| AnchorStyles.Bottom;
+            label.TextAlign = ContentAlignment.MiddleLeft;
+            label.AutoSize = false;
+            label.Width = 30;
+
+            stepper.Width = 100;
+
+            panel.Controls.AddRange(new Control[] { label, stepper });
+            return panel;
         }
 
         private ComboBox NewComboBox()
@@ -195,7 +221,6 @@ namespace R3EHUDManager.selection.view
         {
             return new NumericUpDown()
             {
-                Size = new Size(50, 20),
             };
         }
 
@@ -205,8 +230,6 @@ namespace R3EHUDManager.selection.view
             {
                 AutoSize = true,
                 Text = name,
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
-                TextAlign = ContentAlignment.MiddleCenter,
             };
         }
 
