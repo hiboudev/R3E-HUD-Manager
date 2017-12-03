@@ -52,21 +52,25 @@ namespace R3EHUDManager
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
 
-            FlowLayoutPanel buttonsPanel = new FlowLayoutPanel()
+            FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Top,
-                Height = 30,
-            };
-
-            buttonsPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
-            buttonsPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
-            buttonsPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+                Height = 35,
+                WrapContents = false,
+        };
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
-            buttonsPanel.Controls.Add(selectionView);
+            //selectionView.Dock = DockStyle.Fill;
+
+            topBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
+            topBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
+            topBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+
+            topBarPanel.Controls.Add(selectionView);
+
 
             Controls.Add(screenView);
-            Controls.Add(buttonsPanel);
+            Controls.Add(topBarPanel);
         }
 
         private Button GetButton(string text, string eventType)

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.selection.view
 {
-    class AnchorPreset
+    class R3ePointPreset
     {
         public static readonly Dictionary<string, R3ePoint> presets;
 
-        static AnchorPreset()
+        static R3ePointPreset()
         {
             presets = new Dictionary<string, R3ePoint>
             {

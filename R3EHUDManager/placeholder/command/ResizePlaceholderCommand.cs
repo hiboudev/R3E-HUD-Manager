@@ -22,7 +22,10 @@ namespace R3EHUDManager.placeholder.command
 
         public void Execute()
         {
-            collectionModel.UpdatePlaceholderSize(args.PlaceholderName, args.Size);
+            if (args.Size < 0.1m)
+                collectionModel.UpdatePlaceholderSize(args.PlaceholderName, 0.1m);
+            else
+                collectionModel.UpdatePlaceholderSize(args.PlaceholderName, args.Size);
         }
     }
 }
