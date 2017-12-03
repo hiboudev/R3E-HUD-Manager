@@ -33,9 +33,14 @@ namespace R3EHUDManager.data.parser
                     string name = xmlReader.ReadElementContentAsString();
 
                     if (!IsGeometricItem(name)) continue;
-
+                    
                     GeometricItem item = GetGeometricItem(name);
-                    if(!placeHolders.ContainsKey(item.Name))
+
+                    // TODO S3S should remove unnecessary stuff from the XML.
+                    if (item.Name == "Apexhunt Display")
+                        continue;
+
+                    if (!placeHolders.ContainsKey(item.Name))
                     {
                         PlaceholderModel placeholder = new PlaceholderModel(item.Name);
                         placeHolders.Add(placeholder.Name, placeholder);
