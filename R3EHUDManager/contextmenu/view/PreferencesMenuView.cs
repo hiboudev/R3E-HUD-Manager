@@ -47,7 +47,7 @@ namespace R3EHUDManager.contextmenu.view
             openDataDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_DATA_DIRECTORY));
             openInstallDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_INSTALL_DIRECTORY));
 
-            return new List<ToolStripMenuItem>(new ToolStripMenuItem[] { openDataDirItem, openInstallDirItem, openHudDirItem });
+            return new List<ToolStripMenuItem>(new ToolStripMenuItem[] { openHudDirItem, openDataDirItem, openInstallDirItem });
         }
     }
 }
