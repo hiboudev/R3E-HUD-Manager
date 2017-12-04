@@ -106,6 +106,8 @@ namespace R3EHUDManager.placeholder.view
                 {
                     placeholder.PositionChanged -= OnViewPositionChanged;
                     placeholder.Dragging -= OnPlaceholderDragging;
+                    placeholder.MouseDown -= OnPlaceholderMouseDown;
+
                     Controls.Remove(placeholder);
                     placeholder.Dispose();
                 }
