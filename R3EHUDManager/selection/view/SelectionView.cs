@@ -169,8 +169,8 @@ namespace R3EHUDManager.selection.view
             Label labelX = NewSimpleLabel("X");
             Label labelY = NewSimpleLabel("Y");
             Label labelSize = NewSimpleLabel("Size");
-            Label labelAnchor = NewSimpleLabel("Anchor presets");
-            Label labelPosition = NewSimpleLabel("Position presets");
+            Label labelAnchor = NewSimpleLabel("Anchor preset");
+            Label labelPosition = NewSimpleLabel("Position preset");
 
             stepperX = NewStepper();
             stepperY = NewStepper();

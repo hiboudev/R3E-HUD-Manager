@@ -16,6 +16,8 @@ using System.Reflection;
 using System.Globalization;
 using System.Threading;
 using System.Diagnostics;
+using R3EHUDManager.graphics;
+using R3EHUDManager.contextmenu.view;
 
 namespace R3EHUDManager
 {
@@ -65,6 +67,8 @@ namespace R3EHUDManager
             listView.Height = 200;
             listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
+            PreferencesMenuView prefsButton = (PreferencesMenuView)Injector.GetInstance(typeof(PreferencesMenuView));
+            prefsButton.Anchor = AnchorStyles.Left;
 
             toolBarPanel.Controls.Add(selectionView);
             toolBarPanel.Controls.Add(listView);
@@ -73,9 +77,11 @@ namespace R3EHUDManager
             toolBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
             toolBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
 
+            toolBarPanel.Controls.Add(prefsButton);
+            
             Controls.Add(screenView);
             Controls.Add(toolBarPanel);
-            
+
         }
 
         private Button GetButton(string text, string eventType)

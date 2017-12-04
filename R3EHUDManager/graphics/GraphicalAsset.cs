@@ -51,6 +51,11 @@ namespace R3EHUDManager.graphics
             return GetBitmap(@"_graphical_assets\background.png");
         }
 
+        public static Image GetPreferencesIcon()
+        {
+            return GetBitmap(@"_graphical_assets\preference_icon4_22_alpha85.png");
+        }
+
         private static Bitmap GetBitmap(string path)
         {
             if (cache.ContainsKey(path))

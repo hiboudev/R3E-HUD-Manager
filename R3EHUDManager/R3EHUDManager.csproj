@@ -27,7 +27,7 @@
     <PublisherName>ChatCureuil</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>29</ApplicationRevision>
+    <ApplicationRevision>30</ApplicationRevision>
     <ApplicationVersion>0.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -90,6 +90,14 @@
   <ItemGroup>
     <Compile Include="application\command\StartApplicationCommand.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
+    <Compile Include="contextmenu\events\ContextMenuEventArgs.cs" />
+    <Compile Include="contextmenu\view\AbstractContextMenuView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="contextmenu\view\PreferencesMenuMediator.cs" />
+    <Compile Include="contextmenu\view\PreferencesMenuView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="coordinates\Coordinates.cs" />
     <Compile Include="coordinates\R3ePoint.cs" />
     <Compile Include="data\command\LoadHudDataCommand.cs" />
@@ -97,6 +105,10 @@
     <Compile Include="data\command\SaveHudCommand.cs" />
     <Compile Include="data\command\SaveOriginalFileCommand.cs" />
     <Compile Include="data\parser\HudOptionsParser.cs" />
+    <Compile Include="fileexplorer\command\AbstractOpenFileExplorerCommand.cs" />
+    <Compile Include="fileexplorer\command\OpenAppInstallDirectoryCommand.cs" />
+    <Compile Include="fileexplorer\command\OpenAppDataDirectoryCommand.cs" />
+    <Compile Include="fileexplorer\command\OpenHudDirectoryCommand.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +206,9 @@
     </Content>
     <Content Include="test_icon.ico" />
     <Content Include="_graphical_assets\positionbar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\preference_icon4_22_alpha85.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="_graphical_assets\trackmap.png">
