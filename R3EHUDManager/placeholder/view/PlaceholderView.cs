@@ -22,6 +22,16 @@ namespace R3EHUDManager.placeholder.view
         private readonly Point screenOffset;
         public PlaceholderModel Model { get; }
 
+
+        public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset)
+        {
+            Model = model;
+            this.screenOffset = screenOffset;
+            InitializeUI();
+            SetScreenSize(screenSize);
+            Disposed += OnDispose;
+        }
+
         private Point AnchorPosition
         {
             get => new Point(Width * anchor.Location.X / AnchorArea.Width, Height * anchor.Location.Y / AnchorArea.Height);
@@ -31,15 +41,6 @@ namespace R3EHUDManager.placeholder.view
         private Size AnchorArea
         {
             get => new Size(Width - anchor.Width, Height - anchor.Height);
-        }
-
-        public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset)
-        {
-            Model = model;
-            this.screenOffset = screenOffset;
-            InitializeUI();
-            SetScreenSize(screenSize);
-            Disposed += OnDispose;
         }
 
         private void RefreshLocation()
@@ -95,7 +96,7 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
-            BackColor = Color.Black;
+            BackColor = Color.FromArgb(0x22, 0x22, 0x22);
 
             label = new Label()
             {
