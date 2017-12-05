@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R3EHUDManager.contextmenu.view
+namespace R3EHUDManager.settings.view
 {
-    class PreferencesMenuMediator:BaseMediator
+    class SettingsMenuMediator:BaseMediator
     {
     }
 }

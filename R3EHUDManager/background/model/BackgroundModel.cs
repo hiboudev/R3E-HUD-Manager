@@ -1,4 +1,5 @@
 ﻿using da2MVC.events;
+using R3EHUDManager.background.events;
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.events;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R3EHUDManager.placeholder.model
+namespace R3EHUDManager.background.model
 {
     class BackgroundModel : EventDispatcher
     {

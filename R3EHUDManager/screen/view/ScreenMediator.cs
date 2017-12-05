@@ -10,7 +10,7 @@ using da2mvc.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
 
-namespace R3EHUDManager.placeholder.view
+namespace R3EHUDManager.screen.view
 {
     class ScreenMediator : BaseMediator
     {

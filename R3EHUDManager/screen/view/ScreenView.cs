@@ -12,8 +12,10 @@ using R3EHUDManager.placeholder.events;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
 using R3EHUDManager.application.events;
+using R3EHUDManager.placeholder.view;
+using R3EHUDManager.background.view;
 
-namespace R3EHUDManager.placeholder.view
+namespace R3EHUDManager.screen.view
 {
     class ScreenView : Panel, IEventDispatcher
     {

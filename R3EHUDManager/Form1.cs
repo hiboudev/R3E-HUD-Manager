@@ -18,6 +18,8 @@ using System.Threading;
 using System.Diagnostics;
 using R3EHUDManager.graphics;
 using R3EHUDManager.contextmenu.view;
+using R3EHUDManager.screen.view;
+using R3EHUDManager.settings.view;
 
 namespace R3EHUDManager
 {
@@ -67,7 +69,7 @@ namespace R3EHUDManager
             listView.Height = 200;
             listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
-            PreferencesMenuView prefsButton = (PreferencesMenuView)Injector.GetInstance(typeof(PreferencesMenuView));
+            SettingsMenuView prefsButton = (SettingsMenuView)Injector.GetInstance(typeof(SettingsMenuView));
             prefsButton.Anchor = AnchorStyles.Left;
 
             toolBarPanel.Controls.Add(selectionView);

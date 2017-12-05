@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R3EHUDManager.placeholder.view
+namespace R3EHUDManager.background.view
 {
     class BackgroundView:Control
     {

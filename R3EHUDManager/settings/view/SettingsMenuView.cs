@@ -1,4 +1,5 @@
 ﻿using da2mvc.events;
+using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.graphics;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace R3EHUDManager.contextmenu.view
+namespace R3EHUDManager.settings.view
 {
-    class PreferencesMenuView : AbstractContextMenuView
+    class SettingsMenuView : AbstractContextMenuView
     {
         public const string EVENT_OPEN_APP_DATA_DIRECTORY = "openAppDataDirectory";
         public const string EVENT_OPEN_APP_INSTALL_DIRECTORY = "openAppInstallDirectory";
         public const string EVENT_OPEN_HUD_DIRECTORY = "openHudDirectory";
 
-        public PreferencesMenuView() : base("")
+        public SettingsMenuView() : base("")
         {
             InitializeUI();
         }

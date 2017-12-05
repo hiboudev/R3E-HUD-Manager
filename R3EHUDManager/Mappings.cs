@@ -18,6 +18,9 @@ using R3EHUDManager.selection.command;
 using R3EHUDManager.selection.view;
 using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.fileexplorer.command;
+using R3EHUDManager.background.model;
+using R3EHUDManager.screen.view;
+using R3EHUDManager.settings.view;
 
 namespace R3EHUDManager
 {
@@ -37,7 +40,7 @@ namespace R3EHUDManager
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
             Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
-            Injector.MapView(typeof(PreferencesMenuView), typeof(PreferencesMenuMediator), true);
+            Injector.MapView(typeof(SettingsMenuView), typeof(SettingsMenuMediator), true);
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -49,9 +52,9 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_ANCHOR_MOVED, typeof(MoveAnchorCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_RESIZED, typeof(ResizePlaceholderCommand));
             Injector.MapCommand(typeof(PlaceholdersListView), PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED, typeof(SelectPlaceholderCommand));
-            Injector.MapCommand(typeof(PreferencesMenuView), PreferencesMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
-            Injector.MapCommand(typeof(PreferencesMenuView), PreferencesMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
-            Injector.MapCommand(typeof(PreferencesMenuView), PreferencesMenuView.EVENT_OPEN_HUD_DIRECTORY, typeof(OpenHudDirectoryCommand));
+            Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
+            Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
+            Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY, typeof(OpenHudDirectoryCommand));
         }
     }
 }

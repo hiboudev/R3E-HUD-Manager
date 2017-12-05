@@ -94,8 +94,8 @@
     <Compile Include="contextmenu\view\AbstractContextMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="contextmenu\view\PreferencesMenuMediator.cs" />
-    <Compile Include="contextmenu\view\PreferencesMenuView.cs">
+    <Compile Include="settings\view\SettingsMenuMediator.cs" />
+    <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="coordinates\Coordinates.cs" />
@@ -120,12 +120,12 @@
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
-    <Compile Include="placeholder\events\BackgroundModelEventArgs.cs" />
+    <Compile Include="background\events\BackgroundModelEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
-    <Compile Include="placeholder\model\BackgroundModel.cs" />
+    <Compile Include="background\model\BackgroundModel.cs" />
     <Compile Include="selection\view\AnchorPreset.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
@@ -133,7 +133,7 @@
     <Compile Include="placeholder\view\AnchorView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="placeholder\view\BackgroundView.cs">
+    <Compile Include="background\view\BackgroundView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="placeholder\view\PlaceholderView.cs">
@@ -143,8 +143,8 @@
     <Compile Include="location\finder\R3eHomeDirectoryFinder.cs" />
     <Compile Include="location\model\LocationModel.cs" />
     <Compile Include="Mappings.cs" />
-    <Compile Include="placeholder\view\ScreenMediator.cs" />
-    <Compile Include="placeholder\view\ScreenView.cs">
+    <Compile Include="screen\view\ScreenMediator.cs" />
+    <Compile Include="screen\view\ScreenView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />

@@ -1,6 +1,7 @@
 ﻿using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.model;
+using R3EHUDManager.screen.view;
 using System;
 using System.Diagnostics;
 using System.Drawing;
