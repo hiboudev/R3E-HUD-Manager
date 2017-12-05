@@ -54,6 +54,10 @@ namespace R3EHUDManager.selection.view
 
             stepperX.Increment = stepperY.Increment = stepperSize.Increment = (decimal)0.001;
 
+            stepperX.GotFocus += SelectStepperText;
+            stepperY.GotFocus += SelectStepperText;
+            stepperSize.GotFocus += SelectStepperText;
+
             foreach (string presetName in R3ePointPreset.presets.Keys)
             {
                 anchorPresets.Items.Add(presetName);
@@ -61,6 +65,13 @@ namespace R3EHUDManager.selection.view
             }
             anchorPresets.SelectionChangeCommitted += OnAnchorPresetSelected;
             positionPresets.SelectionChangeCommitted += OnPositionPresetSelected;
+        }
+
+        private void SelectStepperText(object sender, EventArgs e)
+        {
+            //stepperX.Select();
+            var stepper = (NumericUpDown)sender;
+            stepper.Select(0, stepper.Text.Length);
         }
 
         private void OnAnchorPresetSelected(object sender, EventArgs e)
