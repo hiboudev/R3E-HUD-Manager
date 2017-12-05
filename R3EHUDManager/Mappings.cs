@@ -32,6 +32,7 @@ namespace R3EHUDManager
             Injector.MapType(typeof(HudOptionsParser), typeof(HudOptionsParser), true);
             Injector.MapType(typeof(PlaceHolderCollectionModel), typeof(PlaceHolderCollectionModel), true);
             Injector.MapType(typeof(SelectionModel), typeof(SelectionModel), true);
+            Injector.MapType(typeof(BackgroundModel), typeof(BackgroundModel), true);
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);

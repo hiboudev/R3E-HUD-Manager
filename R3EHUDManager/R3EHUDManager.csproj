@@ -120,10 +120,12 @@
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
+    <Compile Include="placeholder\events\BackgroundModelEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
+    <Compile Include="placeholder\model\BackgroundModel.cs" />
     <Compile Include="selection\view\AnchorPreset.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
