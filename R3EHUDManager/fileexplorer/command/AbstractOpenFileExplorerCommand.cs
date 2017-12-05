@@ -36,6 +36,8 @@ namespace R3EHUDManager.fileexplorer.command
             {
                 Process.Start("explorer.exe", "/select, " + filePath);
             }
+            else if (Directory.Exists(directoryPath))
+                Process.Start("explorer.exe", directoryPath);
         }
     }
 }
