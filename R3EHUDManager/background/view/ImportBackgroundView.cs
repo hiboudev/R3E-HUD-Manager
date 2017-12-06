@@ -18,7 +18,9 @@ namespace R3EHUDManager.background.view
 
         public ImportBackgroundView()
         {
-            Text = "Import new";
+            Text = "Import";
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
         }
 
         public void DispatchEvent(BaseEventArgs args)

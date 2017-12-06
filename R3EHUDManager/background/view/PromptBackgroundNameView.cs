@@ -56,6 +56,7 @@ namespace R3EHUDManager.background.view
             inputField = new TextBox()
             {
                 Dock = DockStyle.Fill,
+                MaxLength = 40,
             };
             inputField.TextChanged += CheckText;
 
