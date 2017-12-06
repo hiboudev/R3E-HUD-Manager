@@ -32,5 +32,7 @@ namespace R3EHUDManager.location.model
         public string AppInstallDirectory { get => Application.StartupPath; }
 
         public string DatabaseFile { get => Path.Combine(LocalDirectoryDatabase, "database.sqlite"); }
+
+        public string GraphicalAssetDirectory { get => "_graphical_assets"; }
     }
 }

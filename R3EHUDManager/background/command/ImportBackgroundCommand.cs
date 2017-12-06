@@ -33,18 +33,15 @@ namespace R3EHUDManager.background.command
         public void Execute()
         {
             string fileName = Path.GetFileName(args.FilePath);
-            string destinationPath;
 
             if (File.Exists(Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName)))
             {
-                destinationPath = GetUnusedName(locationModel.LocalDirectoryBackgrounds, fileName);
+                fileName = GetUnusedName(locationModel.LocalDirectoryBackgrounds, fileName);
             }
-            else
-                destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName);
 
 
-            File.Copy(args.FilePath, destinationPath);
-            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, destinationPath);
+            File.Copy(args.FilePath, Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName));
+            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, fileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY);
             database.AddBackground(background);
             collection.AddBackground(background);
             selection.SelectBackground(background);
@@ -59,7 +56,7 @@ namespace R3EHUDManager.background.command
             do { ++counter; }
             while (File.Exists(Path.Combine(path, $"{nameOnly}({counter}){extension}")));
 
-            return Path.Combine(path, $"{nameOnly}({counter}){extension}");
+            return $"{nameOnly}({counter}){extension}";
         }
     }
 }

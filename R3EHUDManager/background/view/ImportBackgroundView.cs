@@ -39,8 +39,10 @@ namespace R3EHUDManager.background.view
                 {
                     DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, nameDialog.BackgroundName, fileDialog.FileName));
                 }
+                nameDialog.Dispose();
             }
-                
+
+            fileDialog.Dispose();
         }
     }
 }

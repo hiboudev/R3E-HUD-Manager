@@ -29,7 +29,6 @@ namespace R3EHUDManager.background.view
             InitializeUI();
         }
 
-
         private void InitializeUI()
         {
             Text = "Enter a background name";

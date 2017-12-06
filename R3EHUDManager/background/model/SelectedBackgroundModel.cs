@@ -1,10 +1,12 @@
 ﻿using da2MVC.events;
 using R3EHUDManager.background.events;
 using R3EHUDManager.graphics;
+using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.events;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,12 @@ namespace R3EHUDManager.background.model
         public BackgroundModel Selection { get; private set; }
 
         public const string EVENT_BACKGROUND_CHANGED = "backgroundChanged";
+        private readonly LocationModel locationModel;
+
+        public SelectedBackgroundModel(LocationModel locationModel)
+        {
+            this.locationModel = locationModel;
+        }
 
         public void SelectBackground(BackgroundModel background)
         {
@@ -30,7 +38,22 @@ namespace R3EHUDManager.background.model
                 bitmap = null;
             }
 
-            bitmap = GraphicalAsset.GetNoCache(Selection.FilePath);
+            string filePath;
+            switch (background.DirectoryType)
+            {
+                case BaseDirectoryType.BACKGROUNDS_DIRECTORY:
+                    filePath = locationModel.LocalDirectoryBackgrounds;
+                    break;
+
+                case BaseDirectoryType.GRAPHICAL_ASSETS:
+                    filePath = locationModel.GraphicalAssetDirectory;
+                    break;
+
+                default:
+                    throw new Exception("Unkown DirectoryType.");
+            }
+
+            bitmap = GraphicalAsset.GetNoCache(Path.Combine(filePath, Selection.FileName));
             Dimension = bitmap.PhysicalDimension.ToSize();
             AspectRatio = (decimal)Dimension.Width / Dimension.Height;
 

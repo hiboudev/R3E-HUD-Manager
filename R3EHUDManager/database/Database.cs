@@ -26,7 +26,7 @@ namespace R3EHUDManager.database
             {
                 db.Open();
 
-                string sql = "create table backgrounds (id int unique, name text, filePath text);";
+                string sql = "create table backgrounds (id int unique, name text, fileName text, directoryType int);";
 
                 SQLiteCommand command = new SQLiteCommand(sql, db);
                 command.ExecuteNonQuery();
@@ -42,8 +42,8 @@ namespace R3EHUDManager.database
                 db.Open();
                 SQLiteCommand command;
 
-                string request = "INSERT INTO backgrounds (id, name, filePath) VALUES " +
-                    $"({background.Id}, '{background.Name}', '{background.FilePath}')";
+                string request = "INSERT INTO backgrounds (id, name, fileName, directoryType) VALUES " +
+                    $"({background.Id}, '{background.Name}', '{background.FileName}', {(int)background.DirectoryType})";
 
                 command = new SQLiteCommand(request, db);
                 command.ExecuteNonQuery();
@@ -68,7 +68,7 @@ namespace R3EHUDManager.database
                 {
                     while (reader.Read())
                     {
-                        backgrounds.Add(BackgroundFactory.NewBackgroundModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                        backgrounds.Add(BackgroundFactory.NewBackgroundModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), (BaseDirectoryType)reader.GetInt32(3)));
                     }
                     reader.Close();
                 }

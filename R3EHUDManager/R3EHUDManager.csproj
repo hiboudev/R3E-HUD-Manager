@@ -118,6 +118,7 @@
     <Compile Include="background\model\BackgroundCollectionModel.cs" />
     <Compile Include="background\model\BackgroundFactory.cs" />
     <Compile Include="background\model\BackgroundModel.cs" />
+    <Compile Include="background\model\BaseDirectoryType.cs" />
     <Compile Include="background\view\BackgroundListMediator.cs" />
     <Compile Include="background\view\BackgroundListView.cs">
       <SubType>Component</SubType>

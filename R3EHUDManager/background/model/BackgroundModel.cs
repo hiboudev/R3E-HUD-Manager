@@ -8,15 +8,17 @@ namespace R3EHUDManager.background.model
 {
     class BackgroundModel
     {
-        public BackgroundModel(int id, string name, string filePath)
+        public BackgroundModel(int id, string name, string fileName, BaseDirectoryType directoryType)
         {
             Id = id;
             Name = name;
-            FilePath = filePath;
+            FileName = fileName;
+            DirectoryType = directoryType;
         }
 
         public int Id { get; }
         public string Name { get; }
-        public string FilePath { get; }
+        public string FileName { get; }
+        public BaseDirectoryType DirectoryType { get; }
     }
 }

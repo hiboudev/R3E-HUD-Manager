@@ -14,6 +14,7 @@ namespace R3EHUDManager.graphics
 
         public static Bitmap GetPlaceholderImage (string placeholderName)
         {
+            // TODO use LocationModel
             switch (placeholderName)
             {
                 case "MoTeC":
