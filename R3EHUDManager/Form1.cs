@@ -54,7 +54,7 @@ namespace R3EHUDManager
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
 
-            FlowLayoutPanel toolBarPanel = new FlowLayoutPanel()
+            FlowLayoutPanel leftBarPanel = new FlowLayoutPanel()
             {
                 FlowDirection = FlowDirection.TopDown,
                 Dock = DockStyle.Left,
@@ -73,18 +73,26 @@ namespace R3EHUDManager
             SettingsMenuView prefsButton = (SettingsMenuView)Injector.GetInstance(typeof(SettingsMenuView));
             prefsButton.Anchor = AnchorStyles.Left;
 
-            toolBarPanel.Controls.Add(selectionView);
-            toolBarPanel.Controls.Add(listView);
+            leftBarPanel.Controls.Add(selectionView);
+            leftBarPanel.Controls.Add(listView);
 
-            toolBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
-            toolBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
-            toolBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
 
-            toolBarPanel.Controls.Add(prefsButton);
-            toolBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LoadBackgroundView)));
+            leftBarPanel.Controls.Add(prefsButton);
+
+            FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true
+            };
+            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LoadBackgroundView)));
+
 
             Controls.Add(screenView);
-            Controls.Add(toolBarPanel);
+            Controls.Add(topBarPanel);
+            Controls.Add(leftBarPanel);
 
         }
 

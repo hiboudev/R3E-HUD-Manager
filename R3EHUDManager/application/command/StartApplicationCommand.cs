@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using da2mvc.command;
 using da2mvc.injection;
+using R3EHUDManager.background.command;
+using R3EHUDManager.application.events;
 
 namespace R3EHUDManager.application.command
 {
@@ -18,6 +20,7 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand(typeof(FindR3eHomeDirectoryCommand));
             Injector.ExecuteCommand(typeof(SaveOriginalFileCommand));
             Injector.ExecuteCommand(typeof(LoadHudDataCommand));
+            Injector.ExecuteCommand(typeof(LoadBackgroundCommand), new StringEventArgs("foo", @"_graphical_assets\background.png"));
         }
     }
 }

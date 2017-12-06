@@ -47,9 +47,6 @@ namespace R3EHUDManager.data.command
 
             if(placeholders != null)
                 placeHolderCollection.AddRange(placeholders);
-
-            // TODO temp
-            backgroundModel.LoadBackground(@"_graphical_assets\background.png");
         }
     }
 }

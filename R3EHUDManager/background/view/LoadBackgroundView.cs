@@ -14,6 +14,11 @@ namespace R3EHUDManager.background.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_LOAD_BACKGROUND = "loadBackground";
 
+        public LoadBackgroundView()
+        {
+            Text = "Background";
+        }
+
         public void DispatchEvent(BaseEventArgs args)
         {
             MvcEventHandler?.Invoke(this, args);
