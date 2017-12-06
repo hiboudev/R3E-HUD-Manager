@@ -22,6 +22,12 @@ namespace R3EHUDManager.background.model
 
         public void LoadBackground(string path)
         {
+            if(bitmap != null)
+            {
+                bitmap.Dispose();
+                bitmap = null;
+            }
+
             bitmap = GraphicalAsset.GetNoCache(path);
             Dimension = bitmap.PhysicalDimension.ToSize();
             AspectRatio = (decimal)Dimension.Width / Dimension.Height;
@@ -29,9 +35,9 @@ namespace R3EHUDManager.background.model
             DispatchEvent(new BackgroundModelEventArgs(EVENT_BACKGROUND_CHANGED, this));
         }
 
-        public Image GetBackground (Size appScreenSize)
+        public Image GetBackground (/*Size appScreenSize*/)
         {
-            return new Bitmap(bitmap, appScreenSize);
+            return new Bitmap(bitmap);
         }
     }
 }

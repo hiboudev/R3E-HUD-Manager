@@ -20,6 +20,7 @@ using R3EHUDManager.graphics;
 using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.settings.view;
+using R3EHUDManager.background.view;
 
 namespace R3EHUDManager
 {
@@ -80,7 +81,8 @@ namespace R3EHUDManager
             toolBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
 
             toolBarPanel.Controls.Add(prefsButton);
-            
+            toolBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LoadBackgroundView)));
+
             Controls.Add(screenView);
             Controls.Add(toolBarPanel);
 

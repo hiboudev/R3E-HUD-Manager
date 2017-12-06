@@ -14,6 +14,8 @@ using R3EHUDManager.graphics;
 using R3EHUDManager.application.events;
 using R3EHUDManager.placeholder.view;
 using R3EHUDManager.background.view;
+using da2mvc.injection;
+using R3EHUDManager.background.model;
 
 namespace R3EHUDManager.screen.view
 {
@@ -24,7 +26,7 @@ namespace R3EHUDManager.screen.view
         public event EventHandler MvcEventHandler;
         
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
-        private double BASE_ASPECT_RATIO = (double)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
+        public static decimal BASE_ASPECT_RATIO = (decimal)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
 
         private Size screenSize = new Size(100, 100);
 
@@ -32,6 +34,7 @@ namespace R3EHUDManager.screen.view
         public const string EVENT_PLACEHOLDER_SELECTED = "placeholderSelected";
 
         private BackgroundView backgroundView;
+        private decimal backgroundAspectRatio = BASE_ASPECT_RATIO;
 
         public ScreenView()
         {
@@ -41,11 +44,9 @@ namespace R3EHUDManager.screen.view
         private void InitializeUI()
         {
             BackColor = Color.FromArgb(47,79,89);
-            
-            backgroundView = new BackgroundView
-            {
-                Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN)
-            };
+
+            backgroundView = (BackgroundView)Injector.GetInstance(typeof(BackgroundView));
+            backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
 
             Controls.Add(backgroundView);
         }
@@ -130,23 +131,30 @@ namespace R3EHUDManager.screen.view
             UpdatePlaceholdersPosition();
         }
 
+        internal void BackgroundChanged(BackgroundModel model)
+        {
+            backgroundAspectRatio = model.AspectRatio;
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
+        }
+
         private void UpdateScreenSize()
         {
             // When minimizing the window, size is zero.
             if (Width == 0 && Height == 0)
                 return;
 
-            double screenRatio = (double)(Width - SCREEN_MARGIN * 2) / (Height - SCREEN_MARGIN * 2);
+            decimal screenRatio = (decimal)(Width - SCREEN_MARGIN * 2) / (Height - SCREEN_MARGIN * 2);
 
-            if(screenRatio < BASE_ASPECT_RATIO)
+            if(screenRatio < backgroundAspectRatio)
             {
                 screenSize.Width = Width - SCREEN_MARGIN * 2;
-                screenSize.Height = (int)((double)screenSize.Width / BASE_ASPECT_RATIO);
+                screenSize.Height = (int)((decimal)screenSize.Width / backgroundAspectRatio);
             }
             else
             {
                 screenSize.Height = Height- SCREEN_MARGIN * 2;
-                screenSize.Width = (int)((double)screenSize.Height * BASE_ASPECT_RATIO);
+                screenSize.Width = (int)((decimal)screenSize.Height * backgroundAspectRatio);
             }
 
             backgroundView.SetSize(screenSize);

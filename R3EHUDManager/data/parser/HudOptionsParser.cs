@@ -19,7 +19,7 @@ namespace R3EHUDManager.data.parser
         private static Regex ITEM_NAME_EXP = new Regex($"(.*) ({ItemType.POSITION}|{ItemType.SIZE}|{ItemType.ANCHOR})");
 
         // TODO S3S should remove unnecessary stuff from the XML.
-        private static HashSet<string> geometricItemBlackList = new HashSet<string>(new string[] { "Apexhunt Display", "Car Status" });
+        private static HashSet<string> geometricItemBlackList = new HashSet<string>(new string[] { PlaceholderName.APEXHUNT_DISPLAY, PlaceholderName.CAR_STATUS });
 
         internal List<PlaceholderModel> Parse(string hudOptionsPath)
         {
@@ -43,7 +43,7 @@ namespace R3EHUDManager.data.parser
 
                     if (!placeHolders.ContainsKey(item.Name))
                     {
-                        PlaceholderModel placeholder = new PlaceholderModel(item.Name);
+                        PlaceholderModel placeholder = PlaceholderFactory.NewPlaceholder(item.Name);
                         placeHolders.Add(placeholder.Name, placeholder);
                     }
                     
@@ -99,7 +99,7 @@ namespace R3EHUDManager.data.parser
                 if (node.Name == "name")
                 {
                     // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
-                    string innerText = node.InnerText == "CarStatus Anchor" ? "Car Status Anchor" : node.InnerText;
+                    string innerText = node.InnerText == $"CarStatus {ItemType.ANCHOR}" ? $"{PlaceholderName.CAR_STATUS} {ItemType.ANCHOR}" : node.InnerText;
                     if (elementNames.ContainsKey(innerText))
                     {
                         nextVector = elementNames[innerText];
@@ -129,7 +129,7 @@ namespace R3EHUDManager.data.parser
             string name = matches[0].Groups[1].Value;
 
             // TODO Cause of a mistake in options file, where "Car Status" is also written "CarStatus" (for Anchor).
-            if (name == "CarStatus") name = "Car Status";
+            if (name == "CarStatus") name = PlaceholderName.CAR_STATUS;
             return new GeometricItem(name, matches[0].Groups[2].Value);
         }
 

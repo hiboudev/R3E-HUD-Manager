@@ -21,6 +21,8 @@ using R3EHUDManager.fileexplorer.command;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.settings.view;
+using R3EHUDManager.background.view;
+using R3EHUDManager.background.command;
 
 namespace R3EHUDManager
 {
@@ -36,11 +38,13 @@ namespace R3EHUDManager
             Injector.MapType(typeof(PlaceHolderCollectionModel), typeof(PlaceHolderCollectionModel), true);
             Injector.MapType(typeof(SelectionModel), typeof(SelectionModel), true);
             Injector.MapType(typeof(BackgroundModel), typeof(BackgroundModel), true);
+            Injector.MapType(typeof(LoadBackgroundView), typeof(LoadBackgroundView), true);
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
             Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
             Injector.MapView(typeof(SettingsMenuView), typeof(SettingsMenuMediator), true);
+            Injector.MapView(typeof(BackgroundView), typeof(BackgroundMediator), true);
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -55,6 +59,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY, typeof(OpenHudDirectoryCommand));
+            Injector.MapCommand(typeof(LoadBackgroundView), LoadBackgroundView.EVENT_LOAD_BACKGROUND, typeof(LoadBackgroundCommand));
         }
     }
 }

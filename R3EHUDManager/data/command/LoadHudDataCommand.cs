@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using da2mvc.command;
 using System.Windows.Forms;
 using R3EHUDManager.selection.model;
+using R3EHUDManager.background.model;
 
 namespace R3EHUDManager.data.command
 {
@@ -18,13 +19,15 @@ namespace R3EHUDManager.data.command
         private readonly HudOptionsParser parser;
         private readonly PlaceHolderCollectionModel placeHolderCollection;
         private readonly SelectionModel selectionModel;
+        private readonly BackgroundModel backgroundModel;
 
-        public LoadHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel)
+        public LoadHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel, BackgroundModel backgroundModel)
         {
             this.locationModel = locationModel;
             this.parser = parser;
             this.placeHolderCollection = placeHolderCollection;
             this.selectionModel = selectionModel;
+            this.backgroundModel = backgroundModel;
         }
 
         public void Execute()
@@ -44,6 +47,9 @@ namespace R3EHUDManager.data.command
 
             if(placeholders != null)
                 placeHolderCollection.AddRange(placeholders);
+
+            // TODO temp
+            backgroundModel.LoadBackground(@"_graphical_assets\background.png");
         }
     }
 }

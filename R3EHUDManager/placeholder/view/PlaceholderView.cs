@@ -19,10 +19,9 @@ namespace R3EHUDManager.placeholder.view
         private AnchorView anchor;
         private Bitmap image;
         private Size screenSize;
-        private double screenRatio;
+        //private double screenRatio;
         private readonly Point screenOffset;
         public PlaceholderModel Model { get; }
-
 
         public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset)
         {
@@ -62,10 +61,31 @@ namespace R3EHUDManager.placeholder.view
             return Coordinates.ToR3e(position, screenSize);
         }
 
-        public void SetScreenSize(Size size)
+        public void SetScreenSize(Size screenSize)
         {
-            screenSize = size;
-            screenRatio = (double)screenSize.Width / ScreenView.BASE_RESOLUTION.Width;
+            this.screenSize = screenSize;
+            //Size bitmapReferenceSize = GraphicalAsset.GetPlaceholderSize(Model.Name);
+
+            //// Fonctionne bien sur le motec, petite erreur parfois sur le FFB.
+            //// Pas bon du tout pour le rétro et la barre.
+
+            //// Screen ratio reference
+            //decimal Rr = ScreenView.BASE_ASPECT_RATIO;
+            //// Screen ratio target
+            //decimal Rt = (decimal)screenSize.Width / screenSize.Height;
+            //// Screen width reference
+            //decimal Wr = ScreenView.BASE_RESOLUTION.Width;
+            //// Screen width target
+            //decimal Wt = screenSize.Width;
+            //// Ratio object
+            //decimal Ro = (decimal)bitmapReferenceSize.Width / bitmapReferenceSize.Height;
+
+            //sizeRatio = (Rr * (1 / Ro) + Ro * (1 / Rt)) * (1m / 2) * (Wt / Wr);
+            //sizeRatio = (Wt / Wr);
+
+
+
+            //screenRatio = (double)screenSize.Width / ScreenView.BASE_RESOLUTION.Width;
             RedrawImage();
             RefreshLocation();
         }
@@ -97,6 +117,7 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
+            DoubleBuffered = true;
             BackColor = Color.FromArgb(0x22, 0x22, 0x22);
 
             label = new Label()
@@ -127,8 +148,10 @@ namespace R3EHUDManager.placeholder.view
 
             Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
 
-            int width = (int)(originalImage.PhysicalDimension.Width * screenRatio * Model.Size.X);
-            int height = (int)(originalImage.PhysicalDimension.Height * screenRatio * Model.Size.Y);
+            decimal resizeRatio = Model.ResizeRule.GetResizeRatio(ScreenView.BASE_RESOLUTION, screenSize, originalImage.PhysicalDimension.ToSize());
+
+            int width = (int)((decimal)originalImage.PhysicalDimension.Width * resizeRatio * (decimal)Model.Size.X);
+            int height = (int)((decimal)originalImage.PhysicalDimension.Height * resizeRatio * (decimal)Model.Size.Y);
 
             image = new Bitmap(originalImage, new Size(width, height));
 

@@ -90,10 +90,18 @@
   <ItemGroup>
     <Compile Include="application\command\StartApplicationCommand.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
+    <Compile Include="background\command\LoadBackgroundCommand.cs" />
+    <Compile Include="background\view\BackgroundMediator.cs" />
+    <Compile Include="background\view\LoadBackgroundView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="contextmenu\events\ContextMenuEventArgs.cs" />
     <Compile Include="contextmenu\view\AbstractContextMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="placeholder\model\ResizeRules.cs" />
+    <Compile Include="placeholder\model\PlaceholderFactory.cs" />
+    <Compile Include="placeholder\model\PlaceholderName.cs" />
     <Compile Include="settings\view\SettingsMenuMediator.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>

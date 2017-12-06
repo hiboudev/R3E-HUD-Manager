@@ -45,10 +45,9 @@ namespace R3EHUDManager.graphics
             }
         }
 
-        public static Image GetBackground()
+        public static Size GetPlaceholderSize(string placeholderName)
         {
-            // TODO Jpg
-            return GetBitmap(@"_graphical_assets\background.png");
+            return GetPlaceholderImage(placeholderName).PhysicalDimension.ToSize();
         }
 
         public static Image GetNoCache(string path)

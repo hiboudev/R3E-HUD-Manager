@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using da2mvc.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
+using R3EHUDManager.background.model;
+using R3EHUDManager.background.events;
 
 namespace R3EHUDManager.screen.view
 {
@@ -20,6 +22,12 @@ namespace R3EHUDManager.screen.view
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
+            RegisterEventListener(typeof(BackgroundModel), BackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+        }
+
+        private void OnBackgroundChanged(BaseEventArgs args)
+        {
+            ((ScreenView)View).BackgroundChanged(((BackgroundModelEventArgs)args).Model);
         }
 
         private void OnPlaceHolderSelected(BaseEventArgs args)
