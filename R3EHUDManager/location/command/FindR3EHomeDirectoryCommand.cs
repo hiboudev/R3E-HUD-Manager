@@ -34,8 +34,18 @@ namespace R3EHUDManager.location.command
             }
             else
             {
-                MessageBox.Show("Can't find R3E user directory, application will exit.", "Error");
-                Environment.Exit(0);
+                var dialog = new FolderBrowserDialog();
+                dialog.Description = @"Please select your 'RaceRoom Racing Experience' directory (Documents\My Games\SimBin\RaceRoom Racing Experience). Its name may end with 'Install N'.";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    locationModel.R3eHomeBaseDirectory = dialog.SelectedPath;
+                }
+                else
+                {
+                    MessageBox.Show("Can't find R3E user directory, application will exit.", "Error");
+                    Environment.Exit(0);
+                }
             }
         }
     }

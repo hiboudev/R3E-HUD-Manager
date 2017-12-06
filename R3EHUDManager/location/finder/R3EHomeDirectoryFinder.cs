@@ -53,7 +53,7 @@ namespace R3EHUDManager.location.finder
                     }
                 }
             }
-            throw new Exception("No R3E active directory found.");
+            return null;
         }
     }
 }
