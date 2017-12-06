@@ -14,12 +14,12 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundMediator()
         {
-            RegisterEventListener(typeof(BackgroundModel), BackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener(typeof(SelectedBackgroundModel), SelectedBackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((BackgroundView)View).SetBackground(((BackgroundModelEventArgs)args).Model);
+            ((BackgroundView)View).SetBackground(((SelectedBackgroundEventArgs)args).Model);
         }
     }
 }

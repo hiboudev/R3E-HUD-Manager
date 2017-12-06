@@ -1,6 +1,5 @@
 ﻿using da2mvc.events;
 using R3EHUDManager.background.model;
-using R3EHUDManager.placeholder.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +10,11 @@ namespace R3EHUDManager.background.events
 {
     class BackgroundModelEventArgs : BaseEventArgs
     {
-        public BackgroundModelEventArgs(string eventName, BackgroundModel model) : base(eventName)
+        public BackgroundModelEventArgs(string eventName, BackgroundModel background) : base(eventName)
         {
-            Model = model;
+            Background = background;
         }
 
-        public BackgroundModel Model { get; }
+        public BackgroundModel Background { get; }
     }
 }

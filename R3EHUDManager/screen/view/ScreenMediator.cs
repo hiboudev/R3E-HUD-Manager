@@ -22,12 +22,12 @@ namespace R3EHUDManager.screen.view
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
-            RegisterEventListener(typeof(BackgroundModel), BackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener(typeof(SelectedBackgroundModel), SelectedBackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((ScreenView)View).BackgroundChanged(((BackgroundModelEventArgs)args).Model);
+            ((ScreenView)View).BackgroundChanged(((SelectedBackgroundEventArgs)args).Model);
         }
 
         private void OnPlaceHolderSelected(BaseEventArgs args)

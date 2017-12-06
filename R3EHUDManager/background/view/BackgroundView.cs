@@ -37,7 +37,7 @@ namespace R3EHUDManager.background.view
             BackgroundImage = bitmap;
         }
 
-        internal void SetBackground(BackgroundModel model)
+        internal void SetBackground(SelectedBackgroundModel model)
         {
             DisposeBaseBitmap();
 

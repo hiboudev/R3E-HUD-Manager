@@ -1,5 +1,5 @@
-﻿using R3EHUDManager.data.command;
-using R3EHUDManager.data.parser;
+﻿using R3EHUDManager.huddata.command;
+using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location;
 using R3EHUDManager.location.finder;
 using R3EHUDManager.location.model;
@@ -23,6 +23,7 @@ using R3EHUDManager.screen.view;
 using R3EHUDManager.settings.view;
 using R3EHUDManager.background.view;
 using R3EHUDManager.background.command;
+using R3EHUDManager.database;
 
 namespace R3EHUDManager
 {
@@ -37,14 +38,19 @@ namespace R3EHUDManager
             Injector.MapType(typeof(HudOptionsParser), typeof(HudOptionsParser), true);
             Injector.MapType(typeof(PlaceHolderCollectionModel), typeof(PlaceHolderCollectionModel), true);
             Injector.MapType(typeof(SelectionModel), typeof(SelectionModel), true);
-            Injector.MapType(typeof(BackgroundModel), typeof(BackgroundModel), true);
-            Injector.MapType(typeof(LoadBackgroundView), typeof(LoadBackgroundView), true);
+            Injector.MapType(typeof(SelectedBackgroundModel), typeof(SelectedBackgroundModel), true);
+            Injector.MapType(typeof(ImportBackgroundView), typeof(ImportBackgroundView), true);
+            Injector.MapType(typeof(Database), typeof(Database), true);
+            Injector.MapType(typeof(BackgroundCollectionModel), typeof(BackgroundCollectionModel), true);
+            Injector.MapType(typeof(BackgroundToolbarView), typeof(BackgroundToolbarView), true); 
+            Injector.MapType(typeof(PromptBackgroundNameView), typeof(PromptBackgroundNameView), true); 
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
             Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
             Injector.MapView(typeof(SettingsMenuView), typeof(SettingsMenuMediator), true);
             Injector.MapView(typeof(BackgroundView), typeof(BackgroundMediator), true);
+            Injector.MapView(typeof(BackgroundListView), typeof(BackgroundListMediator), true);
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -59,7 +65,8 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY, typeof(OpenHudDirectoryCommand));
-            Injector.MapCommand(typeof(LoadBackgroundView), LoadBackgroundView.EVENT_LOAD_BACKGROUND, typeof(LoadBackgroundCommand));
+            Injector.MapCommand(typeof(ImportBackgroundView), ImportBackgroundView.EVENT_IMPORT_BACKGROUND, typeof(ImportBackgroundCommand));
+            Injector.MapCommand(typeof(BackgroundListView), BackgroundListView.EVENT_BACKGROUND_SELECTED, typeof(SelectBackgroundCommand));
         }
     }
 }

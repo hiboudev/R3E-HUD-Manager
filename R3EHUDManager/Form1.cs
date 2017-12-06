@@ -87,8 +87,8 @@ namespace R3EHUDManager
                 Dock = DockStyle.Top,
                 AutoSize = true
             };
-            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LoadBackgroundView)));
 
+            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(BackgroundToolbarView)));
 
             Controls.Add(screenView);
             Controls.Add(topBarPanel);

@@ -33,6 +33,8 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -75,8 +77,24 @@
     <Reference Include="da2MVC">
       <HintPath>..\..\da2MVC\da2MVC\bin\Release\da2MVC.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.106.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.106.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,16 +107,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="application\command\StartApplicationCommand.cs" />
+    <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
-    <Compile Include="background\command\LoadBackgroundCommand.cs" />
-    <Compile Include="background\view\BackgroundMediator.cs" />
-    <Compile Include="background\view\LoadBackgroundView.cs">
+    <Compile Include="background\command\ImportBackgroundCommand.cs" />
+    <Compile Include="background\command\InitializeBackgroundsCommand.cs" />
+    <Compile Include="background\command\SelectBackgroundCommand.cs" />
+    <Compile Include="background\events\BackgroundCollectionEventArgs.cs" />
+    <Compile Include="background\events\BackgroundModelEventArgs.cs" />
+    <Compile Include="background\events\ImportBackgroundEventArgs.cs" />
+    <Compile Include="background\model\BackgroundCollectionModel.cs" />
+    <Compile Include="background\model\BackgroundFactory.cs" />
+    <Compile Include="background\model\BackgroundModel.cs" />
+    <Compile Include="background\view\BackgroundListMediator.cs" />
+    <Compile Include="background\view\BackgroundListView.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="background\view\BackgroundMediator.cs" />
+    <Compile Include="background\view\BackgroundToolbarView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="background\view\ImportBackgroundView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="background\view\PromptBackgroundNameView.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="contextmenu\events\ContextMenuEventArgs.cs" />
     <Compile Include="contextmenu\view\AbstractContextMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="database\command\InitializeDatabaseCommand.cs" />
+    <Compile Include="database\Database.cs" />
+    <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
@@ -108,11 +148,11 @@
     </Compile>
     <Compile Include="coordinates\Coordinates.cs" />
     <Compile Include="coordinates\R3ePoint.cs" />
-    <Compile Include="data\command\LoadHudDataCommand.cs" />
-    <Compile Include="data\command\ReloadDefaultHudDataCommand.cs" />
-    <Compile Include="data\command\SaveHudCommand.cs" />
-    <Compile Include="data\command\SaveOriginalFileCommand.cs" />
-    <Compile Include="data\parser\HudOptionsParser.cs" />
+    <Compile Include="huddata\command\LoadHudDataCommand.cs" />
+    <Compile Include="huddata\command\ReloadDefaultHudDataCommand.cs" />
+    <Compile Include="huddata\command\SaveHudCommand.cs" />
+    <Compile Include="huddata\command\SaveOriginalFileCommand.cs" />
+    <Compile Include="huddata\parser\HudOptionsParser.cs" />
     <Compile Include="fileexplorer\command\AbstractOpenFileExplorerCommand.cs" />
     <Compile Include="fileexplorer\command\OpenAppInstallDirectoryCommand.cs" />
     <Compile Include="fileexplorer\command\OpenAppDataDirectoryCommand.cs" />
@@ -128,12 +168,12 @@
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
-    <Compile Include="background\events\BackgroundModelEventArgs.cs" />
+    <Compile Include="background\events\SelectedBackgroundlEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
-    <Compile Include="background\model\BackgroundModel.cs" />
+    <Compile Include="background\model\SelectedBackgroundModel.cs" />
     <Compile Include="selection\view\AnchorPreset.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
@@ -183,6 +223,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -230,4 +271,11 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
 </Project>

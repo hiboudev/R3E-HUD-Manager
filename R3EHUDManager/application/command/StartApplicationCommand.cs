@@ -1,4 +1,4 @@
-﻿using R3EHUDManager.data.command;
+﻿using R3EHUDManager.huddata.command;
 using R3EHUDManager.location.command;
 using R3EHUDManager.location.model;
 using System;
@@ -10,6 +10,8 @@ using da2mvc.command;
 using da2mvc.injection;
 using R3EHUDManager.background.command;
 using R3EHUDManager.application.events;
+using R3EHUDManager.database.command;
+using R3EHUDManager.background.events;
 
 namespace R3EHUDManager.application.command
 {
@@ -17,10 +19,12 @@ namespace R3EHUDManager.application.command
     {
         public void Execute()
         {
+            Injector.ExecuteCommand(typeof(InitializeLocalDirectoriesCommand));
+            Injector.ExecuteCommand(typeof(InitializeDatabaseCommand));
             Injector.ExecuteCommand(typeof(FindR3eHomeDirectoryCommand));
             Injector.ExecuteCommand(typeof(SaveOriginalFileCommand));
             Injector.ExecuteCommand(typeof(LoadHudDataCommand));
-            Injector.ExecuteCommand(typeof(LoadBackgroundCommand), new StringEventArgs("foo", @"_graphical_assets\background.png"));
+            Injector.ExecuteCommand(typeof(InitializeBackgroundsCommand));
         }
     }
 }

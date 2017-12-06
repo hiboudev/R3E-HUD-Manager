@@ -131,7 +131,7 @@ namespace R3EHUDManager.screen.view
             UpdatePlaceholdersPosition();
         }
 
-        internal void BackgroundChanged(BackgroundModel model)
+        internal void BackgroundChanged(SelectedBackgroundModel model)
         {
             backgroundAspectRatio = model.AspectRatio;
             UpdateScreenSize();
