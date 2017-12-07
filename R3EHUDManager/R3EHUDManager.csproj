@@ -29,7 +29,7 @@
     <PublisherName>ChatCureuil</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>0.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -152,7 +152,6 @@
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
-    <Compile Include="settings\view\SettingsMenuMediator.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>
     </Compile>

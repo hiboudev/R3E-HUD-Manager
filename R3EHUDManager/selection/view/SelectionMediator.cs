@@ -1,5 +1,4 @@
-﻿using MVC_Framework.view;
-using R3EHUDManager.selection.model;
+﻿using R3EHUDManager.selection.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +8,7 @@ using da2mvc.events;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.placeholder.events;
+using da2mvc.view;
 
 namespace R3EHUDManager.selection.view
 {

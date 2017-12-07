@@ -1,5 +1,4 @@
-﻿using MVC_Framework.view;
-using R3EHUDManager.placeholder.events;
+﻿using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,7 @@ using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.background.events;
+using da2mvc.view;
 
 namespace R3EHUDManager.screen.view
 {
