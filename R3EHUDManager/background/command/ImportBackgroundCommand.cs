@@ -42,19 +42,21 @@ namespace R3EHUDManager.background.command
 
             string destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName);
 
+            Bitmap originalBitmap = new Bitmap(args.FilePath);
+            Bitmap destinationBitmap;
+
             if (!args.CropArea.IsEmpty)
             {
-                Bitmap croppedBitmap = new Bitmap(args.CropArea.Width, args.CropArea.Height);
-                Bitmap originalImage = new Bitmap(args.FilePath);
-                using (Graphics g = Graphics.FromImage(croppedBitmap))
+                destinationBitmap = new Bitmap(args.CropArea.Width, args.CropArea.Height);
+                using (Graphics g = Graphics.FromImage(destinationBitmap))
                 {
-                    g.DrawImage(originalImage, new Rectangle(0, 0, croppedBitmap.Width, croppedBitmap.Height),
+                    g.DrawImage(originalBitmap, new Rectangle(0, 0, destinationBitmap.Width, destinationBitmap.Height),
                                      args.CropArea, GraphicsUnit.Pixel);
                 }
-                SaveJpeg(croppedBitmap, destinationPath);
+                SaveJpeg(destinationBitmap, destinationPath);
             }
             else
-                File.Copy(args.FilePath, destinationPath);
+                SaveJpeg(originalBitmap, destinationPath);
 
             BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, fileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false);
             database.AddBackground(background);
@@ -77,7 +79,7 @@ namespace R3EHUDManager.background.command
         private void SaveJpeg(Bitmap bitmap, string path)
         {
             EncoderParameters parameters = new EncoderParameters(1);
-            parameters.Param[0] = new EncoderParameter(Encoder.Quality, 80L);
+            parameters.Param[0] = new EncoderParameter(Encoder.Quality, 65L);
 
             bitmap.Save(path, GetEncoderInfo("image/jpeg"), parameters);
         }

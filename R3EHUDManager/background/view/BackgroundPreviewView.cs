@@ -76,8 +76,6 @@ namespace R3EHUDManager.background.view
             int marginX = (Width - bitmapSize.Width) / 2;
             int marginY = (Height - bitmapSize.Height) / 2;
 
-            Debug.WriteLine($"{marginX}, {bitmapSize.Width}");
-
             Bitmap resizedBitmap = new Bitmap(bitmap, bitmapSize);
             e.Graphics.DrawImage(resizedBitmap, new Point(marginX, marginY));
             resizedBitmap.Dispose();

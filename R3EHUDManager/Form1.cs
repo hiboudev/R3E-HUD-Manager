@@ -35,6 +35,7 @@ namespace R3EHUDManager
 
         public Form1()
         {
+            //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             Mappings.InitializeMappings(this);
 
             InitializeComponent();
