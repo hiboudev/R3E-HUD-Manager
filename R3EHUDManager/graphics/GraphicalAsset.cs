@@ -34,9 +34,7 @@ namespace R3EHUDManager.graphics
 
                 default:
                     if(defaultBitmap == null)
-                    {
                         defaultBitmap = new Bitmap(200, 100);
-                    }
                     return defaultBitmap;
             }
         }

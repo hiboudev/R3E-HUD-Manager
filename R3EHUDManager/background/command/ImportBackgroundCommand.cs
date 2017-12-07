@@ -40,7 +40,8 @@ namespace R3EHUDManager.background.command
                 fileName = GetUnusedName(locationModel.LocalDirectoryBackgrounds, fileName);
             }
 
-            string destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName);
+            string destinationFileName = $"{Path.GetFileNameWithoutExtension(fileName)}.jpg";
+            string destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, destinationFileName);
 
             Bitmap originalBitmap = new Bitmap(args.FilePath);
             Bitmap destinationBitmap;
@@ -58,7 +59,7 @@ namespace R3EHUDManager.background.command
             else
                 SaveJpeg(originalBitmap, destinationPath);
 
-            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, fileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false);
+            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, destinationFileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false);
             database.AddBackground(background);
             collection.AddBackground(background);
             selection.SelectBackground(background);
