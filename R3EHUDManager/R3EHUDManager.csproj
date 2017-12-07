@@ -152,6 +152,7 @@
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
+    <Compile Include="selection\command\SelectNoneCommand.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>
     </Compile>

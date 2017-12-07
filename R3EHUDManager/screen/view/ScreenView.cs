@@ -32,6 +32,7 @@ namespace R3EHUDManager.screen.view
 
         public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
         public const string EVENT_PLACEHOLDER_SELECTED = "placeholderSelected";
+        public const string EVENT_BACKGROUND_CLICKED = "backgroundClicked";
 
         private BackgroundView backgroundView;
         private decimal backgroundAspectRatio = BASE_ASPECT_RATIO;
@@ -47,6 +48,8 @@ namespace R3EHUDManager.screen.view
 
             backgroundView = (BackgroundView)Injector.GetInstance(typeof(BackgroundView));
             backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
+
+            backgroundView.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
 
             Controls.Add(backgroundView);
         }
