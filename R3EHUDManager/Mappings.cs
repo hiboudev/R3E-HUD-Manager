@@ -43,11 +43,11 @@ namespace R3EHUDManager
             Injector.MapType(typeof(BackgroundCollectionModel), typeof(BackgroundCollectionModel), true);
             Injector.MapType(typeof(BackgroundToolbarView), typeof(BackgroundToolbarView), true); 
             Injector.MapType(typeof(PromptNewBackgroundView), typeof(PromptNewBackgroundView));
+            Injector.MapType(typeof(SettingsMenuView), typeof(SettingsMenuView), true);
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
             Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
-            Injector.MapView(typeof(SettingsMenuView), typeof(SettingsMenuMediator), true);
             Injector.MapView(typeof(BackgroundView), typeof(BackgroundMediator), true);
             Injector.MapView(typeof(BackgroundMenuView), typeof(BackgroundMenuMediator), true);
             Injector.MapView(typeof(BackgroundManagerView), typeof(BackgroundManagerMediator));

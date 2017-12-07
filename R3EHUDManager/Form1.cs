@@ -21,6 +21,7 @@ using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.settings.view;
 using R3EHUDManager.background.view;
+using R3EHUDManager.settings;
 
 namespace R3EHUDManager
 {

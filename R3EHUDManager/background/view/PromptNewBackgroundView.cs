@@ -47,7 +47,7 @@ namespace R3EHUDManager.background.view
 
             int screenWidth = (int)Math.Round((decimal)bitmapSize.Width / 3);
             stepperLeft.Value = stepperRight.Value = screenWidth;
-            stepperLeft.Maximum = stepperRight.Maximum = bitmapSize.Height / 2 - 10;
+            stepperLeft.Maximum = stepperRight.Maximum = bitmapSize.Width / 2 - 10;
 
             preview.SetBitmap(bitmap);
         }
