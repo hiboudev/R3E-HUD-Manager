@@ -20,13 +20,14 @@ namespace R3EHUDManager.background.view
         private BabckgroundPreviewView preview;
         private int bitmapWidth;
         private int bitmapHeight;
+        private CheckBox tripleScreenCheck;
         private FlowLayoutPanel stepperPanel;
         private NumericUpDown stepperLeft;
         private NumericUpDown stepperRight;
-        public Rectangle CropRect { get; private set; }
+        private Rectangle cropRect;
+        public Rectangle CropRect { get => tripleScreenCheck.Checked ? cropRect : new Rectangle(); }
 
         public string BackgroundName { get => inputField.Text; }
-        public bool IsTripleScreen { get; private set; }
 
         public PromptNewBackgroundView(BackgroundCollectionModel collectionModel)
         {
@@ -94,7 +95,7 @@ namespace R3EHUDManager.background.view
             preview.Dock = DockStyle.Fill;
 
 
-            CheckBox tripleScreenCheck = new CheckBox()
+            tripleScreenCheck = new CheckBox()
             {
                 Text = "Triple screen image",
                 AutoSize = true,
@@ -180,7 +181,6 @@ namespace R3EHUDManager.background.view
             // Cause we can't hit enter in NumericUpDown.
             AcceptButton = check ? null : okButton;
             stepperPanel.Enabled = check;
-            IsTripleScreen = check;
             if (check)
                 DrawRectangle();
             else
@@ -190,7 +190,7 @@ namespace R3EHUDManager.background.view
         private void DrawRectangle()
         {
             int centerScreenWidth = bitmapWidth - (int)stepperLeft.Value - (int)stepperRight.Value;
-            CropRect = new Rectangle((int)stepperLeft.Value, 0, centerScreenWidth, bitmapHeight);
+            cropRect = new Rectangle((int)stepperLeft.Value, 0, centerScreenWidth, bitmapHeight);
             preview.DrawRectangle((int)stepperLeft.Value, centerScreenWidth);
         }
 

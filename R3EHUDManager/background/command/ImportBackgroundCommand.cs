@@ -42,7 +42,7 @@ namespace R3EHUDManager.background.command
 
             string destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName);
 
-            if (args.CropArea != null)
+            if (!args.CropArea.IsEmpty)
             {
                 Bitmap croppedBitmap = new Bitmap(args.CropArea.Width, args.CropArea.Height);
                 Bitmap originalImage = new Bitmap(args.FilePath);

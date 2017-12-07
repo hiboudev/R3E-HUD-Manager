@@ -10,11 +10,6 @@ namespace R3EHUDManager.background.events
 {
     class ImportBackgroundEventArgs : BaseEventArgs
     {
-        public ImportBackgroundEventArgs(string eventName, string name, string filePath) : base(eventName)
-        {
-            Name = name;
-            FilePath = filePath;
-        }
 
         public ImportBackgroundEventArgs(string eventName, string name, string filePath, Rectangle cropArea) : base(eventName)
         {
