@@ -5,6 +5,7 @@ using R3EHUDManager.screen.view;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace R3EHUDManager.placeholder.view
@@ -21,6 +22,10 @@ namespace R3EHUDManager.placeholder.view
         private Size screenSize;
         //private double screenRatio;
         private readonly Point screenOffset;
+        private bool selected;
+        private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
+        private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
+
         public PlaceholderModel Model { get; }
 
         public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset)
@@ -111,8 +116,27 @@ namespace R3EHUDManager.placeholder.view
 
         internal void SetSelected(bool selected)
         {
-            label.BackColor = selected ? Color.DeepSkyBlue : Color.WhiteSmoke;
+            this.selected = selected;
+            label.BackColor = selected ? SELECTION_COLOR : LABEL_BACK_COLOR;
             label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+
+            if (selected)
+            {
+                Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
+
+                e.Graphics.DrawRectangle(new Pen(SELECTION_COLOR, 1)
+                {
+                    Alignment = PenAlignment.Inset
+                }, insideRectangle);
+            }
+                
         }
 
         private void InitializeUI()
@@ -124,7 +148,7 @@ namespace R3EHUDManager.placeholder.view
             {
                 Text = Model.Name,
                 AutoSize = true,
-                BackColor = Color.WhiteSmoke,
+                BackColor = LABEL_BACK_COLOR,
                 ForeColor = Color.Black,
                 Enabled = false,
             };

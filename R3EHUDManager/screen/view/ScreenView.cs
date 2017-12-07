@@ -22,7 +22,7 @@ namespace R3EHUDManager.screen.view
     class ScreenView : Panel, IEventDispatcher
     {
         private Dictionary<string, PlaceholderView> views;
-        private const int SCREEN_MARGIN = 70;
+        private const int SCREEN_MARGIN = 30;
         public event EventHandler MvcEventHandler;
         
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
@@ -43,7 +43,7 @@ namespace R3EHUDManager.screen.view
 
         private void InitializeUI()
         {
-            BackColor = Color.FromArgb(47,79,89);
+            BackColor = Color.FromArgb(47,65,75);
 
             backgroundView = (BackgroundView)Injector.GetInstance(typeof(BackgroundView));
             backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);

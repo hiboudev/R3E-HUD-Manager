@@ -36,11 +36,6 @@ namespace R3EHUDManager.graphics
                     if(defaultBitmap == null)
                     {
                         defaultBitmap = new Bitmap(200, 100);
-                        using (Graphics graph = Graphics.FromImage(defaultBitmap))
-                        {
-                            Rectangle ImageSize = new Rectangle(0, 0, defaultBitmap.Width, defaultBitmap.Height);
-                            graph.FillRectangle(Brushes.Orange, ImageSize);
-                        }
                     }
                     return defaultBitmap;
             }
