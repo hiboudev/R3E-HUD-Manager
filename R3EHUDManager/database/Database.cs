@@ -12,6 +12,7 @@ namespace R3EHUDManager.database
     class Database
     {
         private string dbArgs;
+        private const int dbVersion = 1;
 
         public void Initialize(string path)
         {
@@ -22,13 +23,26 @@ namespace R3EHUDManager.database
 
             SQLiteConnection.CreateFile(path);
 
+
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
 
-                string sql = "create table backgrounds (id int unique, name text, fileName text, directoryType int, isBuiltIn int);";
+                SQLiteCommand command = new SQLiteCommand("begin", db);
+                command.ExecuteNonQuery();
 
-                SQLiteCommand command = new SQLiteCommand(sql, db);
+                string sql = "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT);" +
+                    "CREATE TABLE config (key TEXT unique, value BLOB);";
+
+                command = new SQLiteCommand(sql, db);
+                command.ExecuteNonQuery();
+
+                sql = $"INSERT INTO config (key, value) VALUES ('dbVersion', {dbVersion})";
+
+                command = new SQLiteCommand(sql, db);
+                command.ExecuteNonQuery();
+
+                command = new SQLiteCommand("end", db);
                 command.ExecuteNonQuery();
 
                 db.Close();
