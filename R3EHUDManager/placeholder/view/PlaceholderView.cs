@@ -153,7 +153,7 @@ namespace R3EHUDManager.placeholder.view
             int width = (int)((decimal)originalImage.PhysicalDimension.Width * resizeRatio * (decimal)Model.Size.X);
             int height = (int)((decimal)originalImage.PhysicalDimension.Height * resizeRatio * (decimal)Model.Size.Y);
 
-            image = new Bitmap(originalImage, new Size(width, height));
+            image = new Bitmap(originalImage, new Size(Math.Max(1, width), Math.Max(1,height)));
 
             BackgroundImage = image;
             Size = new Size(width, height);
