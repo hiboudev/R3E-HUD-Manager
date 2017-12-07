@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace R3EHUDManager.background.view
 
         public BackgroundPreviewView()
         {
+            DoubleBuffered = true;
             Disposed += OnDispose;
             SizeChanged += (sender, args) => RefreshBackground();
         }
@@ -32,9 +34,6 @@ namespace R3EHUDManager.background.view
         {
             if (bitmap == null) return;
 
-            if (BackgroundImage != null)
-                BackgroundImage.Dispose();
-
             decimal panelRatio = (decimal)Width / Height;
             decimal bitmapRatio = (decimal)(bitmap.PhysicalDimension.Width / bitmap.PhysicalDimension.Height);
             bitmapSize = new Size();
@@ -48,9 +47,6 @@ namespace R3EHUDManager.background.view
                 bitmapSize.Height = Height;
                 bitmapSize.Width = (int)(Height * bitmapRatio);
             }
-
-            BackgroundImage = new Bitmap(bitmap, bitmapSize);
-            BackgroundImageLayout = ImageLayout.Center;
 
             Invalidate();
         }
@@ -75,20 +71,51 @@ namespace R3EHUDManager.background.view
         {
             base.OnPaint(e);
 
+            if (bitmap == null) return;
+
+            int marginX = (Width - bitmapSize.Width) / 2;
+            int marginY = (Height - bitmapSize.Height) / 2;
+
+            Debug.WriteLine($"{marginX}, {bitmapSize.Width}");
+
+            Bitmap resizedBitmap = new Bitmap(bitmap, bitmapSize);
+            e.Graphics.DrawImage(resizedBitmap, new Point(marginX, marginY));
+            resizedBitmap.Dispose();
+
+
             if (rectangleRightRatio <= 0 || bitmapSize == null)
-            {
                 return;
-            }
 
-            int x = (int)Math.Round((rectangleXRatio * bitmapSize.Width + ((double)Width - bitmapSize.Width) / 2));
-            int y = (Height - bitmapSize.Height) / 2;
-            int width = (int)Math.Round(rectangleRightRatio * bitmapSize.Width - x + ((double)Width - bitmapSize.Width) / 2);
-            int height = bitmapSize.Height;
+            int areaLeft = (int)Math.Round(rectangleXRatio * bitmapSize.Width);
+            int areaRight = (int)Math.Round(rectangleRightRatio * bitmapSize.Width);
 
-            e.Graphics.DrawRectangle(new Pen(Color.Yellow, 2)
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)), 
+                new Rectangle(
+                    marginX,
+                    marginY,
+                    areaLeft,
+                    bitmapSize.Height));
+
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
+                new Rectangle(
+                    areaRight + marginX,
+                    marginY,
+                    bitmapSize.Width - areaRight,
+                    bitmapSize.Height));
+
+            e.Graphics.DrawLine(new Pen(Color.Black, 2)
             {
-                Alignment = PenAlignment.Inset
-            }, new Rectangle(x,y,width,height));
+                Alignment = PenAlignment.Center,
+            },
+                new Point(areaLeft + marginX, marginY),
+                new Point(areaLeft + marginX, marginY + bitmapSize.Height));
+
+            e.Graphics.DrawLine(new Pen(Color.Black, 2)
+            {
+                Alignment = PenAlignment.Center,
+            },
+                new Point(areaRight + marginX, marginY),
+                new Point(areaRight + marginX, marginY + bitmapSize.Height));
         }
 
         private void OnDispose(object sender, EventArgs e)
@@ -98,11 +125,6 @@ namespace R3EHUDManager.background.view
             {
                 bitmap.Dispose();
                 bitmap = null;
-            }
-            if (BackgroundImage != null)
-            {
-                BackgroundImage.Dispose();
-                BackgroundImage = null;
             }
         }
     }
