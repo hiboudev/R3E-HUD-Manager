@@ -6,9 +6,10 @@ using R3EHUDManager.database;
 using R3EHUDManager.location.model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace R3EHUDManager.background.command
@@ -39,8 +40,22 @@ namespace R3EHUDManager.background.command
                 fileName = GetUnusedName(locationModel.LocalDirectoryBackgrounds, fileName);
             }
 
+            string destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName);
 
-            File.Copy(args.FilePath, Path.Combine(locationModel.LocalDirectoryBackgrounds, fileName));
+            if (args.CropArea != null)
+            {
+                Bitmap croppedBitmap = new Bitmap(args.CropArea.Width, args.CropArea.Height);
+                Bitmap originalImage = new Bitmap(args.FilePath);
+                using (Graphics g = Graphics.FromImage(croppedBitmap))
+                {
+                    g.DrawImage(originalImage, new Rectangle(0, 0, croppedBitmap.Width, croppedBitmap.Height),
+                                     args.CropArea, GraphicsUnit.Pixel);
+                }
+                SaveJpeg(croppedBitmap, destinationPath);
+            }
+            else
+                File.Copy(args.FilePath, destinationPath);
+
             BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, fileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY);
             database.AddBackground(background);
             collection.AddBackground(background);
@@ -57,6 +72,27 @@ namespace R3EHUDManager.background.command
             while (File.Exists(Path.Combine(path, $"{nameOnly}({counter}){extension}")));
 
             return $"{nameOnly}({counter}){extension}";
+        }
+
+        private void SaveJpeg(Bitmap bitmap, string path)
+        {
+            EncoderParameters parameters = new EncoderParameters(1);
+            parameters.Param[0] = new EncoderParameter(Encoder.Quality, 80L);
+
+            bitmap.Save(path, GetEncoderInfo("image/jpeg"), parameters);
+        }
+
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
         }
     }
 }

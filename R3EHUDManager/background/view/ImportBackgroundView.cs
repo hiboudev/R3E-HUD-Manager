@@ -4,6 +4,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.background.events;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,13 +36,17 @@ namespace R3EHUDManager.background.view
             var fileDialog = new OpenFileDialog();
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                var nameDialog = (PromptBackgroundNameView)Injector.GetInstance(typeof(PromptBackgroundNameView));
+                var backgroundDialog = (PromptNewBackgroundView)Injector.GetInstance(typeof(PromptNewBackgroundView));
+                backgroundDialog.SetBitmap(new Bitmap(fileDialog.FileName));
 
-                if(nameDialog.ShowDialog() == DialogResult.OK)
+                if(backgroundDialog.ShowDialog() == DialogResult.OK)
                 {
-                    DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, nameDialog.BackgroundName, fileDialog.FileName));
+                    if(backgroundDialog.IsTripleScreen)
+                        DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, backgroundDialog.BackgroundName, fileDialog.FileName, backgroundDialog.CropRect));
+                    else
+                        DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, backgroundDialog.BackgroundName, fileDialog.FileName));
                 }
-                nameDialog.Dispose();
+                backgroundDialog.Dispose();
             }
 
             fileDialog.Dispose();
