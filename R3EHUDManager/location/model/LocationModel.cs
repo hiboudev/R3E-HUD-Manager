@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R3EHUDManager.background.model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,5 +35,20 @@ namespace R3EHUDManager.location.model
         public string DatabaseFile { get => Path.Combine(LocalDirectoryDatabase, "database.sqlite"); }
 
         public string GraphicalAssetDirectory { get => "_graphical_assets"; }
+
+        public string GetGraphicBasePath(BaseDirectoryType directoryType)
+        {
+            switch (directoryType)
+            {
+                case BaseDirectoryType.BACKGROUNDS_DIRECTORY:
+                    return LocalDirectoryBackgrounds;
+
+                case BaseDirectoryType.GRAPHICAL_ASSETS:
+                    return GraphicalAssetDirectory;
+
+                default:
+                    throw new Exception("Unkown DirectoryType.");
+            }
+        }
     }
 }

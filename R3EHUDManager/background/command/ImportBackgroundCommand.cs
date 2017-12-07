@@ -56,7 +56,7 @@ namespace R3EHUDManager.background.command
             else
                 File.Copy(args.FilePath, destinationPath);
 
-            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, fileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY);
+            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, fileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false);
             database.AddBackground(background);
             collection.AddBackground(background);
             selection.SelectBackground(background);

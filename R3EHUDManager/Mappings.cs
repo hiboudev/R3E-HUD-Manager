@@ -39,18 +39,18 @@ namespace R3EHUDManager
             Injector.MapType(typeof(PlaceHolderCollectionModel), typeof(PlaceHolderCollectionModel), true);
             Injector.MapType(typeof(SelectionModel), typeof(SelectionModel), true);
             Injector.MapType(typeof(SelectedBackgroundModel), typeof(SelectedBackgroundModel), true);
-            Injector.MapType(typeof(ImportBackgroundView), typeof(ImportBackgroundView), true);
             Injector.MapType(typeof(Database), typeof(Database), true);
             Injector.MapType(typeof(BackgroundCollectionModel), typeof(BackgroundCollectionModel), true);
             Injector.MapType(typeof(BackgroundToolbarView), typeof(BackgroundToolbarView), true); 
-            Injector.MapType(typeof(PromptNewBackgroundView), typeof(PromptNewBackgroundView)); 
+            Injector.MapType(typeof(PromptNewBackgroundView), typeof(PromptNewBackgroundView));
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
             Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
             Injector.MapView(typeof(SettingsMenuView), typeof(SettingsMenuMediator), true);
             Injector.MapView(typeof(BackgroundView), typeof(BackgroundMediator), true);
-            Injector.MapView(typeof(BackgroundListView), typeof(BackgroundListMediator), true);
+            Injector.MapView(typeof(BackgroundMenuView), typeof(BackgroundMenuMediator), true);
+            Injector.MapView(typeof(BackgroundManagerView), typeof(BackgroundManagerMediator));
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -65,8 +65,9 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY, typeof(OpenHudDirectoryCommand));
-            Injector.MapCommand(typeof(ImportBackgroundView), ImportBackgroundView.EVENT_IMPORT_BACKGROUND, typeof(ImportBackgroundCommand));
-            Injector.MapCommand(typeof(BackgroundListView), BackgroundListView.EVENT_BACKGROUND_SELECTED, typeof(SelectBackgroundCommand));
+            Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_IMPORT_BACKGROUND, typeof(ImportBackgroundCommand));
+            Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_ITEM_CLICKED, typeof(SelectBackgroundCommand));
+            Injector.MapCommand(typeof(BackgroundManagerView), BackgroundManagerView.EVENT_DELETE_BACKGROUND, typeof(DeleteBackgroundCommand));
         }
     }
 }

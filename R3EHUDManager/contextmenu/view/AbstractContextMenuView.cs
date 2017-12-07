@@ -57,6 +57,25 @@ namespace R3EHUDManager.contextmenu.view
             Redraw();
         }
 
+        public void RemoveItem(int id)
+        {
+            foreach (var item in regularItems)
+                if ((int)item.Tag == id)
+                {
+                    regularItems.Remove(item);
+                    break;
+                }
+
+            regularItems.Sort((x, y) => string.Compare(x.Text, y.Text));
+            Redraw();
+        }
+
+        public void ClearItems()
+        {
+            regularItems.Clear();
+            Redraw();
+        }
+
         private void Redraw()
         {
             ContextMenuStrip.Items.Clear();

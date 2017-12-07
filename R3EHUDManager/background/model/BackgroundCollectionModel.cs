@@ -15,6 +15,7 @@ namespace R3EHUDManager.background.model
 
         public const string EVENT_BACKGROUND_LIST_ADDED = "backgroundListAdded";
         public const string EVENT_BACKGROUND_ADDED = "backgroundAdded";
+        public const string EVENT_BACKGROUND_REMOVED = "backgroundRemoved";
 
         public void SetBackgrounds(List<BackgroundModel> backgrounds)
         {
@@ -26,6 +27,12 @@ namespace R3EHUDManager.background.model
         {
             backgrounds.Add(background.Id, background);
             DispatchEvent(new BackgroundModelEventArgs(EVENT_BACKGROUND_ADDED, background));
+        }
+
+        internal void RemoveBackground(BackgroundModel background)
+        {
+            backgrounds.Remove(background.Id);
+            DispatchEvent(new BackgroundModelEventArgs(EVENT_BACKGROUND_REMOVED, background));
         }
 
         internal BackgroundModel Get(int id)

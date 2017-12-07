@@ -109,6 +109,7 @@
     <Compile Include="application\command\StartApplicationCommand.cs" />
     <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
+    <Compile Include="background\command\DeleteBackgroundCommand.cs" />
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
     <Compile Include="background\command\InitializeBackgroundsCommand.cs" />
     <Compile Include="background\command\SelectBackgroundCommand.cs" />
@@ -122,15 +123,16 @@
     <Compile Include="background\view\BabckgroundPreviewView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="background\view\BackgroundListMediator.cs" />
-    <Compile Include="background\view\BackgroundListView.cs">
-      <SubType>Component</SubType>
+    <Compile Include="background\view\BackgroundManagerMediator.cs" />
+    <Compile Include="background\view\BackgroundManagerView.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="background\view\BackgroundMediator.cs" />
-    <Compile Include="background\view\BackgroundToolbarView.cs">
+    <Compile Include="background\view\BackgroundMenuMediator.cs" />
+    <Compile Include="background\view\BackgroundMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="background\view\ImportBackgroundView.cs">
+    <Compile Include="background\view\BackgroundToolbarView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="background\view\PromptNewBackgroundView.cs">

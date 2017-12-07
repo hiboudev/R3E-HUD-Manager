@@ -38,22 +38,9 @@ namespace R3EHUDManager.background.model
                 bitmap = null;
             }
 
-            string filePath;
-            switch (background.DirectoryType)
-            {
-                case BaseDirectoryType.BACKGROUNDS_DIRECTORY:
-                    filePath = locationModel.LocalDirectoryBackgrounds;
-                    break;
+            string dirPath = locationModel.GetGraphicBasePath(background.DirectoryType);
 
-                case BaseDirectoryType.GRAPHICAL_ASSETS:
-                    filePath = locationModel.GraphicalAssetDirectory;
-                    break;
-
-                default:
-                    throw new Exception("Unkown DirectoryType.");
-            }
-
-            bitmap = GraphicalAsset.GetNoCache(Path.Combine(filePath, Selection.FileName));
+            bitmap = GraphicalAsset.GetNoCache(Path.Combine(dirPath, Selection.FileName));
             Dimension = bitmap.PhysicalDimension.ToSize();
             AspectRatio = (decimal)Dimension.Width / Dimension.Height;
 

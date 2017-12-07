@@ -10,16 +10,16 @@ namespace R3EHUDManager.background.model
     {
         private static int idCounter = 0;
 
-        public static BackgroundModel NewBackgroundModel(string name, string filePath, BaseDirectoryType directoryType)
+        public static BackgroundModel NewBackgroundModel(string name, string filePath, BaseDirectoryType directoryType, bool IsBuiltInt)
         {
-            return new BackgroundModel(++idCounter, name, filePath, directoryType);
+            return new BackgroundModel(++idCounter, name, filePath, directoryType, IsBuiltInt);
         }
 
-        public static BackgroundModel NewBackgroundModel(int databaseId, string name, string filePath, BaseDirectoryType directoryType)
+        public static BackgroundModel NewBackgroundModel(int databaseId, string name, string filePath, BaseDirectoryType directoryType, bool IsBuiltInt)
         {
             if (databaseId > idCounter) idCounter = databaseId;
 
-            return new BackgroundModel(databaseId, name, filePath, directoryType);
+            return new BackgroundModel(databaseId, name, filePath, directoryType, IsBuiltInt);
         }
     }
 }
