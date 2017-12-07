@@ -17,7 +17,7 @@ namespace R3EHUDManager.background.view
         private HashSet<string> usedNames;
         private Label errorField;
         private Button okButton;
-        private BabckgroundPreviewView preview;
+        private BackgroundPreviewView preview;
         private int bitmapWidth;
         private int bitmapHeight;
         private CheckBox tripleScreenCheck;
@@ -43,6 +43,7 @@ namespace R3EHUDManager.background.view
         private void InitializeUI()
         {
             Text = "Enter a background name";
+            MinimumSize = new Size(200, 200);
 
             StartPosition = FormStartPosition.CenterParent;
             //FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -91,7 +92,7 @@ namespace R3EHUDManager.background.view
 
             AcceptButton = okButton;
 
-            preview = new BabckgroundPreviewView();
+            preview = new BackgroundPreviewView();
             preview.Dock = DockStyle.Fill;
 
 

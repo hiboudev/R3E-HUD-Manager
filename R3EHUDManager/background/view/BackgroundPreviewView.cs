@@ -9,14 +9,14 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.background.view
 {
-    class BabckgroundPreviewView : Panel
+    class BackgroundPreviewView : Panel
     {
         private Bitmap bitmap;
         private Size bitmapSize;
-        private float rectangleWidthRatio = 0;
+        private float rectangleRightRatio = 0;
         private float rectangleXRatio;
 
-        public BabckgroundPreviewView()
+        public BackgroundPreviewView()
         {
             Disposed += OnDispose;
             SizeChanged += (sender, args) => RefreshBackground();
@@ -59,7 +59,7 @@ namespace R3EHUDManager.background.view
         {
             if (bitmap == null) return;
 
-            rectangleWidthRatio = width / bitmap.PhysicalDimension.Width;
+            rectangleRightRatio = (x+width) / bitmap.PhysicalDimension.Width;
             rectangleXRatio = x / bitmap.PhysicalDimension.Width;
 
             Invalidate();
@@ -67,7 +67,7 @@ namespace R3EHUDManager.background.view
 
         internal void ClearRectangle()
         {
-            rectangleWidthRatio = 0;
+            rectangleRightRatio = 0;
             Invalidate();
         }
 
@@ -75,15 +75,20 @@ namespace R3EHUDManager.background.view
         {
             base.OnPaint(e);
 
-            if (rectangleWidthRatio <= 0 || bitmapSize == null)
+            if (rectangleRightRatio <= 0 || bitmapSize == null)
             {
                 return;
             }
 
+            int x = (int)Math.Round((rectangleXRatio * bitmapSize.Width + ((double)Width - bitmapSize.Width) / 2));
+            int y = (Height - bitmapSize.Height) / 2;
+            int width = (int)Math.Round(rectangleRightRatio * bitmapSize.Width - x + ((double)Width - bitmapSize.Width) / 2);
+            int height = bitmapSize.Height;
+
             e.Graphics.DrawRectangle(new Pen(Color.Yellow, 2)
             {
                 Alignment = PenAlignment.Inset
-            }, new Rectangle((int)Math.Round((rectangleXRatio * bitmapSize.Width + ((double)Width - bitmapSize.Width)/2)), (Height - bitmapSize.Height) / 2, (int)Math.Round(rectangleWidthRatio * bitmapSize.Width), bitmapSize.Height));
+            }, new Rectangle(x,y,width,height));
         }
 
         private void OnDispose(object sender, EventArgs e)
