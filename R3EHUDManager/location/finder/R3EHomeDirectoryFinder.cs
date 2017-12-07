@@ -44,10 +44,20 @@ namespace R3EHUDManager.location.finder
 
                 if (File.Exists(iniFilePath))
                 {
-                    string fileContent = File.ReadAllText(iniFilePath);
-                    string gameInstallDir = fileContent.Substring(INI_INSTALL_DIR_KEY.Length);
+                    Regex steamDirExp = new Regex($"^{INI_INSTALL_DIR_KEY}(.*)$", RegexOptions.Multiline);
+                    string gameInstallDir = null;
 
-                    if (Directory.Exists(gameInstallDir))
+                    string[] lines = File.ReadAllLines(iniFilePath);
+                    foreach (string line in lines)
+                    {
+                        if (!steamDirExp.IsMatch(line))
+                            continue;
+
+                        Match match = steamDirExp.Match(line);
+                        gameInstallDir = match.Groups[1].Value;
+                    }
+
+                    if (gameInstallDir != null && Directory.Exists(gameInstallDir))
                     {
                         return r3EDirectory;
                     }
