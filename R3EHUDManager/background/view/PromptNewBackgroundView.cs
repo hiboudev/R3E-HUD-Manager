@@ -18,13 +18,14 @@ namespace R3EHUDManager.background.view
         private Label errorField;
         private Button okButton;
         private BackgroundPreviewView preview;
-        private int bitmapWidth;
-        private int bitmapHeight;
         private CheckBox tripleScreenCheck;
         private FlowLayoutPanel stepperPanel;
         private NumericUpDown stepperLeft;
         private NumericUpDown stepperRight;
         private Rectangle cropRect;
+        private TableLayoutPanel layout;
+        private Size bitmapSize;
+
         public Rectangle CropRect { get => tripleScreenCheck.Checked ? cropRect : new Rectangle(); }
 
         public string BackgroundName { get => inputField.Text; }
@@ -40,24 +41,79 @@ namespace R3EHUDManager.background.view
             Disposed += OnDispose;
         }
 
+        internal void SetBitmap(Bitmap bitmap)
+        {
+            bitmapSize = new Size((int)bitmap.PhysicalDimension.Width, (int)bitmap.PhysicalDimension.Height);
+
+            int screenWidth = (int)Math.Round((decimal)bitmapSize.Width / 3);
+            stepperLeft.Value = stepperRight.Value = screenWidth;
+            stepperLeft.Maximum = stepperRight.Maximum = bitmapSize.Height / 2 - 10;
+
+            preview.SetBitmap(bitmap);
+        }
+
+        private void OnStepperValueChanged(object sender, EventArgs e)
+        {
+            DrawRectangle();
+        }
+
+        private void OnTripleScreenCheckChanged(object sender, EventArgs e)
+        {
+            bool check = ((CheckBox)sender).Checked;
+
+            // Cause we can't hit enter in NumericUpDown.
+            AcceptButton = check ? null : okButton;
+            stepperPanel.Visible = check;
+
+            if (check)
+                DrawRectangle();
+            else
+                preview.ClearRectangle();
+        }
+
+        private void DrawRectangle()
+        {
+            int centerScreenWidth = bitmapSize.Width - (int)stepperLeft.Value - (int)stepperRight.Value;
+            cropRect = new Rectangle((int)stepperLeft.Value, 0, centerScreenWidth, bitmapSize.Height);
+            preview.DrawRectangle((int)stepperLeft.Value, centerScreenWidth);
+        }
+
+        private void CheckText(object sender, EventArgs e)
+        {
+            bool nameIsValid = Regex.Replace(inputField.Text, @"\s+", "").Length > 0;
+            bool nameIsAvailable = !usedNames.Contains(inputField.Text);
+
+            okButton.Enabled = nameIsValid && nameIsAvailable;
+
+            if (!nameIsAvailable)
+                errorField.Text = "This name is already used by another background.";
+            else
+                errorField.Text = "";
+        }
+
+        private void OnDispose(object sender, EventArgs e)
+        {
+            if (preview != null)
+            {
+                preview.Dispose();
+                preview = null;
+            }
+        }
+
         private void InitializeUI()
         {
             Text = "Enter a background name";
             MinimumSize = new Size(200, 200);
 
             StartPosition = FormStartPosition.CenterParent;
-            //FormBorderStyle = FormBorderStyle.FixedDialog;
 
             Size = new Size(500, 450);
-            //AutoSize = true;
-            //AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Padding = new Padding(6);
 
-            TableLayoutPanel layout = new TableLayoutPanel()
+            layout = new TableLayoutPanel()
             {
                 Dock = DockStyle.Fill,
                 ColumnCount = 1,
-                //RowCount = 5,
             };
 
             Label prompt = new Label()
@@ -85,88 +141,77 @@ namespace R3EHUDManager.background.view
             {
                 Text = "OK",
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
-                //Dock = DockStyle.Fill
             };
             okButton.Click += (sender, args) => this.DialogResult = DialogResult.OK;
             okButton.Enabled = false;
-
             AcceptButton = okButton;
 
-            preview = new BackgroundPreviewView();
-            preview.Dock = DockStyle.Fill;
-
+            preview = new BackgroundPreviewView
+            {
+                Dock = DockStyle.Fill
+            };
 
             tripleScreenCheck = new CheckBox()
             {
-                Text = "Triple screen image",
+                Text = "Triple screen image: crop middle screen",
                 AutoSize = true,
             };
+
+            tripleScreenCheck.CheckedChanged += OnTripleScreenCheckChanged;
 
             stepperPanel = new FlowLayoutPanel()
             {
                 AutoSize = true,
                 WrapContents = false,
-                Enabled = false,
+                Visible = false,
             };
 
-            tripleScreenCheck.CheckedChanged += OnTripleScreenCheckChanged;
-
-            stepperLeft = new NumericUpDown()
-            {
-                Minimum = 10,
-                Maximum = decimal.MaxValue,
-            };
-            stepperRight = new NumericUpDown()
-            {
-                Minimum = 10,
-                Maximum = decimal.MaxValue,
-            };
-            stepperLeft.ValueChanged += OnStepperValueChanged;
-            stepperRight.ValueChanged += OnStepperValueChanged;
-
-            stepperLeft.GotFocus += OnStepperFocused;
-            stepperRight.GotFocus += OnStepperFocused;
-
-            Label labelLeft = new Label()
-            {
-                Text = "Left",
-                AutoSize = true,
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
-                TextAlign = ContentAlignment.MiddleLeft,
-            };
-            Label labelRight = new Label()
-            {
-                Text = "Right",
-                AutoSize = true,
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
-                TextAlign = ContentAlignment.MiddleLeft,
-            };
-            stepperPanel.Controls.Add(labelLeft);
-            stepperPanel.Controls.Add(stepperLeft);
-            stepperPanel.Controls.Add(labelRight);
-            stepperPanel.Controls.Add(stepperRight);
+            stepperPanel.Controls.Add(NewResolutionLabel("Left resolution"));
+            stepperPanel.Controls.Add(stepperLeft = NewStepper());
+            stepperPanel.Controls.Add(NewResolutionLabel("Right resolution"));
+            stepperPanel.Controls.Add(stepperRight = NewStepper());
 
 
+            AddControl(prompt, SizeType.AutoSize);
+            AddControl(inputField, SizeType.AutoSize);
+            AddControl(errorField, SizeType.AutoSize);
+            AddControl(preview, SizeType.Percent, 100);
+            AddControl(tripleScreenCheck, SizeType.AutoSize);
+            AddControl(stepperPanel, SizeType.AutoSize);
+            AddControl(okButton, SizeType.AutoSize);
 
             Controls.Add(layout);
 
-            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-
-            layout.Controls.Add(prompt);
-            layout.Controls.Add(inputField);
-            layout.Controls.Add(errorField);
-            layout.Controls.Add(preview);
-            layout.Controls.Add(tripleScreenCheck);
-            layout.Controls.Add(stepperPanel);
-            layout.Controls.Add(okButton);
-
             ActiveControl = inputField;
+        }
+
+        private NumericUpDown NewStepper()
+        {
+            var stepper = new NumericUpDown()
+            {
+                Minimum = 10,
+                Maximum = decimal.MaxValue,
+            };
+            stepper.ValueChanged += OnStepperValueChanged;
+            stepper.GotFocus += OnStepperFocused;
+            return stepper;
+        }
+
+        private static Label NewResolutionLabel(string text)
+        {
+            return new Label()
+            {
+                Text = text,
+                AutoSize = true,
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
+                TextAlign = ContentAlignment.MiddleLeft,
+            };
+        }
+
+        private void AddControl(Control control, SizeType sizeType)
+        {
+            layout.RowStyles.Add(new RowStyle(sizeType));
+            layout.Controls.Add(control);
         }
 
         private void OnStepperFocused(object sender, EventArgs e)
@@ -175,63 +220,10 @@ namespace R3EHUDManager.background.view
             stepper.Select(0, stepper.Text.Length);
         }
 
-        private void OnTripleScreenCheckChanged(object sender, EventArgs e)
+        private void AddControl(Control control, SizeType sizeType, int height)
         {
-            bool check = ((CheckBox)sender).Checked;
-
-            // Cause we can't hit enter in NumericUpDown.
-            AcceptButton = check ? null : okButton;
-            stepperPanel.Enabled = check;
-            if (check)
-                DrawRectangle();
-            else
-                preview.ClearRectangle();
-        }
-
-        private void DrawRectangle()
-        {
-            int centerScreenWidth = bitmapWidth - (int)stepperLeft.Value - (int)stepperRight.Value;
-            cropRect = new Rectangle((int)stepperLeft.Value, 0, centerScreenWidth, bitmapHeight);
-            preview.DrawRectangle((int)stepperLeft.Value, centerScreenWidth);
-        }
-
-        private void OnStepperValueChanged(object sender, EventArgs e)
-        {
-            DrawRectangle();
-        }
-
-        internal void SetBitmap(Bitmap bitmap)
-        {
-            bitmapWidth = (int)bitmap.PhysicalDimension.Width;
-            bitmapHeight = (int)bitmap.PhysicalDimension.Height;
-
-            int screenWidth = (int)Math.Round((decimal)bitmapWidth / 3);
-            stepperLeft.Value = stepperRight.Value = screenWidth;
-            stepperLeft.Maximum = stepperRight.Maximum = bitmapWidth / 2 - 10;
-
-            preview.SetBitmap(bitmap);
-        }
-
-        private void CheckText(object sender, EventArgs e)
-        {
-            bool nameIsValid = Regex.Replace(inputField.Text, @"\s+", "").Length > 0;
-            bool nameIsAvailable = !usedNames.Contains(inputField.Text);
-
-            okButton.Enabled = nameIsValid && nameIsAvailable;
-
-            if (!nameIsAvailable)
-                errorField.Text = "This name is already used for another background.";
-            else
-                errorField.Text = "";
-        }
-
-        private void OnDispose(object sender, EventArgs e)
-        {
-            if (preview != null)
-            {
-                preview.Dispose();
-                preview = null;
-            }
+            layout.RowStyles.Add(new RowStyle(sizeType, height));
+            layout.Controls.Add(control);
         }
     }
 }

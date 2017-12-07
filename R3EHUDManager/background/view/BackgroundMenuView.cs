@@ -46,7 +46,10 @@ namespace R3EHUDManager.background.view
 
         private void OnImportBackgroundClicked(object sender, EventArgs e)
         {
-            var fileDialog = new OpenFileDialog();
+            var fileDialog = new OpenFileDialog()
+            {
+                Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp",
+            };
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 var backgroundDialog = (PromptNewBackgroundView)Injector.GetInstance(typeof(PromptNewBackgroundView));

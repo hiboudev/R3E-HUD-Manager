@@ -93,6 +93,7 @@ namespace R3EHUDManager.background.view
 
         private void OnDispose(object sender, EventArgs e)
         {
+            // TODO Called 2 times
             if (bitmap != null)
             {
                 bitmap.Dispose();
