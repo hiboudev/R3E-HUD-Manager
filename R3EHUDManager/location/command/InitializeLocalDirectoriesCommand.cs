@@ -20,14 +20,9 @@ namespace R3EHUDManager.location.command
 
         public void Execute()
         {
-            if (!Directory.Exists(locationModel.LocalDirectoryDatabase))
-                Directory.CreateDirectory(locationModel.LocalDirectoryDatabase);
-
-            if (!Directory.Exists(locationModel.LocalDirectoryBackgrounds))
-                Directory.CreateDirectory(locationModel.LocalDirectoryBackgrounds);
-
-            if (!Directory.Exists(locationModel.LocalDirectoryOldBackups))
-                Directory.CreateDirectory(locationModel.LocalDirectoryOldBackups);
+            foreach(var dir in locationModel.LocalDirectories)
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
         }
     }
 }

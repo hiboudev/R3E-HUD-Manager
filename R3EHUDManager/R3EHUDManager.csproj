@@ -145,6 +145,8 @@
     <Compile Include="database\command\InitializeDatabaseCommand.cs" />
     <Compile Include="database\Database.cs" />
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
+    <Compile Include="log\command\InitializeLoggerCommand.cs" />
+    <Compile Include="log\Logger.cs" />
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />

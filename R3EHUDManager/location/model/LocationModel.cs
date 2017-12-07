@@ -12,9 +12,22 @@ namespace R3EHUDManager.location.model
     class LocationModel
     {
 
-        public string LocalDirectoryDatabase { get => Path.Combine(Application.UserAppDataPath, "database"); }
-        public string LocalDirectoryBackgrounds { get => Path.Combine(Application.UserAppDataPath, "backgrounds"); }
-        public string LocalDirectoryOldBackups { get => Path.Combine(Application.UserAppDataPath, "Old Backups"); }
+        public string LocalDirectoryDatabase = Path.Combine(Application.UserAppDataPath, "database");
+        public string LocalDirectoryBackgrounds = Path.Combine(Application.UserAppDataPath, "backgrounds");
+        public string LocalDirectoryOldBackups = Path.Combine(Application.UserAppDataPath, "old backups");
+        public string LocalDirectoryLogs = Path.Combine(Application.UserAppDataPath, "logs");
+
+        public string[] LocalDirectories { get; }
+
+        public LocationModel()
+        {
+            LocalDirectories = new string[] {
+                LocalDirectoryDatabase,
+                LocalDirectoryBackgrounds,
+                LocalDirectoryOldBackups,
+                LocalDirectoryLogs
+            };
+        }
 
         public string R3eHomeBaseDirectory { get; internal set; }
 
@@ -50,5 +63,7 @@ namespace R3EHUDManager.location.model
                     throw new Exception("Unkown DirectoryType.");
             }
         }
+
+        public string LogFile { get => Path.Combine(LocalDirectoryLogs, "log.txt"); }
     }
 }
