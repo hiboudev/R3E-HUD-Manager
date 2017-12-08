@@ -18,7 +18,6 @@ namespace R3EHUDManager.placeholder.view
         private Point dragStartPosition;
         private Point dragMouseOffset;
         private AnchorView anchor;
-        private Bitmap image;
         private Size screenSize;
         //private double screenRatio;
         private readonly Point screenOffset;
@@ -86,8 +85,9 @@ namespace R3EHUDManager.placeholder.view
         {
             this.screenSize = screenSize;
             this.isTripleScreen = isTripleScreen;
-            RedrawImage();
+            ComputeSize();
             RefreshLocation();
+            Invalidate();
         }
 
         internal void Update(UpdateType updateType)
@@ -103,8 +103,8 @@ namespace R3EHUDManager.placeholder.view
                     break;
 
                 case UpdateType.SIZE:
-                    RedrawImage();
                     RefreshLocation();
+                    Invalidate();
                     break;
             }
         }
@@ -115,22 +115,6 @@ namespace R3EHUDManager.placeholder.view
             label.BackColor = selected ? SELECTION_COLOR : LABEL_BACK_COLOR;
             label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
             Invalidate();
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-
-            if (selected)
-            {
-                Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
-
-                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, SELECTION_COLOR), 1)
-                {
-                    Alignment = PenAlignment.Inset
-                }, insideRectangle);
-            }  
         }
 
         private void InitializeUI()
@@ -160,23 +144,37 @@ namespace R3EHUDManager.placeholder.view
             MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
         }
 
-        private void RedrawImage()
+        private void ComputeSize()
         {
-            if (image != null) image.Dispose();
-
             Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
-            // TODO on passe là avec screenSize=0,0
             SizeF newSize = Model.ResizeRule.GetSize(ScreenView.BASE_RESOLUTION, screenSize, originalImage.PhysicalDimension.ToSize(), isTripleScreen);
-
-            //if (isTripleScreen) resizeRatio /= 3;
 
             int width = (int)(newSize.Width * Model.Size.X);
             int height = (int)(newSize.Height * Model.Size.Y);
 
-            image = new Bitmap(originalImage, new Size(Math.Max(1, width), Math.Max(1,height)));
-
-            BackgroundImage = image;
             Size = new Size(width, height);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+
+            e.Graphics.DrawImage(
+                GraphicalAsset.GetPlaceholderImage(Model.Name),
+                new Rectangle(0, 0, Size.Width, Size.Height)
+                );
+
+            if (selected)
+            {
+                Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
+
+                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, SELECTION_COLOR), 1)
+                {
+                    Alignment = PenAlignment.Inset
+                }, insideRectangle);
+            }
         }
 
         void StartDrag(object sender, MouseEventArgs e)
@@ -208,7 +206,6 @@ namespace R3EHUDManager.placeholder.view
 
         private void OnDispose(object sender, EventArgs e)
         {
-            if (image != null) image.Dispose();
         }
 
     }
