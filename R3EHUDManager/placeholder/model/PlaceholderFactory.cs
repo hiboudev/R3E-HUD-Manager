@@ -12,8 +12,31 @@ namespace R3EHUDManager.placeholder.model
         {
             return new PlaceholderModel(name)
             {
-                ResizeRule = new NoRatioResizeRule()
+                ResizeRule = GetResizeRule(name),
             };
+        }
+
+        private static IResizeRule GetResizeRule(string name)
+        {
+            switch (name)
+            {
+                case PlaceholderName.APEXHUNT_DISPLAY:
+                case PlaceholderName.CAR_STATUS:
+                case PlaceholderName.DRIVER_NAME_TAGS:
+                case PlaceholderName.FFB_GRAPH:
+                case PlaceholderName.FLAGS:
+                case PlaceholderName.MINI_MOTEC:
+                case PlaceholderName.MOTEC:
+                case PlaceholderName.TRACK_MAP:
+                    return new HeightRule();
+
+                case PlaceholderName.VIRTUAL_MIRROR:
+                case PlaceholderName.POSITION_BAR:
+                    return new BarRule();
+
+                default:
+                    return new HeightRule();
+            }
         }
     }
 }

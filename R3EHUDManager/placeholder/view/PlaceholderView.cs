@@ -165,13 +165,13 @@ namespace R3EHUDManager.placeholder.view
             if (image != null) image.Dispose();
 
             Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
-
-            decimal resizeRatio = Model.ResizeRule.GetResizeRatio(ScreenView.BASE_RESOLUTION, screenSize, originalImage.PhysicalDimension.ToSize());
+            // TODO on passe là avec screenSize=0,0
+            SizeF newSize = Model.ResizeRule.GetSize(ScreenView.BASE_RESOLUTION, screenSize, originalImage.PhysicalDimension.ToSize(), isTripleScreen);
 
             //if (isTripleScreen) resizeRatio /= 3;
 
-            int width = (int)((decimal)originalImage.PhysicalDimension.Width * resizeRatio * (decimal)Model.Size.X);
-            int height = (int)((decimal)originalImage.PhysicalDimension.Height * resizeRatio * (decimal)Model.Size.Y);
+            int width = (int)(newSize.Width * Model.Size.X);
+            int height = (int)(newSize.Height * Model.Size.Y);
 
             image = new Bitmap(originalImage, new Size(Math.Max(1, width), Math.Max(1,height)));
 
