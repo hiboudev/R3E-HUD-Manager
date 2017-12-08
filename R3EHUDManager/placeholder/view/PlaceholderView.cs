@@ -22,18 +22,21 @@ namespace R3EHUDManager.placeholder.view
         private Size screenSize;
         //private double screenRatio;
         private readonly Point screenOffset;
+        private bool isTripleScreen;
         private bool selected;
         private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
         public PlaceholderModel Model { get; }
 
-        public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset)
+        public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset, bool isTripleScreen)
         {
             Model = model;
             this.screenOffset = screenOffset;
+            this.isTripleScreen = isTripleScreen;
+
             InitializeUI();
-            SetScreenSize(screenSize);
+            SetScreenSize(screenSize, isTripleScreen);
             Disposed += OnDispose;
         }
 
@@ -51,10 +54,18 @@ namespace R3EHUDManager.placeholder.view
         private void RefreshLocation()
         {
             //TODO pour plus de précision, faire l'offset avant la conversion de coordonnées
-            Point location = Coordinates.FromR3e(Model.Position, new Size(screenSize.Width, screenSize.Height));
+            R3ePoint modelLocation = Model.Position.Clone();
+            if (isTripleScreen)
+            {
+                modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
+            }
+
+            Point location = Coordinates.FromR3e(modelLocation, new Size(screenSize.Width, screenSize.Height));
             Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
 
             location.Offset(new Point(-anchor.X + screenOffset.X, -anchor.Y + screenOffset.Y));
+            
+
             Location = location;
 
             AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
@@ -63,34 +74,18 @@ namespace R3EHUDManager.placeholder.view
         public R3ePoint GetR3eLocation()
         {
             Point position = new Point(Location.X - screenOffset.X + AnchorPosition.X, Location.Y - screenOffset.Y + AnchorPosition.Y);
-            return Coordinates.ToR3e(position, screenSize);
+            R3ePoint R3ePosition = Coordinates.ToR3e(position, screenSize);
+
+            if(isTripleScreen)
+                return new R3ePoint(R3ePosition.X * 3, R3ePosition.Y);
+            else
+                return Coordinates.ToR3e(position, screenSize);
         }
 
-        public void SetScreenSize(Size screenSize)
+        public void SetScreenSize(Size screenSize, bool isTripleScreen)
         {
             this.screenSize = screenSize;
-            //Size bitmapReferenceSize = GraphicalAsset.GetPlaceholderSize(Model.Name);
-
-            //// Fonctionne bien sur le motec, petite erreur parfois sur le FFB.
-            //// Pas bon du tout pour le rétro et la barre.
-
-            //// Screen ratio reference
-            //decimal Rr = ScreenView.BASE_ASPECT_RATIO;
-            //// Screen ratio target
-            //decimal Rt = (decimal)screenSize.Width / screenSize.Height;
-            //// Screen width reference
-            //decimal Wr = ScreenView.BASE_RESOLUTION.Width;
-            //// Screen width target
-            //decimal Wt = screenSize.Width;
-            //// Ratio object
-            //decimal Ro = (decimal)bitmapReferenceSize.Width / bitmapReferenceSize.Height;
-
-            //sizeRatio = (Rr * (1 / Ro) + Ro * (1 / Rt)) * (1m / 2) * (Wt / Wr);
-            //sizeRatio = (Wt / Wr);
-
-
-
-            //screenRatio = (double)screenSize.Width / ScreenView.BASE_RESOLUTION.Width;
+            this.isTripleScreen = isTripleScreen;
             RedrawImage();
             RefreshLocation();
         }
@@ -135,8 +130,7 @@ namespace R3EHUDManager.placeholder.view
                 {
                     Alignment = PenAlignment.Inset
                 }, insideRectangle);
-            }
-                
+            }  
         }
 
         private void InitializeUI()
@@ -173,6 +167,8 @@ namespace R3EHUDManager.placeholder.view
             Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
 
             decimal resizeRatio = Model.ResizeRule.GetResizeRatio(ScreenView.BASE_RESOLUTION, screenSize, originalImage.PhysicalDimension.ToSize());
+
+            //if (isTripleScreen) resizeRatio /= 3;
 
             int width = (int)((decimal)originalImage.PhysicalDimension.Width * resizeRatio * (decimal)Model.Size.X);
             int height = (int)((decimal)originalImage.PhysicalDimension.Height * resizeRatio * (decimal)Model.Size.Y);

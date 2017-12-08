@@ -44,11 +44,11 @@ namespace R3EHUDManager.placeholder.model
         public decimal GetResizeRatio(Size referenceScreenSize, Size targetScreenSize, Size placeholderOriginalSize)
         {
             // Screen width reference
-            decimal Wr = referenceScreenSize.Width;
+            decimal Hr = referenceScreenSize.Height;
             // Screen width target
-            decimal Wt = targetScreenSize.Width;
+            decimal Ht = targetScreenSize.Height;
 
-            return (Wt / Wr);
+            return (Ht / Hr);
         }
     }
 }

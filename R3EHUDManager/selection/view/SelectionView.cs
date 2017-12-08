@@ -226,7 +226,7 @@ namespace R3EHUDManager.selection.view
 
             isTripleBox = new CheckBox()
             {
-                Text = "Triple screen",
+                Text = "Triple screen (testing purpose)",
                 AutoSize = true,
             };
 

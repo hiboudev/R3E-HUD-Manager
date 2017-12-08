@@ -28,15 +28,14 @@ namespace R3EHUDManager.screen.view
         
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
         public static decimal BASE_ASPECT_RATIO = (decimal)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
-
-        private Size screenSize = new Size(100, 100);
+        
 
         public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
         public const string EVENT_PLACEHOLDER_SELECTED = "placeholderSelected";
         public const string EVENT_BACKGROUND_CLICKED = "backgroundClicked";
 
         private BackgroundView backgroundView;
-        private decimal backgroundAspectRatio = BASE_ASPECT_RATIO;
+        private bool isTripleScreen;
 
         public ScreenView()
         {
@@ -58,14 +57,14 @@ namespace R3EHUDManager.screen.view
 
         internal void BackgroundChanged(ScreenModel screenModel)
         {
-            backgroundAspectRatio = screenModel.AspectRatio;
+            isTripleScreen = screenModel.IsTripleScreen;
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
         }
 
         internal void TripleScreenChanged(ScreenModel screenModel)
         {
-            backgroundAspectRatio = screenModel.AspectRatio;
+            isTripleScreen = screenModel.IsTripleScreen;
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
         }
@@ -77,12 +76,9 @@ namespace R3EHUDManager.screen.view
             RemovePlaceholders();
             views = new Dictionary<string, PlaceholderView>();
 
-            double sizeRatio = (double)screenSize.Width / BASE_RESOLUTION.Width;
-
             foreach (PlaceholderModel model in placeHolders)
             {
-                PlaceholderView view = new PlaceholderView(model, screenSize, new Point(SCREEN_MARGIN, SCREEN_MARGIN));
-                // TODO Check if it's correct with a screen with aspect ratio different than 16/9.
+                PlaceholderView view = new PlaceholderView(model, backgroundView.Size, new Point(SCREEN_MARGIN, SCREEN_MARGIN), isTripleScreen);
 
                 view.PositionChanged += OnViewPositionChanged;
                 view.Dragging += OnPlaceholderDragging;
@@ -117,7 +113,7 @@ namespace R3EHUDManager.screen.view
             if(views != null)
                 foreach(PlaceholderView view in views.Values)
                 {
-                    view.SetScreenSize(screenSize);
+                    view.SetScreenSize(backgroundView.Size, isTripleScreen);
                 }
         }
 
@@ -156,20 +152,7 @@ namespace R3EHUDManager.screen.view
             if (Width == 0 && Height == 0)
                 return;
 
-            decimal screenRatio = (decimal)(Width - SCREEN_MARGIN * 2) / (Height - SCREEN_MARGIN * 2);
-
-            if(screenRatio < backgroundAspectRatio)
-            {
-                screenSize.Width = Width - SCREEN_MARGIN * 2;
-                screenSize.Height = (int)((decimal)screenSize.Width / backgroundAspectRatio);
-            }
-            else
-            {
-                screenSize.Height = Height- SCREEN_MARGIN * 2;
-                screenSize.Width = (int)((decimal)screenSize.Height * backgroundAspectRatio);
-            }
-
-            backgroundView.SetSize(screenSize);
+            backgroundView.SetScreenArea(new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN));
         }
 
         private void OnPlaceholderDragging(object sender, EventArgs e)

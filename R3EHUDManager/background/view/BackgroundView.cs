@@ -13,8 +13,8 @@ namespace R3EHUDManager.background.view
 {
     class BackgroundView:Control
     {
-        private Bitmap bitmap;
         private Image baseBitmap;
+        private Size screenArea;
 
         public BackgroundView()
         {
@@ -22,33 +22,53 @@ namespace R3EHUDManager.background.view
             Disposed += OnDispose;
         }
 
-        public void SetSize(Size size)
+        internal void SetScreenArea(Size screenArea)
         {
-            Size = size;
-            RedrawBackground();
-        }
-
-        private void RedrawBackground()
-        {
-            if (baseBitmap == null) return;
-
-            DisposeBitmap();
-
-            bitmap = new Bitmap(baseBitmap, Size);
-            BackgroundImage = bitmap;
+            this.screenArea = screenArea;
+            ComputeSize();
+            Invalidate();
         }
 
         internal void SetBackground(ScreenModel model)
         {
             DisposeBaseBitmap();
-
             baseBitmap = model.GetBackgroundImage();
-            RedrawBackground();
+            ComputeSize();
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            if (baseBitmap == null) return;
+
+            Bitmap resizedBitmap = new Bitmap(baseBitmap, Size);
+            e.Graphics.DrawImage(resizedBitmap, new Point());
+            resizedBitmap.Dispose();
+        }
+
+        private void ComputeSize()
+        {
+            if (baseBitmap == null) return;
+
+            float screenRatio = (float)screenArea.Width / screenArea.Height;
+            float bitmapRatio = baseBitmap.PhysicalDimension.Width / baseBitmap.PhysicalDimension.Height;
+
+            if (screenRatio < bitmapRatio)
+            {
+                Width = screenArea.Width;
+                Height = (int)(screenArea.Width / bitmapRatio);
+            }
+            else
+            {
+                Height = screenArea.Height;
+                Width = (int)(screenArea.Height * bitmapRatio);
+            }
         }
 
         private void OnDispose(object sender, EventArgs e)
         {
-            DisposeBitmap();
             DisposeBaseBitmap();
         }
 
@@ -58,15 +78,6 @@ namespace R3EHUDManager.background.view
             {
                 baseBitmap.Dispose();
                 baseBitmap = null;
-            }
-        }
-
-        private void DisposeBitmap()
-        {
-            if (bitmap != null)
-            {
-                bitmap.Dispose();
-                bitmap = null;
             }
         }
     }
