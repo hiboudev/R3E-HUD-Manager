@@ -131,7 +131,7 @@ namespace R3EHUDManager.placeholder.view
             {
                 Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
 
-                e.Graphics.DrawRectangle(new Pen(SELECTION_COLOR, 1)
+                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, SELECTION_COLOR), 1)
                 {
                     Alignment = PenAlignment.Inset
                 }, insideRectangle);

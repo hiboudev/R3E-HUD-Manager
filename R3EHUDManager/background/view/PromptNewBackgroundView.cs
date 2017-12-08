@@ -102,7 +102,7 @@ namespace R3EHUDManager.background.view
 
         private void InitializeUI()
         {
-            Text = "Enter a background name";
+            Text = "Import background";
             MinimumSize = new Size(200, 200);
 
             StartPosition = FormStartPosition.CenterParent;
