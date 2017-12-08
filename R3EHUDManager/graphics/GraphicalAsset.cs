@@ -9,6 +9,8 @@ namespace R3EHUDManager.graphics
 {
     class GraphicalAsset
     {
+        // TODO error management loading
+
         private static Dictionary<string, Bitmap> cache = new Dictionary<string, Bitmap>();
         private static Bitmap defaultBitmap;
 

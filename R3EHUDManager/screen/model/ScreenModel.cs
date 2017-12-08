@@ -71,8 +71,7 @@ namespace R3EHUDManager.screen.model
 
         public Image GetBackgroundImage()
         {
-            // TODO error management loading
-            return new Bitmap(bitmap);
+            return bitmap;
         }
     }
 }

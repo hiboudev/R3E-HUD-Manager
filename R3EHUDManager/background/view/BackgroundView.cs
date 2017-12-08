@@ -51,9 +51,7 @@ namespace R3EHUDManager.background.view
 
             if (baseBitmap == null) return;
 
-            Bitmap resizedBitmap = new Bitmap(baseBitmap, Size);
-            e.Graphics.DrawImage(resizedBitmap, new Point());
-            resizedBitmap.Dispose();
+            e.Graphics.DrawImage(baseBitmap, new Rectangle(0, 0, Size.Width, Size.Height));
 
             int centerLeft = (int)((decimal)Width / 3);
             int centerRight = (int)(2 * (decimal)Width / 3);
