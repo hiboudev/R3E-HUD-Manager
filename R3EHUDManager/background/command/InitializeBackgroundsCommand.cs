@@ -1,6 +1,7 @@
 ﻿using da2mvc.command;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,13 @@ namespace R3EHUDManager.background.command
     {
         private readonly Database database;
         private readonly BackgroundCollectionModel backgroundCollection;
-        private readonly SelectedBackgroundModel selectedBackground;
+        private readonly ScreenModel screenModel;
 
-        public InitializeBackgroundsCommand(Database database, BackgroundCollectionModel backgroundCollection, SelectedBackgroundModel selectedBackground)
+        public InitializeBackgroundsCommand(Database database, BackgroundCollectionModel backgroundCollection, ScreenModel screenModel)
         {
             this.database = database;
             this.backgroundCollection = backgroundCollection;
-            this.selectedBackground = selectedBackground;
+            this.screenModel = screenModel;
         }
 
         public void Execute()
@@ -32,12 +33,12 @@ namespace R3EHUDManager.background.command
                 BackgroundModel defaultBackground = BackgroundFactory.NewBackgroundModel("Default", "background.png", BaseDirectoryType.GRAPHICAL_ASSETS, true);
                 backgroundCollection.SetBackgrounds(new List<BackgroundModel>(new BackgroundModel[] { defaultBackground }));
                 database.AddBackground(defaultBackground);
-                selectedBackground.SelectBackground(defaultBackground);
+                screenModel.SetBackground(defaultBackground);
             }
             else
             {
                 backgroundCollection.SetBackgrounds(backgrounds);
-                selectedBackground.SelectBackground(backgrounds[0]);
+                screenModel.SetBackground(backgrounds[0]);
             }
         }
     }

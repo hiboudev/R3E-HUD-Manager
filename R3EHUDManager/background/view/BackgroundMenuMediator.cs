@@ -3,6 +3,8 @@ using da2mvc.view;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.view;
+using R3EHUDManager.screen.events;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +20,12 @@ namespace R3EHUDManager.background.view
             RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_LIST_ADDED, OnListAdded);
             RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_ADDED, OnBackgroundAdded);
             RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_REMOVED, OnBackgroundRemoved);
-            RegisterEventListener(typeof(SelectedBackgroundModel), SelectedBackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((BackgroundMenuView)View).SetSelectedItem(((SelectedBackgroundEventArgs)args).Model.Selection.Name);
+            ((BackgroundMenuView)View).SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Name);
         }
 
         private void OnBackgroundAdded(BaseEventArgs args)

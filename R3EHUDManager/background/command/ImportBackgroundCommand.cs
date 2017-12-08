@@ -4,6 +4,7 @@ using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
 using R3EHUDManager.location.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,15 +18,15 @@ namespace R3EHUDManager.background.command
     class ImportBackgroundCommand : ICommand
     {
         private readonly ImportBackgroundEventArgs args;
-        private readonly SelectedBackgroundModel selection;
+        private readonly ScreenModel screenModel;
         private readonly LocationModel locationModel;
         private readonly Database database;
         private readonly BackgroundCollectionModel collection;
 
-        public ImportBackgroundCommand(ImportBackgroundEventArgs args, SelectedBackgroundModel selection, LocationModel locationModel, Database database, BackgroundCollectionModel collection)
+        public ImportBackgroundCommand(ImportBackgroundEventArgs args, ScreenModel screenModel, LocationModel locationModel, Database database, BackgroundCollectionModel collection)
         {
             this.args = args;
-            this.selection = selection;
+            this.screenModel = screenModel;
             this.locationModel = locationModel;
             this.database = database;
             this.collection = collection;
@@ -62,7 +63,7 @@ namespace R3EHUDManager.background.command
             BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, destinationFileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false);
             database.AddBackground(background);
             collection.AddBackground(background);
-            selection.SelectBackground(background);
+            screenModel.SetBackground(background);
         }
 
         private string GetUnusedName(string path, string fileName)

@@ -3,6 +3,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
 using R3EHUDManager.location.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,15 +17,15 @@ namespace R3EHUDManager.background.command
     {
         private readonly IntEventArgs args;
         private readonly BackgroundCollectionModel collectionModel;
-        private readonly SelectedBackgroundModel selectionModel;
+        private readonly ScreenModel screenModel;
         private readonly Database database;
         private readonly LocationModel locationModel;
 
-        public DeleteBackgroundCommand(IntEventArgs args, BackgroundCollectionModel collectionModel, SelectedBackgroundModel selectionModel, Database database, LocationModel locationModel)
+        public DeleteBackgroundCommand(IntEventArgs args, BackgroundCollectionModel collectionModel, ScreenModel screenModel, Database database, LocationModel locationModel)
         {
             this.args = args;
             this.collectionModel = collectionModel;
-            this.selectionModel = selectionModel;
+            this.screenModel = screenModel;
             this.database = database;
             this.locationModel = locationModel;
         }
@@ -36,9 +37,9 @@ namespace R3EHUDManager.background.command
 
             collectionModel.RemoveBackground(background);
 
-            if (selectionModel.Selection == background)
+            if (screenModel.Background == background)
                 // Default background can't be deleted so there's always at least 1 item in the list.
-                selectionModel.SelectBackground(collectionModel.Backgrounds[0]);
+                screenModel.SetBackground(collectionModel.Backgrounds[0]);
 
             database.DeleteBackground(background);
 

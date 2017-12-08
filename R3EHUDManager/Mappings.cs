@@ -24,6 +24,7 @@ using R3EHUDManager.settings.view;
 using R3EHUDManager.background.view;
 using R3EHUDManager.background.command;
 using R3EHUDManager.database;
+using R3EHUDManager.screen.model;
 
 namespace R3EHUDManager
 {
@@ -38,7 +39,7 @@ namespace R3EHUDManager
             Injector.MapType(typeof(HudOptionsParser), typeof(HudOptionsParser), true);
             Injector.MapType(typeof(PlaceHolderCollectionModel), typeof(PlaceHolderCollectionModel), true);
             Injector.MapType(typeof(SelectionModel), typeof(SelectionModel), true);
-            Injector.MapType(typeof(SelectedBackgroundModel), typeof(SelectedBackgroundModel), true);
+            Injector.MapType(typeof(ScreenModel), typeof(ScreenModel), true);
             Injector.MapType(typeof(Database), typeof(Database), true);
             Injector.MapType(typeof(BackgroundCollectionModel), typeof(BackgroundCollectionModel), true);
             Injector.MapType(typeof(BackgroundToolbarView), typeof(BackgroundToolbarView), true); 

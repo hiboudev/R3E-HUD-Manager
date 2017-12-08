@@ -11,6 +11,8 @@ using R3EHUDManager.selection.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.background.events;
 using da2mvc.view;
+using R3EHUDManager.screen.events;
+using R3EHUDManager.screen.model;
 
 namespace R3EHUDManager.screen.view
 {
@@ -22,12 +24,12 @@ namespace R3EHUDManager.screen.view
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
-            RegisterEventListener(typeof(SelectedBackgroundModel), SelectedBackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((ScreenView)View).BackgroundChanged(((SelectedBackgroundEventArgs)args).Model);
+            ((ScreenView)View).BackgroundChanged(((ScreenModelEventArgs)args).ScreenModel);
         }
 
         private void OnPlaceHolderSelected(BaseEventArgs args)

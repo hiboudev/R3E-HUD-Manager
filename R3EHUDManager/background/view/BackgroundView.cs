@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.background.model;
+using R3EHUDManager.screen.model;
 
 namespace R3EHUDManager.background.view
 {
@@ -37,11 +38,11 @@ namespace R3EHUDManager.background.view
             BackgroundImage = bitmap;
         }
 
-        internal void SetBackground(SelectedBackgroundModel model)
+        internal void SetBackground(ScreenModel model)
         {
             DisposeBaseBitmap();
 
-            baseBitmap = model.GetBackground();
+            baseBitmap = model.GetBackgroundImage();
             RedrawBackground();
         }
 

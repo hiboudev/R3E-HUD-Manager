@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using da2mvc.events;
 using R3EHUDManager.background.events;
 using da2mvc.view;
+using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.events;
 
 namespace R3EHUDManager.background.view
 {
@@ -14,12 +16,12 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundMediator()
         {
-            RegisterEventListener(typeof(SelectedBackgroundModel), SelectedBackgroundModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((BackgroundView)View).SetBackground(((SelectedBackgroundEventArgs)args).Model);
+            ((BackgroundView)View).SetBackground(((ScreenModelEventArgs)args).ScreenModel);
         }
     }
 }

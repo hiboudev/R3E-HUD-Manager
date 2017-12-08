@@ -155,6 +155,8 @@
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
+    <Compile Include="screen\events\ScreenModelEventArgs.cs" />
+    <Compile Include="screen\model\ScreenModel.cs" />
     <Compile Include="selection\command\SelectNoneCommand.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>
@@ -181,12 +183,10 @@
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
-    <Compile Include="background\events\SelectedBackgroundlEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
-    <Compile Include="background\model\SelectedBackgroundModel.cs" />
     <Compile Include="selection\view\AnchorPreset.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />

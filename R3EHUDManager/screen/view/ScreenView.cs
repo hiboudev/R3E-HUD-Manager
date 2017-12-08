@@ -16,6 +16,7 @@ using R3EHUDManager.placeholder.view;
 using R3EHUDManager.background.view;
 using da2mvc.injection;
 using R3EHUDManager.background.model;
+using R3EHUDManager.screen.model;
 
 namespace R3EHUDManager.screen.view
 {
@@ -135,7 +136,7 @@ namespace R3EHUDManager.screen.view
             UpdatePlaceholdersPosition();
         }
 
-        internal void BackgroundChanged(SelectedBackgroundModel model)
+        internal void BackgroundChanged(ScreenModel model)
         {
             backgroundAspectRatio = model.AspectRatio;
             UpdateScreenSize();
