@@ -1,6 +1,7 @@
 ﻿using R3EHUDManager.screen.view;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,8 +26,8 @@ namespace R3EHUDManager.placeholder.model
             float widthFactor = isTripleScreen ? 1f / 3 : 1;
 
             return new SizeF(
-                widthFactor * placeholderOriginalSize.Width * (float)targetScreenSize.Width / referenceScreenSize.Width,
-                placeholderOriginalSize.Height * (float)targetScreenSize.Height / referenceScreenSize.Height
+                widthFactor * placeholderOriginalSize.Width * targetScreenSize.Width / referenceScreenSize.Width,
+                (float)placeholderOriginalSize.Height * targetScreenSize.Height / referenceScreenSize.Height
                 );
         }
     }
@@ -41,8 +42,8 @@ namespace R3EHUDManager.placeholder.model
             float ratio = (float)targetScreenSize.Height / referenceScreenSize.Height;
 
             return new SizeF(
-                ratio * (float)placeholderOriginalSize.Width,
-                ratio * (float)placeholderOriginalSize.Height
+                ratio * placeholderOriginalSize.Width,
+                ratio * placeholderOriginalSize.Height
                 );
         }
     }

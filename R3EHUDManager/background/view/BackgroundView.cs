@@ -74,7 +74,11 @@ namespace R3EHUDManager.background.view
 
         private void ComputeSize()
         {
-            if (baseBitmap == null) return;
+            if (baseBitmap == null)
+            {
+                Size = new Size(screenArea.Width, screenArea.Height);
+                return;
+            }
 
             float screenRatio = (float)screenArea.Width / screenArea.Height;
             float bitmapRatio = baseBitmap.PhysicalDimension.Width / baseBitmap.PhysicalDimension.Height;
