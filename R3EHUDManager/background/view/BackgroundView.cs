@@ -33,7 +33,6 @@ namespace R3EHUDManager.background.view
 
         internal void SetBackground(ScreenModel model)
         {
-            DisposeBaseBitmap();
             baseBitmap = model.GetBackgroundImage();
             ComputeSize();
             Invalidate();
@@ -95,16 +94,6 @@ namespace R3EHUDManager.background.view
 
         private void OnDispose(object sender, EventArgs e)
         {
-            DisposeBaseBitmap();
-        }
-
-        private void DisposeBaseBitmap()
-        {
-            if (baseBitmap != null)
-            {
-                baseBitmap.Dispose();
-                baseBitmap = null;
-            }
         }
     }
 }
