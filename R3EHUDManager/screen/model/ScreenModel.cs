@@ -46,7 +46,7 @@ namespace R3EHUDManager.screen.model
 
             bitmap = GraphicalAsset.GetNoCache(Path.Combine(dirPath, Background.FileName));
             Dimension = bitmap.PhysicalDimension.ToSize();
-            AspectRatio = (decimal)Dimension.Width / Dimension.Height;
+            UpdateAspectRatio();
 
             DispatchEvent(new ScreenModelEventArgs(EVENT_BACKGROUND_CHANGED, this));
         }
@@ -55,7 +55,18 @@ namespace R3EHUDManager.screen.model
         {
             IsTripleScreen = value;
 
+            UpdateAspectRatio();
+
             DispatchEvent(new ScreenModelEventArgs(EVENT_TRIPLE_SCREEN_CHANGED, this));
+        }
+
+        private void UpdateAspectRatio()
+        {
+            // TODO Manage screens with different resolutions
+            if (IsTripleScreen)
+                AspectRatio = ((decimal)Dimension.Width / Dimension.Height) / 3;
+            else
+                AspectRatio = (decimal)Dimension.Width / Dimension.Height;
         }
 
         public Image GetBackgroundImage()

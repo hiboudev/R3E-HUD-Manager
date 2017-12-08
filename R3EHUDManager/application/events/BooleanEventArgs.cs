@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.application.events
 {
-    class StringEventArgs : BaseEventArgs
+    class BooleanEventArgs : BaseEventArgs
     {
-        public StringEventArgs(string eventName, string value) : base(eventName)
+        public BooleanEventArgs(string eventName, bool value) : base(eventName)
         {
             Value = value;
         }
 
-        public string Value { get; }
+        public bool Value { get; }
     }
 }

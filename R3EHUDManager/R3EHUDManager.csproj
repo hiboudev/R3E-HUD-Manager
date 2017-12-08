@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="application\command\StartApplicationCommand.cs" />
+    <Compile Include="application\events\BooleanEventArgs.cs" />
     <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
     <Compile Include="background\command\DeleteBackgroundCommand.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
+    <Compile Include="screen\command\ChangeTripleScreenCommand.cs" />
     <Compile Include="screen\events\ScreenModelEventArgs.cs" />
     <Compile Include="screen\model\ScreenModel.cs" />
     <Compile Include="selection\command\SelectNoneCommand.cs" />

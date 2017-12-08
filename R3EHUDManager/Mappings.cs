@@ -25,6 +25,7 @@ using R3EHUDManager.background.view;
 using R3EHUDManager.background.command;
 using R3EHUDManager.database;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.command;
 
 namespace R3EHUDManager
 {
@@ -63,6 +64,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_MOVED, typeof(MovePlaceholderCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_ANCHOR_MOVED, typeof(MoveAnchorCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_RESIZED, typeof(ResizePlaceholderCommand));
+            Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_TRIPLE_SCREEN_CHANGED, typeof(ChangeTripleScreenCommand));
             Injector.MapCommand(typeof(PlaceholdersListView), PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED, typeof(SelectPlaceholderCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));

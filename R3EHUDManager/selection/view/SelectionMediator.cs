@@ -9,6 +9,8 @@ using R3EHUDManager.selection.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.placeholder.events;
 using da2mvc.view;
+using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.events;
 
 namespace R3EHUDManager.selection.view
 {
@@ -20,6 +22,13 @@ namespace R3EHUDManager.selection.view
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
+
+            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+        }
+
+        private void OnTripleScreenChanged(BaseEventArgs args)
+        {
+            ((SelectionView)View).SetTripleScreen(((ScreenModelEventArgs)args).ScreenModel.IsTripleScreen);
         }
 
         private void OnPlaceholderUpdated(BaseEventArgs args)

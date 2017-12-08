@@ -56,6 +56,20 @@ namespace R3EHUDManager.screen.view
             Controls.Add(backgroundView);
         }
 
+        internal void BackgroundChanged(ScreenModel screenModel)
+        {
+            backgroundAspectRatio = screenModel.AspectRatio;
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
+        }
+
+        internal void TripleScreenChanged(ScreenModel screenModel)
+        {
+            backgroundAspectRatio = screenModel.AspectRatio;
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
+        }
+
         internal void DisplayPlaceHolders(List<PlaceholderModel> placeHolders)
         {
             UpdateScreenSize();
@@ -132,13 +146,6 @@ namespace R3EHUDManager.screen.view
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            UpdateScreenSize();
-            UpdatePlaceholdersPosition();
-        }
-
-        internal void BackgroundChanged(ScreenModel model)
-        {
-            backgroundAspectRatio = model.AspectRatio;
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
         }

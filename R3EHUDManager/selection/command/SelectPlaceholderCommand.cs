@@ -25,7 +25,7 @@ namespace R3EHUDManager.selection.command
 
         public void Execute()
         {
-            PlaceholderModel model = collectionModel.Get(args.Text);
+            PlaceholderModel model = collectionModel.Get(args.Value);
             selectionModel.Select(model);
         }
     }
