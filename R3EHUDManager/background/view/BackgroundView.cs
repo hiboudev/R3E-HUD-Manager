@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
+using System.Drawing.Drawing2D;
 
 namespace R3EHUDManager.background.view
 {
@@ -15,6 +16,7 @@ namespace R3EHUDManager.background.view
     {
         private Image baseBitmap;
         private Size screenArea;
+        private bool isTripleScreen;
 
         public BackgroundView()
         {
@@ -37,6 +39,12 @@ namespace R3EHUDManager.background.view
             Invalidate();
         }
 
+        public void SetTripleScreen(bool value)
+        {
+            isTripleScreen = value;
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -46,6 +54,22 @@ namespace R3EHUDManager.background.view
             Bitmap resizedBitmap = new Bitmap(baseBitmap, Size);
             e.Graphics.DrawImage(resizedBitmap, new Point());
             resizedBitmap.Dispose();
+
+            int centerLeft = (int)((decimal)Width / 3);
+            int centerRight = (int)(2 * (decimal)Width / 3);
+
+            if (isTripleScreen)
+            {
+                Color lineColor = Color.FromArgb(100, Color.Black);
+
+                e.Graphics.DrawLine(
+                    new Pen(lineColor, 2) { Alignment = PenAlignment.Center },
+                    new Point(centerLeft, 0), new Point(centerLeft, Height));
+
+                e.Graphics.DrawLine(
+                    new Pen(lineColor, 2) { Alignment = PenAlignment.Center },
+                    new Point(centerRight, 0), new Point(centerRight, Height));
+            }
         }
 
         private void ComputeSize()
