@@ -150,13 +150,21 @@
     </Compile>
     <Compile Include="database\command\InitializeDatabaseCommand.cs" />
     <Compile Include="database\Database.cs" />
+    <Compile Include="layout\view\LayoutMenuMediator.cs" />
+    <Compile Include="layout\view\LayoutToolbarView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="screen\model\ScreenLayoutType.cs" />
+    <Compile Include="layout\view\LayoutMenuView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
     <Compile Include="log\command\InitializeLoggerCommand.cs" />
     <Compile Include="log\Logger.cs" />
     <Compile Include="placeholder\model\ResizeRules.cs" />
     <Compile Include="placeholder\model\PlaceholderFactory.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
-    <Compile Include="screen\command\ChangeTripleScreenCommand.cs" />
+    <Compile Include="screen\command\ChangeScreenLayoutCommand.cs" />
     <Compile Include="screen\events\ScreenModelEventArgs.cs" />
     <Compile Include="screen\model\ScreenModel.cs" />
     <Compile Include="selection\command\SelectNoneCommand.cs" />

@@ -15,11 +15,11 @@ namespace R3EHUDManager.screen.model
 {
     class ScreenModel: EventDispatcher
     {
-        public bool IsTripleScreen { get; private set; }
         public BackgroundModel Background { get; private set; }
 
         public Size Dimension { get; private set; }
         public decimal AspectRatio { get; private set; }
+        public ScreenLayoutType Layout { get; private set; } = ScreenLayoutType.SINGLE;
 
         public const string EVENT_BACKGROUND_CHANGED = "backgroundChanged";
         public const string EVENT_TRIPLE_SCREEN_CHANGED = "tripleScreenChanged";
@@ -51,9 +51,9 @@ namespace R3EHUDManager.screen.model
             DispatchEvent(new ScreenModelEventArgs(EVENT_BACKGROUND_CHANGED, this));
         }
 
-        public void SetTripleScreen(bool value)
+        public void SetLayout(ScreenLayoutType type)
         {
-            IsTripleScreen = value;
+            Layout = type;
 
             UpdateAspectRatio();
 
@@ -63,7 +63,7 @@ namespace R3EHUDManager.screen.model
         private void UpdateAspectRatio()
         {
             // TODO Manage screens with different resolutions
-            if (IsTripleScreen)
+            if (Layout == ScreenLayoutType.TRIPLE)
                 AspectRatio = ((decimal)Dimension.Width / Dimension.Height) / 3;
             else
                 AspectRatio = (decimal)Dimension.Width / Dimension.Height;

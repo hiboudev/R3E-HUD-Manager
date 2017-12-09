@@ -26,6 +26,7 @@ using R3EHUDManager.background.command;
 using R3EHUDManager.database;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.command;
+using R3EHUDManager.layout.view;
 
 namespace R3EHUDManager
 {
@@ -46,6 +47,7 @@ namespace R3EHUDManager
             Injector.MapType(typeof(BackgroundToolbarView), typeof(BackgroundToolbarView), true); 
             Injector.MapType(typeof(PromptNewBackgroundView), typeof(PromptNewBackgroundView));
             Injector.MapType(typeof(SettingsMenuView), typeof(SettingsMenuView), true);
+            Injector.MapType(typeof(LayoutToolbarView), typeof(LayoutToolbarView), true);
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
@@ -53,6 +55,7 @@ namespace R3EHUDManager
             Injector.MapView(typeof(BackgroundView), typeof(BackgroundMediator), true);
             Injector.MapView(typeof(BackgroundMenuView), typeof(BackgroundMenuMediator), true);
             Injector.MapView(typeof(BackgroundManagerView), typeof(BackgroundManagerMediator));
+            Injector.MapView(typeof(LayoutMenuView), typeof(LayoutMenuMediator));
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -64,7 +67,6 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_MOVED, typeof(MovePlaceholderCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_ANCHOR_MOVED, typeof(MoveAnchorCommand));
             Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_RESIZED, typeof(ResizePlaceholderCommand));
-            Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_TRIPLE_SCREEN_CHANGED, typeof(ChangeTripleScreenCommand));
             Injector.MapCommand(typeof(PlaceholdersListView), PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED, typeof(SelectPlaceholderCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
             Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
@@ -72,6 +74,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_IMPORT_BACKGROUND, typeof(ImportBackgroundCommand));
             Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_ITEM_CLICKED, typeof(SelectBackgroundCommand));
             Injector.MapCommand(typeof(BackgroundManagerView), BackgroundManagerView.EVENT_DELETE_BACKGROUND, typeof(DeleteBackgroundCommand));
+            Injector.MapCommand(typeof(LayoutMenuView), LayoutMenuView.EVENT_ITEM_CLICKED, typeof(ChangeScreenLayoutCommand));
         }
     }
 }

@@ -57,14 +57,14 @@ namespace R3EHUDManager.screen.view
 
         internal void BackgroundChanged(ScreenModel screenModel)
         {
-            isTripleScreen = screenModel.IsTripleScreen;
+            isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
         }
 
         internal void TripleScreenChanged(ScreenModel screenModel)
         {
-            isTripleScreen = screenModel.IsTripleScreen;
+            isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
             backgroundView.SetTripleScreen(isTripleScreen);
             UpdateScreenSize();
             UpdatePlaceholdersPosition();

@@ -27,17 +27,12 @@ namespace R3EHUDManager.selection.view
         public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
         public const string EVENT_ANCHOR_MOVED = "anchorMoved";
         public const string EVENT_PLACEHOLDER_RESIZED = "placeholderResized";
-        public const string EVENT_TRIPLE_SCREEN_CHANGED = "tripleScreenChanged";
         private ComboBox anchorPresets;
         private ComboBox positionPresets;
 
         public PlaceholderModel Selection { get; private set; }
 
         private bool holdStepperEvent = false;
-        private bool holdIsTripleEvent = false;
-
-        private List<Control> selectionControls = new List<Control>();
-        private CheckBox isTripleBox;
 
         public SelectionView()
         {
@@ -66,7 +61,7 @@ namespace R3EHUDManager.selection.view
             //TODO replace double by decimal in project?
             UpdateData();
 
-            SetEnabled(true);
+            Enabled = true;
         }
 
         internal void Unselect()
@@ -82,19 +77,12 @@ namespace R3EHUDManager.selection.view
             anchorPresets.SelectedItem = null;
             positionPresets.SelectedItem = null;
 
-            SetEnabled(false);
-        }
-
-        internal void SetTripleScreen(bool isTriple)
-        {
-            holdIsTripleEvent = true;
-            isTripleBox.Checked = isTriple;
-            holdIsTripleEvent = false;
+            Enabled = false;
         }
 
         private void InitializeUI()
         {
-            SetEnabled(false);
+            Enabled = false;
 
             stepperX.DecimalPlaces = stepperY.DecimalPlaces = stepperSize.DecimalPlaces = 3;
             stepperX.Minimum = stepperY.Minimum = stepperSize.Minimum = decimal.MinValue;
@@ -119,15 +107,6 @@ namespace R3EHUDManager.selection.view
             }
             anchorPresets.SelectionChangeCommitted += OnAnchorPresetSelected;
             positionPresets.SelectionChangeCommitted += OnPositionPresetSelected;
-
-            isTripleBox.CheckedChanged += OnTripleChecked;
-        }
-
-        private void OnTripleChecked(object sender, EventArgs e)
-        {
-            if (holdIsTripleEvent) return;
-
-            DispatchEvent(new BooleanEventArgs(EVENT_TRIPLE_SCREEN_CHANGED, isTripleBox.Checked));
         }
 
         private void SelectStepperText(object sender, EventArgs e)
@@ -185,12 +164,6 @@ namespace R3EHUDManager.selection.view
             }
         }
 
-        private void SetEnabled(bool value)
-        {
-            foreach (Control control in selectionControls)
-                control.Enabled = value;
-        }
-
         private void InitializeComponent()
         {
             AutoSize = true;
@@ -224,15 +197,7 @@ namespace R3EHUDManager.selection.view
 
             comboSize.Margin = new Padding(comboSize.Margin.Left, comboSize.Margin.Top, comboSize.Margin.Right, 8);
 
-            isTripleBox = new CheckBox()
-            {
-                Text = "Triple screen (testing purpose)",
-                AutoSize = true,
-            };
-
-            selectionControls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, labelAnchor, anchorPresets });
-
-            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, labelAnchor, anchorPresets, isTripleBox });
+            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, labelAnchor, anchorPresets });
         }
 
         private Panel NewHCombo(Label label, NumericUpDown stepper)

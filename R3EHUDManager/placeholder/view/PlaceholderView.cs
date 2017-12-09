@@ -90,7 +90,6 @@ namespace R3EHUDManager.placeholder.view
 
             location.Offset(new Point(-anchor.X + screenOffset.X, -anchor.Y + screenOffset.Y));
 
-            Debug.WriteLine($"{Model.Position.X}, {Model.Position.Y}");
             Location = location;
 
             AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);

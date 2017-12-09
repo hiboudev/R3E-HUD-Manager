@@ -1,5 +1,7 @@
 ﻿using da2mvc.command;
 using R3EHUDManager.application.events;
+using R3EHUDManager.contextmenu.events;
+using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
@@ -9,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.screen.command
 {
-    class ChangeTripleScreenCommand : ICommand
+    class ChangeScreenLayoutCommand : ICommand
     {
-        private readonly BooleanEventArgs args;
+        private readonly ContextMenuEventArgs args;
         private readonly ScreenModel screenModel;
 
-        public ChangeTripleScreenCommand(BooleanEventArgs args, ScreenModel screenModel)
+        public ChangeScreenLayoutCommand(ContextMenuEventArgs args, ScreenModel screenModel)
         {
             this.args = args;
             this.screenModel = screenModel;
@@ -22,7 +24,7 @@ namespace R3EHUDManager.screen.command
 
         public void Execute()
         {
-            screenModel.SetTripleScreen(args.Value);
+            screenModel.SetLayout((ScreenLayoutType)args.ItemId);
         }
     }
 }

@@ -22,13 +22,6 @@ namespace R3EHUDManager.selection.view
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
-
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
-        }
-
-        private void OnTripleScreenChanged(BaseEventArgs args)
-        {
-            ((SelectionView)View).SetTripleScreen(((ScreenModelEventArgs)args).ScreenModel.IsTripleScreen);
         }
 
         private void OnPlaceholderUpdated(BaseEventArgs args)

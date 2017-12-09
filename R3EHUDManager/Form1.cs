@@ -22,6 +22,7 @@ using R3EHUDManager.screen.view;
 using R3EHUDManager.settings.view;
 using R3EHUDManager.background.view;
 using R3EHUDManager.settings;
+using R3EHUDManager.layout.view;
 
 namespace R3EHUDManager
 {
@@ -91,6 +92,7 @@ namespace R3EHUDManager
             };
 
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(BackgroundToolbarView)));
+            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LayoutToolbarView)));
 
             Controls.Add(screenView);
             Controls.Add(topBarPanel);

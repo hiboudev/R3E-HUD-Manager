@@ -17,7 +17,7 @@ namespace R3EHUDManager.background.view
 
         public BackgroundMenuView() : base("Background")
         {
-            Width = 160;
+            Width = 190;
         }
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()

@@ -101,6 +101,24 @@ namespace R3EHUDManager.contextmenu.view
             return itemChecked;
         }
 
+        virtual public bool SetSelectedItem(int id)
+        {
+            bool itemChecked = false;
+
+            foreach (ToolStripMenuItem item in regularItems)
+            {
+                item.Checked = (int)item.Tag == id;
+
+                if (item.Checked)
+                {
+                    UpdateTitle(item.Text);
+                    itemChecked = true;
+                }
+            }
+
+            return itemChecked;
+        }
+
         private void UpdateTitle(string selectedName)
         {
             int maxLength = 18;
