@@ -79,7 +79,8 @@ namespace R3EHUDManager.contextmenu.view
         {
             ContextMenuStrip.Items.Clear();
             ContextMenuStrip.Items.AddRange(regularItems.ToArray());
-            ContextMenuStrip.Items.Add(new ToolStripSeparator());
+            if(builtInItems.Count > 0 && regularItems.Count > 0)
+                ContextMenuStrip.Items.Add(new ToolStripSeparator());
             ContextMenuStrip.Items.AddRange(builtInItems.ToArray());
         }
 
