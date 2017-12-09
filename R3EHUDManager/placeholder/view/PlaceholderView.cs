@@ -53,19 +53,24 @@ namespace R3EHUDManager.placeholder.view
 
         private void RefreshLocation()
         {
-            //TODO pour plus de précision, faire l'offset avant la conversion de coordonnées
             R3ePoint modelLocation = Model.Position.Clone();
+
             if (isTripleScreen)
             {
                 modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
             }
 
-            Point location = Coordinates.FromR3e(modelLocation, new Size(screenSize.Width, screenSize.Height));
+            SizeF objectScreenRatio = new SizeF((float)Width / screenSize.Width, (float)Height / screenSize.Height);
+            
+            R3ePoint r3eLocation = new R3ePoint(
+                modelLocation.X - objectScreenRatio.Width * (Model.Anchor.X + 1),
+                modelLocation.Y - objectScreenRatio.Height * (Model.Anchor.Y - 1));
+
+            Point location = Coordinates.FromR3e(r3eLocation, new Size(screenSize.Width, screenSize.Height));
             Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
 
-            location.Offset(new Point(-anchor.X + screenOffset.X, -anchor.Y + screenOffset.Y));
-
-            Debug.WriteLine($"{Model.Position.X}, {Model.Position.Y}");
+            location.Offset(new Point(screenOffset.X, screenOffset.Y));
+            
             Location = location;
 
             AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
@@ -73,13 +78,21 @@ namespace R3EHUDManager.placeholder.view
 
         public R3ePoint GetR3eLocation()
         {
-            Point position = new Point(Location.X - screenOffset.X + AnchorPosition.X, Location.Y - screenOffset.Y + AnchorPosition.Y);
-            R3ePoint R3ePosition = Coordinates.ToR3e(position, screenSize);
+            SizeF objectScreenRatio = new SizeF((float)Width / screenSize.Width, (float)Height / screenSize.Height);
+
+            R3ePoint anchorSize = new R3ePoint(
+                objectScreenRatio.Width * (Model.Anchor.X + 1),
+                objectScreenRatio.Height * (Model.Anchor.Y - 1));
+
+            Point position = new Point(Location.X - screenOffset.X, Location.Y - screenOffset.Y);
+            R3ePoint r3ePosition = Coordinates.ToR3e(position, screenSize);
+
+            r3ePosition = new R3ePoint(r3ePosition.X + anchorSize.X, r3ePosition.Y + anchorSize.Y);
 
             if(isTripleScreen)
-                return new R3ePoint(R3ePosition.X * 3, R3ePosition.Y);
+                return new R3ePoint(r3ePosition.X * 3, r3ePosition.Y);
             else
-                return Coordinates.ToR3e(position, screenSize);
+                return r3ePosition;
         }
 
         public void SetScreenSize(Size screenSize, bool isTripleScreen)
@@ -201,6 +214,7 @@ namespace R3EHUDManager.placeholder.view
         {
             if (!isDragging) return;
             isDragging = false;
+
             MouseMove -= Drag;
 
             if (!Location.Equals(dragStartPosition))
