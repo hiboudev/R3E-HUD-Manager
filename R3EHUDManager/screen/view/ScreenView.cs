@@ -79,7 +79,7 @@ namespace R3EHUDManager.screen.view
 
             foreach (PlaceholderModel model in placeHolders)
             {
-                PlaceholderView view = new PlaceholderView(model, backgroundView.Size, new Point(SCREEN_MARGIN, SCREEN_MARGIN), isTripleScreen);
+                PlaceholderView view = new PlaceholderView(model, backgroundView.Size, new Point(backgroundView.Location.X, backgroundView.Location.Y), isTripleScreen);
 
                 view.PositionChanged += OnViewPositionChanged;
                 view.Dragging += OnPlaceholderDragging;
@@ -114,7 +114,7 @@ namespace R3EHUDManager.screen.view
             if(views != null)
                 foreach(PlaceholderView view in views.Values)
                 {
-                    view.SetScreenSize(backgroundView.Size, isTripleScreen);
+                    view.SetScreenSize(backgroundView.Size, isTripleScreen, backgroundView.Location);
                 }
         }
 
@@ -155,7 +155,15 @@ namespace R3EHUDManager.screen.view
             if (Width == 0 && Height == 0)
                 return;
 
-            backgroundView.SetScreenArea(new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN));
+            Size screenArea = new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN);
+            backgroundView.SetScreenArea(screenArea);
+
+            Point location = new Point(
+                SCREEN_MARGIN + (screenArea.Width - backgroundView.Width) / 2,
+                SCREEN_MARGIN + (screenArea.Height - backgroundView.Height) / 2
+                );
+
+            backgroundView.Location = location;
         }
 
         private void OnPlaceholderDragging(object sender, EventArgs e)

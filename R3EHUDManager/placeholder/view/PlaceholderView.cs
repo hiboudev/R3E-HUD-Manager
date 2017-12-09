@@ -21,7 +21,7 @@ namespace R3EHUDManager.placeholder.view
         private AnchorView anchor;
         private Size screenSize;
         //private double screenRatio;
-        private readonly Point screenOffset;
+        private Point screenOffset;
         private bool isTripleScreen;
         private bool selected;
         private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
@@ -32,11 +32,10 @@ namespace R3EHUDManager.placeholder.view
         public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset, bool isTripleScreen)
         {
             Model = model;
-            this.screenOffset = screenOffset;
             this.isTripleScreen = isTripleScreen;
 
             InitializeUI();
-            SetScreenSize(screenSize, isTripleScreen);
+            SetScreenSize(screenSize, isTripleScreen, screenOffset);
             Disposed += OnDispose;
         }
 
@@ -114,8 +113,9 @@ namespace R3EHUDManager.placeholder.view
                 return r3ePosition;
         }
 
-        public void SetScreenSize(Size screenSize, bool isTripleScreen)
+        public void SetScreenSize(Size screenSize, bool isTripleScreen, Point screenOffset)
         {
+            this.screenOffset = screenOffset;
             this.screenSize = screenSize;
             this.isTripleScreen = isTripleScreen;
             ComputeSize();
