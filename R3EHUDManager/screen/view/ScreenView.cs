@@ -136,8 +136,11 @@ namespace R3EHUDManager.screen.view
         {
             PlaceholderView view = (PlaceholderView)sender;
 
+            R3ePoint r3eLocation = view.GetR3eLocation();
+            Debug.WriteLine($"{r3eLocation.X}, {r3eLocation.Y}");
+
             DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED,
-                ((PlaceholderView)sender).Model.Name, view.GetR3eLocation()));
+                ((PlaceholderView)sender).Model.Name, r3eLocation));
         }
 
         protected override void OnSizeChanged(EventArgs e)

@@ -15,6 +15,7 @@ namespace R3EHUDManager.placeholder.view
         public event EventHandler PositionChanged;
         public event EventHandler Dragging;
         private Label label;
+        private bool isDragging;
         private Point dragStartPosition;
         private Point dragMouseOffset;
         private AnchorView anchor;
@@ -63,8 +64,8 @@ namespace R3EHUDManager.placeholder.view
             Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
 
             location.Offset(new Point(-anchor.X + screenOffset.X, -anchor.Y + screenOffset.Y));
-            
 
+            Debug.WriteLine($"{Model.Position.X}, {Model.Position.Y}");
             Location = location;
 
             AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
@@ -179,6 +180,8 @@ namespace R3EHUDManager.placeholder.view
 
         void StartDrag(object sender, MouseEventArgs e)
         {
+            isDragging = true;
+
             dragStartPosition = Location;
             dragMouseOffset = e.Location;
 
@@ -196,6 +199,8 @@ namespace R3EHUDManager.placeholder.view
 
         void StopDrag(object sender, MouseEventArgs e)
         {
+            if (!isDragging) return;
+            isDragging = false;
             MouseMove -= Drag;
 
             if (!Location.Equals(dragStartPosition))
