@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R3EHUDManager.placeholder.model;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -19,20 +20,23 @@ namespace R3EHUDManager.graphics
             // TODO use LocationModel
             switch (placeholderName)
             {
-                case "MoTeC":
+                case PlaceholderName.MOTEC:
                     return GetBitmap(@"_graphical_assets\motec.png");
 
-                case "Track Map":
+                case PlaceholderName.TRACK_MAP:
                     return GetBitmap(@"_graphical_assets\trackmap.png");
 
-                case "FFB Graph":
+                case PlaceholderName.FFB_GRAPH:
                     return GetBitmap(@"_graphical_assets\ffbgraph.png");
 
-                case "Position Bar":
+                case PlaceholderName.POSITION_BAR:
                     return GetBitmap(@"_graphical_assets\positionbar.png");
 
-                case "Virtual Mirror":
+                case PlaceholderName.VIRTUAL_MIRROR:
                     return GetBitmap(@"_graphical_assets\virtualmirror.png");
+
+                case PlaceholderName.MINI_MOTEC:
+                    return GetBitmap(@"_graphical_assets\minimotec.png");
 
                 default:
                     if(defaultBitmap == null)
