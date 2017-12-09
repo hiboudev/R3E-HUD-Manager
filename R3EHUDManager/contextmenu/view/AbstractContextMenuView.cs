@@ -21,9 +21,8 @@ namespace R3EHUDManager.contextmenu.view
 
         public AbstractContextMenuView(string title)
         {
-            InitializeUI();
             this.title = title;
-            Text = title;
+            InitializeUI();
         }
 
         public void AddItem(ContextMenuViewItem item)
@@ -86,23 +85,30 @@ namespace R3EHUDManager.contextmenu.view
 
         virtual public bool SetSelectedItem(string name)
         {
-            int maxLength = 18;
-
-            if (name.Length > maxLength)
-                name = name.Substring(0, maxLength) + "...";
-
-            Text = $"{title}: {name}";
-
             bool itemChecked = false;
 
             foreach (ToolStripMenuItem item in regularItems)
             {
                 item.Checked = item.Text == name;
 
-                if (item.Checked) itemChecked = true;
+                if (item.Checked)
+                {
+                    UpdateTitle(item.Text);
+                    itemChecked = true;
+                }
             }
 
             return itemChecked;
+        }
+
+        private void UpdateTitle(string selectedName)
+        {
+            int maxLength = 18;
+
+            if (selectedName.Length > maxLength)
+                selectedName = selectedName.Substring(0, maxLength) + "..."; // TODO bug ?
+
+            Text = $"{title}: {selectedName}";
         }
 
         private void InitializeUI()
