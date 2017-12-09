@@ -136,6 +136,7 @@ namespace R3EHUDManager.placeholder.view
                     break;
 
                 case UpdateType.SIZE:
+                    ComputeSize();
                     RefreshLocation();
                     Invalidate();
                     break;
