@@ -70,7 +70,7 @@ namespace R3EHUDManager
             selectionView.Margin = new Padding(selectionView.Margin.Left, selectionView.Margin.Top, selectionView.Margin.Right, 10);
 
             PlaceholdersListView listView = (PlaceholdersListView)Injector.GetInstance(typeof(PlaceholdersListView));
-            listView.Height = 200;
+            listView.Height = 160;
             listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             SettingsMenuView prefsButton = (SettingsMenuView)Injector.GetInstance(typeof(SettingsMenuView));

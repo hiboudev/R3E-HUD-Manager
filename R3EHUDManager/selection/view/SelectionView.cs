@@ -29,6 +29,7 @@ namespace R3EHUDManager.selection.view
         public const string EVENT_PLACEHOLDER_RESIZED = "placeholderResized";
         private ComboBox anchorPresets;
         private ComboBox positionPresets;
+        private CheckBox linkAnchorsCheck;
 
         public PlaceholderModel Selection { get; private set; }
 
@@ -84,6 +85,8 @@ namespace R3EHUDManager.selection.view
         {
             Enabled = false;
 
+            linkAnchorsCheck.Checked = true;
+
             stepperX.DecimalPlaces = stepperY.DecimalPlaces = stepperSize.DecimalPlaces = 3;
             stepperX.Minimum = stepperY.Minimum = stepperSize.Minimum = decimal.MinValue;
             stepperX.Maximum = stepperY.Maximum = stepperSize.Maximum = decimal.MaxValue;
@@ -133,6 +136,11 @@ namespace R3EHUDManager.selection.view
             if (position != null)
             {
                 DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, position));
+            }
+            if (linkAnchorsCheck.Checked)
+            {
+                anchorPresets.SelectedItem = position;
+                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, position));
             }
         }
 
@@ -191,13 +199,27 @@ namespace R3EHUDManager.selection.view
             anchorPresets = NewComboBox();
             positionPresets = NewComboBox();
 
+            linkAnchorsCheck = GetAnchorsLinkBox();
+
             Panel comboX = NewHCombo(labelX, stepperX);
             Panel comboY = NewHCombo(labelY, stepperY);
             Panel comboSize = NewHCombo(labelSize, stepperSize);
 
             comboSize.Margin = new Padding(comboSize.Margin.Left, comboSize.Margin.Top, comboSize.Margin.Right, 8);
 
-            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, labelAnchor, anchorPresets });
+            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, linkAnchorsCheck, labelAnchor, anchorPresets });
+        }
+
+        private CheckBox GetAnchorsLinkBox()
+        {
+            return new CheckBox()
+            {
+                Text = "Copy to anchor",
+                Margin = new Padding(18, 0, 0, 0),
+                ForeColor = Color.FromArgb(60, 60, 60),
+                Font = new Font(Font.FontFamily, 7),
+                AutoSize = true,
+            };
         }
 
         private Panel NewHCombo(Label label, NumericUpDown stepper)
@@ -225,7 +247,7 @@ namespace R3EHUDManager.selection.view
         {
             return new ComboBox()
             {
-                Size = new Size(90, 20),
+                Size = new Size(110, 20),
                 DropDownStyle = ComboBoxStyle.DropDownList,
                 Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4),
         };
