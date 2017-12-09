@@ -13,6 +13,9 @@ using System.Threading;
 using System.Globalization;
 using System.Drawing;
 using R3EHUDManager.application.events;
+using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.events;
+using R3EHUDManager.placeholder.command;
 
 namespace R3EHUDManager.selection.view
 {
@@ -27,6 +30,7 @@ namespace R3EHUDManager.selection.view
         public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
         public const string EVENT_ANCHOR_MOVED = "anchorMoved";
         public const string EVENT_PLACEHOLDER_RESIZED = "placeholderResized";
+        public const string EVENT_MOVE_TO_SCREEN = "moveToScreen";
         private ComboBox anchorPresets;
         private ComboBox positionPresets;
         private CheckBox linkAnchorsCheck;
@@ -34,6 +38,13 @@ namespace R3EHUDManager.selection.view
         public PlaceholderModel Selection { get; private set; }
 
         private bool holdStepperEvent = false;
+        private bool holdScreenEvent = false;
+
+        private RadioButton screenLeftRadio;
+        private RadioButton screenCenterRadio;
+        private RadioButton screenRightRadio;
+        private Panel screenPanel;
+        private bool isTripleScreen;
 
         public SelectionView()
         {
@@ -54,13 +65,22 @@ namespace R3EHUDManager.selection.view
 
             SelectAnchorPreset();
             SelectPositionPreset();
+
+            UpdateTripleScreenUI();
+        }
+
+        internal void TripleScreenChanged(ScreenLayoutType layout)
+        {
+            isTripleScreen = layout == ScreenLayoutType.TRIPLE;
+
+            UpdateTripleScreenUI();
         }
 
         internal void SetSelected(PlaceholderModel placeholder)
         {
             Selection = placeholder;
-            //TODO replace double by decimal in project?
             UpdateData();
+            UpdateTripleScreenUI();
 
             Enabled = true;
         }
@@ -79,6 +99,28 @@ namespace R3EHUDManager.selection.view
             positionPresets.SelectedItem = null;
 
             Enabled = false;
+        }
+
+        private void UpdateTripleScreenUI()
+        {
+            screenPanel.Visible = isTripleScreen;
+
+            if (Selection == null) return;
+
+            holdScreenEvent = true;
+            switch (ScreenUtils.GetScreen(Selection))
+            {
+                case ScreenPositionType.LEFT:
+                    screenLeftRadio.Checked = true;
+                    break;
+                case ScreenPositionType.CENTER:
+                    screenCenterRadio.Checked = true;
+                    break;
+                case ScreenPositionType.RIGHT:
+                    screenRightRadio.Checked = true;
+                    break;
+            }
+            holdScreenEvent = false;
         }
 
         private void InitializeUI()
@@ -110,6 +152,11 @@ namespace R3EHUDManager.selection.view
             }
             anchorPresets.SelectionChangeCommitted += OnAnchorPresetSelected;
             positionPresets.SelectionChangeCommitted += OnPositionPresetSelected;
+
+            screenPanel.Visible = false;
+            screenLeftRadio.CheckedChanged += ScreenRadioChanged;
+            screenCenterRadio.CheckedChanged += ScreenRadioChanged;
+            screenRightRadio.CheckedChanged += ScreenRadioChanged;
         }
 
         private void SelectStepperText(object sender, EventArgs e)
@@ -132,7 +179,8 @@ namespace R3EHUDManager.selection.view
         private void OnPositionPresetSelected(object sender, EventArgs e)
         {
             string name = positionPresets.SelectedItem.ToString();
-            R3ePoint position = R3ePointPreset.GetPreset(name);
+            R3ePoint position = isTripleScreen ? R3ePointPreset.GetPreset(name, ScreenUtils.GetScreen(Selection)) : R3ePointPreset.GetPreset(name);
+
             if (position != null)
             {
                 DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, position));
@@ -140,8 +188,16 @@ namespace R3EHUDManager.selection.view
             if (linkAnchorsCheck.Checked)
             {
                 anchorPresets.SelectedItem = position;
-                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, position));
+                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, R3ePointPreset.GetPreset(name)));
             }
+        }
+
+        private void ScreenRadioChanged(object sender, EventArgs e)
+        {
+            if (holdScreenEvent) return;
+
+            ScreenPositionType screenType = (ScreenPositionType)((RadioButton)sender).Tag;
+            DispatchEvent(new PlaceholderScreenEventArgs(EVENT_MOVE_TO_SCREEN, Selection.Name, screenType));
         }
 
         private void SelectAnchorPreset()
@@ -151,7 +207,7 @@ namespace R3EHUDManager.selection.view
 
         private void SelectPositionPreset()
         {
-            positionPresets.SelectedItem = R3ePointPreset.GetPresetName(Selection.Position);
+            positionPresets.SelectedItem = R3ePointPreset.GetPresetName(Selection.Position, ScreenUtils.GetScreen(Selection));
         }
 
         private void OnValueChanged(object sender, EventArgs e)
@@ -205,9 +261,51 @@ namespace R3EHUDManager.selection.view
             Panel comboY = NewHCombo(labelY, stepperY);
             Panel comboSize = NewHCombo(labelSize, stepperSize);
 
-            comboSize.Margin = new Padding(comboSize.Margin.Left, comboSize.Margin.Top, comboSize.Margin.Right, 8);
+            screenLeftRadio = NewScreenRadio("L", ScreenPositionType.LEFT);
+            screenCenterRadio = NewScreenRadio("C", ScreenPositionType.CENTER);
+            screenRightRadio = NewScreenRadio("R", ScreenPositionType.RIGHT);
 
-            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, labelPosition, positionPresets, linkAnchorsCheck, labelAnchor, anchorPresets });
+            screenPanel = NewScreenPanel(screenLeftRadio, screenCenterRadio, screenRightRadio);
+
+            Controls.AddRange(new Control[] { nameField, comboX, comboX, comboY, comboSize, screenPanel, labelPosition, positionPresets, linkAnchorsCheck, labelAnchor, anchorPresets });
+        }
+
+        private Panel NewScreenPanel(RadioButton screenLeftRadio, RadioButton screenCenterRadio, RadioButton screenRightRadio)
+        {
+            Label label = NewSimpleLabel("Screen");
+
+            FlowLayoutPanel vPanel = new FlowLayoutPanel()
+            {
+                AutoSize = true,
+                FlowDirection = FlowDirection.TopDown,
+            };
+
+            TableLayoutPanel panel = new TableLayoutPanel()
+            {
+                RowCount = 1,
+                ColumnCount = 3,
+                AutoSize = true,
+                Margin = new Padding(Margin.Left, 0, 0, 0),
+            };
+
+            panel.Controls.AddRange(new Control[] { screenLeftRadio, screenCenterRadio, screenRightRadio });
+
+            vPanel.Controls.Add(label);
+            vPanel.Controls.Add(panel);
+
+            return vPanel;
+        }
+
+        private RadioButton NewScreenRadio(string text, ScreenPositionType screenType)
+        {
+            return new RadioButton()
+            {
+                Text = text,
+                AutoSize = true,
+                Font = new Font(Font.FontFamily, 7),
+                Margin = new Padding(Margin.Left, 0, Margin.Right, Margin.Bottom),
+                Tag = screenType
+            };
         }
 
         private CheckBox GetAnchorsLinkBox()

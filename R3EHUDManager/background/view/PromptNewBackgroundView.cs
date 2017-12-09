@@ -61,8 +61,9 @@ namespace R3EHUDManager.background.view
         {
             bool check = ((CheckBox)sender).Checked;
 
-            // Cause we can't hit enter in NumericUpDown.
+            // Cause we can't hit enter in NumericUpDown if AcceptButton is defined.
             AcceptButton = check ? null : okButton;
+
             stepperPanel.Visible = check;
 
             if (check)

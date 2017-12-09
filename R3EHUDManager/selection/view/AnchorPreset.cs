@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.coordinates;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,10 +35,40 @@ namespace R3EHUDManager.selection.view
             return presets[name].Clone();
         }
 
-        public static string GetPresetName(R3ePoint anchor)
+        public static R3ePoint GetPreset(string name, ScreenPositionType screenType)
+        {
+            R3ePoint preset = presets[name].Clone();
+
+            switch (screenType)
+            {
+                case ScreenPositionType.LEFT:
+                    return new R3ePoint(preset.X - 2, preset.Y);
+
+                case ScreenPositionType.RIGHT:
+                    return new R3ePoint(preset.X + 2, preset.Y);
+            }
+            
+            return preset;
+        }
+
+        public static string GetPresetName(R3ePoint point)
         {
             foreach(KeyValuePair<string, R3ePoint> entry in presets)
-                if (entry.Value.Equals(anchor))
+                if (entry.Value.Equals(point))
+                    return entry.Key;
+
+            return null;
+        }
+
+        public static string GetPresetName(R3ePoint point, ScreenPositionType screenType)
+        {
+            if (screenType == ScreenPositionType.LEFT)
+                point = new R3ePoint(point.X + 2, point.Y);
+            else if (screenType == ScreenPositionType.RIGHT)
+                point = new R3ePoint(point.X - 2, point.Y);
+
+            foreach (KeyValuePair<string, R3ePoint> entry in presets)
+                if (entry.Value.Equals(point))
                     return entry.Key;
 
             return null;

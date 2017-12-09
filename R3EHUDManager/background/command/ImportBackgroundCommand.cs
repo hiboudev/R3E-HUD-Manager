@@ -81,7 +81,7 @@ namespace R3EHUDManager.background.command
         private void SaveJpeg(Bitmap bitmap, string path)
         {
             EncoderParameters parameters = new EncoderParameters(1);
-            parameters.Param[0] = new EncoderParameter(Encoder.Quality, 65L);
+            parameters.Param[0] = new EncoderParameter(Encoder.Quality, 70L);
 
             bitmap.Save(path, GetEncoderInfo("image/jpeg"), parameters);
         }

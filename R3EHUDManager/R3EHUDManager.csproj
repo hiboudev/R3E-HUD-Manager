@@ -154,6 +154,8 @@
     <Compile Include="layout\view\LayoutToolbarView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
+    <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
     <Compile Include="layout\view\LayoutMenuView.cs">
       <SubType>Component</SubType>
@@ -167,6 +169,8 @@
     <Compile Include="screen\command\ChangeScreenLayoutCommand.cs" />
     <Compile Include="screen\events\ScreenModelEventArgs.cs" />
     <Compile Include="screen\model\ScreenModel.cs" />
+    <Compile Include="screen\model\ScreenPositionType.cs" />
+    <Compile Include="screen\model\ScreenUtils.cs" />
     <Compile Include="selection\command\SelectNoneCommand.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>
