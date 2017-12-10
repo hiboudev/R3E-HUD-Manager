@@ -213,6 +213,8 @@ namespace R3EHUDManager.placeholder.view
 
         void StartDrag(object sender, MouseEventArgs e)
         {
+            if (!selected) return;
+
             isDragging = true;
 
             dragStartPosition = Location;
