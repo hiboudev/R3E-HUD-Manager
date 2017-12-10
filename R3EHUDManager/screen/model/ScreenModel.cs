@@ -18,9 +18,15 @@ namespace R3EHUDManager.screen.model
     {
         public BackgroundModel Background { get; private set; }
 
-        public Size Dimension { get; private set; }
-        public decimal AspectRatio { get; private set; }
-        public ScreenLayoutType Layout { get; private set; } = ScreenLayoutType.SINGLE;
+        //public Size Dimension { get; private set; }
+        //public decimal AspectRatio { get; private set; }
+        public ScreenLayoutType Layout {
+            get {
+                if (overrideLayout != null) return overrideLayout.Type;
+                if (Background != null) return Background.Layout.Type;
+                return ScreenLayoutType.SINGLE;
+            }
+        }
         public ZoomLevel ZoomLevel { get; private set; } = ZoomLevel.FIT_WINDOW;
 
         public const string EVENT_BACKGROUND_CHANGED = "backgroundChanged";
@@ -29,6 +35,7 @@ namespace R3EHUDManager.screen.model
 
         private Image bitmap;
         private LocationModel locationModel;
+        private ScreenLayout overrideLayout;
 
         public ScreenModel(LocationModel locationModel)
         {
@@ -37,6 +44,8 @@ namespace R3EHUDManager.screen.model
 
         public void SetBackground(BackgroundModel background)
         {
+            overrideLayout = null;
+
             Background = background;
 
             if (bitmap != null)
@@ -48,17 +57,17 @@ namespace R3EHUDManager.screen.model
             string dirPath = locationModel.GetGraphicBasePath(background.DirectoryType);
 
             bitmap = GraphicalAsset.GetNoCache(Path.Combine(dirPath, Background.FileName));
-            Dimension = bitmap.PhysicalDimension.ToSize();
-            UpdateAspectRatio();
+            //Dimension = bitmap.PhysicalDimension.ToSize();
+            //UpdateAspectRatio();
 
             DispatchEvent(new ScreenModelEventArgs(EVENT_BACKGROUND_CHANGED, this));
         }
 
-        public void SetLayout(ScreenLayoutType type)
+        public void SetLayout(ScreenLayout layout)
         {
-            Layout = type;
+            overrideLayout = layout;
 
-            UpdateAspectRatio();
+            //UpdateAspectRatio();
 
             DispatchEvent(new ScreenModelEventArgs(EVENT_TRIPLE_SCREEN_CHANGED, this));
         }
@@ -69,14 +78,14 @@ namespace R3EHUDManager.screen.model
             DispatchEvent(new ScreenModelEventArgs(EVENT_ZOOM_LEVEL_CHANGED, this));
         }
 
-        private void UpdateAspectRatio()
-        {
-            // TODO Manage screens with different resolutions
-            if (Layout == ScreenLayoutType.TRIPLE)
-                AspectRatio = ((decimal)Dimension.Width / Dimension.Height) / 3;
-            else
-                AspectRatio = (decimal)Dimension.Width / Dimension.Height;
-        }
+        //private void UpdateAspectRatio()
+        //{
+        //    // TODO Manage screens with different resolutions
+        //    if (Layout == ScreenLayoutType.TRIPLE)
+        //        AspectRatio = ((decimal)Dimension.Width / Dimension.Height) / 3;
+        //    else
+        //        AspectRatio = (decimal)Dimension.Width / Dimension.Height;
+        //}
 
         public Image GetBackgroundImage()
         {

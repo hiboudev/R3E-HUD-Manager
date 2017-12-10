@@ -10,6 +10,7 @@ using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using System.Drawing.Drawing2D;
 using R3EHUDManager.screen.view;
+using System.Diagnostics;
 
 namespace R3EHUDManager.background.view
 {
@@ -36,6 +37,7 @@ namespace R3EHUDManager.background.view
 
         internal void SetBackground(ScreenModel model)
         {
+            isTripleScreen = model.Layout == ScreenLayoutType.TRIPLE;
             baseBitmap = model.GetBackgroundImage();
             ComputeSize();
             Invalidate();

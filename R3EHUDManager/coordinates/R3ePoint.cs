@@ -22,9 +22,9 @@ namespace R3EHUDManager.coordinates
             return new R3ePoint(X, Y);
         }
 
-        public override bool Equals(object obj)
+        public bool Equals(R3ePoint point)
         {
-            return obj is R3ePoint && ((R3ePoint)obj).X == X && ((R3ePoint)obj).Y == Y;
+            return point.X == X && point.Y == Y;
         }
     }
 }

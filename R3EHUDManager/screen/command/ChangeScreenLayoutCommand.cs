@@ -36,7 +36,7 @@ namespace R3EHUDManager.screen.command
             if (layout == ScreenLayoutType.SINGLE)
                 CheckOutsidePlaceholder();
             
-            screenModel.SetLayout(layout);
+            screenModel.SetLayout(new ScreenLayout(layout, 1000, 1000, 1000)); // TODO temp
         }
 
         private void CheckOutsidePlaceholder()
