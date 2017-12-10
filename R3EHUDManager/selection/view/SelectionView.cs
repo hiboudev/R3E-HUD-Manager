@@ -119,6 +119,9 @@ namespace R3EHUDManager.selection.view
                 case ScreenPositionType.RIGHT:
                     screenRightRadio.Checked = true;
                     break;
+                case ScreenPositionType.OUTSIDE:
+                    screenRightRadio.Checked = screenCenterRadio.Checked = screenLeftRadio.Checked = false;
+                    break;
             }
             holdScreenEvent = false;
         }
@@ -184,11 +187,12 @@ namespace R3EHUDManager.selection.view
             if (position != null)
             {
                 DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, position));
-            }
-            if (linkAnchorsCheck.Checked)
-            {
-                anchorPresets.SelectedItem = position;
-                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, R3ePointPreset.GetPreset(name)));
+
+                if (linkAnchorsCheck.Checked)
+                {
+                    anchorPresets.SelectedItem = position;
+                    DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, R3ePointPreset.GetPreset(name)));
+                }
             }
         }
 

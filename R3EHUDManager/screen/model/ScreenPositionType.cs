@@ -10,6 +10,7 @@ namespace R3EHUDManager.screen.model
     {
         LEFT,
         CENTER,
-        RIGHT
+        RIGHT,
+        OUTSIDE
     }
 }
