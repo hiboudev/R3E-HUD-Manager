@@ -12,17 +12,22 @@ namespace R3EHUDManager.database.command
     class InitializeDatabaseCommand : ICommand
     {
         private readonly Database database;
+        private readonly DatabaseUpgrader upgrader;
         private readonly LocationModel locationModel;
 
-        public InitializeDatabaseCommand(Database database, LocationModel locationModel)
+        public InitializeDatabaseCommand(Database database, DatabaseUpgrader upgrader, LocationModel locationModel)
         {
             this.database = database;
+            this.upgrader = upgrader;
             this.locationModel = locationModel;
         }
 
         public void Execute()
         {
             database.Initialize(locationModel.DatabaseFile);
+
+            if (upgrader.IsUpgradeNeeded(database))
+                database.Upgrade(upgrader);
         }
     }
 }

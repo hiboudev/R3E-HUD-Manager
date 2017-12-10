@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.background.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -12,7 +13,7 @@ namespace R3EHUDManager.database
     class Database
     {
         private string dbArgs;
-        private const int dbVersion = 1;
+        public const int VERSION = 2;
 
         public void Initialize(string path)
         {
@@ -31,13 +32,13 @@ namespace R3EHUDManager.database
                 SQLiteCommand command = new SQLiteCommand("begin", db);
                 command.ExecuteNonQuery();
 
-                string sql = "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT);" +
+                string sql = "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT, layoutType INT);" +
                     "CREATE TABLE config (key TEXT unique, value BLOB);";
 
                 command = new SQLiteCommand(sql, db);
                 command.ExecuteNonQuery();
 
-                sql = $"INSERT INTO config (key, value) VALUES ('dbVersion', {dbVersion})";
+                sql = $"INSERT INTO config (key, value) VALUES ('dbVersion', {VERSION})";
 
                 command = new SQLiteCommand(sql, db);
                 command.ExecuteNonQuery();
@@ -49,6 +50,39 @@ namespace R3EHUDManager.database
             }
         }
 
+        public int GetVersion()
+        {
+            int dbVersion = -1;
+
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+
+                using (SQLiteDataReader reader = new SQLiteCommand("SELECT value FROM config WHERE key = 'dbVersion'", db).ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        dbVersion = reader.GetInt32(0);
+                    }
+                }
+                db.Close();
+            }
+
+            return dbVersion;
+        }
+
+        public void Upgrade(DatabaseUpgrader upgrader)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                new SQLiteCommand("begin", db).ExecuteNonQuery();
+                upgrader.Upgrade(this, db);
+                new SQLiteCommand("end", db).ExecuteNonQuery();
+                db.Close();
+            }
+        }
+
         public void AddBackground(BackgroundModel background)
         {
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
@@ -56,8 +90,8 @@ namespace R3EHUDManager.database
                 db.Open();
                 SQLiteCommand command;
 
-                string request = "INSERT INTO backgrounds (id, name, fileName, directoryType, isBuiltIn) VALUES " +
-                    $"({background.Id}, '{background.Name}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)})";
+                string request = "INSERT INTO backgrounds (id, name, fileName, directoryType, isBuiltIn, layoutType) VALUES " +
+                    $"({background.Id}, '{background.Name}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)}, {(int)background.Layout})";
 
                 command = new SQLiteCommand(request, db);
                 command.ExecuteNonQuery();
@@ -99,7 +133,12 @@ namespace R3EHUDManager.database
                     while (reader.Read())
                     {
                         backgrounds.Add(BackgroundFactory.NewBackgroundModel(
-                            reader.GetInt32(0), reader.GetString(1), reader.GetString(2), (BaseDirectoryType)reader.GetInt32(3), Convert.ToBoolean(reader.GetInt32(4)), screen.model.ScreenLayoutType.SINGLE)); // TODO temp
+                            reader.GetInt32(0), 
+                            reader.GetString(1),
+                            reader.GetString(2), 
+                            (BaseDirectoryType)reader.GetInt32(3),
+                            Convert.ToBoolean(reader.GetInt32(4)),
+                            (ScreenLayoutType)reader.GetInt32(5)));
                     }
                     reader.Close();
                 }

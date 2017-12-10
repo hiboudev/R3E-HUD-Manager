@@ -57,7 +57,7 @@ namespace R3EHUDManager.background.view
 
                 if (backgroundDialog.ShowDialog() == DialogResult.OK)
                 {
-                    DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, backgroundDialog.BackgroundName, fileDialog.FileName, backgroundDialog.CropRect));
+                    DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, backgroundDialog.BackgroundName, backgroundDialog.BackgroundLayout, backgroundDialog.CropRect, fileDialog.FileName));
                 }
                 backgroundDialog.Dispose();
             }

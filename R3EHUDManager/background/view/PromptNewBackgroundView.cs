@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.background.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,15 +19,23 @@ namespace R3EHUDManager.background.view
         private Label errorField;
         private Button okButton;
         private BackgroundPreviewView preview;
-        private CheckBox tripleScreenCheck;
         private FlowLayoutPanel stepperPanel;
         private NumericUpDown stepperLeft;
         private NumericUpDown stepperRight;
         private Rectangle cropRect;
         private TableLayoutPanel layout;
         private Size bitmapSize;
+        private RadioButton radioTriple;
+        private RadioButton radioCrop;
 
-        public Rectangle CropRect { get => tripleScreenCheck.Checked ? cropRect : new Rectangle(); }
+        public Rectangle CropRect { get => radioCrop.Checked ? cropRect : new Rectangle(); }
+        public ScreenLayoutType BackgroundLayout {
+            get
+            {
+                if (radioTriple.Checked) return ScreenLayoutType.TRIPLE;
+                return ScreenLayoutType.SINGLE;
+            }
+        }
 
         public string BackgroundName { get => inputField.Text; }
 
@@ -57,9 +66,9 @@ namespace R3EHUDManager.background.view
             DrawRectangle();
         }
 
-        private void OnTripleScreenCheckChanged(object sender, EventArgs e)
+        private void OnRadioCropCheckChanged(object sender, EventArgs e)
         {
-            bool check = ((CheckBox)sender).Checked;
+            bool check = ((RadioButton)sender).Checked;
 
             // Cause we can't hit enter in NumericUpDown if AcceptButton is defined.
             AcceptButton = check ? null : okButton;
@@ -152,13 +161,16 @@ namespace R3EHUDManager.background.view
                 Dock = DockStyle.Fill
             };
 
-            tripleScreenCheck = new CheckBox()
-            {
-                Text = "Triple screen image: crop middle screen",
-                AutoSize = true,
-            };
+            Panel radioPanel = new FlowLayoutPanel() { FlowDirection = FlowDirection.TopDown, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink };
 
-            tripleScreenCheck.CheckedChanged += OnTripleScreenCheckChanged;
+            Label radioLabel = new Label() { Text = "Layout" };
+            RadioButton radioSingle = NewRadioButton("Single screen", true);
+            radioTriple = NewRadioButton("Triple screen");
+            radioCrop = NewRadioButton("Crop triple -> single screen");
+
+            radioCrop.CheckedChanged += OnRadioCropCheckChanged;
+
+            radioPanel.Controls.AddRange(new Control[] { radioLabel, radioSingle, radioTriple, radioCrop });
 
             stepperPanel = new FlowLayoutPanel()
             {
@@ -177,13 +189,22 @@ namespace R3EHUDManager.background.view
             AddControl(inputField, SizeType.AutoSize);
             AddControl(errorField, SizeType.AutoSize);
             AddControl(preview, SizeType.Percent, 100);
-            AddControl(tripleScreenCheck, SizeType.AutoSize);
+            AddControl(radioPanel, SizeType.AutoSize);
             AddControl(stepperPanel, SizeType.AutoSize);
             AddControl(okButton, SizeType.AutoSize);
 
             Controls.Add(layout);
 
             ActiveControl = inputField;
+        }
+
+        private static RadioButton NewRadioButton(string text, bool check = false)
+        {
+            return new RadioButton() {
+                AutoSize = true,
+                Text = text,
+                Checked = check
+            };
         }
 
         private NumericUpDown NewStepper()

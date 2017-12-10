@@ -47,7 +47,8 @@ namespace R3EHUDManager
             Injector.MapType(typeof(BackgroundToolbarView), typeof(BackgroundToolbarView), true); 
             Injector.MapType(typeof(PromptNewBackgroundView), typeof(PromptNewBackgroundView));
             Injector.MapType(typeof(SettingsMenuView), typeof(SettingsMenuView), true);
-            Injector.MapType(typeof(LayoutToolbarView), typeof(LayoutToolbarView), true);
+            Injector.MapType(typeof(LayoutToolbarView), typeof(LayoutToolbarView), true); 
+            Injector.MapType(typeof(DatabaseUpgrader), typeof(DatabaseUpgrader), true); 
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
