@@ -17,6 +17,7 @@ using R3EHUDManager.background.view;
 using da2mvc.injection;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
+using System.Runtime.InteropServices;
 
 namespace R3EHUDManager.screen.view
 {
@@ -45,6 +46,8 @@ namespace R3EHUDManager.screen.view
 
         private void InitializeUI()
         {
+            //DoubleBuffered = true;
+
             BackColor = Color.FromArgb(47,65,75);
 
             AutoScroll = true;
@@ -59,14 +62,45 @@ namespace R3EHUDManager.screen.view
             Controls.Add(backgroundView);
         }
 
+        //[DllImport("user32.dll", SetLastError = true)]
+        //private static extern bool LockWindowUpdate(IntPtr hWnd);
+
         private void OnScrollChanged(object sender, ScrollEventArgs e)
         {
             foreach (PlaceholderView view in views.Values)
                 view.OnScreenScrolled(backgroundView.Location);
+
+            // TODO update data and refresh
+            //Refresh();
+            //Refresh();
+
+            //if (e.Type == ScrollEventType.First)
+            //{
+            //    LockWindowUpdate(this.Handle);
+            //}
+            //else
+            //{
+            //    LockWindowUpdate(IntPtr.Zero);
+            //    Update();
+            //    if (e.Type != ScrollEventType.Last)
+            //        LockWindowUpdate(this.Handle);
+            //}
         }
+
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        const int WS_EX_COMPOSITED = 0x02000000;
+        //        var cp = base.CreateParams;
+        //        cp.ExStyle |= WS_EX_COMPOSITED;
+        //        return cp;
+        //    }
+        //}
 
         internal void BackgroundChanged(ScreenModel screenModel)
         {
+            VerticalScroll.Value = HorizontalScroll.Value = 0;
             isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
@@ -126,6 +160,7 @@ namespace R3EHUDManager.screen.view
             else
             {
                 //AutoScroll = true;
+                backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
             }
 
             UpdateScreenSize();
@@ -203,7 +238,7 @@ namespace R3EHUDManager.screen.view
 
                 backgroundView.Location = location;
             }
-            else backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
+            //else backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
         }
 
         private void OnPlaceholderDragging(object sender, EventArgs e)
