@@ -1,13 +1,15 @@
 ﻿using R3EHUDManager.coordinates;
 using R3EHUDManager.placeholder.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R3EHUDManager.screen.model
+namespace R3EHUDManager.screen.utils
 {
     class ScreenUtils
     {
@@ -75,6 +77,31 @@ namespace R3EHUDManager.screen.model
                 }
 
             return new R3ePoint(offsetX, offsetY);
+        }
+
+        public static string GetFormattedAspectRatio(Size size)
+        {
+            int denominator = GetHighestDenominator(size.Width, size.Height);
+
+            return $"{size.Width / denominator}/{size.Height / denominator}";
+        }
+
+        public static string GetFormattedAspectRatio(int width, int height)
+        {
+            int denominator = GetHighestDenominator(width, height);
+
+            return $"{width / denominator}/{height/denominator}";
+        }
+
+        private static int GetHighestDenominator(int a, int b)
+        {
+            while (b != 0)
+            {
+                int c = a % b;
+                a = b;
+                b = c;
+            }
+            return a;
         }
 
         private static double GetOffsetXFromOutside(PlaceholderModel placeholder, ScreenPositionType targetScreen)

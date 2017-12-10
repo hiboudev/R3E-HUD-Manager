@@ -16,6 +16,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.events;
 using R3EHUDManager.placeholder.command;
+using R3EHUDManager.screen.utils;
 
 namespace R3EHUDManager.selection.view
 {

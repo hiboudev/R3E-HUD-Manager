@@ -172,7 +172,7 @@
     <Compile Include="screen\events\ScreenModelEventArgs.cs" />
     <Compile Include="screen\model\ScreenModel.cs" />
     <Compile Include="screen\model\ScreenPositionType.cs" />
-    <Compile Include="screen\model\ScreenUtils.cs" />
+    <Compile Include="screen\utils\ScreenUtils.cs" />
     <Compile Include="screen\model\ZoomLevel.cs" />
     <Compile Include="screen\view\ZoomMediator.cs" />
     <Compile Include="screen\view\ZoomView.cs">

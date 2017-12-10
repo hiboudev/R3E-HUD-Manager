@@ -19,6 +19,7 @@ namespace R3EHUDManager.background.view
         private float rectangleXRatio;
         private Size originalBitmapSize;
         private const int MAX_BITMAP_SIZE = 1280;
+        private bool lineStyle;
 
         public BackgroundPreviewView()
         {
@@ -74,12 +75,14 @@ namespace R3EHUDManager.background.view
             Invalidate();
         }
 
-        internal void DrawRectangle(int x, int width)
+        internal void DrawRectangle(int x, int width, bool lineStyle)
         {
             if (bitmap == null) return;
 
             rectangleXRatio = (float)x / originalBitmapSize.Width;
             rectangleRightRatio = (float)(x + width) / originalBitmapSize.Width;
+
+            this.lineStyle = lineStyle;
 
             Invalidate();
         }
@@ -111,19 +114,33 @@ namespace R3EHUDManager.background.view
             int areaLeft = (int)Math.Round(rectangleXRatio * bitmap.Width);
             int areaRight = (int)Math.Round(rectangleRightRatio * bitmap.Width);
 
-            paintSurface.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
-                new Rectangle(
-                    0,
-                    0,
-                    areaLeft,
-                    paintBitmap.Height));
+            if (lineStyle)
+            {
+                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.Black), 3) { Alignment = PenAlignment.Center },
+                    new Point(areaLeft, 0),
+                    new Point(areaLeft, paintBitmap.Height));
 
-            paintSurface.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
-                new Rectangle(
-                    areaRight,
-                    0,
-                    paintBitmap.Width - areaRight,
-                    paintBitmap.Height));
+                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.Black), 3) { Alignment = PenAlignment.Center },
+                    new Point(areaRight, 0),
+                    new Point(areaRight, paintBitmap.Height));
+            }
+            else
+            {
+                paintSurface.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
+                    new Rectangle(
+                        0,
+                        0,
+                        areaLeft,
+                        paintBitmap.Height));
+
+                paintSurface.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
+                    new Rectangle(
+                        areaRight,
+                        0,
+                        paintBitmap.Width - areaRight,
+                        paintBitmap.Height));
+            }
+
 
 
             e.Graphics.DrawImage(paintBitmap, new Rectangle(marginX, marginY, bitmapSize.Width, bitmapSize.Height));

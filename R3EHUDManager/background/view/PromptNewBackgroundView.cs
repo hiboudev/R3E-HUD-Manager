@@ -1,5 +1,6 @@
 ﻿using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,6 +26,8 @@ namespace R3EHUDManager.background.view
         private Rectangle cropRect;
         private TableLayoutPanel layout;
         private Size bitmapSize;
+        private Label radioLabel;
+        private RadioButton radioSingle;
         private RadioButton radioTriple;
         private RadioButton radioCrop;
 
@@ -59,33 +62,62 @@ namespace R3EHUDManager.background.view
             stepperLeft.Maximum = stepperRight.Maximum = bitmapSize.Width / 2 - 10;
 
             preview.SetBitmap(bitmap);
+
+            radioSingle.Checked = true;
         }
 
         private void OnStepperValueChanged(object sender, EventArgs e)
         {
-            DrawRectangle();
+            DrawRectangle(false);
         }
 
-        private void OnRadioCropCheckChanged(object sender, EventArgs e)
+        private void OnRadioLayoutChanged(object sender, EventArgs e)
         {
             bool check = ((RadioButton)sender).Checked;
+            int centerScreenWidth;
 
-            // Cause we can't hit enter in NumericUpDown if AcceptButton is defined.
-            AcceptButton = check ? null : okButton;
+            if ((RadioButton)sender == radioCrop)
+            {
+                // Cause we can't hit enter in NumericUpDown if AcceptButton is defined.
+                AcceptButton = check ? null : okButton;
 
-            stepperPanel.Visible = check;
+                //stepperPanel.Visible = check;
 
-            if (check)
-                DrawRectangle();
-            else
-                preview.ClearRectangle();
+                if (check)
+                {
+                    centerScreenWidth = DrawRectangle(false);
+                    radioLabel.Text = $"Single screen layout: 1 x [{centerScreenWidth}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio(centerScreenWidth, bitmapSize.Height)})";
+                }
+                else
+                    preview.ClearRectangle();
+            }
+            else if (check && (RadioButton)sender == radioSingle)
+            {
+                radioLabel.Text = $"Single screen layout: 1 x [{bitmapSize.Width}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio(bitmapSize)})";
+            }
+            else if ((RadioButton)sender == radioTriple)
+            {
+                if(check)
+                    radioLabel.Text = $"Triple screen layout: 3 x [{bitmapSize.Width}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio(bitmapSize.Width / 3, bitmapSize.Height)})";
+
+                if (check)
+                    DrawRectangle(true);
+                else
+                    preview.ClearRectangle();
+            }
         }
 
-        private void DrawRectangle()
+        private int DrawRectangle(bool lineStyle)
         {
             int centerScreenWidth = bitmapSize.Width - (int)stepperLeft.Value - (int)stepperRight.Value;
-            cropRect = new Rectangle((int)stepperLeft.Value, 0, centerScreenWidth, bitmapSize.Height);
-            preview.DrawRectangle((int)stepperLeft.Value, centerScreenWidth);
+
+            if (!lineStyle)
+            {
+                cropRect = new Rectangle((int)stepperLeft.Value, 0, centerScreenWidth, bitmapSize.Height);
+            }
+            preview.DrawRectangle((int)stepperLeft.Value, centerScreenWidth, lineStyle);
+
+            return centerScreenWidth;
         }
 
         private void CheckText(object sender, EventArgs e)
@@ -161,14 +193,17 @@ namespace R3EHUDManager.background.view
                 Dock = DockStyle.Fill
             };
 
-            Panel radioPanel = new FlowLayoutPanel() { FlowDirection = FlowDirection.TopDown, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink };
+            Panel radioPanel = new FlowLayoutPanel() { FlowDirection = FlowDirection.TopDown, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Dock = DockStyle.Fill };
 
-            Label radioLabel = new Label() { Text = "Layout" };
-            RadioButton radioSingle = NewRadioButton("Single screen", true);
+            radioLabel = new Label() { AutoSize = true, Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 5), Font = new Font(FontFamily.GenericMonospace, 8) };
+
+            radioSingle = NewRadioButton("Single screen");
             radioTriple = NewRadioButton("Triple screen");
             radioCrop = NewRadioButton("Crop triple -> single screen");
 
-            radioCrop.CheckedChanged += OnRadioCropCheckChanged;
+            radioSingle.CheckedChanged += OnRadioLayoutChanged;
+            radioTriple.CheckedChanged += OnRadioLayoutChanged;
+            radioCrop.CheckedChanged += OnRadioLayoutChanged;
 
             radioPanel.Controls.AddRange(new Control[] { radioLabel, radioSingle, radioTriple, radioCrop });
 
@@ -198,12 +233,12 @@ namespace R3EHUDManager.background.view
             ActiveControl = inputField;
         }
 
-        private static RadioButton NewRadioButton(string text, bool check = false)
+        private static RadioButton NewRadioButton(string text)
         {
             return new RadioButton() {
                 AutoSize = true,
                 Text = text,
-                Checked = check
+                Margin = new Padding(0),
             };
         }
 
