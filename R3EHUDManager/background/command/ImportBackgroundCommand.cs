@@ -60,7 +60,7 @@ namespace R3EHUDManager.background.command
             else
                 SaveJpeg(originalBitmap, destinationPath);
 
-            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, destinationFileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false, new ScreenLayout(ScreenLayoutType.SINGLE, 1000, 1000, 1000)); // TODO temp
+            BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, destinationFileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false, ScreenLayoutType.SINGLE); // TODO temp
             database.AddBackground(background);
             collection.AddBackground(background);
             screenModel.SetBackground(background);

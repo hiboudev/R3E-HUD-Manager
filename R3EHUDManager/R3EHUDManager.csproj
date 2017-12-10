@@ -157,7 +157,6 @@
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
     <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
-    <Compile Include="screen\model\ScreenLayout.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
     <Compile Include="layout\view\LayoutMenuView.cs">
       <SubType>Component</SubType>

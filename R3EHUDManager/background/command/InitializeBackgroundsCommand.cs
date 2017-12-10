@@ -29,7 +29,7 @@ namespace R3EHUDManager.background.command
 
             if(backgrounds.Count == 0)
             {
-                BackgroundModel defaultBackground = BackgroundFactory.NewBackgroundModel("Default", "background.png", BaseDirectoryType.GRAPHICAL_ASSETS, true, new ScreenLayout(ScreenLayoutType.SINGLE, 1000, 1000, 1000)); // TODO temp
+                BackgroundModel defaultBackground = BackgroundFactory.NewBackgroundModel("Default", "background.png", BaseDirectoryType.GRAPHICAL_ASSETS, true, ScreenLayoutType.SINGLE); // TODO temp
                 backgroundCollection.SetBackgrounds(new List<BackgroundModel>(new BackgroundModel[] { defaultBackground }));
                 database.AddBackground(defaultBackground);
                 screenModel.SetBackground(defaultBackground);

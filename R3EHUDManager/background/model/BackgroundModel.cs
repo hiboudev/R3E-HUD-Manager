@@ -9,7 +9,7 @@ namespace R3EHUDManager.background.model
 {
     class BackgroundModel
     {
-        public BackgroundModel(int id, string name, string fileName, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayout layout)
+        public BackgroundModel(int id, string name, string fileName, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayoutType layout)
         {
             Id = id;
             Name = name;
@@ -24,6 +24,6 @@ namespace R3EHUDManager.background.model
         public string FileName { get; }
         public BaseDirectoryType DirectoryType { get; }
         public bool IsBuiltInt { get; }
-        public ScreenLayout Layout { get; }
+        public ScreenLayoutType Layout { get; }
     }
 }

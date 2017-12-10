@@ -22,8 +22,8 @@ namespace R3EHUDManager.screen.model
         //public decimal AspectRatio { get; private set; }
         public ScreenLayoutType Layout {
             get {
-                if (overrideLayout != null) return overrideLayout.Type;
-                if (Background != null) return Background.Layout.Type;
+                if (overridedLayout) return overrideLayout;
+                if (Background != null) return Background.Layout;
                 return ScreenLayoutType.SINGLE;
             }
         }
@@ -35,7 +35,8 @@ namespace R3EHUDManager.screen.model
 
         private Image bitmap;
         private LocationModel locationModel;
-        private ScreenLayout overrideLayout;
+        private bool overridedLayout = false;
+        private ScreenLayoutType overrideLayout;
 
         public ScreenModel(LocationModel locationModel)
         {
@@ -44,7 +45,7 @@ namespace R3EHUDManager.screen.model
 
         public void SetBackground(BackgroundModel background)
         {
-            overrideLayout = null;
+            overridedLayout = false;
 
             Background = background;
 
@@ -63,9 +64,10 @@ namespace R3EHUDManager.screen.model
             DispatchEvent(new ScreenModelEventArgs(EVENT_BACKGROUND_CHANGED, this));
         }
 
-        public void SetLayout(ScreenLayout layout)
+        public void SetLayout(ScreenLayoutType layout)
         {
             overrideLayout = layout;
+            overridedLayout = true;
 
             //UpdateAspectRatio();
 

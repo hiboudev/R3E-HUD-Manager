@@ -99,7 +99,7 @@ namespace R3EHUDManager.database
                     while (reader.Read())
                     {
                         backgrounds.Add(BackgroundFactory.NewBackgroundModel(
-                            reader.GetInt32(0), reader.GetString(1), reader.GetString(2), (BaseDirectoryType)reader.GetInt32(3), Convert.ToBoolean(reader.GetInt32(4)), new screen.model.ScreenLayout(screen.model.ScreenLayoutType.SINGLE, 1000, 1000, 1000))); // TODO temp
+                            reader.GetInt32(0), reader.GetString(1), reader.GetString(2), (BaseDirectoryType)reader.GetInt32(3), Convert.ToBoolean(reader.GetInt32(4)), screen.model.ScreenLayoutType.SINGLE)); // TODO temp
                     }
                     reader.Close();
                 }

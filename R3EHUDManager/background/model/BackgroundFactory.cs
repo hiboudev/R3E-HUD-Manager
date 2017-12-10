@@ -11,12 +11,12 @@ namespace R3EHUDManager.background.model
     {
         private static int idCounter = 0;
 
-        public static BackgroundModel NewBackgroundModel(string name, string filePath, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayout layout)
+        public static BackgroundModel NewBackgroundModel(string name, string filePath, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayoutType layout)
         {
             return new BackgroundModel(++idCounter, name, filePath, directoryType, IsBuiltInt, layout);
         }
 
-        public static BackgroundModel NewBackgroundModel(int databaseId, string name, string filePath, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayout layout)
+        public static BackgroundModel NewBackgroundModel(int databaseId, string name, string filePath, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayoutType layout)
         {
             if (databaseId > idCounter) idCounter = databaseId;
 
