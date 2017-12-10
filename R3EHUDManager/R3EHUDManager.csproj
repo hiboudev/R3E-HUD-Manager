@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
+    <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
     <Compile Include="layout\view\LayoutMenuView.cs">
       <SubType>Component</SubType>
@@ -171,6 +172,11 @@
     <Compile Include="screen\model\ScreenModel.cs" />
     <Compile Include="screen\model\ScreenPositionType.cs" />
     <Compile Include="screen\model\ScreenUtils.cs" />
+    <Compile Include="screen\model\ZoomLevel.cs" />
+    <Compile Include="screen\view\ZoomMediator.cs" />
+    <Compile Include="screen\view\ZoomView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="selection\command\SelectNoneCommand.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>

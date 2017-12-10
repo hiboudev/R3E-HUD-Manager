@@ -3,6 +3,7 @@ using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
 using R3EHUDManager.location.model;
 using R3EHUDManager.screen.events;
+using R3EHUDManager.screen.view;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,9 +21,11 @@ namespace R3EHUDManager.screen.model
         public Size Dimension { get; private set; }
         public decimal AspectRatio { get; private set; }
         public ScreenLayoutType Layout { get; private set; } = ScreenLayoutType.SINGLE;
+        public ZoomLevel ZoomLevel { get; private set; } = ZoomLevel.FIT_WINDOW;
 
         public const string EVENT_BACKGROUND_CHANGED = "backgroundChanged";
         public const string EVENT_TRIPLE_SCREEN_CHANGED = "tripleScreenChanged";
+        public const string EVENT_ZOOM_LEVEL_CHANGED = "zoomLevelChanged";
 
         private Image bitmap;
         private LocationModel locationModel;
@@ -58,6 +61,12 @@ namespace R3EHUDManager.screen.model
             UpdateAspectRatio();
 
             DispatchEvent(new ScreenModelEventArgs(EVENT_TRIPLE_SCREEN_CHANGED, this));
+        }
+
+        public void SetZoomLevel(ZoomLevel zoomLevel)
+        {
+            ZoomLevel = zoomLevel;
+            DispatchEvent(new ScreenModelEventArgs(EVENT_ZOOM_LEVEL_CHANGED, this));
         }
 
         private void UpdateAspectRatio()

@@ -56,6 +56,7 @@ namespace R3EHUDManager
             Injector.MapView(typeof(BackgroundMenuView), typeof(BackgroundMenuMediator), true);
             Injector.MapView(typeof(BackgroundManagerView), typeof(BackgroundManagerMediator));
             Injector.MapView(typeof(LayoutMenuView), typeof(LayoutMenuMediator));
+            Injector.MapView(typeof(ZoomView), typeof(ZoomMediator));
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -76,6 +77,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_ITEM_CLICKED, typeof(SelectBackgroundCommand));
             Injector.MapCommand(typeof(BackgroundManagerView), BackgroundManagerView.EVENT_DELETE_BACKGROUND, typeof(DeleteBackgroundCommand));
             Injector.MapCommand(typeof(LayoutMenuView), LayoutMenuView.EVENT_ITEM_CLICKED, typeof(ChangeScreenLayoutCommand));
+            Injector.MapCommand(typeof(ZoomView), ZoomView.EVENT_ZOOM_LEVEL_CHANGED, typeof(ChangeZoomLevelCommand));
         }
     }
 }

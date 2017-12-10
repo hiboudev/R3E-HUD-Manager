@@ -28,6 +28,12 @@ namespace R3EHUDManager.screen.view
 
             RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
             RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
+        }
+
+        private void OnZoomLevelChanged(BaseEventArgs args)
+        {
+            ((ScreenView)View).SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
         }
 
         private void OnTripleScreenChanged(BaseEventArgs args)

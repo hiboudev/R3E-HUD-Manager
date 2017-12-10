@@ -36,6 +36,7 @@ namespace R3EHUDManager.screen.view
 
         private BackgroundView backgroundView;
         private bool isTripleScreen;
+        private ZoomLevel zoomLevel = ZoomLevel.FIT_WINDOW;
 
         public ScreenView()
         {
@@ -46,6 +47,9 @@ namespace R3EHUDManager.screen.view
         {
             BackColor = Color.FromArgb(47,65,75);
 
+            AutoScroll = true;
+            Scroll += OnScrollChanged;
+
             backgroundView = (BackgroundView)Injector.GetInstance(typeof(BackgroundView));
             backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
 
@@ -53,6 +57,12 @@ namespace R3EHUDManager.screen.view
             backgroundView.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
 
             Controls.Add(backgroundView);
+        }
+
+        private void OnScrollChanged(object sender, ScrollEventArgs e)
+        {
+            foreach (PlaceholderView view in views.Values)
+                view.OnScreenScrolled(backgroundView.Location);
         }
 
         internal void BackgroundChanged(ScreenModel screenModel)
@@ -97,6 +107,31 @@ namespace R3EHUDManager.screen.view
             PlaceholderView view = views[placeholder.Name];
             view.SetSelected(selected);
             view.BringToFront();
+        }
+
+        internal void SetZoomLevel(ZoomLevel zoomLevel)
+        {
+            if (this.zoomLevel == zoomLevel) return;
+
+            this.zoomLevel = zoomLevel;
+
+            //AutoScroll = zoomLevel == ZoomLevel.FIT_HEIGHT;
+            //AdjustFormScrollbars(false);
+
+            if (zoomLevel == ZoomLevel.FIT_WINDOW)
+            {
+                VerticalScroll.Value = HorizontalScroll.Value = 0;
+                //AutoScroll = false;
+            }
+            else
+            {
+                //AutoScroll = true;
+            }
+
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
+
+            AutoScroll = zoomLevel == ZoomLevel.FIT_HEIGHT;
         }
 
         private void OnPlaceholderMouseDown(object sender, MouseEventArgs e)
@@ -144,9 +179,9 @@ namespace R3EHUDManager.screen.view
 
         protected override void OnSizeChanged(EventArgs e)
         {
-            base.OnSizeChanged(e);
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
+            base.OnSizeChanged(e);
         }
 
         private void UpdateScreenSize()
@@ -156,14 +191,19 @@ namespace R3EHUDManager.screen.view
                 return;
 
             Size screenArea = new Size(Width - 2 * SCREEN_MARGIN, Height - 2 * SCREEN_MARGIN);
-            backgroundView.SetScreenArea(screenArea);
+            backgroundView.SetScreenArea(screenArea, zoomLevel);
 
-            Point location = new Point(
-                SCREEN_MARGIN + (screenArea.Width - backgroundView.Width) / 2,
-                SCREEN_MARGIN + (screenArea.Height - backgroundView.Height) / 2
-                );
+            // Center background
+            if(zoomLevel == ZoomLevel.FIT_WINDOW)
+            {
+                Point location = new Point(
+                    SCREEN_MARGIN + (screenArea.Width - backgroundView.Width) / 2,
+                    SCREEN_MARGIN + (screenArea.Height - backgroundView.Height) / 2
+                    );
 
-            backgroundView.Location = location;
+                backgroundView.Location = location;
+            }
+            else backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
         }
 
         private void OnPlaceholderDragging(object sender, EventArgs e)

@@ -123,6 +123,13 @@ namespace R3EHUDManager.placeholder.view
             Invalidate();
         }
 
+        internal void OnScreenScrolled(Point screenOffset)
+        {
+            this.screenOffset = screenOffset;
+            //RefreshLocation();
+            //Invalidate();
+        }
+
         internal void Update(UpdateType updateType)
         {
             switch (updateType)

@@ -36,28 +36,68 @@ namespace R3EHUDManager.screen.model
 
         public static R3ePoint ToScreenOffset(PlaceholderModel placeholder, ScreenPositionType targetScreen)
         {
-            double zeroX = placeholder.Position.X + 3;
-            double moduloX = zeroX % 2;
-            double positionXInScreen = Math.Abs(moduloX);
+            ScreenPositionType currentScreen = GetScreen(placeholder);
 
             // Replace placeholder Y in screen in case it's outside.
             double positionYInScreen = placeholder.Position.Y;
             if (placeholder.Position.Y < -1) positionYInScreen = -1;
             else if (placeholder.Position.Y > 1) positionYInScreen = 1;
 
+            double offsetX = 0;
+            double offsetY = positionYInScreen - placeholder.Position.Y;
+
+            if(currentScreen == ScreenPositionType.OUTSIDE)
+                offsetX = GetOffsetXFromOutside(placeholder, targetScreen);
+            else
+                switch (targetScreen)
+                {
+                    case ScreenPositionType.LEFT:
+                        if (currentScreen == ScreenPositionType.CENTER) offsetX = -2;
+                        else if (currentScreen == ScreenPositionType.RIGHT) offsetX = -4;
+                        break;
+
+                    case ScreenPositionType.RIGHT:
+                        if (currentScreen == ScreenPositionType.LEFT) offsetX = 4;
+                        else if (currentScreen == ScreenPositionType.CENTER) offsetX = 2;
+                        break;
+
+                    case ScreenPositionType.CENTER:
+                        if (currentScreen == ScreenPositionType.LEFT) offsetX = 2;
+                        else if (currentScreen == ScreenPositionType.RIGHT) offsetX = -2;
+                        break;
+
+                    case ScreenPositionType.OUTSIDE:
+                        offsetX = 0;
+                        break;
+
+                    default:
+                        throw new Exception("Not implemented type.");
+                }
+
+            return new R3ePoint(offsetX, offsetY);
+        }
+
+        private static double GetOffsetXFromOutside(PlaceholderModel placeholder, ScreenPositionType targetScreen)
+        {
+            double zeroX = placeholder.Position.X + 3;
+            if (zeroX < 0) zeroX += 2;
+
+            double moduloX = zeroX % 2;
+            double positionXInScreen = Math.Abs(moduloX);
+
             switch (targetScreen)
             {
                 case ScreenPositionType.LEFT:
-                    return new R3ePoint(positionXInScreen - 3 - placeholder.Position.X, positionYInScreen - placeholder.Position.Y);
+                    return positionXInScreen - 3 - placeholder.Position.X;
 
                 case ScreenPositionType.RIGHT:
-                    return new R3ePoint(positionXInScreen + 1 - placeholder.Position.X, positionYInScreen - placeholder.Position.Y);
+                    return positionXInScreen + 1 - placeholder.Position.X;
 
                 case ScreenPositionType.CENTER:
-                    return new R3ePoint(positionXInScreen - 1 - placeholder.Position.X, positionYInScreen - placeholder.Position.Y);
+                    return positionXInScreen - 1 - placeholder.Position.X;
 
                 case ScreenPositionType.OUTSIDE:
-                    return new R3ePoint(0, 0);
+                    return 0;
 
                 default:
                     throw new Exception("Not implemented type.");

@@ -57,12 +57,25 @@ namespace R3EHUDManager
             ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
             screenView.Dock = DockStyle.Fill;
 
+
+            FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true
+            };
+
             FlowLayoutPanel leftBarPanel = new FlowLayoutPanel()
             {
                 FlowDirection = FlowDirection.TopDown,
                 Dock = DockStyle.Left,
                 AutoSize = true,
                 WrapContents = false,
+            };
+
+            FlowLayoutPanel bottomBarPanel = new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Bottom,
+                AutoSize = true
             };
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
@@ -79,23 +92,20 @@ namespace R3EHUDManager
             leftBarPanel.Controls.Add(selectionView);
             leftBarPanel.Controls.Add(listView);
 
-            leftBarPanel.Controls.Add(GetButton("Reload", EVENT_RELOAD_CLICKED));
-            leftBarPanel.Controls.Add(GetButton("Original", EVENT_RELOAD_DEFAULT_CLICKED));
-            leftBarPanel.Controls.Add(GetButton("Save", EVENT_SAVE_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Apply to R3E", EVENT_SAVE_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Reload layout", EVENT_RELOAD_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED));
 
             leftBarPanel.Controls.Add(prefsButton);
-
-            FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
-            {
-                Dock = DockStyle.Top,
-                AutoSize = true
-            };
 
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(BackgroundToolbarView)));
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LayoutToolbarView)));
 
+            bottomBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ZoomView)));
+
             Controls.Add(screenView);
             Controls.Add(topBarPanel);
+            Controls.Add(bottomBarPanel);
             Controls.Add(leftBarPanel);
 
         }

@@ -9,12 +9,14 @@ using System.Windows.Forms;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using System.Drawing.Drawing2D;
+using R3EHUDManager.screen.view;
 
 namespace R3EHUDManager.background.view
 {
     class BackgroundView:Control
     {
         private Image baseBitmap;
+        private ZoomLevel zoomLevel = ZoomLevel.FIT_WINDOW;
         private Size screenArea;
         private bool isTripleScreen;
 
@@ -24,9 +26,10 @@ namespace R3EHUDManager.background.view
             Disposed += OnDispose;
         }
 
-        internal void SetScreenArea(Size screenArea)
+        internal void SetScreenArea(Size screenArea, ZoomLevel zoomLevel)
         {
             this.screenArea = screenArea;
+            this.zoomLevel = zoomLevel;
             ComputeSize();
             Invalidate();
         }
@@ -77,15 +80,24 @@ namespace R3EHUDManager.background.view
                 return;
             }
 
-            float screenRatio = (float)screenArea.Width / screenArea.Height;
             float bitmapRatio = baseBitmap.PhysicalDimension.Width / baseBitmap.PhysicalDimension.Height;
 
-            if (screenRatio < bitmapRatio)
+            if (zoomLevel == ZoomLevel.FIT_WINDOW)
             {
-                Width = screenArea.Width;
-                Height = (int)(screenArea.Width / bitmapRatio);
+                float screenRatio = (float)screenArea.Width / screenArea.Height;
+
+                if (screenRatio < bitmapRatio)
+                {
+                    Width = screenArea.Width;
+                    Height = (int)(screenArea.Width / bitmapRatio);
+                }
+                else
+                {
+                    Height = screenArea.Height;
+                    Width = (int)(screenArea.Height * bitmapRatio);
+                }
             }
-            else
+            else if (zoomLevel == ZoomLevel.FIT_HEIGHT)
             {
                 Height = screenArea.Height;
                 Width = (int)(screenArea.Height * bitmapRatio);
