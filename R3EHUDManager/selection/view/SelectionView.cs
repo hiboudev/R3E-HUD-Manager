@@ -184,15 +184,12 @@ namespace R3EHUDManager.selection.view
             string name = positionPresets.SelectedItem.ToString();
             R3ePoint position = isTripleScreen ? R3ePointPreset.GetPreset(name, ScreenUtils.GetScreen(Selection)) : R3ePointPreset.GetPreset(name);
 
-            if (position != null)
-            {
-                DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, position));
+            DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, position));
 
-                if (linkAnchorsCheck.Checked)
-                {
-                    anchorPresets.SelectedItem = position;
-                    DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, R3ePointPreset.GetPreset(name)));
-                }
+            if (linkAnchorsCheck.Checked)
+            {
+                anchorPresets.SelectedItem = position;
+                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, R3ePointPreset.GetPreset(name)));
             }
         }
 
