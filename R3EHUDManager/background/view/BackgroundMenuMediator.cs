@@ -23,16 +23,23 @@ namespace R3EHUDManager.background.view
             RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
-        private void OnBackgroundChanged(BaseEventArgs args)
+        private void OnListAdded(BaseEventArgs args)
         {
-            ((BackgroundMenuView)View).SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Name);
+            var typedArgs = (BackgroundCollectionEventArgs)args;
+
+            ((BackgroundMenuView)View).AddBackgrounds(typedArgs.Collection.Backgrounds);
         }
 
         private void OnBackgroundAdded(BaseEventArgs args)
         {
             var typedArgs = (BackgroundModelEventArgs)args;
 
-            ((BackgroundMenuView)View).AddItem(new ContextMenuViewItem(typedArgs.Background.Id, typedArgs.Background.Name));
+            ((BackgroundMenuView)View).AddBackground(typedArgs.Background);
+        }
+
+        private void OnBackgroundChanged(BaseEventArgs args)
+        {
+            ((BackgroundMenuView)View).SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Id);
         }
 
         private void OnBackgroundRemoved(BaseEventArgs args)
@@ -40,18 +47,6 @@ namespace R3EHUDManager.background.view
             var typedArgs = (BackgroundModelEventArgs)args;
 
             ((BackgroundMenuView)View).RemoveItem(typedArgs.Background.Id);
-        }
-
-        private void OnListAdded(BaseEventArgs args)
-        {
-            var typedArgs = (BackgroundCollectionEventArgs)args;
-
-            List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
-            foreach (BackgroundModel model in typedArgs.Collection.Backgrounds)
-                items.Add(new ContextMenuViewItem(model.Id, model.Name));
-
-            ((BackgroundMenuView)View).ClearItems();
-            ((BackgroundMenuView)View).AddItems(items);
         }
     }
 }

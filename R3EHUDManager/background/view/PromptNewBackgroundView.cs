@@ -98,7 +98,7 @@ namespace R3EHUDManager.background.view
             else if ((RadioButton)sender == radioTriple)
             {
                 if(check)
-                    radioLabel.Text = $"Triple screen layout: 3 x [{bitmapSize.Width}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio(bitmapSize.Width / 3, bitmapSize.Height)})";
+                    radioLabel.Text = $"Triple screen layout: 3 x [{bitmapSize.Width / 3}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio(bitmapSize.Width / 3, bitmapSize.Height)})";
 
                 if (check)
                     DrawRectangle(true);
@@ -195,7 +195,7 @@ namespace R3EHUDManager.background.view
 
             Panel radioPanel = new FlowLayoutPanel() { FlowDirection = FlowDirection.TopDown, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, Dock = DockStyle.Fill };
 
-            radioLabel = new Label() { AutoSize = true, Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 5), Font = new Font(FontFamily.GenericMonospace, 8) };
+            radioLabel = new Label() { AutoSize = true, Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 5), Font = new Font(FontFamily.GenericMonospace, 9) };
 
             radioSingle = NewRadioButton("Single screen");
             radioTriple = NewRadioButton("Triple screen");

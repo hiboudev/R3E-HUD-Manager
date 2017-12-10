@@ -1,5 +1,6 @@
 ﻿using da2mvc.events;
 using R3EHUDManager.contextmenu.events;
+using R3EHUDManager.graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,6 +31,7 @@ namespace R3EHUDManager.contextmenu.view
             ToolStripMenuItem toolItem = new ToolStripMenuItem(item.Name)
             {
                 Tag = item.Id,
+                Image = item.Image,
             };
 
             toolItem.Click += ItemClicked;
@@ -46,6 +48,7 @@ namespace R3EHUDManager.contextmenu.view
                 ToolStripMenuItem toolItem = new ToolStripMenuItem(item.Name)
                 {
                     Tag = item.Id,
+                    Image = item.Image,
                 };
 
                 toolItem.Click += ItemClicked;
@@ -64,7 +67,7 @@ namespace R3EHUDManager.contextmenu.view
                     regularItems.Remove(item);
                     break;
                 }
-
+            
             regularItems.Sort((x, y) => string.Compare(x.Text, y.Text));
             Redraw();
         }
@@ -77,11 +80,25 @@ namespace R3EHUDManager.contextmenu.view
 
         private void Redraw()
         {
-            ContextMenuStrip.Items.Clear();
+            Clear();
             ContextMenuStrip.Items.AddRange(regularItems.ToArray());
             if(builtInItems.Count > 0 && regularItems.Count > 0)
                 ContextMenuStrip.Items.Add(new ToolStripSeparator());
             ContextMenuStrip.Items.AddRange(builtInItems.ToArray());
+        }
+
+        private void Clear()
+        {
+            // TODO Is it necessary? (item.Dispose() seems to remove it from the collection)
+            ToolStripItem[] items = new ToolStripItem[ContextMenuStrip.Items.Count];
+            ContextMenuStrip.Items.CopyTo(items, 0);
+
+            foreach (ToolStripItem item in items)
+            {
+                if (item.Image != null) item.Image.Dispose();
+                item.Dispose();
+            }
+            ContextMenuStrip.Items.Clear();
         }
 
         virtual public bool SetSelectedItem(string name)
@@ -206,7 +223,15 @@ namespace R3EHUDManager.contextmenu.view
             Id = id;
         }
 
+        public ContextMenuViewItem(int id, string name, Image image)
+        {
+            Name = name;
+            Image = image;
+            Id = id;
+        }
+
         public string Name { get; }
+        public Image Image { get; }
         public int Id { get; }
     }
 }
