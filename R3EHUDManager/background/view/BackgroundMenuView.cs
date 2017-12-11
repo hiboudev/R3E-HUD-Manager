@@ -2,6 +2,7 @@
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.view;
+using R3EHUDManager.graphics;
 using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace R3EHUDManager.background.view
 
         internal void AddBackground(BackgroundModel background)
         {
-            AddItem(new ContextMenuViewItem(background.Id, background.Name, GetBackgroundImage(background)));
+            AddItem(new ContextMenuViewItem(background.Id, background.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
         }
 
         internal void AddBackgrounds(List<BackgroundModel> backgrounds)
@@ -33,24 +34,11 @@ namespace R3EHUDManager.background.view
 
             foreach (BackgroundModel background in backgrounds)
             {
-                items.Add(new ContextMenuViewItem(background.Id, background.Name, GetBackgroundImage(background)));
+                items.Add(new ContextMenuViewItem(background.Id, background.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
             }
 
             ClearItems();
             AddItems(items);
-        }
-
-        private Image GetBackgroundImage(BackgroundModel background)
-        {
-            string text = background.Layout == ScreenLayoutType.SINGLE ? "S" : "T";
-
-            Bitmap image = new Bitmap(16, 16);
-            Graphics graphics = Graphics.FromImage(image);
-            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            //graphics.FillRectangle(new SolidBrush(Color.Red), new Rectangle(0, 0, 16, 16));
-            graphics.DrawString(text, new Font(FontFamily.GenericSansSerif, 8), new SolidBrush(Color.DarkGray), new Point(2, 2));
-
-            return image;
         }
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()

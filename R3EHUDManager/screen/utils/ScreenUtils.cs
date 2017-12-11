@@ -18,6 +18,10 @@ namespace R3EHUDManager.screen.utils
             double Px = placeholder.Position.X;
             double Ax = placeholder.Anchor.X;
 
+            double Py = placeholder.Position.Y;
+
+            if (Py < -1 || Py > 1) return ScreenPositionType.OUTSIDE;
+
             if (Px == -1)
                 return Ax > 0 ? ScreenPositionType.LEFT : ScreenPositionType.CENTER;
 
@@ -79,31 +83,6 @@ namespace R3EHUDManager.screen.utils
             return new R3ePoint(offsetX, offsetY);
         }
 
-        public static string GetFormattedAspectRatio(Size size)
-        {
-            int denominator = GetHighestDenominator(size.Width, size.Height);
-
-            return $"{size.Width / denominator}/{size.Height / denominator}";
-        }
-
-        public static string GetFormattedAspectRatio(int width, int height)
-        {
-            int denominator = GetHighestDenominator(width, height);
-
-            return $"{width / denominator}/{height/denominator}";
-        }
-
-        private static int GetHighestDenominator(int a, int b)
-        {
-            while (b != 0)
-            {
-                int c = a % b;
-                a = b;
-                b = c;
-            }
-            return a;
-        }
-
         private static double GetOffsetXFromOutside(PlaceholderModel placeholder, ScreenPositionType targetScreen)
         {
             double zeroX = placeholder.Position.X + 3;
@@ -129,6 +108,31 @@ namespace R3EHUDManager.screen.utils
                 default:
                     throw new Exception("Not implemented type.");
             }
+        }
+
+        public static string GetFormattedAspectRatio(Size size)
+        {
+            int denominator = GetHighestDenominator(size.Width, size.Height);
+
+            return $"{size.Width / denominator}/{size.Height / denominator}";
+        }
+
+        public static string GetFormattedAspectRatio(int width, int height)
+        {
+            int denominator = GetHighestDenominator(width, height);
+
+            return $"{width / denominator}/{height / denominator}";
+        }
+
+        private static int GetHighestDenominator(int a, int b)
+        {
+            while (b != 0)
+            {
+                int c = a % b;
+                a = b;
+                b = c;
+            }
+            return a;
         }
     }
 }

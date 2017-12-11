@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.contextmenu.view;
+using R3EHUDManager.graphics;
 using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace R3EHUDManager.layout.view
 
         public LayoutMenuView() : base("Layout")
         {
-            AddItem(new ContextMenuViewItem((int)ScreenLayoutType.SINGLE, "Single screen"));
-            AddItem(new ContextMenuViewItem((int)ScreenLayoutType.TRIPLE, "Triple screen"));
+            AddItem(new ContextMenuViewItem((int)ScreenLayoutType.SINGLE, "Single screen", GraphicalAsset.GetLayoutIcon(ScreenLayoutType.SINGLE)));
+            AddItem(new ContextMenuViewItem((int)ScreenLayoutType.TRIPLE, "Triple screen", GraphicalAsset.GetLayoutIcon(ScreenLayoutType.TRIPLE)));
         }
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()

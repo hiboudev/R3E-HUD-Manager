@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.placeholder.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -58,6 +59,29 @@ namespace R3EHUDManager.graphics
         public static Image GetPreferencesIcon()
         {
             return GetBitmap(@"_graphical_assets\preference_icon4_22_alpha85.png");
+        }
+
+        public static Image GetLayoutIcon(ScreenLayoutType layout)
+        {
+            string cacheKey = layout == ScreenLayoutType.SINGLE ? "ScreenLayoutType.SINGLE" : "ScreenLayoutType.TRIPLE";
+
+            if (!cache.ContainsKey(cacheKey))
+                cache.Add(cacheKey, GetScreenLayoutIcon(layout));
+
+            return cache[cacheKey];
+        }
+
+        private static Bitmap GetScreenLayoutIcon(ScreenLayoutType layout)
+        {
+            string text = layout == ScreenLayoutType.SINGLE ? "S" : "T";
+
+            Bitmap image = new Bitmap(16, 16);
+            Graphics graphics = Graphics.FromImage(image);
+            graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            graphics.DrawString(text, new Font(FontFamily.GenericSansSerif, 8), new SolidBrush(Color.DarkGray), new Point(2, 2));
+            graphics.Dispose();
+
+            return image;
         }
 
         private static Bitmap GetBitmap(string path)

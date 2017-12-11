@@ -56,7 +56,7 @@ namespace R3EHUDManager.screen.command
 
             if (outsidePlaceholder)
             {
-                DialogResult result = MessageBox.Show("Reset placeholders position to center screen?", "Placeholders outside center screen", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Some placeholders are outside the center screen, move them to center screen?", "Placeholders outside of center screen", MessageBoxButtons.YesNo);
                 if(result == DialogResult.Yes)
                 {
                     foreach (PlaceholderModel placeholder in collectionModel.Placeholders)

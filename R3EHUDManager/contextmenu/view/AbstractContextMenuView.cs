@@ -65,6 +65,8 @@ namespace R3EHUDManager.contextmenu.view
                 if ((int)item.Tag == id)
                 {
                     regularItems.Remove(item);
+                    // No dispose of Image cause it's a cached instance.
+                    item.Dispose();
                     break;
                 }
             
@@ -80,25 +82,11 @@ namespace R3EHUDManager.contextmenu.view
 
         private void Redraw()
         {
-            Clear();
+            ContextMenuStrip.Items.Clear();
             ContextMenuStrip.Items.AddRange(regularItems.ToArray());
             if(builtInItems.Count > 0 && regularItems.Count > 0)
                 ContextMenuStrip.Items.Add(new ToolStripSeparator());
             ContextMenuStrip.Items.AddRange(builtInItems.ToArray());
-        }
-
-        private void Clear()
-        {
-            // TODO Is it necessary? (item.Dispose() seems to remove it from the collection)
-            ToolStripItem[] items = new ToolStripItem[ContextMenuStrip.Items.Count];
-            ContextMenuStrip.Items.CopyTo(items, 0);
-
-            foreach (ToolStripItem item in items)
-            {
-                if (item.Image != null) item.Image.Dispose();
-                item.Dispose();
-            }
-            ContextMenuStrip.Items.Clear();
         }
 
         virtual public bool SetSelectedItem(string name)
