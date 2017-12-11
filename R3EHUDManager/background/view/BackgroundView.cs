@@ -14,9 +14,10 @@ using System.Diagnostics;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundView:Control
+    class BackgroundView : Control
     {
         private Image baseBitmap;
+        private Image displayedBitmap;
         private ZoomLevel zoomLevel = ZoomLevel.FIT_TO_WINDOW;
         private Size screenArea;
         private bool isTripleScreen;
@@ -49,19 +50,25 @@ namespace R3EHUDManager.background.view
             Invalidate();
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            base.OnPaint(e);
+            base.OnPaintBackground(e);
 
             if (baseBitmap == null) return;
 
-            e.Graphics.DrawImage(baseBitmap, new Rectangle(0, 0, Size.Width, Size.Height));
-
-            int centerLeft = (int)((decimal)Width / 3);
-            int centerRight = (int)(2 * (decimal)Width / 3);
+            if (zoomLevel == ZoomLevel.FIT_TO_HEIGHT)
+            {
+                e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                e.Graphics.DrawImage(displayedBitmap, new Point());
+            }
+            else
+                e.Graphics.DrawImage(baseBitmap, new Rectangle(0, 0, Width, Height));
 
             if (isTripleScreen)
             {
+                int centerLeft = (int)((decimal)Width / 3);
+                int centerRight = (int)(2 * (decimal)Width / 3);
+
                 Color lineColor = Color.FromArgb(100, Color.Black);
 
                 e.Graphics.DrawLine(
@@ -103,6 +110,19 @@ namespace R3EHUDManager.background.view
             {
                 Height = screenArea.Height;
                 Width = (int)(screenArea.Height * bitmapRatio);
+            }
+
+            PrepareBitmap();
+        }
+
+        private void PrepareBitmap()
+        {
+            if (displayedBitmap != null) displayedBitmap.Dispose();
+
+            if (zoomLevel == ZoomLevel.FIT_TO_HEIGHT)
+            {
+                // More CPU when resizing window but better scrolling. Still searching a better way.
+                displayedBitmap = new Bitmap(baseBitmap, Size);
             }
         }
 
