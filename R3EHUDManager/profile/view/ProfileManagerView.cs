@@ -21,11 +21,17 @@ namespace R3EHUDManager.profile.view
         public ProfileManagerView(ProfileCollectionModel collectionModel)
         {
             InitializeUI();
+
+            List<string> names = new List<string>();
+
             foreach (var profile in collectionModel.Profiles)
             {
                 list.Items.Add(profile.Name);
                 ids.Add(profile.Name, profile.Id);
             }
+
+            names.Sort((x, y) => string.Compare(x, y));
+            list.Items.AddRange(names.ToArray());
         }
 
         internal void RemoveProfile(ProfileModel model)

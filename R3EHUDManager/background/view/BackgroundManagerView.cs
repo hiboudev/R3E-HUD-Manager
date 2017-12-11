@@ -21,14 +21,20 @@ namespace R3EHUDManager.background.view
         public BackgroundManagerView(BackgroundCollectionModel collectionModel)
         {
             InitializeUI();
+
+            List<string> names = new List<string>();
+
             foreach (var background in collectionModel.Backgrounds)
             {
                 // Don't change/delete the built-in background.
                 if (background.IsBuiltInt) continue;
 
-                list.Items.Add(background.Name);
+                names.Add(background.Name);
                 ids.Add(background.Name, background.Id);
             }
+
+            names.Sort((x, y) => string.Compare(x, y));
+            list.Items.AddRange(names.ToArray());
         }
 
         internal void RemoveBackground(BackgroundModel model)

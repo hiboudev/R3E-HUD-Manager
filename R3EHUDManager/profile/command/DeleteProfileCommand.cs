@@ -35,7 +35,9 @@ namespace R3EHUDManager.profile.command
             ProfileModel profile = profileCollection.Get(args.Value);
             String filePath = Path.Combine(location.LocalDirectoryProfiles, profile.fileName);
 
-            profileSelection.SelectNone();
+            if(profileSelection.Selection == profile)
+                profileSelection.SelectNone();
+
             profileCollection.Remove(profile);
             database.DeleteProfile(profile);
             File.Delete(filePath);
