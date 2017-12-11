@@ -66,6 +66,7 @@ namespace R3EHUDManager
             Injector.MapView(typeof(LayoutMenuView), typeof(LayoutMenuMediator), true);
             Injector.MapView(typeof(ZoomView), typeof(ZoomMediator), true);
             Injector.MapView(typeof(ProfileMenuView), typeof(ProfileMenuMediator), true);
+            Injector.MapView(typeof(ProfileManagerView), typeof(ProfileManagerMediator));
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -90,6 +91,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_ITEM_CLICKED, typeof(SelectProfileCommand));
             Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_CREATE_NEW_PROFILE, typeof(CreateProfileCommand));
             Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_SAVE_PROFILE, typeof(SaveProfileCommand));
+            Injector.MapCommand(typeof(ProfileManagerView), ProfileManagerView.EVENT_DELETE_PROFILE, typeof(DeleteProfileCommand));
         }
     }
 }

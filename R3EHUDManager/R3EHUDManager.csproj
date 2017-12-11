@@ -158,6 +158,7 @@
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />
+    <Compile Include="profile\command\DeleteProfileCommand.cs" />
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
     <Compile Include="profile\command\SaveProfileCommand.cs" />
     <Compile Include="profile\command\SelectProfileCommand.cs" />
@@ -167,6 +168,10 @@
     <Compile Include="profile\model\ProfileFactory.cs" />
     <Compile Include="profile\model\ProfileModel.cs" />
     <Compile Include="profile\model\SelectedProfileModel.cs" />
+    <Compile Include="profile\view\ProfileManagerMediator.cs" />
+    <Compile Include="profile\view\ProfileManagerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="profile\view\ProfileMenuMediator.cs" />
     <Compile Include="profile\view\ProfileMenuView.cs">
       <SubType>Component</SubType>

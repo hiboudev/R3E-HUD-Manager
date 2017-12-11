@@ -104,6 +104,8 @@ namespace R3EHUDManager.contextmenu.view
                 }
             }
 
+            if (!itemChecked) UpdateTitle(null);
+
             return itemChecked;
         }
 
@@ -122,11 +124,19 @@ namespace R3EHUDManager.contextmenu.view
                 }
             }
 
+            if (!itemChecked) UpdateTitle(null);
+
             return itemChecked;
         }
 
         private void UpdateTitle(string selectedName)
         {
+            if(selectedName == null)
+            {
+                Text = $"{title}";
+                return;
+            }
+
             int maxLength = 18;
 
             if (selectedName.Length > maxLength)

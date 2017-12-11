@@ -13,6 +13,7 @@ namespace R3EHUDManager.profile.model
         public List<ProfileModel> Profiles { get; } = new List<ProfileModel>();
 
         public const string EVENT_PROFILE_ADDED = "profileAdded";
+        public const string EVENT_PROFILE_REMOVED = "profileRemoved";
 
         internal void Add (ProfileModel profile)
         {
@@ -26,6 +27,13 @@ namespace R3EHUDManager.profile.model
             this.Profiles.AddRange(profiles);
 
             DispatchEvent(new ProfileCollectionEventArgs(EVENT_PROFILE_ADDED, this, profiles.ToArray()));
+        }
+
+        internal void Remove(ProfileModel profile)
+        {
+            Profiles.Remove(profile);
+
+            DispatchEvent(new ProfileEventArgs(EVENT_PROFILE_REMOVED, profile));
         }
 
         internal ProfileModel Get(int id)

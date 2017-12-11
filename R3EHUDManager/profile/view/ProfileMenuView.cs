@@ -18,6 +18,7 @@ namespace R3EHUDManager.profile.view
     {
         public const string EVENT_CREATE_NEW_PROFILE = "createNewProfile";
         public const string EVENT_SAVE_PROFILE = "saveProfile";
+
         private ToolStripMenuItem itemSaveProfile;
         private readonly BackgroundCollectionModel backgroundCollection;
 
@@ -32,12 +33,17 @@ namespace R3EHUDManager.profile.view
 
             itemSaveProfile = new ToolStripMenuItem("<Save profile>");
             itemSaveProfile.Click += OnSaveProfileClicked;
+            itemSaveProfile.Enabled = false;
 
             ToolStripMenuItem itemSaveToNewProfile = new ToolStripMenuItem("<Save to new profile>");
             itemSaveToNewProfile.Click += OnSaveToNewProfileClicked;
 
+            ToolStripMenuItem manageProfiles = new ToolStripMenuItem("<Manage profiles>");
+            manageProfiles.Click += OnManageProfileClicked;
+
             list.Add(itemSaveProfile);
             list.Add(itemSaveToNewProfile);
+            list.Add(manageProfiles);
 
             return list;
         }
@@ -57,8 +63,17 @@ namespace R3EHUDManager.profile.view
 
         internal void SelectProfile(ProfileModel profile)
         {
-            SetSelectedItem(profile.Id);
+            if(SetSelectedItem(profile.Id))
+                itemSaveProfile.Enabled = true;
+
             itemSaveProfile.Text = $"<Save profile '{profile.Name}'>";
+        }
+
+        internal void UnselectProfile()
+        {
+            SetSelectedItem(null);
+            itemSaveProfile.Enabled = false;
+            itemSaveProfile.Text = "<Save profile>";
         }
 
         internal void UpdateProfile(ProfileModel profile)
@@ -90,6 +105,17 @@ namespace R3EHUDManager.profile.view
         private void OnSaveProfileClicked(object sender, EventArgs e)
         {
             DispatchEvent(new BaseEventArgs(EVENT_SAVE_PROFILE));
+        }
+
+        private void OnManageProfileClicked(object sender, EventArgs e)
+        {
+            var profileDialog = (ProfileManagerView)Injector.GetInstance(typeof(ProfileManagerView));
+
+            if (profileDialog.ShowDialog() == DialogResult.OK)
+            {
+            }
+
+            profileDialog.Dispose();
         }
     }
 }

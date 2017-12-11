@@ -115,6 +115,20 @@ namespace R3EHUDManager.database
             }
         }
 
+        internal void DeleteProfile(ProfileModel profile)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+
+                NoQuery(
+                    $"DELETE FROM profiles WHERE id = {profile.Id}"
+                    , db);
+
+                db.Close();
+            }
+        }
+
         public List<ProfileModel> GetAllProfiles()
         {
             List<ProfileModel> profiles = new List<ProfileModel>();

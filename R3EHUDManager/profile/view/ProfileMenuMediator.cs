@@ -14,11 +14,25 @@ namespace R3EHUDManager.profile.view
 {
     class ProfileMenuMediator : BaseMediator
     {
-        public ProfileMenuMediator()
+        public ProfileMenuMediator(SelectedProfileModel selectedProfile)
         {
             RegisterEventListener(typeof(ProfileCollectionModel), ProfileCollectionModel.EVENT_PROFILE_ADDED, OnProfileAdded);
+            RegisterEventListener(typeof(ProfileCollectionModel), ProfileCollectionModel.EVENT_PROFILE_REMOVED, OnProfileRemoved);
+
             RegisterEventListener(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CHANGED, OnProfileSelected);
+            RegisterEventListener(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CLEARED, OnProfileUnselected);
+
             RegisterEventListener(typeof(SaveProfileCommand), SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
+        }
+
+        private void OnProfileRemoved(BaseEventArgs args)
+        {
+            ((ProfileMenuView)View).RemoveItem(((ProfileEventArgs)args).Profile.Id);
+        }
+
+        private void OnProfileUnselected(BaseEventArgs args)
+        {
+            ((ProfileMenuView)View).UnselectProfile();
         }
 
         private void OnProfileSaved(BaseEventArgs args)
