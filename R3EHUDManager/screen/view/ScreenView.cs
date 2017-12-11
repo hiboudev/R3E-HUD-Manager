@@ -50,7 +50,7 @@ namespace R3EHUDManager.screen.view
 
             BackColor = Color.FromArgb(47,65,75);
 
-            AutoScroll = true;
+            AutoScroll = false;
             Scroll += OnScrollChanged;
 
             backgroundView = (BackgroundView)Injector.GetInstance(typeof(BackgroundView));
