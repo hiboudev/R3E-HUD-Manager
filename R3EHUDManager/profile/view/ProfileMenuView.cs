@@ -1,4 +1,5 @@
-﻿using da2mvc.injection;
+﻿using da2mvc.events;
+using da2mvc.injection;
 using R3EHUDManager.application.events;
 using R3EHUDManager.contextmenu.view;
 using System;
@@ -13,6 +14,7 @@ namespace R3EHUDManager.profile.view
     class ProfileMenuView : AbstractContextMenuView
     {
         public const string EVENT_CREATE_NEW_PROFILE = "createNewProfile";
+        public const string EVENT_SAVE_PROFILE = "saveProfile";
 
         public ProfileMenuView() : base("Profile")
         {
@@ -48,6 +50,7 @@ namespace R3EHUDManager.profile.view
 
         private void OnSaveProfileClicked(object sender, EventArgs e)
         {
+            DispatchEvent(new BaseEventArgs(EVENT_CREATE_NEW_PROFILE));
         }
     }
 }

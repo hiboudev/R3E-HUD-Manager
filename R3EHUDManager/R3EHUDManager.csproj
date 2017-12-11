@@ -159,6 +159,7 @@
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
+    <Compile Include="profile\command\SaveProfileCommand.cs" />
     <Compile Include="profile\command\SelectProfileCommand.cs" />
     <Compile Include="profile\events\ProfileCollectionEventArgs.cs" />
     <Compile Include="profile\events\ProfileEventArgs.cs" />
