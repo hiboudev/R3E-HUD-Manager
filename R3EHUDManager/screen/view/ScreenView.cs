@@ -149,24 +149,19 @@ namespace R3EHUDManager.screen.view
 
             this.zoomLevel = zoomLevel;
 
-            //AutoScroll = zoomLevel == ZoomLevel.FIT_HEIGHT;
-            //AdjustFormScrollbars(false);
-
             if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
+                AutoScroll = false;
                 VerticalScroll.Value = HorizontalScroll.Value = 0;
-                //AutoScroll = false;
             }
             else
             {
-                //AutoScroll = true;
+                AutoScroll = true;
                 backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
             }
 
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
-
-            AutoScroll = zoomLevel == ZoomLevel.FIT_TO_HEIGHT;
         }
 
         private void OnPlaceholderMouseDown(object sender, MouseEventArgs e)
