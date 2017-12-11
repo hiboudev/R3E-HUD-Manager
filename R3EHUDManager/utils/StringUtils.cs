@@ -8,7 +8,7 @@ namespace R3EHUDManager.utils
 {
     class StringUtils
     {
-        public static string GetValidFileName(string text)
+        public static string ToValidFileName(string text)
         {
             char[] textChars = text.ToCharArray();
 
@@ -20,6 +20,11 @@ namespace R3EHUDManager.utils
                                                                 )));
 
             return new string(textChars); ;
+        }
+
+        public static string ToDatabaseUserString(string text)
+        {
+            return text.Replace("'", "''");
         }
     }
 }

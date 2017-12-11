@@ -1,6 +1,7 @@
 ﻿using R3EHUDManager.background.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -92,7 +93,7 @@ namespace R3EHUDManager.database
                 db.Open();
 
                 NoQuery("INSERT INTO profiles (id, name, backgroundId, fileName) VALUES " +
-                    $"({profile.Id}, '{profile.Name}', {profile.BackgroundId}, '{profile.HudFilePath}')"
+                    $"({profile.Id}, '{StringUtils.ToDatabaseUserString(profile.Name)}', {profile.BackgroundId}, '{profile.fileName}')"
                     , db);
 
                 db.Close();
@@ -106,7 +107,7 @@ namespace R3EHUDManager.database
                 db.Open();
 
                 NoQuery(
-                    $"UPDATE profiles SET name = '{profile.Name}', backgroundId = {profile.BackgroundId}, fileName = '{profile.HudFilePath}'" +
+                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.fileName}'" +
                     $"WHERE id = {profile.Id};"
                     , db);
 
@@ -148,7 +149,7 @@ namespace R3EHUDManager.database
                 db.Open();
                 
                 NoQuery("INSERT INTO backgrounds (id, name, fileName, directoryType, isBuiltIn, layoutType) VALUES " +
-                    $"({background.Id}, '{background.Name}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)}, {(int)background.Layout})"
+                    $"({background.Id}, '{StringUtils.ToDatabaseUserString(background.Name)}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)}, {(int)background.Layout})"
                     , db);
                 
                 db.Close();

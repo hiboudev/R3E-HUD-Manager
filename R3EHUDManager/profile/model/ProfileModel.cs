@@ -8,17 +8,17 @@ namespace R3EHUDManager.profile.model
 {
     class ProfileModel
     {
-        public ProfileModel(int id, string name, int backgroundId, string hudFilePath)
+        public ProfileModel(int id, string name, int backgroundId, string fileName)
         {
             Id = id;
             Name = name;
             BackgroundId = backgroundId;
-            HudFilePath = hudFilePath;
+            this.fileName = fileName;
         }
 
         public int Id { get; }
         public string Name { get; }
         public int BackgroundId { get; internal set; }
-        public string HudFilePath { get; }
+        public string fileName { get; }
     }
 }

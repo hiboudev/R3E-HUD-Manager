@@ -45,7 +45,7 @@ namespace R3EHUDManager.profile.command
         {
             ProfileModel profile = profileCollection.Get(args.ItemId);
             BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
-            List<PlaceholderModel> placeholders = parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.HudFilePath));
+            List<PlaceholderModel> placeholders = parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.fileName));
 
             screen.SetBackground(background);
             placeholderCollection.SetPlaceholders(placeholders);

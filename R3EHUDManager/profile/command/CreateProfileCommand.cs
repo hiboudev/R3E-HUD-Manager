@@ -45,8 +45,8 @@ namespace R3EHUDManager.profile.command
 
         public void Execute()
         {
-            string fileName = $"profile_{StringUtils.GetValidFileName(args.Value)}.xml";
-            string filePath = Path.Combine(location.LocalDirectoryProfiles, fileName);
+            string fileName = ToFileName(args.Value);
+            string filePath = Path.Combine(location.LocalDirectoryProfiles, fileName); // TODO tester les noms de fichier
             File.Copy(location.HudTemplateFile, filePath);
 
             parser.Write(filePath, placeholderCollection.Placeholders);
@@ -59,6 +59,11 @@ namespace R3EHUDManager.profile.command
             profileCollection.Add(newProfile);
 
             selectedProfile.SelectProfile(newProfile);
+        }
+
+        public static string ToFileName(string profileName)
+        {
+            return $"profile_{StringUtils.ToValidFileName(profileName)}.xml";
         }
     }
 }

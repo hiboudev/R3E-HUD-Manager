@@ -1,5 +1,7 @@
-﻿using R3EHUDManager.profile.model;
+﻿using R3EHUDManager.profile.command;
+using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,7 +16,9 @@ namespace R3EHUDManager.profile.view
     class PromptNewProfileView : Form // TODO généraliser avec les autres
     {
         private HashSet<string> usedNames;
+        private HashSet<string> usedFileNames;
         private string backgroundName;
+        private Label fileNameField;
         private Label errorField;
         private Button okButton;
         private TableLayoutPanel layout;
@@ -24,10 +28,13 @@ namespace R3EHUDManager.profile.view
         public PromptNewProfileView(ProfileCollectionModel profileCollection, ScreenModel screen)
         {
             usedNames = new HashSet<string>();
+            usedFileNames = new HashSet<string>();
             backgroundName = screen.Background.Name;
 
-            foreach (ProfileModel profile in profileCollection.Profiles)
+            foreach (ProfileModel profile in profileCollection.Profiles) {
                 usedNames.Add(profile.Name);
+                usedFileNames.Add(profile.fileName);
+            }
 
             InitializeUI();
         }
@@ -37,7 +44,7 @@ namespace R3EHUDManager.profile.view
             Text = "Profile creation";
             MinimumSize = new Size(50, 50);
             StartPosition = FormStartPosition.CenterParent;
-            Size = new Size(300, 170);
+            Size = new Size(300, 185);
             Padding = new Padding(6);
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
@@ -70,6 +77,15 @@ namespace R3EHUDManager.profile.view
                 Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4)
             };
 
+            fileNameField = new Label()
+            {
+                Text = $"File name:",
+                AutoSize = true,
+                Dock = DockStyle.Fill,
+                Enabled = false,
+                Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4)
+            };
+
             errorField = new Label()
             {
                 AutoSize = true,
@@ -90,6 +106,7 @@ namespace R3EHUDManager.profile.view
             AddControl(prompt, SizeType.AutoSize);
             AddControl(nameField, SizeType.AutoSize);
             AddControl(backgroundField, SizeType.AutoSize);
+            AddControl(fileNameField, SizeType.AutoSize);
             AddControl(errorField, SizeType.AutoSize);
             AddControl(okButton, SizeType.AutoSize);
 
@@ -98,15 +115,25 @@ namespace R3EHUDManager.profile.view
 
         private void CheckText(object sender, EventArgs e)
         {
+            string fileName = CreateProfileCommand.ToFileName(nameField.Text);
+            fileNameField.Text = $"File name: {fileName}";
+
             bool nameIsValid = Regex.Replace(nameField.Text, @"\s+", "").Length > 0;
-            bool nameIsAvailable = !usedNames.Contains(nameField.Text);
 
-            okButton.Enabled = nameIsValid && nameIsAvailable;
-
-            if (!nameIsAvailable)
+            if (usedNames.Contains(nameField.Text))
+            {
                 errorField.Text = "This name is already used by another profile.";
+                nameIsValid = false;
+            }
+            else if (usedFileNames.Contains(fileName))
+            {
+                errorField.Text = "This file name is already used by another profile.";
+                nameIsValid = false;
+            }
             else
                 errorField.Text = "";
+
+            okButton.Enabled = nameIsValid;
         }
 
         private void AddControl(Control control, SizeType sizeType)

@@ -40,8 +40,10 @@ namespace R3EHUDManager.profile.command
 
         public void Execute()
         {
+            if (profileSelection.Selection == null) return;
+
             ProfileModel profile = profileSelection.Selection;
-            string filePath = Path.Combine(location.LocalDirectoryProfiles, profile.HudFilePath);
+            string filePath = Path.Combine(location.LocalDirectoryProfiles, profile.fileName);
             BackgroundModel background = screen.Background;
 
             profile.BackgroundId = background.Id;
