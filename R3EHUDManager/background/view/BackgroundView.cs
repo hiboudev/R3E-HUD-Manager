@@ -17,7 +17,7 @@ namespace R3EHUDManager.background.view
     class BackgroundView:Control
     {
         private Image baseBitmap;
-        private ZoomLevel zoomLevel = ZoomLevel.FIT_WINDOW;
+        private ZoomLevel zoomLevel = ZoomLevel.FIT_TO_WINDOW;
         private Size screenArea;
         private bool isTripleScreen;
 
@@ -84,7 +84,7 @@ namespace R3EHUDManager.background.view
 
             float bitmapRatio = baseBitmap.PhysicalDimension.Width / baseBitmap.PhysicalDimension.Height;
 
-            if (zoomLevel == ZoomLevel.FIT_WINDOW)
+            if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
                 float screenRatio = (float)screenArea.Width / screenArea.Height;
 
@@ -99,7 +99,7 @@ namespace R3EHUDManager.background.view
                     Width = (int)(screenArea.Height * bitmapRatio);
                 }
             }
-            else if (zoomLevel == ZoomLevel.FIT_HEIGHT)
+            else if (zoomLevel == ZoomLevel.FIT_TO_HEIGHT)
             {
                 Height = screenArea.Height;
                 Width = (int)(screenArea.Height * bitmapRatio);

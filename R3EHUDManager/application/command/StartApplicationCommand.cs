@@ -13,6 +13,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.database.command;
 using R3EHUDManager.background.events;
 using R3EHUDManager.log.command;
+using R3EHUDManager.profile.command;
 
 namespace R3EHUDManager.application.command
 {
@@ -26,7 +27,8 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand(typeof(FindR3eHomeDirectoryCommand));
             Injector.ExecuteCommand(typeof(SaveOriginalFileCommand));
             Injector.ExecuteCommand(typeof(LoadHudDataCommand));
-            Injector.ExecuteCommand(typeof(InitializeBackgroundsCommand));
+            Injector.ExecuteCommand(typeof(InitializeBackgroundsCommand)); 
+            Injector.ExecuteCommand(typeof(InitializeProfilesCommand));
         }
     }
 }

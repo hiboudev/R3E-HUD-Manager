@@ -27,7 +27,7 @@ namespace R3EHUDManager.screen.model
                 return ScreenLayoutType.SINGLE;
             }
         }
-        public ZoomLevel ZoomLevel { get; private set; } = ZoomLevel.FIT_WINDOW;
+        public ZoomLevel ZoomLevel { get; private set; } = ZoomLevel.FIT_TO_WINDOW;
 
         public const string EVENT_BACKGROUND_CHANGED = "backgroundChanged";
         public const string EVENT_TRIPLE_SCREEN_CHANGED = "tripleScreenChanged";

@@ -42,14 +42,14 @@ namespace R3EHUDManager.screen.view
             fitWindow = new RadioButton()
             {
                 AutoSize = true,
-                Text = "Fit window",
+                Text = "Fit to window",
                 Margin = new Padding(0),
         };
 
             fitHeight = new RadioButton()
             {
                 AutoSize = true,
-                Text = "Fit height",
+                Text = "Fit to height",
                 Margin = new Padding(0),
             };
 
@@ -64,16 +64,16 @@ namespace R3EHUDManager.screen.view
             if (holdChangeEvents) return;
 
             if (fitWindow.Checked)
-                DispatchEvent(new IntEventArgs(EVENT_ZOOM_LEVEL_CHANGED, (int)ZoomLevel.FIT_WINDOW));
+                DispatchEvent(new IntEventArgs(EVENT_ZOOM_LEVEL_CHANGED, (int)ZoomLevel.FIT_TO_WINDOW));
             else
-                DispatchEvent(new IntEventArgs(EVENT_ZOOM_LEVEL_CHANGED, (int)ZoomLevel.FIT_HEIGHT));
+                DispatchEvent(new IntEventArgs(EVENT_ZOOM_LEVEL_CHANGED, (int)ZoomLevel.FIT_TO_HEIGHT));
         }
 
         internal void SetZoomLevel(ZoomLevel zoomLevel)
         {
             holdChangeEvents = true;
 
-            if (zoomLevel == ZoomLevel.FIT_HEIGHT)
+            if (zoomLevel == ZoomLevel.FIT_TO_HEIGHT)
                 fitHeight.Checked = true;
             else
                 fitWindow.Checked = true;

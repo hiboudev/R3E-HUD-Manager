@@ -37,7 +37,7 @@ namespace R3EHUDManager.screen.view
 
         private BackgroundView backgroundView;
         private bool isTripleScreen;
-        private ZoomLevel zoomLevel = ZoomLevel.FIT_WINDOW;
+        private ZoomLevel zoomLevel = ZoomLevel.FIT_TO_WINDOW;
 
         public ScreenView()
         {
@@ -152,7 +152,7 @@ namespace R3EHUDManager.screen.view
             //AutoScroll = zoomLevel == ZoomLevel.FIT_HEIGHT;
             //AdjustFormScrollbars(false);
 
-            if (zoomLevel == ZoomLevel.FIT_WINDOW)
+            if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
                 VerticalScroll.Value = HorizontalScroll.Value = 0;
                 //AutoScroll = false;
@@ -166,7 +166,7 @@ namespace R3EHUDManager.screen.view
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
 
-            AutoScroll = zoomLevel == ZoomLevel.FIT_HEIGHT;
+            AutoScroll = zoomLevel == ZoomLevel.FIT_TO_HEIGHT;
         }
 
         private void OnPlaceholderMouseDown(object sender, MouseEventArgs e)
@@ -229,7 +229,7 @@ namespace R3EHUDManager.screen.view
             backgroundView.SetScreenArea(screenArea, zoomLevel);
 
             // Center background
-            if(zoomLevel == ZoomLevel.FIT_WINDOW)
+            if(zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
                 Point location = new Point(
                     SCREEN_MARGIN + (screenArea.Width - backgroundView.Width) / 2,

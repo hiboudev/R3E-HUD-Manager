@@ -8,7 +8,7 @@ namespace R3EHUDManager.screen.model
 {
     enum ZoomLevel
     {
-        FIT_WINDOW,
-        FIT_HEIGHT
+        FIT_TO_WINDOW,
+        FIT_TO_HEIGHT
     }
 }

@@ -157,6 +157,23 @@
     </Compile>
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
+    <Compile Include="profile\command\InitializeProfilesCommand.cs" />
+    <Compile Include="profile\command\SelectProfileCommand.cs" />
+    <Compile Include="profile\events\ProfileCollectionEventArgs.cs" />
+    <Compile Include="profile\events\ProfileEventArgs.cs" />
+    <Compile Include="profile\model\ProfileCollectionModel.cs" />
+    <Compile Include="profile\model\ProfileModel.cs" />
+    <Compile Include="profile\model\SelectedProfileModel.cs" />
+    <Compile Include="profile\view\ProfileMenuMediator.cs" />
+    <Compile Include="profile\view\ProfileMenuView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="profile\view\ProfileToolbarView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="profile\view\PromptNewProfileView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
     <Compile Include="layout\view\LayoutMenuView.cs">

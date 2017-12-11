@@ -23,6 +23,7 @@ using R3EHUDManager.settings.view;
 using R3EHUDManager.background.view;
 using R3EHUDManager.settings;
 using R3EHUDManager.layout.view;
+using R3EHUDManager.profile.view;
 
 namespace R3EHUDManager
 {
@@ -100,6 +101,7 @@ namespace R3EHUDManager
 
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(BackgroundToolbarView)));
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LayoutToolbarView)));
+            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ProfileToolbarView)));
 
             bottomBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ZoomView)));
 
