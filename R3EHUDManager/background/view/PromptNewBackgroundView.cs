@@ -79,7 +79,7 @@ namespace R3EHUDManager.background.view
             if ((RadioButton)sender == radioCrop)
             {
                 // Cause we can't hit enter in NumericUpDown if AcceptButton is defined.
-                AcceptButton = check ? null : okButton;
+                //AcceptButton = check ? null : okButton;
 
                 //stepperPanel.Visible = check;
 

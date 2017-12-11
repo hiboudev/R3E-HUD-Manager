@@ -141,6 +141,8 @@ namespace R3EHUDManager.contextmenu.view
             Text = title;
             Width = 140;
             TextAlign = ContentAlignment.MiddleLeft;
+            // To avoid a bug when there's several instances, opening one will push focus to the next one, cause of the Enabled=false.
+            SetStyle(ControlStyles.Selectable, false);
 
             ContextMenuStrip = new ContextMenuStrip();
             ContextMenuStrip.Opening += MenuOpening;

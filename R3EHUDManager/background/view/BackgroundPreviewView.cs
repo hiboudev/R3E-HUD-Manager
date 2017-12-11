@@ -116,11 +116,11 @@ namespace R3EHUDManager.background.view
 
             if (lineStyle)
             {
-                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.Black), 3) { Alignment = PenAlignment.Center },
+                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.White), 3) { Alignment = PenAlignment.Center },
                     new Point(areaLeft, 0),
                     new Point(areaLeft, paintBitmap.Height));
 
-                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.Black), 3) { Alignment = PenAlignment.Center },
+                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.White), 3) { Alignment = PenAlignment.Center },
                     new Point(areaRight, 0),
                     new Point(areaRight, paintBitmap.Height));
             }
