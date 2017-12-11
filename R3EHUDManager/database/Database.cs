@@ -99,6 +99,21 @@ namespace R3EHUDManager.database
             }
         }
 
+        internal void UpdateProfile(ProfileModel profile)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+
+                NoQuery(
+                    $"UPDATE profiles SET name = '{profile.Name}', backgroundId = {profile.BackgroundId}, fileName = '{profile.HudFilePath}'" +
+                    $"WHERE id = {profile.Id};"
+                    , db);
+
+                db.Close();
+            }
+        }
+
         public List<ProfileModel> GetAllProfiles()
         {
             List<ProfileModel> profiles = new List<ProfileModel>();

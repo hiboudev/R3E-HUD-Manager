@@ -50,7 +50,7 @@ namespace R3EHUDManager.profile.view
 
         private void OnSaveProfileClicked(object sender, EventArgs e)
         {
-            DispatchEvent(new BaseEventArgs(EVENT_CREATE_NEW_PROFILE));
+            DispatchEvent(new BaseEventArgs(EVENT_SAVE_PROFILE));
         }
     }
 }

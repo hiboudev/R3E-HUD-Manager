@@ -18,7 +18,7 @@ namespace R3EHUDManager.profile.model
 
         public int Id { get; }
         public string Name { get; }
-        public int BackgroundId { get; }
+        public int BackgroundId { get; internal set; }
         public string HudFilePath { get; }
     }
 }
