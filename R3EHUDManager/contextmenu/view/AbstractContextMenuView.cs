@@ -186,7 +186,9 @@ namespace R3EHUDManager.contextmenu.view
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
             base.OnMouseDown(mevent);
-            ContextMenuStrip.Show(this, new Point(Location.X, Height));
+
+            if(ContextMenuStrip.Items.Count > 0)
+                ContextMenuStrip.Show(this, new Point(Location.X, Height));
         }
 
         protected override void OnPaint(PaintEventArgs pevent)
