@@ -151,8 +151,8 @@ namespace R3EHUDManager.screen.view
 
             if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
-                AutoScroll = false;
                 VerticalScroll.Value = HorizontalScroll.Value = 0;
+                AutoScroll = false;
             }
             else
             {

@@ -153,6 +153,7 @@ namespace R3EHUDManager.contextmenu.view
             TextAlign = ContentAlignment.MiddleLeft;
             // To avoid a bug when there's several instances, opening one will push focus to the next one, cause of the Enabled=false.
             SetStyle(ControlStyles.Selectable, false);
+            // I can't find how to disable word wrapping in Button. If text is in one word and too long, it displays nothing.
             AutoSize = true;
 
             ContextMenuStrip = new ContextMenuStrip();
