@@ -94,7 +94,7 @@ namespace R3EHUDManager
             leftBarPanel.Controls.Add(listView);
 
             leftBarPanel.Controls.Add(GetButton("Apply to R3E", EVENT_SAVE_CLICKED));
-            leftBarPanel.Controls.Add(GetButton("Reload layout", EVENT_RELOAD_CLICKED));
+            leftBarPanel.Controls.Add(GetButton("Reload from R3E", EVENT_RELOAD_CLICKED));
             leftBarPanel.Controls.Add(GetButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED));
 
             leftBarPanel.Controls.Add(prefsButton);
