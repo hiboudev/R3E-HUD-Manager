@@ -30,6 +30,10 @@ namespace R3EHUDManager.database
             new SQLiteCommand(
                 $"ALTER TABLE backgrounds ADD COLUMN layoutType INTEGER DEFAULT {(int)ScreenLayoutType.SINGLE}"
                 , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                    "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);"
+                    , connection).ExecuteNonQuery();
         }
     }
 }

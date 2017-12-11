@@ -43,7 +43,7 @@ namespace R3EHUDManager.huddata.command
             }
 
             if (placeholders != null)
-                placeHolderCollection.AddRange(placeholders);
+                placeHolderCollection.SetPlaceholders(placeholders);
         }
     }
 }

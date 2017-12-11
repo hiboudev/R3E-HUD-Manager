@@ -23,7 +23,7 @@ namespace R3EHUDManager.profile.model
 
         internal void AddRange(List<ProfileModel> profiles)
         {
-            profiles.AddRange(profiles);
+            this.Profiles.AddRange(profiles);
 
             DispatchEvent(new ProfileCollectionEventArgs(EVENT_PROFILE_ADDED, this, profiles.ToArray()));
         }

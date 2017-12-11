@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.background.model;
+using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
@@ -29,22 +30,21 @@ namespace R3EHUDManager.database
             {
                 db.Open();
 
-                SQLiteCommand command = new SQLiteCommand("begin", db);
-                command.ExecuteNonQuery();
+                NoQuery("begin", db);
 
-                string sql = "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT, layoutType INT);" +
-                    "CREATE TABLE config (key TEXT unique, value BLOB);";
+                // V2 added backgrounds.layoutType
+                // V2 added table profiles
+                NoQuery(
+                    "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT, layoutType INT);" +
+                    "CREATE TABLE config (key TEXT unique, value BLOB);" +
+                    "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);"
+                    , db);
 
-                command = new SQLiteCommand(sql, db);
-                command.ExecuteNonQuery();
+                NoQuery(
+                    $"INSERT INTO config (key, value) VALUES ('dbVersion', {VERSION})"
+                    , db);
 
-                sql = $"INSERT INTO config (key, value) VALUES ('dbVersion', {VERSION})";
-
-                command = new SQLiteCommand(sql, db);
-                command.ExecuteNonQuery();
-
-                command = new SQLiteCommand("end", db);
-                command.ExecuteNonQuery();
+                NoQuery("end", db);
 
                 db.Close();
             }
@@ -76,11 +76,54 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                new SQLiteCommand("begin", db).ExecuteNonQuery();
+
+                NoQuery("begin", db);
                 upgrader.Upgrade(this, db);
-                new SQLiteCommand("end", db).ExecuteNonQuery();
+                NoQuery("end", db);
+
                 db.Close();
             }
+        }
+
+        public void AddProfile(ProfileModel profile)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+
+                NoQuery("INSERT INTO profiles (id, name, backgroundId, fileName) VALUES " +
+                    $"({profile.Id}, '{profile.Name}', {profile.BackgroundId}, '{profile.HudFilePath}')"
+                    , db);
+
+                db.Close();
+            }
+        }
+
+        public List<ProfileModel> GetAllProfiles()
+        {
+            List<ProfileModel> profiles = new List<ProfileModel>();
+
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+
+                using (SQLiteDataReader reader = new SQLiteCommand("SELECT * from profiles", db).ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        profiles.Add(ProfileFactory.NewProfileModel(
+                            reader.GetInt32(0),
+                            reader.GetString(1),
+                            reader.GetInt32(2),
+                            reader.GetString(3)));
+                    }
+                    reader.Close();
+                }
+
+                db.Close();
+            }
+
+            return profiles;
         }
 
         public void AddBackground(BackgroundModel background)
@@ -88,14 +131,11 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                SQLiteCommand command;
-
-                string request = "INSERT INTO backgrounds (id, name, fileName, directoryType, isBuiltIn, layoutType) VALUES " +
-                    $"({background.Id}, '{background.Name}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)}, {(int)background.Layout})";
-
-                command = new SQLiteCommand(request, db);
-                command.ExecuteNonQuery();
-
+                
+                NoQuery("INSERT INTO backgrounds (id, name, fileName, directoryType, isBuiltIn, layoutType) VALUES " +
+                    $"({background.Id}, '{background.Name}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)}, {(int)background.Layout})"
+                    , db);
+                
                 db.Close();
             }
         }
@@ -105,13 +145,10 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                SQLiteCommand command;
 
-                string request = $"DELETE FROM backgrounds WHERE id = {background.Id}";
-
-                command = new SQLiteCommand(request, db);
-                command.ExecuteNonQuery();
-
+                NoQuery($"DELETE FROM backgrounds WHERE id = {background.Id}"
+                    , db);
+                
                 db.Close();
             }
         }
@@ -123,12 +160,8 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                SQLiteCommand command;
 
-                string request = "SELECT * from backgrounds";
-                command = new SQLiteCommand(request, db);
-
-                using (SQLiteDataReader reader = command.ExecuteReader())
+                using (SQLiteDataReader reader = new SQLiteCommand("SELECT * from backgrounds", db).ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -147,6 +180,11 @@ namespace R3EHUDManager.database
             }
 
             return backgrounds;
+        }
+
+        private void NoQuery(string request, SQLiteConnection db)
+        {
+            new SQLiteCommand(request, db).ExecuteNonQuery();
         }
     }
 }

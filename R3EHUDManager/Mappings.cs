@@ -88,6 +88,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(LayoutMenuView), LayoutMenuView.EVENT_ITEM_CLICKED, typeof(ChangeScreenLayoutCommand));
             Injector.MapCommand(typeof(ZoomView), ZoomView.EVENT_ZOOM_LEVEL_CHANGED, typeof(ChangeZoomLevelCommand));
             Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_ITEM_CLICKED, typeof(SelectProfileCommand));
+            Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_CREATE_NEW_PROFILE, typeof(CreateProfileCommand));
         }
     }
 }

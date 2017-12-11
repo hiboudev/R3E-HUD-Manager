@@ -1,4 +1,5 @@
 ﻿using da2mvc.injection;
+using R3EHUDManager.application.events;
 using R3EHUDManager.contextmenu.view;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace R3EHUDManager.profile.view
 {
     class ProfileMenuView : AbstractContextMenuView
     {
+        public const string EVENT_CREATE_NEW_PROFILE = "createNewProfile";
+
         public ProfileMenuView() : base("Profile")
         {
         }
@@ -37,7 +40,7 @@ namespace R3EHUDManager.profile.view
 
             if(newProfileDialog.ShowDialog() == DialogResult.OK)
             {
-
+                DispatchEvent(new StringEventArgs(EVENT_CREATE_NEW_PROFILE, newProfileDialog.ProfileName));
             }
 
             newProfileDialog.Dispose();

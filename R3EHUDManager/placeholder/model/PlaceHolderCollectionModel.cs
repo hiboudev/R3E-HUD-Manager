@@ -14,14 +14,14 @@ namespace R3EHUDManager.placeholder.model
     {
         private Dictionary<string, PlaceholderModel> placeHolders = new Dictionary<string, PlaceholderModel>();
         public event EventHandler MvcEventHandler;
-        public const string EVENT_PLACE_HOLDERS_ADDED = "placeHoldersAdded";
+        public const string EVENT_NEW_LAYOUT = "newLayout";
         public const string EVENT_PLACE_HOLDER_UPDATED = "placeHolderUpdated";
         public List<PlaceholderModel> Placeholders { get => placeHolders.Values.ToList(); }
 
-        public void AddRange(List<PlaceholderModel> placeHolders)
+        public void SetPlaceholders(List<PlaceholderModel> placeHolders)
         {
             this.placeHolders = placeHolders.ToDictionary(x => x.Name, x => x);
-            DispatchEvent(new PlaceHolderCollectionEventArgs(EVENT_PLACE_HOLDERS_ADDED, this.placeHolders.Values.ToList()));
+            DispatchEvent(new PlaceHolderCollectionEventArgs(EVENT_NEW_LAYOUT, this.placeHolders.Values.ToList()));
         }
 
         internal void UpdatePlaceholderPosition(string placeholderName, R3ePoint position)

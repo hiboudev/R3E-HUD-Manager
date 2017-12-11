@@ -157,11 +157,13 @@
     </Compile>
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
+    <Compile Include="profile\command\CreateProfileCommand.cs" />
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
     <Compile Include="profile\command\SelectProfileCommand.cs" />
     <Compile Include="profile\events\ProfileCollectionEventArgs.cs" />
     <Compile Include="profile\events\ProfileEventArgs.cs" />
     <Compile Include="profile\model\ProfileCollectionModel.cs" />
+    <Compile Include="profile\model\ProfileFactory.cs" />
     <Compile Include="profile\model\ProfileModel.cs" />
     <Compile Include="profile\model\SelectedProfileModel.cs" />
     <Compile Include="profile\view\ProfileMenuMediator.cs" />
@@ -259,6 +261,7 @@
     <Compile Include="selection\view\SelectionView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="utils\StringUtils.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -327,6 +330,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="_graphical_assets\virtualmirror.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_template\hud_options_template_v6.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

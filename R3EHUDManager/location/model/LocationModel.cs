@@ -16,6 +16,7 @@ namespace R3EHUDManager.location.model
         public string LocalDirectoryBackgrounds = Path.Combine(Application.UserAppDataPath, "backgrounds");
         public string LocalDirectoryOldBackups = Path.Combine(Application.UserAppDataPath, "old backups");
         public string LocalDirectoryLogs = Path.Combine(Application.UserAppDataPath, "logs");
+        public string LocalDirectoryProfiles = Path.Combine(Application.UserAppDataPath, "profiles");
 
         public string[] LocalDirectories { get; }
 
@@ -25,7 +26,8 @@ namespace R3EHUDManager.location.model
                 LocalDirectoryDatabase,
                 LocalDirectoryBackgrounds,
                 LocalDirectoryOldBackups,
-                LocalDirectoryLogs
+                LocalDirectoryLogs,
+                LocalDirectoryProfiles
             };
         }
 
@@ -65,5 +67,8 @@ namespace R3EHUDManager.location.model
         }
 
         public string LogFile { get => Path.Combine(LocalDirectoryLogs, "log.txt"); }
+
+        // TODO get file depending of current version
+        public string HudTemplateFile { get => @"_template\hud_options_template_v6.xml"; }
     }
 }
