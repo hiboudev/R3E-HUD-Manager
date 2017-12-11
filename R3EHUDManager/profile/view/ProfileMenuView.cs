@@ -24,6 +24,7 @@ namespace R3EHUDManager.profile.view
 
         public ProfileMenuView(BackgroundCollectionModel backgroundCollection) : base("Profile")
         {
+            Width = 170;
             this.backgroundCollection = backgroundCollection;
         }
 
