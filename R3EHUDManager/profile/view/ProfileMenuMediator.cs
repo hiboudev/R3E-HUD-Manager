@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using da2mvc.events;
 using R3EHUDManager.profile.events;
 using R3EHUDManager.contextmenu.view;
+using R3EHUDManager.profile.command;
 
 namespace R3EHUDManager.profile.view
 {
@@ -17,24 +18,22 @@ namespace R3EHUDManager.profile.view
         {
             RegisterEventListener(typeof(ProfileCollectionModel), ProfileCollectionModel.EVENT_PROFILE_ADDED, OnProfileAdded);
             RegisterEventListener(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CHANGED, OnProfileSelected);
+            RegisterEventListener(typeof(SaveProfileCommand), SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
+        }
+
+        private void OnProfileSaved(BaseEventArgs args)
+        {
+            ((ProfileMenuView)View).UpdateProfile(((ProfileEventArgs)args).Profile);
         }
 
         private void OnProfileSelected(BaseEventArgs args)
         {
-            ((ProfileMenuView)View).SetSelectedItem(((ProfileEventArgs)args).Profile.Id);
+            ((ProfileMenuView)View).SelectProfile(((ProfileEventArgs)args).Profile);
         }
 
         private void OnProfileAdded(BaseEventArgs args)
         {
-            var view = (ProfileMenuView)View;
-            var profiles = ((ProfileCollectionEventArgs)args).ModifiedProfiles;
-
-            List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
-
-            foreach (ProfileModel profile in profiles)
-                items.Add(new ContextMenuViewItem(profile.Id, profile.Name));
-
-            view.AddItems(items);
+            ((ProfileMenuView)View).AddProfiles(((ProfileCollectionEventArgs)args).ModifiedProfiles);
         }
     }
 }

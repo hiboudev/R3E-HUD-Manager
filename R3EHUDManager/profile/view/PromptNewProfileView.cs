@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.profile.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,15 +14,17 @@ namespace R3EHUDManager.profile.view
     class PromptNewProfileView : Form // TODO généraliser avec les autres
     {
         private HashSet<string> usedNames;
+        private string backgroundName;
         private Label errorField;
         private Button okButton;
         private TableLayoutPanel layout;
         private TextBox nameField;
         public string ProfileName { get => nameField.Text; }
 
-        public PromptNewProfileView(ProfileCollectionModel profileCollection)
+        public PromptNewProfileView(ProfileCollectionModel profileCollection, ScreenModel screen)
         {
             usedNames = new HashSet<string>();
+            backgroundName = screen.Background.Name;
 
             foreach (ProfileModel profile in profileCollection.Profiles)
                 usedNames.Add(profile.Name);
@@ -34,7 +37,7 @@ namespace R3EHUDManager.profile.view
             Text = "Profile creation";
             MinimumSize = new Size(50, 50);
             StartPosition = FormStartPosition.CenterParent;
-            Size = new Size(300, 140);
+            Size = new Size(300, 170);
             Padding = new Padding(6);
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
@@ -58,6 +61,15 @@ namespace R3EHUDManager.profile.view
             };
             nameField.TextChanged += CheckText;
 
+            Label backgroundField = new Label()
+            {
+                Text = $"Background: {backgroundName}",
+                AutoSize = true,
+                Dock = DockStyle.Fill,
+                Enabled = false,
+                Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4)
+            };
+
             errorField = new Label()
             {
                 AutoSize = true,
@@ -77,6 +89,7 @@ namespace R3EHUDManager.profile.view
 
             AddControl(prompt, SizeType.AutoSize);
             AddControl(nameField, SizeType.AutoSize);
+            AddControl(backgroundField, SizeType.AutoSize);
             AddControl(errorField, SizeType.AutoSize);
             AddControl(okButton, SizeType.AutoSize);
 

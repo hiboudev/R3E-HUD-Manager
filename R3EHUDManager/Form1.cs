@@ -100,7 +100,8 @@ namespace R3EHUDManager
             leftBarPanel.Controls.Add(prefsButton);
 
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(BackgroundToolbarView)));
-            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LayoutToolbarView)));
+            // Since backgrounds are linked with a screen layout, this option is not useful and confusing, maybe could be added back as a layout override in profile.
+            //topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LayoutToolbarView)));
             topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ProfileToolbarView)));
 
             bottomBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ZoomView)));
