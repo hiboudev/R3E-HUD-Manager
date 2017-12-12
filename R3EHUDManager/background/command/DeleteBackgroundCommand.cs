@@ -23,10 +23,10 @@ namespace R3EHUDManager.background.command
         private readonly ScreenModel screenModel;
         private readonly Database database;
         private readonly LocationModel locationModel;
-        private readonly ProfileCollectionModel profileCollection;
+        private readonly CollectionModel<ProfileModel> profileCollection;
 
         public DeleteBackgroundCommand(IntEventArgs args, CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screenModel, Database database, LocationModel locationModel,
-                                        ProfileCollectionModel profileCollection)
+                                        CollectionModel<ProfileModel> profileCollection)
         {
             this.args = args;
             this.backgroundCollection = backgroundCollection;
@@ -63,7 +63,7 @@ namespace R3EHUDManager.background.command
         {
             string names = "";
 
-            foreach (var profile in profileCollection.Profiles)
+            foreach (var profile in profileCollection.Items)
                 if (profile.BackgroundId == background.Id)
                     names += $"{profile.Name}, ";
 

@@ -167,9 +167,7 @@
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
     <Compile Include="profile\command\SaveProfileCommand.cs" />
     <Compile Include="profile\command\SelectProfileCommand.cs" />
-    <Compile Include="profile\events\ProfileCollectionEventArgs.cs" />
     <Compile Include="profile\events\ProfileEventArgs.cs" />
-    <Compile Include="profile\model\ProfileCollectionModel.cs" />
     <Compile Include="profile\model\ProfileFactory.cs" />
     <Compile Include="profile\model\ProfileModel.cs" />
     <Compile Include="profile\model\SelectedProfileModel.cs" />

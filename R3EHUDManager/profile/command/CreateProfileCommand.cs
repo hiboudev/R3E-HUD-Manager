@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
@@ -22,7 +23,7 @@ namespace R3EHUDManager.profile.command
     class CreateProfileCommand : ICommand
     {
         private readonly StringEventArgs args;
-        private readonly ProfileCollectionModel profileCollection;
+        private readonly CollectionModel<ProfileModel> profileCollection;
         private readonly Database database;
         private readonly HudOptionsParser parser;
         private readonly LocationModel location;
@@ -30,7 +31,7 @@ namespace R3EHUDManager.profile.command
         private readonly PlaceHolderCollectionModel placeholderCollection;
         private readonly SelectedProfileModel selectedProfile;
 
-        public CreateProfileCommand(StringEventArgs args, ProfileCollectionModel profileCollection, Database database, 
+        public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database, 
             HudOptionsParser parser, LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection, SelectedProfileModel selectedProfile)
         {
             this.args = args;

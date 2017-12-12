@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.database;
 using R3EHUDManager.location.model;
@@ -15,12 +16,12 @@ namespace R3EHUDManager.profile.command
     class DeleteProfileCommand : ICommand
     {
         private readonly IntEventArgs args;
-        private readonly ProfileCollectionModel profileCollection;
+        private readonly CollectionModel<ProfileModel> profileCollection;
         private readonly SelectedProfileModel profileSelection;
         private readonly Database database;
         private readonly LocationModel location;
 
-        public DeleteProfileCommand(IntEventArgs args, ProfileCollectionModel profileCollection, SelectedProfileModel profileSelection,
+        public DeleteProfileCommand(IntEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel profileSelection,
                                     Database database, LocationModel location)
         {
             this.args = args;

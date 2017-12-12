@@ -1,5 +1,7 @@
 ﻿using da2mvc.core.events;
 using da2mvc.core.view;
+using da2mvc.framework.model;
+using da2mvc.framework.model.events;
 using R3EHUDManager.profile.events;
 using R3EHUDManager.profile.model;
 using System;
@@ -14,12 +16,13 @@ namespace R3EHUDManager.profile.view
     {
         public ProfileManagerMediator()
         {
-            RegisterEventListener(typeof(ProfileCollectionModel), ProfileCollectionModel.EVENT_PROFILE_REMOVED, OnProfileRemoved);
+            RegisterEventListener(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
         }
 
         private void OnProfileRemoved(BaseEventArgs args)
         {
-            ((ProfileManagerView)View).RemoveProfile(((ProfileEventArgs)args).Profile);
+            foreach(var profile in ((CollectionEventArgs<ProfileModel>)args).ChangedItems)
+                ((ProfileManagerView)View).RemoveProfile(profile);
         }
     }
 }

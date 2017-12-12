@@ -54,7 +54,7 @@ namespace R3EHUDManager
             Injector.MapType(typeof(SettingsMenuView), true);
             Injector.MapType(typeof(LayoutToolbarView), true); 
             Injector.MapType(typeof(DatabaseUpgrader), true); 
-            Injector.MapType(typeof(ProfileCollectionModel), true);
+            Injector.MapType(typeof(CollectionModel<ProfileModel>), true);
             Injector.MapType(typeof(ProfileToolbarView), true); 
             Injector.MapType(typeof(SelectedProfileModel), true); 
             Injector.MapType(typeof(PromptNewProfileView));

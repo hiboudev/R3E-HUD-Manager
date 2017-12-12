@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.profile.command;
+﻿using da2mvc.framework.model;
+using R3EHUDManager.profile.command;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.utils;
@@ -25,13 +26,13 @@ namespace R3EHUDManager.profile.view
         private TextBox nameField;
         public string ProfileName { get => nameField.Text; }
 
-        public PromptNewProfileView(ProfileCollectionModel profileCollection, ScreenModel screen)
+        public PromptNewProfileView(CollectionModel<ProfileModel> profileCollection, ScreenModel screen)
         {
             usedNames = new HashSet<string>();
             usedFileNames = new HashSet<string>();
             backgroundName = screen.Background.Name;
 
-            foreach (ProfileModel profile in profileCollection.Profiles) {
+            foreach (ProfileModel profile in profileCollection.Items) {
                 usedNames.Add(profile.Name);
                 usedFileNames.Add(profile.fileName);
             }

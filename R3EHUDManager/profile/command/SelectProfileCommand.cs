@@ -20,7 +20,7 @@ namespace R3EHUDManager.profile.command
     class SelectProfileCommand : ICommand
     {
         private readonly ContextMenuEventArgs args;
-        private readonly ProfileCollectionModel profileCollection;
+        private readonly CollectionModel<ProfileModel> profileCollection;
         private readonly SelectedProfileModel selectedProfile;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
         private readonly ScreenModel screen;
@@ -28,7 +28,7 @@ namespace R3EHUDManager.profile.command
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel placeholderCollection;
 
-        public SelectProfileCommand(ContextMenuEventArgs args, ProfileCollectionModel profileCollection, SelectedProfileModel selectedProfile,
+        public SelectProfileCommand(ContextMenuEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel selectedProfile,
                                     CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screen, HudOptionsParser parser, LocationModel location,
                                     PlaceHolderCollectionModel placeholderCollection)
         {
@@ -51,7 +51,7 @@ namespace R3EHUDManager.profile.command
             screen.SetBackground(background);
             placeholderCollection.Clear();
             placeholderCollection.AddRange(placeholders);
-            selectedProfile.SelectProfile(profileCollection.Get(args.ItemId));
+            selectedProfile.SelectProfile(profile);
         }
     }
 }

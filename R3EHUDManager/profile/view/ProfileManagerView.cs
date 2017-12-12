@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.events;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.profile.model;
 using System;
@@ -18,13 +19,13 @@ namespace R3EHUDManager.profile.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_PROFILE = "deleteProfile";
 
-        public ProfileManagerView(ProfileCollectionModel collectionModel)
+        public ProfileManagerView(CollectionModel<ProfileModel> collectionModel)
         {
             InitializeUI();
 
             List<string> names = new List<string>();
 
-            foreach (var profile in collectionModel.Profiles)
+            foreach (ProfileModel profile in collectionModel.Items)
             {
                 list.Items.Add(profile.Name);
                 ids.Add(profile.Name, profile.Id);
