@@ -18,19 +18,26 @@ namespace R3EHUDManager.location.command
     {
         private readonly LocationModel locationModel;
         private readonly R3eHomeDirectoryFinder finder;
+        private readonly R3eDirectoryCollectionModel r3EDirectoryCollection;
 
-        public FindR3eHomeDirectoryCommand(LocationModel locationModel, R3eHomeDirectoryFinder finder)
+        public FindR3eHomeDirectoryCommand(LocationModel locationModel, R3eHomeDirectoryFinder finder, R3eDirectoryCollectionModel r3eDirectoryCollection)
         {
             this.locationModel = locationModel;
             this.finder = finder;
+            r3EDirectoryCollection = r3eDirectoryCollection;
         }
         
         public void Execute()
         {
-            string R3eHomePath = finder.GetPath();
-            if (R3eHomePath != null)
+            List<string> paths = finder.GetPaths();
+            if (paths.Count > 0)
             {
-                locationModel.R3eHomeBaseDirectory = R3eHomePath;
+                List<R3eDirectoryModel> directories = new List<R3eDirectoryModel>();
+                foreach (string path in paths)
+                    directories.Add(new R3eDirectoryModel(Path.GetDirectoryName(path), path));
+
+                r3EDirectoryCollection.SetDirectories(directories);
+                locationModel.R3eHomeBaseDirectory = directories[0].Path;
                 return;
             }
 

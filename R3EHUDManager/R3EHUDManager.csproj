@@ -29,7 +29,7 @@
     <PublisherName>ChatCureuil</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>0.4.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -155,6 +155,9 @@
     <Compile Include="layout\view\LayoutToolbarView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="location\events\R3eDirectoryCollectionEventArgs.cs" />
+    <Compile Include="location\model\R3eDirectoryCollectionModel.cs" />
+    <Compile Include="location\model\R3eDirectoryModel.cs" />
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />

@@ -55,7 +55,8 @@ namespace R3EHUDManager
             Injector.MapType(typeof(ProfileCollectionModel), true);
             Injector.MapType(typeof(ProfileToolbarView), true); 
             Injector.MapType(typeof(SelectedProfileModel), true); 
-            Injector.MapType(typeof(PromptNewProfileView)); 
+            Injector.MapType(typeof(PromptNewProfileView));
+            Injector.MapType(typeof(R3eDirectoryCollectionModel));
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);

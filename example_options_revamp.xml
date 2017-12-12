@@ -1,0 +1,38 @@
+<xml>
+
+	<hud_element>
+	
+		<name><![CDATA[MoTeC]]></name>
+		
+		<position>1.2458798456 1</position>
+		<anchor>1 -1</anchor>
+		<size>1 1</size>
+		
+		<option>
+			<name><![CDATA[Show in cockpit]]></name>
+			<value type="bool">true</value>
+		</option>
+		
+		<option>
+			<name><![CDATA[Show]]></name>
+			<value type="bool">true</value>
+		</option>
+		
+	</hud_element>
+	
+	<hud_element>
+		<!-- And so on for other hud elements... -->
+	</hud_element>
+	
+	<!-- Options not related with a hud element. -->
+	<option>
+		<name><![CDATA[Position Bar Display Setting]]></name>
+		<value type="int32">3</value>
+	</option>
+	
+	<option>
+		<name><![CDATA[Replay overlay show setting]]></name>
+		<value type="bool">true</value>
+	</option>
+	
+</xml>

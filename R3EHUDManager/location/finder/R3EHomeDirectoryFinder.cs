@@ -1,5 +1,4 @@
-﻿using R3EHUDManager.log;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,45 +16,33 @@ namespace R3EHUDManager.location.finder
         private const string INI_FILE_NAME = "GameInstallDir.ini";
         private const string INI_INSTALL_DIR_KEY = "GameInstallDir=";
 
-        public string GetPath()
+        public List<string> GetPaths()
         {
             string simbinPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), RELATIVE_SIMBIN_PATH);
 
-            Logger.Add($"* Searching R3E user directory in {simbinPath}.");
-
             string[] r3EDirectories = Directory.GetDirectories(simbinPath, $"{BASE_R3E_DIR_NAME}*");
-
-            if (r3EDirectories.Length == 0)
-            {
-                Logger.Add($"No suitable directory found in {simbinPath}.");
-                return null;
-            }
 
             return SearchActiveR3EDirectory(r3EDirectories);
         }
 
-        private string SearchActiveR3EDirectory(string[] r3EDirectories)
+        private List<string> SearchActiveR3EDirectory(string[] r3EDirectories)
         {
+            List<string> directories = new List<string>();
+
             // "RaceRoom Racing Experience Install 7"
             Regex r3EDirRegex = new Regex($@"{BASE_R3E_DIR_NAME}( Install \d+)?");
 
             foreach (string r3EDirectory in r3EDirectories)
             {
-                Logger.Add($"Testing directory '{r3EDirectory}'...");
-
                 if (!r3EDirRegex.IsMatch(r3EDirectory))
                 {
-                    Logger.Add($"Directory name doesn't match.");
                     continue;
                 }
-
-                Logger.Add($"Directory name matches.");
 
                 string iniFilePath = Path.Combine(r3EDirectory, INI_FILE_NAME);
 
                 if (File.Exists(iniFilePath))
                 {
-                    Logger.Add($"Checking ini file '{iniFilePath}'...");
 
                     Regex steamDirExp = new Regex($"^{INI_INSTALL_DIR_KEY}(.*)$", RegexOptions.Multiline);
                     string gameInstallDir = null;
@@ -70,23 +57,14 @@ namespace R3EHUDManager.location.finder
                         gameInstallDir = match.Groups[1].Value;
                     }
 
-                    Logger.Add($"Testing game install directory: '{gameInstallDir}'...");
-
                     if (gameInstallDir != null && Directory.Exists(gameInstallDir))
                     {
-                        Logger.Add($"Found valid directory: '{r3EDirectory}'.");
-                        return r3EDirectory;
+                        directories.Add(r3EDirectory);
                     }
-
-                    Logger.Add($"Game install directory not valid.");
                 }
-
-                Logger.Add($"No ini file found in {r3EDirectory}.");
             }
 
-            Logger.Add($"No suitable directory found.");
-
-            return null;
+            return directories;
         }
     }
 }
