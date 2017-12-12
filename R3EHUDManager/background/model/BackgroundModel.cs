@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.screen.model;
+﻿using da2mvc.framework.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.background.model
 {
-    class BackgroundModel
+    class BackgroundModel : IModel
     {
         public BackgroundModel(int id, string name, string fileName, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayoutType layout)
         {

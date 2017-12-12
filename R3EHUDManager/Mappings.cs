@@ -31,6 +31,7 @@ using R3EHUDManager.profile.model;
 using R3EHUDManager.profile.view;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.location.view;
+using da2mvc.framework.model;
 
 namespace R3EHUDManager
 {
@@ -47,7 +48,7 @@ namespace R3EHUDManager
             Injector.MapType(typeof(SelectionModel), true);
             Injector.MapType(typeof(ScreenModel), true);
             Injector.MapType(typeof(Database), true);
-            Injector.MapType(typeof(BackgroundCollectionModel), true);
+            Injector.MapType(typeof(CollectionModel<BackgroundModel>), true);
             Injector.MapType(typeof(BackgroundToolbarView), true); 
             Injector.MapType(typeof(PromptNewBackgroundView));
             Injector.MapType(typeof(SettingsMenuView), true);

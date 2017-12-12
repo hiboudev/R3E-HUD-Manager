@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.events;
@@ -21,14 +22,14 @@ namespace R3EHUDManager.profile.command
         private readonly ContextMenuEventArgs args;
         private readonly ProfileCollectionModel profileCollection;
         private readonly SelectedProfileModel selectedProfile;
-        private readonly BackgroundCollectionModel backgroundCollection;
+        private readonly CollectionModel<BackgroundModel> backgroundCollection;
         private readonly ScreenModel screen;
         private readonly HudOptionsParser parser;
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel placeholderCollection;
 
         public SelectProfileCommand(ContextMenuEventArgs args, ProfileCollectionModel profileCollection, SelectedProfileModel selectedProfile,
-                                    BackgroundCollectionModel backgroundCollection, ScreenModel screen, HudOptionsParser parser, LocationModel location,
+                                    CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screen, HudOptionsParser parser, LocationModel location,
                                     PlaceHolderCollectionModel placeholderCollection)
         {
             this.args = args;

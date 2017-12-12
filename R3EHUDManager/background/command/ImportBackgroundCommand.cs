@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
@@ -21,9 +22,9 @@ namespace R3EHUDManager.background.command
         private readonly ScreenModel screenModel;
         private readonly LocationModel locationModel;
         private readonly Database database;
-        private readonly BackgroundCollectionModel collection;
+        private readonly CollectionModel<BackgroundModel> collection;
 
-        public ImportBackgroundCommand(ImportBackgroundEventArgs args, ScreenModel screenModel, LocationModel locationModel, Database database, BackgroundCollectionModel collection)
+        public ImportBackgroundCommand(ImportBackgroundEventArgs args, ScreenModel screenModel, LocationModel locationModel, Database database, CollectionModel<BackgroundModel> collection)
         {
             this.args = args;
             this.screenModel = screenModel;
@@ -62,7 +63,7 @@ namespace R3EHUDManager.background.command
 
             BackgroundModel background = BackgroundFactory.NewBackgroundModel(args.Name, destinationFileName, BaseDirectoryType.BACKGROUNDS_DIRECTORY, false, args.Layout);
             database.AddBackground(background);
-            collection.AddBackground(background);
+            collection.Add(background);
             screenModel.SetBackground(background);
         }
 

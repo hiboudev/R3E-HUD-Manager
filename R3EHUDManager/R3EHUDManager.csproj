@@ -119,10 +119,7 @@
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
     <Compile Include="background\command\InitializeBackgroundsCommand.cs" />
     <Compile Include="background\command\SelectBackgroundCommand.cs" />
-    <Compile Include="background\events\BackgroundCollectionEventArgs.cs" />
-    <Compile Include="background\events\BackgroundModelEventArgs.cs" />
     <Compile Include="background\events\ImportBackgroundEventArgs.cs" />
-    <Compile Include="background\model\BackgroundCollectionModel.cs" />
     <Compile Include="background\model\BackgroundFactory.cs" />
     <Compile Include="background\model\BackgroundModel.cs" />
     <Compile Include="background\model\BaseDirectoryType.cs" />

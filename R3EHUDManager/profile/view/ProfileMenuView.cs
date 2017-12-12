@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
+using da2mvc.framework.model;
 
 namespace R3EHUDManager.profile.view
 {
@@ -20,9 +21,9 @@ namespace R3EHUDManager.profile.view
         public const string EVENT_SAVE_PROFILE = "saveProfile";
 
         private ToolStripMenuItem itemSaveProfile;
-        private readonly BackgroundCollectionModel backgroundCollection;
+        private readonly CollectionModel<BackgroundModel> backgroundCollection;
 
-        public ProfileMenuView(BackgroundCollectionModel backgroundCollection) : base("Profile")
+        public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection) : base("Profile")
         {
             Width = 170;
             this.backgroundCollection = backgroundCollection;

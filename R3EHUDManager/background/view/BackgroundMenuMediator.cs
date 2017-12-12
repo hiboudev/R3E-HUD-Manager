@@ -1,5 +1,7 @@
 ﻿using da2mvc.core.events;
 using da2mvc.core.view;
+using da2mvc.framework.model;
+using da2mvc.framework.model.events;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.view;
@@ -17,36 +19,29 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundMenuMediator()
         {
-            RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_LIST_ADDED, OnListAdded);
-            RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_ADDED, OnBackgroundAdded);
-            RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_REMOVED, OnBackgroundRemoved);
+            RegisterEventListener(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_ADDED, OnBackgroundAdded);
+            RegisterEventListener(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
             RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-        }
-
-        private void OnListAdded(BaseEventArgs args)
-        {
-            var typedArgs = (BackgroundCollectionEventArgs)args;
-
-            ((BackgroundMenuView)View).AddBackgrounds(typedArgs.Collection.Backgrounds);
         }
 
         private void OnBackgroundAdded(BaseEventArgs args)
         {
-            var typedArgs = (BackgroundModelEventArgs)args;
+            var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
 
-            ((BackgroundMenuView)View).AddBackground(typedArgs.Background);
+            ((BackgroundMenuView)View).AddBackgrounds(typedArgs.Collection.Items);
+        }
+
+        private void OnBackgroundRemoved(BaseEventArgs args)
+        {
+            var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
+
+            foreach(var background in typedArgs.Collection.Items)
+                ((BackgroundMenuView)View).RemoveItem(background.Id);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
             ((BackgroundMenuView)View).SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Id);
-        }
-
-        private void OnBackgroundRemoved(BaseEventArgs args)
-        {
-            var typedArgs = (BackgroundModelEventArgs)args;
-
-            ((BackgroundMenuView)View).RemoveItem(typedArgs.Background.Id);
         }
     }
 }

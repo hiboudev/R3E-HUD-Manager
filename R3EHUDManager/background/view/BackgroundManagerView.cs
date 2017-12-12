@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.events;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using System;
@@ -18,13 +19,13 @@ namespace R3EHUDManager.background.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_BACKGROUND = "deleteBackground";
 
-        public BackgroundManagerView(BackgroundCollectionModel collectionModel)
+        public BackgroundManagerView(CollectionModel<BackgroundModel> collectionModel)
         {
             InitializeUI();
 
             List<string> names = new List<string>();
 
-            foreach (var background in collectionModel.Backgrounds)
+            foreach (var background in collectionModel.Items)
             {
                 // Don't change/delete the built-in background.
                 if (background.IsBuiltInt) continue;

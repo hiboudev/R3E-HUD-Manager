@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.framework.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
@@ -18,17 +19,17 @@ namespace R3EHUDManager.background.command
     class DeleteBackgroundCommand : ICommand
     {
         private readonly IntEventArgs args;
-        private readonly BackgroundCollectionModel collectionModel;
+        private readonly CollectionModel<BackgroundModel> backgroundCollection;
         private readonly ScreenModel screenModel;
         private readonly Database database;
         private readonly LocationModel locationModel;
         private readonly ProfileCollectionModel profileCollection;
 
-        public DeleteBackgroundCommand(IntEventArgs args, BackgroundCollectionModel collectionModel, ScreenModel screenModel, Database database, LocationModel locationModel,
+        public DeleteBackgroundCommand(IntEventArgs args, CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screenModel, Database database, LocationModel locationModel,
                                         ProfileCollectionModel profileCollection)
         {
             this.args = args;
-            this.collectionModel = collectionModel;
+            this.backgroundCollection = backgroundCollection;
             this.screenModel = screenModel;
             this.database = database;
             this.locationModel = locationModel;
@@ -37,7 +38,7 @@ namespace R3EHUDManager.background.command
 
         public void Execute()
         {
-            BackgroundModel background = collectionModel.Get(args.Value);
+            BackgroundModel background = backgroundCollection.Get(args.Value);
 
             string parentProfileNames = GetParentProfileNames(background);
             if (parentProfileNames != null)
@@ -46,11 +47,11 @@ namespace R3EHUDManager.background.command
                 return;
             }
 
-            collectionModel.RemoveBackground(background);
+            backgroundCollection.Remove(background);
 
             if (screenModel.Background == background)
                 // Default background can't be deleted so there's always at least 1 item in the list.
-                screenModel.SetBackground(collectionModel.Backgrounds[0]);
+                screenModel.SetBackground(backgroundCollection.Items[0]);
 
             database.DeleteBackground(background);
 

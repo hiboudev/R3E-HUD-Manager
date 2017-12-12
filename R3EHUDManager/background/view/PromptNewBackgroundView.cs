@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.background.model;
+﻿using da2mvc.framework.model;
+using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
 using System;
@@ -42,11 +43,11 @@ namespace R3EHUDManager.background.view
 
         public string BackgroundName { get => inputField.Text; }
 
-        public PromptNewBackgroundView(BackgroundCollectionModel collectionModel)
+        public PromptNewBackgroundView(CollectionModel<BackgroundModel> collectionModel)
         {
             usedNames = new HashSet<string>();
 
-            foreach (BackgroundModel background in collectionModel.Backgrounds)
+            foreach (BackgroundModel background in collectionModel.Items)
                 usedNames.Add(background.Name);
 
             InitializeUI();

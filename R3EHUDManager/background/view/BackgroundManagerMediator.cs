@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using da2mvc.core.events;
 using R3EHUDManager.background.events;
 using da2mvc.core.view;
+using da2mvc.framework.model;
+using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.background.view
 {
@@ -14,12 +16,15 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundManagerMediator()
         {
-            RegisterEventListener(typeof(BackgroundCollectionModel), BackgroundCollectionModel.EVENT_BACKGROUND_REMOVED, OnBackgroundRemoved);
+            RegisterEventListener(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
         }
 
         private void OnBackgroundRemoved(BaseEventArgs args)
         {
-            ((BackgroundManagerView)View).RemoveBackground(((BackgroundModelEventArgs)args).Background);
+            var typedArgs = ((CollectionEventArgs<BackgroundModel>)args);
+            foreach(var background in typedArgs.Collection.Items)
+                ((BackgroundManagerView)View).RemoveBackground(background);
+
         }
     }
 }
