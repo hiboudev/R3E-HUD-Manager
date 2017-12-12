@@ -49,7 +49,7 @@ namespace R3EHUDManager.profile.command
             string filePath = Path.Combine(location.LocalDirectoryProfiles, fileName); // TODO tester les noms de fichier
             File.Copy(location.HudTemplateFile, filePath);
 
-            parser.Write(filePath, placeholderCollection.Placeholders);
+            parser.Write(filePath, placeholderCollection.Items);
 
             BackgroundModel background = screen.Background;
 

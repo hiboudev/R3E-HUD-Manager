@@ -59,10 +59,13 @@ namespace R3EHUDManager.selection.view
             DispatchEvent(new StringEventArgs(EVENT_PLACEHOLDER_SELECTED, list.SelectedItem.ToString()));
         }
 
-        internal void SetPlaceholders(List<PlaceholderModel> placeHolders)
+        internal void ClearPlaceholders()
         {
             list.Items.Clear();
+        }
 
+        internal void SetPlaceholders(PlaceholderModel[] placeHolders)
+        {
             foreach(PlaceholderModel model in placeHolders.OrderBy(x=>x.Name).ToList())
             {
                 list.Items.Add(model.Name);

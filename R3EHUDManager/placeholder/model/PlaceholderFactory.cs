@@ -8,9 +8,11 @@ namespace R3EHUDManager.placeholder.model
 {
     class PlaceholderFactory
     {
+        private static int idCounter = 0;
+
         public static PlaceholderModel NewPlaceholder(string name)
         {
-            return new PlaceholderModel(name)
+            return new PlaceholderModel(++idCounter, name)
             {
                 ResizeRule = GetResizeRule(name),
             };

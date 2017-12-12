@@ -43,7 +43,7 @@ namespace R3EHUDManager.profile.command
 
             profile.BackgroundId = background.Id;
             database.UpdateProfile(profile);
-            parser.Write(filePath, placeholderCollection.Placeholders);
+            parser.Write(filePath, placeholderCollection.Items);
 
             DispatchEvent(new ProfileEventArgs(EVENT_PROFILE_CHANGES_SAVED, profile));
         }

@@ -140,7 +140,7 @@ namespace R3EHUDManager.screen.utils
         {
             bool outsidePlaceholder = false;
 
-            foreach (PlaceholderModel placeholder in collectionModel.Placeholders)
+            foreach (PlaceholderModel placeholder in collectionModel.Items)
             {
                 ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
                 if (screen != ScreenPositionType.CENTER)
@@ -155,7 +155,7 @@ namespace R3EHUDManager.screen.utils
                 DialogResult result = MessageBox.Show("Some placeholders are now outside of the center screen, move them to center screen?", "Placeholders outside of center screen", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    foreach (PlaceholderModel placeholder in collectionModel.Placeholders)
+                    foreach (PlaceholderModel placeholder in collectionModel.Items)
                     {
                         ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
                         if (screen != ScreenPositionType.CENTER)

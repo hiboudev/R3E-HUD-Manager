@@ -13,6 +13,7 @@ using R3EHUDManager.background.events;
 using da2mvc.core.view;
 using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
+using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.screen.view
 {
@@ -20,7 +21,8 @@ namespace R3EHUDManager.screen.view
     {
         public ScreenMediator()
         {
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_NEW_LAYOUT, OnPlaceHoldersAdded);
+            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceHoldersAdded);
+            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholderCleared);
             RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
 
             RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
@@ -64,7 +66,12 @@ namespace R3EHUDManager.screen.view
 
         private void OnPlaceHoldersAdded(BaseEventArgs args)
         {
-            ((ScreenView)View).DisplayPlaceHolders(((PlaceHolderCollectionEventArgs)args).PlaceHolders);
+            ((ScreenView)View).DisplayPlaceHolders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
+        }
+
+        private void OnPlaceholderCleared(BaseEventArgs args)
+        {
+            ((ScreenView)View).RemovePlaceholders();
         }
     }
 }

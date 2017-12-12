@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.coordinates;
+﻿using da2mvc.framework.model;
+using R3EHUDManager.coordinates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.placeholder.model
 {
-    class PlaceholderModel
+    class PlaceholderModel : IModel
     {
+        public int Id { get; }
         public string Name { get; }
         public R3ePoint Position { get; internal set; }
         public R3ePoint Anchor { get; internal set; }
@@ -23,8 +25,9 @@ namespace R3EHUDManager.placeholder.model
         //    Size = size;
         //}
 
-        public PlaceholderModel(string name)
+        public PlaceholderModel(int id, string name)
         {
+            Id = id;
             Name = name;
         }
     }

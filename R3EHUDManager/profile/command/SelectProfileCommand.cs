@@ -49,7 +49,8 @@ namespace R3EHUDManager.profile.command
             List<PlaceholderModel> placeholders = parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.fileName));
 
             screen.SetBackground(background);
-            placeholderCollection.SetPlaceholders(placeholders);
+            placeholderCollection.Clear();
+            placeholderCollection.AddRange(placeholders);
             selectedProfile.SelectProfile(profileCollection.Get(args.ItemId));
         }
     }

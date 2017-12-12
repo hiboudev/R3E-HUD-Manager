@@ -7,21 +7,44 @@ using System.Threading.Tasks;
 using da2mvc.core.events;
 using System.Drawing;
 using R3EHUDManager.coordinates;
+using da2mvc.framework.model;
 
 namespace R3EHUDManager.placeholder.model
 {
-    class PlaceHolderCollectionModel :IEventDispatcher
+    class PlaceHolderCollectionModel : CollectionModel<PlaceholderModel>
     {
         private Dictionary<string, PlaceholderModel> placeHolders = new Dictionary<string, PlaceholderModel>();
-        public event EventHandler MvcEventHandler;
-        public const string EVENT_NEW_LAYOUT = "newLayout";
         public const string EVENT_PLACE_HOLDER_UPDATED = "placeHolderUpdated";
-        public List<PlaceholderModel> Placeholders { get => placeHolders.Values.ToList(); }
 
-        public void SetPlaceholders(List<PlaceholderModel> placeHolders)
+        public override void Add(PlaceholderModel model)
         {
-            this.placeHolders = placeHolders.ToDictionary(x => x.Name, x => x);
-            DispatchEvent(new PlaceHolderCollectionEventArgs(EVENT_NEW_LAYOUT, this.placeHolders.Values.ToList()));
+            PrivateAdd(model);
+            base.Add(model);
+        }
+
+        public override void AddRange(List<PlaceholderModel> models)
+        {
+            foreach (var model in models)
+                PrivateAdd(model);
+
+            base.AddRange(models);
+        }
+
+        public override void Remove(PlaceholderModel model)
+        {
+            placeHolders.Remove(model.Name);
+            base.Remove(model);
+        }
+
+        public override void Clear()
+        {
+            placeHolders.Clear();
+            base.Clear();
+        }
+
+        private void PrivateAdd(PlaceholderModel model)
+        {
+            placeHolders.Add(model.Name, model);
         }
 
         internal void UpdatePlaceholderPosition(string placeholderName, R3ePoint position)
@@ -45,11 +68,6 @@ namespace R3EHUDManager.placeholder.model
         public PlaceholderModel Get(string placeholderName)
         {
             return placeHolders[placeholderName];
-        }
-
-        public void DispatchEvent(BaseEventArgs args)
-        {
-            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

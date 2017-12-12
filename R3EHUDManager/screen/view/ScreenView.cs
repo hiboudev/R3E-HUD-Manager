@@ -23,7 +23,7 @@ namespace R3EHUDManager.screen.view
 {
     class ScreenView : Panel, IEventDispatcher
     {
-        private Dictionary<string, PlaceholderView> views;
+        private Dictionary<string, PlaceholderView> views = new Dictionary<string, PlaceholderView>();
         private const int SCREEN_MARGIN = 30;
         public event EventHandler MvcEventHandler;
         
@@ -114,12 +114,9 @@ namespace R3EHUDManager.screen.view
             UpdatePlaceholdersPosition();
         }
 
-        internal void DisplayPlaceHolders(List<PlaceholderModel> placeHolders)
+        internal void DisplayPlaceHolders(PlaceholderModel[] placeHolders)
         {
             UpdateScreenSize();
-
-            RemovePlaceholders();
-            views = new Dictionary<string, PlaceholderView>();
 
             foreach (PlaceholderModel model in placeHolders)
             {
@@ -183,9 +180,10 @@ namespace R3EHUDManager.screen.view
                 }
         }
 
-        private void RemovePlaceholders()
+        internal void RemovePlaceholders()
         {
             if (views != null)
+            {
                 foreach (PlaceholderView placeholder in views.Values)
                 {
                     placeholder.PositionChanged -= OnViewPositionChanged;
@@ -195,6 +193,9 @@ namespace R3EHUDManager.screen.view
                     Controls.Remove(placeholder);
                     placeholder.Dispose();
                 }
+
+                views.Clear();
+            }
         }
 
         private void OnViewPositionChanged(object sender, EventArgs e)

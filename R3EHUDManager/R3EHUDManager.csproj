@@ -234,7 +234,6 @@
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
-    <Compile Include="placeholder\events\PlaceHolderCollectionEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
     <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
