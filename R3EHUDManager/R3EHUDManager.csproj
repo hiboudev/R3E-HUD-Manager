@@ -155,9 +155,16 @@
     <Compile Include="layout\view\LayoutToolbarView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="location\command\SelectR3eDirectoryCommand.cs" />
     <Compile Include="location\events\R3eDirectoryCollectionEventArgs.cs" />
+    <Compile Include="location\events\SelectedR3eDirectoryEventArgs.cs" />
     <Compile Include="location\model\R3eDirectoryCollectionModel.cs" />
     <Compile Include="location\model\R3eDirectoryModel.cs" />
+    <Compile Include="location\model\SelectedR3eDirectoryModel.cs" />
+    <Compile Include="location\view\R3eDirectoryMenuMediator.cs" />
+    <Compile Include="location\view\R3eDirectoryMenuView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />

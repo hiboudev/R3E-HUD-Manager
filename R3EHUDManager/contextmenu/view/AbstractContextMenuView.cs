@@ -19,6 +19,7 @@ namespace R3EHUDManager.contextmenu.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_ITEM_CLICKED = "itemClicked";
         protected bool DrawArrow { get; set; } = true;
+        public int TitleMaxLength { get; protected set; } = 18;
 
         public AbstractContextMenuView(string title)
         {
@@ -137,7 +138,7 @@ namespace R3EHUDManager.contextmenu.view
                 return;
             }
 
-            int maxLength = 18;
+            int maxLength = TitleMaxLength;
 
             if (selectedName.Length > maxLength)
                 selectedName = selectedName.Substring(0, maxLength) + "..."; // TODO bug ?

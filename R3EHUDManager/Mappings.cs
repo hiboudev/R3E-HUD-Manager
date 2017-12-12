@@ -30,6 +30,7 @@ using R3EHUDManager.layout.view;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.profile.view;
 using R3EHUDManager.profile.command;
+using R3EHUDManager.location.view;
 
 namespace R3EHUDManager
 {
@@ -56,7 +57,9 @@ namespace R3EHUDManager
             Injector.MapType(typeof(ProfileToolbarView), true); 
             Injector.MapType(typeof(SelectedProfileModel), true); 
             Injector.MapType(typeof(PromptNewProfileView));
-            Injector.MapType(typeof(R3eDirectoryCollectionModel));
+            Injector.MapType(typeof(R3eDirectoryCollectionModel), true);
+            Injector.MapType(typeof(SelectedR3eDirectoryModel), true);
+
 
             Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
             Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
@@ -68,6 +71,7 @@ namespace R3EHUDManager
             Injector.MapView(typeof(ZoomView), typeof(ZoomMediator), true);
             Injector.MapView(typeof(ProfileMenuView), typeof(ProfileMenuMediator), true);
             Injector.MapView(typeof(ProfileManagerView), typeof(ProfileManagerMediator));
+            Injector.MapView(typeof(R3eDirectoryMenuView), typeof(R3eDirectoryMenuMediator), true);
 
             Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
             Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
@@ -93,6 +97,7 @@ namespace R3EHUDManager
             Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_CREATE_NEW_PROFILE, typeof(CreateProfileCommand));
             Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_SAVE_PROFILE, typeof(SaveProfileCommand));
             Injector.MapCommand(typeof(ProfileManagerView), ProfileManagerView.EVENT_DELETE_PROFILE, typeof(DeleteProfileCommand));
+            Injector.MapCommand(typeof(R3eDirectoryMenuView), R3eDirectoryMenuView.EVENT_ITEM_CLICKED, typeof(SelectR3eDirectoryCommand));
         }
     }
 }

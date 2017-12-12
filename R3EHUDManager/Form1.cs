@@ -24,6 +24,7 @@ using R3EHUDManager.background.view;
 using R3EHUDManager.settings;
 using R3EHUDManager.layout.view;
 using R3EHUDManager.profile.view;
+using R3EHUDManager.location.view;
 
 namespace R3EHUDManager
 {
@@ -73,7 +74,7 @@ namespace R3EHUDManager
                 WrapContents = false,
             };
 
-            FlowLayoutPanel bottomBarPanel = new FlowLayoutPanel()
+            Panel bottomBarPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Bottom,
                 AutoSize = true
@@ -82,6 +83,7 @@ namespace R3EHUDManager
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
             selectionView.FlowDirection = FlowDirection.TopDown;
             selectionView.Margin = new Padding(selectionView.Margin.Left, selectionView.Margin.Top, selectionView.Margin.Right, 10);
+            selectionView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             PlaceholdersListView listView = (PlaceholdersListView)Injector.GetInstance(typeof(PlaceholdersListView));
             listView.Height = 160;
@@ -96,6 +98,10 @@ namespace R3EHUDManager
             leftBarPanel.Controls.Add(GetButton("Apply to R3E", EVENT_SAVE_CLICKED));
             leftBarPanel.Controls.Add(GetButton("Reload from R3E", EVENT_RELOAD_CLICKED));
             leftBarPanel.Controls.Add(GetButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED));
+
+            var directoryMenu = (Control)Injector.GetInstance(typeof(R3eDirectoryMenuView));
+            directoryMenu.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            leftBarPanel.Controls.Add(directoryMenu);
 
             leftBarPanel.Controls.Add(prefsButton);
 

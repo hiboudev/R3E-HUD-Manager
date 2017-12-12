@@ -36,15 +36,15 @@ namespace R3EHUDManager.screen.view
                 AutoSize = true,
                 Text = "Zoom",
                 Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
-                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
-            };
+                TextAlign = ContentAlignment.MiddleCenter,
+        };
 
             fitWindow = new RadioButton()
             {
                 AutoSize = true,
                 Text = "Fit to window",
                 Margin = new Padding(0),
-        };
+            };
 
             fitHeight = new RadioButton()
             {
@@ -56,7 +56,7 @@ namespace R3EHUDManager.screen.view
             fitWindow.CheckedChanged += OnRadioChange;
             fitHeight.CheckedChanged += OnRadioChange;
 
-            Controls.AddRange(new Control[] {label, fitWindow, fitHeight });
+            Controls.AddRange(new Control[] { label, fitWindow, fitHeight });
         }
 
         private void OnRadioChange(object sender, EventArgs e)
