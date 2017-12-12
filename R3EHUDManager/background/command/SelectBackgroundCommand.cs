@@ -2,7 +2,9 @@
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.events;
+using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +17,26 @@ namespace R3EHUDManager.background.command
     {
         private readonly ContextMenuEventArgs args;
         private readonly ScreenModel screenModel;
-        private readonly BackgroundCollectionModel collectionModel;
+        private readonly BackgroundCollectionModel backgroundCollection;
+        private readonly PlaceHolderCollectionModel placeholderCollection;
 
-        public SelectBackgroundCommand(ContextMenuEventArgs args, ScreenModel screenModel, BackgroundCollectionModel collectionModel)
+        public SelectBackgroundCommand(ContextMenuEventArgs args, ScreenModel screenModel, BackgroundCollectionModel backgroundCollection, PlaceHolderCollectionModel placeholderCollection)
         {
             this.args = args;
             this.screenModel = screenModel;
-            this.collectionModel = collectionModel;
+            this.backgroundCollection = backgroundCollection;
+            this.placeholderCollection = placeholderCollection;
         }
 
         public void Execute()
         {
-            screenModel.SetBackground(collectionModel.Get(args.ItemId));
+            ScreenLayoutType currentLayout = screenModel.Layout;
+            BackgroundModel background = backgroundCollection.Get(args.ItemId);
+
+            screenModel.SetBackground(background);
+
+            if (currentLayout == ScreenLayoutType.TRIPLE && background.Layout == ScreenLayoutType.SINGLE)
+                ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection);
         }
     }
 }
