@@ -1,7 +1,7 @@
 # R3E-HUD-Manager
 User interface for editing Raceroom Racing Experience HUD (hud_options.xml file).
 
-Install application: http://54.37.159.200/R3EHUDManager_update/publish.htm
+Install application: http://vs84.evxonline.net/R3EHUDManager_update/publish.htm
 
 
 
