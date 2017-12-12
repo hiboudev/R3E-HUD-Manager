@@ -40,6 +40,9 @@ namespace R3EHUDManager.placeholder.model
     {
         public SizeF GetSize(Size referenceScreenSize, Size targetScreenSize, Size placeholderOriginalSize, bool isTripleScreen)
         {
+            if (isTripleScreen)
+                targetScreenSize = new Size(targetScreenSize.Width / 3, targetScreenSize.Height);
+
             double factor = Math.Sqrt(targetScreenSize.Width * targetScreenSize.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
 
             return new SizeF(
