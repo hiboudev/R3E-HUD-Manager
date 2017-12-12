@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.framework.model;
 using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.location.model;
 using System;
@@ -12,11 +13,11 @@ namespace R3EHUDManager.location.command
     class SelectR3eDirectoryCommand : ICommand
     {
         private readonly ContextMenuEventArgs args;
-        private readonly R3eDirectoryCollectionModel directoryCollection;
+        private readonly CollectionModel<R3eDirectoryModel> directoryCollection;
         private readonly SelectedR3eDirectoryModel directorySelection;
         private readonly LocationModel location;
 
-        public SelectR3eDirectoryCommand(ContextMenuEventArgs args, R3eDirectoryCollectionModel directoryCollection, SelectedR3eDirectoryModel directorySelection, LocationModel location)
+        public SelectR3eDirectoryCommand(ContextMenuEventArgs args, CollectionModel<R3eDirectoryModel> directoryCollection, SelectedR3eDirectoryModel directorySelection, LocationModel location)
         {
             this.args = args;
             this.directoryCollection = directoryCollection;

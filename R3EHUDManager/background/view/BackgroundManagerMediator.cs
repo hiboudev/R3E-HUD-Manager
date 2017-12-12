@@ -22,7 +22,7 @@ namespace R3EHUDManager.background.view
         private void OnBackgroundRemoved(BaseEventArgs args)
         {
             var typedArgs = ((CollectionEventArgs<BackgroundModel>)args);
-            foreach(var background in typedArgs.Collection.Items)
+            foreach(var background in typedArgs.ChangedItems)
                 ((BackgroundManagerView)View).RemoveBackground(background);
 
         }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using da2mvc.core.command;
 using System.Windows.Forms;
 using da2mvc.core.events;
+using da2mvc.framework.model;
 
 namespace R3EHUDManager.location.command
 {
@@ -18,10 +19,10 @@ namespace R3EHUDManager.location.command
     {
         private readonly LocationModel locationModel;
         private readonly R3eHomeDirectoryFinder finder;
-        private readonly R3eDirectoryCollectionModel r3EDirectoryCollection;
+        private readonly CollectionModel<R3eDirectoryModel> r3EDirectoryCollection;
         private readonly SelectedR3eDirectoryModel directorySelection;
 
-        public FindR3eHomeDirectoryCommand(LocationModel locationModel, R3eHomeDirectoryFinder finder, R3eDirectoryCollectionModel r3eDirectoryCollection, SelectedR3eDirectoryModel directorySelection)
+        public FindR3eHomeDirectoryCommand(LocationModel locationModel, R3eHomeDirectoryFinder finder, CollectionModel<R3eDirectoryModel> r3eDirectoryCollection, SelectedR3eDirectoryModel directorySelection)
         {
             this.locationModel = locationModel;
             this.finder = finder;
@@ -39,7 +40,7 @@ namespace R3EHUDManager.location.command
                 foreach (string path in paths)
                     directories.Add(new R3eDirectoryModel(++id, Path.GetFileName(path), path));
 
-                r3EDirectoryCollection.SetDirectories(directories);
+                r3EDirectoryCollection.AddRange(directories);
                 locationModel.R3eHomeBaseDirectory = directories[0].Path;
                 directorySelection.SelectDirectory(directories[0]);
                 return;

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using da2mvc.core.events;
 using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.location.events;
+using da2mvc.framework.model;
+using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.location.view
 {
@@ -15,7 +17,7 @@ namespace R3EHUDManager.location.view
     {
         public R3eDirectoryMenuMediator()
         {
-            RegisterEventListener(typeof(R3eDirectoryCollectionModel), R3eDirectoryCollectionModel.EVENT_COLLECTION_FILLED, OnCollectionFilled);
+            RegisterEventListener(typeof(CollectionModel<R3eDirectoryModel>), CollectionModel<R3eDirectoryModel>.EVENT_ITEMS_ADDED, OnCollectionFilled);
             RegisterEventListener(typeof(SelectedR3eDirectoryModel), SelectedR3eDirectoryModel.EVENT_DIRECTORY_CHANGED, OnDirectoryChanged);
         }
 
@@ -26,12 +28,12 @@ namespace R3EHUDManager.location.view
 
         private void OnCollectionFilled(BaseEventArgs args)
         {
-            R3eDirectoryCollectionModel collection = ((R3eDirectoryCollectionEventArgs)args).Collection;
+            CollectionModel<R3eDirectoryModel> collection = ((CollectionEventArgs<R3eDirectoryModel>)args).Collection;
             
-            ((R3eDirectoryMenuView)View).Visible = collection.Directories.Count > 1;
+            ((R3eDirectoryMenuView)View).Visible = collection.Items.Count > 1;
 
             List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
-            foreach (var directory in collection.Directories)
+            foreach (var directory in collection.Items)
                 items.Add(new ContextMenuViewItem(directory.Id, directory.Name));
 
             ((R3eDirectoryMenuView)View).AddItems(items);

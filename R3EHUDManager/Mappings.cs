@@ -58,7 +58,7 @@ namespace R3EHUDManager
             Injector.MapType(typeof(ProfileToolbarView), true); 
             Injector.MapType(typeof(SelectedProfileModel), true); 
             Injector.MapType(typeof(PromptNewProfileView));
-            Injector.MapType(typeof(R3eDirectoryCollectionModel), true);
+            Injector.MapType(typeof(CollectionModel<R3eDirectoryModel>), true);
             Injector.MapType(typeof(SelectedR3eDirectoryModel), true);
 
 

@@ -28,14 +28,14 @@ namespace R3EHUDManager.background.view
         {
             var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
 
-            ((BackgroundMenuView)View).AddBackgrounds(typedArgs.Collection.Items);
+            ((BackgroundMenuView)View).AddBackgrounds(typedArgs.ChangedItems);
         }
 
         private void OnBackgroundRemoved(BaseEventArgs args)
         {
             var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
 
-            foreach(var background in typedArgs.Collection.Items)
+            foreach(var background in typedArgs.ChangedItems)
                 ((BackgroundMenuView)View).RemoveItem(background.Id);
         }
 

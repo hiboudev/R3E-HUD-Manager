@@ -30,7 +30,7 @@ namespace R3EHUDManager.location.finder
             List<string> directories = new List<string>();
 
             // "RaceRoom Racing Experience Install 7"
-            Regex r3EDirRegex = new Regex($@"{BASE_R3E_DIR_NAME}( Install \d+)?");
+            Regex r3EDirRegex = new Regex($@"{BASE_R3E_DIR_NAME}( Install \d+)?$");
 
             foreach (string r3EDirectory in r3EDirectories)
             {

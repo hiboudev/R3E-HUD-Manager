@@ -1,4 +1,5 @@
-﻿using System;
+﻿using da2mvc.framework.model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.location.model
 {
-    class R3eDirectoryModel
+    class R3eDirectoryModel:IModel
     {
         public R3eDirectoryModel(int id, string name, string path)
         {

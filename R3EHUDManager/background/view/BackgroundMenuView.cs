@@ -28,7 +28,7 @@ namespace R3EHUDManager.background.view
             AddItem(new ContextMenuViewItem(background.Id, background.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
         }
 
-        internal void AddBackgrounds(List<BackgroundModel> backgrounds)
+        internal void AddBackgrounds(BackgroundModel[] backgrounds)
         {
             List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
 
@@ -37,7 +37,6 @@ namespace R3EHUDManager.background.view
                 items.Add(new ContextMenuViewItem(background.Id, background.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
             }
 
-            ClearItems();
             AddItems(items);
         }
 
