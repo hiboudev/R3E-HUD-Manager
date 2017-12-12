@@ -1,4 +1,4 @@
-﻿using da2mvc.events;
+﻿using da2mvc.core.events;
 using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.graphics;
 using System;

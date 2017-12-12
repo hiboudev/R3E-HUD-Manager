@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.command;
+using da2mvc.core.command;
 using System.Windows.Forms;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.background.model;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.placeholder.model;
 using System.Diagnostics;
-using da2mvc.events;
+using da2mvc.core.events;
 using R3EHUDManager.application.events;
 using System.Drawing;
 using System.Reflection;

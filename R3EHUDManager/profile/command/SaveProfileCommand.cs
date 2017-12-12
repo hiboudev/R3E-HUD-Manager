@@ -1,5 +1,5 @@
-﻿using da2mvc.command;
-using da2MVC.events;
+﻿using da2mvc.core.command;
+using da2mvc.core.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
 using R3EHUDManager.huddata.parser;
@@ -8,12 +8,7 @@ using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.events;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace R3EHUDManager.profile.command
 {

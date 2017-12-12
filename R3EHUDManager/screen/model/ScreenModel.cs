@@ -1,4 +1,4 @@
-﻿using da2MVC.events;
+﻿using da2mvc.core.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
 using R3EHUDManager.location.model;

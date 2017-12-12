@@ -1,4 +1,4 @@
-﻿using da2mvc.command;
+﻿using da2mvc.core.command;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using System;

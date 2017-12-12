@@ -1,4 +1,4 @@
-﻿using da2mvc.command;
+﻿using da2mvc.core.command;
 using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;

@@ -1,10 +1,6 @@
-﻿using da2MVC.events;
+﻿using da2mvc.core.events;
 using R3EHUDManager.location.events;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace R3EHUDManager.location.model
 {

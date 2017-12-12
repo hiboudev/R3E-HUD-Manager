@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.events;
+using da2mvc.core.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.background.events;
-using da2mvc.view;
+using da2mvc.core.view;
 using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
 

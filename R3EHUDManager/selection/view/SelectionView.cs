@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.placeholder.model;
-using da2mvc.events;
+using da2mvc.core.events;
 using System.Diagnostics;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.coordinates;

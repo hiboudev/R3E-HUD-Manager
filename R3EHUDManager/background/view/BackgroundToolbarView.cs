@@ -1,4 +1,4 @@
-﻿using da2mvc.injection;
+﻿using da2mvc.core.injection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.command;
+using da2mvc.core.command;
 
 namespace R3EHUDManager.placeholder.command
 {

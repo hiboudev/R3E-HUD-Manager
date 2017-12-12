@@ -1,5 +1,5 @@
 ﻿
-using da2mvc.events;
+using da2mvc.core.events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

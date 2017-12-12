@@ -1,4 +1,4 @@
-﻿using da2mvc.injection;
+﻿using da2mvc.core.injection;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.view;

@@ -1,11 +1,11 @@
-﻿using da2mvc.view;
+﻿using da2mvc.core.view;
 using R3EHUDManager.profile.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.events;
+using da2mvc.core.events;
 using R3EHUDManager.profile.events;
 using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.profile.command;

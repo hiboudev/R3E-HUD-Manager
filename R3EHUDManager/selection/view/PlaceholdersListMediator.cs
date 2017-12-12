@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.events;
+using da2mvc.core.events;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
-using da2mvc.view;
+using da2mvc.core.view;
 
 namespace R3EHUDManager.selection.view
 {

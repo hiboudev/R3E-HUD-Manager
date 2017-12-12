@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.screen.model;
-using da2mvc.events;
+using da2mvc.core.events;
 using R3EHUDManager.application.events;
 
 namespace R3EHUDManager.screen.view

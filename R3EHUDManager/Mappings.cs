@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using da2mvc.injection;
+using da2mvc.core.injection;
 using R3EHUDManager.location.command;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.command;

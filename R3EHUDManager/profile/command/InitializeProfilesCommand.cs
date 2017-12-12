@@ -1,5 +1,5 @@
-﻿using da2mvc.command;
-using da2mvc.injection;
+﻿using da2mvc.core.command;
+using da2mvc.core.injection;
 using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.database;
 using R3EHUDManager.profile.model;
