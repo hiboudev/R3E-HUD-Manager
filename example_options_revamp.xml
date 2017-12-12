@@ -27,7 +27,7 @@
 	<!-- Options not related with a hud element. -->
 	<option>
 		<name><![CDATA[Position Bar Display Setting]]></name>
-		<value type="int32">3</value>
+		<value type="int32" range="1 3">3</value>
 	</option>
 	
 	<option>

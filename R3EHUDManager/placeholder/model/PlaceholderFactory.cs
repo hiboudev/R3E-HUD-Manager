@@ -28,14 +28,14 @@ namespace R3EHUDManager.placeholder.model
                 case PlaceholderName.MINI_MOTEC:
                 case PlaceholderName.MOTEC:
                 case PlaceholderName.TRACK_MAP:
-                    return new HeightRule();
+                    return new RegularRule();
 
                 case PlaceholderName.VIRTUAL_MIRROR:
                 case PlaceholderName.POSITION_BAR:
                     return new BarRule();
 
                 default:
-                    return new HeightRule();
+                    return new RegularRule();
             }
         }
     }
