@@ -115,6 +115,9 @@
     <Compile Include="application\events\BooleanEventArgs.cs" />
     <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
+    <Compile Include="application\view\BaseModalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="background\command\DeleteBackgroundCommand.cs" />
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
     <Compile Include="background\command\InitializeBackgroundsCommand.cs" />

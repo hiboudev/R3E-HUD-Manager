@@ -1,4 +1,5 @@
 ﻿using da2mvc.framework.model;
+using R3EHUDManager.application.view;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.profile.view
 {
-    class PromptNewProfileView : Form // TODO généraliser avec les autres
+    class PromptNewProfileView : BaseModalForm
     {
         private HashSet<string> usedNames;
         private HashSet<string> usedFileNames;
@@ -26,7 +27,7 @@ namespace R3EHUDManager.profile.view
         private TextBox nameField;
         public string ProfileName { get => nameField.Text; }
 
-        public PromptNewProfileView(CollectionModel<ProfileModel> profileCollection, ScreenModel screen)
+        public PromptNewProfileView(CollectionModel<ProfileModel> profileCollection, ScreenModel screen):base("Profile creation")
         {
             usedNames = new HashSet<string>();
             usedFileNames = new HashSet<string>();
@@ -42,12 +43,7 @@ namespace R3EHUDManager.profile.view
 
         private void InitializeUI()
         {
-            Text = "Profile creation";
-            MinimumSize = new Size(50, 50);
-            StartPosition = FormStartPosition.CenterParent;
             Size = new Size(300, 185);
-            Padding = new Padding(6);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
 
             layout = new TableLayoutPanel()
             {

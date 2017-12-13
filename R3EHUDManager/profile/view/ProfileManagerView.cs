@@ -1,6 +1,7 @@
 ﻿using da2mvc.core.events;
 using da2mvc.framework.model;
 using R3EHUDManager.application.events;
+using R3EHUDManager.application.view;
 using R3EHUDManager.profile.model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileManagerView : Form, IEventDispatcher
+    class ProfileManagerView : BaseModalForm, IEventDispatcher
     {
         private ListBox list;
         private Button deleteButton;
@@ -19,7 +20,7 @@ namespace R3EHUDManager.profile.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_PROFILE = "deleteProfile";
 
-        public ProfileManagerView(CollectionModel<ProfileModel> collectionModel)
+        public ProfileManagerView(CollectionModel<ProfileModel> collectionModel):base("Manage profiles")
         {
             InitializeUI();
 
@@ -43,10 +44,8 @@ namespace R3EHUDManager.profile.view
 
         private void InitializeUI()
         {
-            Text = "Manage profiles";
-            StartPosition = FormStartPosition.CenterParent;
-
             Size = new System.Drawing.Size(300, 300);
+            Padding = new Padding(0);
 
             list = new ListBox()
             {

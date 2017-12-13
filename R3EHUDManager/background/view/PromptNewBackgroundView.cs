@@ -1,4 +1,5 @@
 ﻿using da2mvc.framework.model;
+using R3EHUDManager.application.view;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.background.view
 {
-    class PromptNewBackgroundView : Form
+    class PromptNewBackgroundView : BaseModalForm
     {
         private TextBox inputField;
         private HashSet<string> usedNames;
@@ -33,6 +34,7 @@ namespace R3EHUDManager.background.view
         private RadioButton radioCrop;
 
         public Rectangle CropRect { get => radioCrop.Checked ? cropRect : new Rectangle(); }
+
         public ScreenLayoutType BackgroundLayout {
             get
             {
@@ -43,7 +45,7 @@ namespace R3EHUDManager.background.view
 
         public string BackgroundName { get => inputField.Text; }
 
-        public PromptNewBackgroundView(CollectionModel<BackgroundModel> collectionModel)
+        public PromptNewBackgroundView(CollectionModel<BackgroundModel> collectionModel):base("Import background")
         {
             usedNames = new HashSet<string>();
 
@@ -145,13 +147,8 @@ namespace R3EHUDManager.background.view
 
         private void InitializeUI()
         {
-            Text = "Import background";
-            MinimumSize = new Size(200, 200);
-
-            StartPosition = FormStartPosition.CenterParent;
-
+            FormBorderStyle = FormBorderStyle.Sizable;
             Size = new Size(500, 450);
-            Padding = new Padding(6);
 
             layout = new TableLayoutPanel()
             {

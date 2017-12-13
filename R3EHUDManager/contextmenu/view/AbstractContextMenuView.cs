@@ -141,7 +141,7 @@ namespace R3EHUDManager.contextmenu.view
             int maxLength = TitleMaxLength;
 
             if (selectedName.Length > maxLength)
-                selectedName = selectedName.Substring(0, maxLength) + "..."; // TODO bug ?
+                selectedName = selectedName.Substring(0, maxLength) + "...";
 
             Text = $"{title}: {selectedName}";
         }

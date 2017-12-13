@@ -1,6 +1,7 @@
 ﻿using da2mvc.core.events;
 using da2mvc.framework.model;
 using R3EHUDManager.application.events;
+using R3EHUDManager.application.view;
 using R3EHUDManager.background.model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundManagerView : Form, IEventDispatcher
+    class BackgroundManagerView : BaseModalForm, IEventDispatcher
     {
         private ListBox list;
         private Button deleteButton;
@@ -19,7 +20,7 @@ namespace R3EHUDManager.background.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_BACKGROUND = "deleteBackground";
 
-        public BackgroundManagerView(CollectionModel<BackgroundModel> collectionModel)
+        public BackgroundManagerView(CollectionModel<BackgroundModel> collectionModel):base("Manage backgrounds")
         {
             InitializeUI();
 
@@ -46,10 +47,8 @@ namespace R3EHUDManager.background.view
 
         private void InitializeUI()
         {
-            Text = "Manage backgrounds";
-            StartPosition = FormStartPosition.CenterParent;
-
             Size = new System.Drawing.Size(300, 300);
+            Padding = new Padding(0);
 
             list = new ListBox()
             {
