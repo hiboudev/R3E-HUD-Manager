@@ -138,9 +138,6 @@
     <Compile Include="background\view\BackgroundMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="background\view\BackgroundToolbarView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="background\view\PromptNewBackgroundView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,9 +149,6 @@
     <Compile Include="database\Database.cs" />
     <Compile Include="database\DatabaseUpgrader.cs" />
     <Compile Include="layout\view\LayoutMenuMediator.cs" />
-    <Compile Include="layout\view\LayoutToolbarView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="location\command\SelectR3eDirectoryCommand.cs" />
     <Compile Include="location\events\SelectedR3eDirectoryEventArgs.cs" />
     <Compile Include="location\model\R3eDirectoryModel.cs" />
@@ -180,9 +174,6 @@
     </Compile>
     <Compile Include="profile\view\ProfileMenuMediator.cs" />
     <Compile Include="profile\view\ProfileMenuView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="profile\view\ProfileToolbarView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="profile\view\PromptNewProfileView.cs">

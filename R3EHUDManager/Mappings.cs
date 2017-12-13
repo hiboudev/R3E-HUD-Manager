@@ -49,13 +49,10 @@ namespace R3EHUDManager
             Injector.MapType(typeof(ScreenModel), true);
             Injector.MapType(typeof(Database), true);
             Injector.MapType(typeof(CollectionModel<BackgroundModel>), true);
-            Injector.MapType(typeof(BackgroundToolbarView), true); 
             Injector.MapType(typeof(PromptNewBackgroundView));
             Injector.MapType(typeof(SettingsMenuView), true);
-            Injector.MapType(typeof(LayoutToolbarView), true); 
             Injector.MapType(typeof(DatabaseUpgrader), true); 
             Injector.MapType(typeof(CollectionModel<ProfileModel>), true);
-            Injector.MapType(typeof(ProfileToolbarView), true); 
             Injector.MapType(typeof(SelectedProfileModel), true); 
             Injector.MapType(typeof(PromptNewProfileView));
             Injector.MapType(typeof(CollectionModel<R3eDirectoryModel>), true);

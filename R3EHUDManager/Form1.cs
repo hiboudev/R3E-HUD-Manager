@@ -57,29 +57,18 @@ namespace R3EHUDManager
             MinimumSize = new Size(400, 400);
             Size = new Size(1020, 620);
 
-            ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
-            screenView.Dock = DockStyle.Fill;
 
 
-            FlowLayoutPanel topBarPanel = new FlowLayoutPanel()
-            {
-                Dock = DockStyle.Top,
-                AutoSize = true
-            };
+            // LayoutMenuView removed since backgrounds are linked with a screen layout, this option is not useful and confusing, maybe could be added back as a layout override in profile.
+            Panel topBarPanel = NewHDockPanel(DockStyle.Top, new Control[] {
+                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(BackgroundMenuView)) }),
+                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(ProfileMenuView)) })/*,
+                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(LayoutMenuView)) })*/
+            });
 
-            FlowLayoutPanel leftBarPanel = new FlowLayoutPanel()
-            {
-                FlowDirection = FlowDirection.TopDown,
-                Dock = DockStyle.Left,
-                AutoSize = true,
-                WrapContents = false,
-            };
-
-            Panel bottomBarPanel = new FlowLayoutPanel()
-            {
-                Dock = DockStyle.Bottom,
-                AutoSize = true
-            };
+            Panel bottomBarPanel = NewHDockPanel(DockStyle.Bottom, new Control[] {
+                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(ZoomView)) })
+            });
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
             selectionView.FlowDirection = FlowDirection.TopDown;
@@ -93,34 +82,60 @@ namespace R3EHUDManager
             SettingsMenuView prefsButton = (SettingsMenuView)Injector.GetInstance(typeof(SettingsMenuView));
             prefsButton.Anchor = AnchorStyles.Left;
 
-            leftBarPanel.Controls.Add(selectionView);
-            leftBarPanel.Controls.Add(listView);
-
-            leftBarPanel.Controls.Add(GetButton("Apply to R3E", EVENT_SAVE_CLICKED));
-            leftBarPanel.Controls.Add(GetButton("Reload from R3E", EVENT_RELOAD_CLICKED));
-            leftBarPanel.Controls.Add(GetButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED));
-
             var directoryMenu = (Control)Injector.GetInstance(typeof(R3eDirectoryMenuView));
             directoryMenu.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            leftBarPanel.Controls.Add(directoryMenu);
 
-            leftBarPanel.Controls.Add(prefsButton);
+            FlowLayoutPanel leftBarPanel = new FlowLayoutPanel()
+            {
+                FlowDirection = FlowDirection.TopDown,
+                Dock = DockStyle.Left,
+                AutoSize = true,
+                WrapContents = false,
+            };
 
-            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(BackgroundToolbarView)));
-            // Since backgrounds are linked with a screen layout, this option is not useful and confusing, maybe could be added back as a layout override in profile.
-            //topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(LayoutToolbarView)));
-            topBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ProfileToolbarView)));
+            leftBarPanel.Controls.AddRange(new Control[] {
+                selectionView, listView, NewButton("Apply to R3E", EVENT_SAVE_CLICKED), NewButton("Reload from R3E", EVENT_RELOAD_CLICKED),
+                NewButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED), directoryMenu, prefsButton} );
 
-            bottomBarPanel.Controls.Add((Control)Injector.GetInstance(typeof(ZoomView)));
+            ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
+            screenView.Dock = DockStyle.Fill;
 
-            Controls.Add(screenView);
-            Controls.Add(topBarPanel);
-            Controls.Add(bottomBarPanel);
-            Controls.Add(leftBarPanel);
-
+            Controls.AddRange(new Control[] { screenView, topBarPanel, bottomBarPanel, leftBarPanel });
         }
 
-        private Button GetButton(string text, string eventType)
+        private Panel NewHDockPanel(DockStyle dock, Control[] controls)
+        {
+            FlowLayoutPanel panel = new FlowLayoutPanel()
+            {
+                Dock = dock,
+                AutoSize = true
+            };
+
+            foreach (var control in controls)
+                panel.Controls.Add(control);
+
+            return panel;
+        }
+
+        private Panel NewHToolBar(Control[] controls)
+        {
+            Panel toolBar = new TableLayoutPanel()
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                BackColor = Color.LightGray,
+            };
+
+            foreach(var control in controls)
+            {
+                control.Margin = new Padding();
+                toolBar.Controls.Add(control);
+            }
+
+            return toolBar;
+        }
+
+        private Button NewButton(string text, string eventType)
         {
             Button button = new Button()
             {
