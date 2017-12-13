@@ -1,7 +1,7 @@
 ﻿using da2mvc.core.command;
 using da2mvc.framework.collection.model;
+using da2mvc.framework.menubutton.events;
 using R3EHUDManager.background.model;
-using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
@@ -14,7 +14,7 @@ namespace R3EHUDManager.profile.command
 {
     class SelectProfileCommand : ICommand
     {
-        private readonly ContextMenuEventArgs args;
+        private readonly MenuButtonEventArgs args;
         private readonly CollectionModel<ProfileModel> profileCollection;
         private readonly SelectedProfileModel selectedProfile;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
@@ -23,7 +23,7 @@ namespace R3EHUDManager.profile.command
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel placeholderCollection;
 
-        public SelectProfileCommand(ContextMenuEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel selectedProfile,
+        public SelectProfileCommand(MenuButtonEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel selectedProfile,
                                     CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screen, HudOptionsParser parser, LocationModel location,
                                     PlaceHolderCollectionModel placeholderCollection)
         {

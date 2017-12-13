@@ -1,27 +1,18 @@
 ﻿using da2mvc.core.command;
-using R3EHUDManager.application.events;
-using R3EHUDManager.contextmenu.events;
-using R3EHUDManager.coordinates;
+using da2mvc.framework.menubutton.events;
 using R3EHUDManager.placeholder.model;
-using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace R3EHUDManager.screen.command
 {
     class ChangeScreenLayoutCommand : ICommand
     {
-        private readonly ContextMenuEventArgs args;
+        private readonly MenuButtonEventArgs args;
         private readonly ScreenModel screenModel;
         private readonly PlaceHolderCollectionModel collectionModel;
 
-        public ChangeScreenLayoutCommand(ContextMenuEventArgs args, ScreenModel screenModel, PlaceHolderCollectionModel collectionModel)
+        public ChangeScreenLayoutCommand(MenuButtonEventArgs args, ScreenModel screenModel, PlaceHolderCollectionModel collectionModel)
         {
             this.args = args;
             this.screenModel = screenModel;

@@ -1,7 +1,6 @@
 ﻿using da2mvc.core.events;
 using da2mvc.core.injection;
 using R3EHUDManager.application.events;
-using R3EHUDManager.contextmenu.view;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -9,10 +8,11 @@ using R3EHUDManager.profile.model;
 using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
 using da2mvc.framework.collection.model;
+using da2mvc.framework.menubutton.view;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileMenuView : AbstractContextMenuView
+    class ProfileMenuView : MenuButtonView<ProfileModel>
     {
         public const string EVENT_CREATE_NEW_PROFILE = "createNewProfile";
         public const string EVENT_SAVE_PROFILE = "saveProfile";
@@ -20,11 +20,13 @@ namespace R3EHUDManager.profile.view
         private ToolStripMenuItem itemSaveProfile;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
 
-        public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection) : base("Profile")
+        public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection)
         {
             Width = 170;
             this.backgroundCollection = backgroundCollection;
         }
+
+        protected override string Title => "Profile";
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()
         {
@@ -47,17 +49,12 @@ namespace R3EHUDManager.profile.view
             return list;
         }
 
-        internal void AddProfiles(ProfileModel[] profiles)
+        protected override ToolStripMenuItem ModelToItem(ProfileModel model)
         {
-            List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
-
-            foreach (ProfileModel profile in profiles)
-            {
-                BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
-                items.Add(new ContextMenuViewItem(profile.Id, profile.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
-            }
-
-            AddItems(items);
+            var item = base.ModelToItem(model);
+            BackgroundModel background = backgroundCollection.Get(model.BackgroundId);
+            item.Image = GraphicalAsset.GetLayoutIcon(background.Layout);
+            return item;
         }
 
         internal void SelectProfile(ProfileModel profile)

@@ -140,14 +140,9 @@
     <Compile Include="background\view\PromptNewBackgroundView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="contextmenu\events\ContextMenuEventArgs.cs" />
-    <Compile Include="contextmenu\view\AbstractContextMenuView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="database\command\InitializeDatabaseCommand.cs" />
     <Compile Include="database\Database.cs" />
     <Compile Include="database\DatabaseUpgrader.cs" />
-    <Compile Include="layout\view\LayoutMenuMediator.cs" />
     <Compile Include="location\command\SelectR3eDirectoryCommand.cs" />
     <Compile Include="location\events\SelectedR3eDirectoryEventArgs.cs" />
     <Compile Include="location\model\R3eDirectoryModel.cs" />
@@ -179,9 +174,6 @@
     </Compile>
     <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
-    <Compile Include="layout\view\LayoutMenuView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
     <Compile Include="log\command\InitializeLoggerCommand.cs" />
     <Compile Include="log\Logger.cs" />

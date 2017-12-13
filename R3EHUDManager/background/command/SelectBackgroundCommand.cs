@@ -2,7 +2,6 @@
 using da2mvc.framework.collection.model;
 using da2mvc.framework.menubutton.events;
 using R3EHUDManager.background.model;
-using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;

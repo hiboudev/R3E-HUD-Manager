@@ -1,18 +1,18 @@
 ﻿using da2mvc.core.command;
 using da2mvc.framework.collection.model;
-using R3EHUDManager.contextmenu.events;
+using da2mvc.framework.menubutton.events;
 using R3EHUDManager.location.model;
 
 namespace R3EHUDManager.location.command
 {
     class SelectR3eDirectoryCommand : ICommand
     {
-        private readonly ContextMenuEventArgs args;
+        private readonly MenuButtonEventArgs args;
         private readonly CollectionModel<R3eDirectoryModel> directoryCollection;
         private readonly SelectedR3eDirectoryModel directorySelection;
         private readonly LocationModel location;
 
-        public SelectR3eDirectoryCommand(ContextMenuEventArgs args, CollectionModel<R3eDirectoryModel> directoryCollection, SelectedR3eDirectoryModel directorySelection, LocationModel location)
+        public SelectR3eDirectoryCommand(MenuButtonEventArgs args, CollectionModel<R3eDirectoryModel> directoryCollection, SelectedR3eDirectoryModel directorySelection, LocationModel location)
         {
             this.args = args;
             this.directoryCollection = directoryCollection;

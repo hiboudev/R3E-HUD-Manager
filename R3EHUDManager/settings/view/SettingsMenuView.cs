@@ -1,26 +1,25 @@
 ﻿using da2mvc.core.events;
-using R3EHUDManager.contextmenu.view;
+using da2mvc.framework.menubutton.view;
 using R3EHUDManager.graphics;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace R3EHUDManager.settings.view
 {
-    class SettingsMenuView : AbstractContextMenuView
+    class SettingsMenuView : SettingsMenuButtonView
     {
         public const string EVENT_OPEN_APP_DATA_DIRECTORY = "openAppDataDirectory";
         public const string EVENT_OPEN_APP_INSTALL_DIRECTORY = "openAppInstallDirectory";
         public const string EVENT_OPEN_HUD_DIRECTORY = "openHudDirectory";
 
-        public SettingsMenuView() : base("")
+        public SettingsMenuView()
         {
             InitializeUI();
         }
+
+        protected override string Title => "";
 
         private void InitializeUI()
         {
@@ -33,9 +32,7 @@ namespace R3EHUDManager.settings.view
 
         private void OnDispose(object sender, EventArgs e)
         {
-            Image image = Image;
-            Image = null;
-            image.Dispose();
+            Image.Dispose();
         }
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()

@@ -18,7 +18,6 @@ using R3EHUDManager.background.command;
 using R3EHUDManager.database;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.command;
-using R3EHUDManager.layout.view;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.profile.view;
 using R3EHUDManager.profile.command;
@@ -58,7 +57,6 @@ namespace R3EHUDManager
             Injector.MapView<BackgroundView, BackgroundMediator>(true);
             Injector.MapView<BackgroundMenuView, BackgroundMenuMediator>(true);
             Injector.MapView<BackgroundManagerView, CollectionMediator<CollectionModel<BackgroundModel>, BackgroundModel, BackgroundManagerView>>();
-            Injector.MapView<LayoutMenuView, LayoutMenuMediator>(true);
             Injector.MapView<ZoomView, ZoomMediator>(true);
             Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);
             Injector.MapView<ProfileManagerView, CollectionMediator<CollectionModel<ProfileModel>, ProfileModel, ProfileManagerView>>();
@@ -81,7 +79,6 @@ namespace R3EHUDManager
             Injector.MapCommand<BackgroundMenuView, ImportBackgroundCommand>(BackgroundMenuView.EVENT_IMPORT_BACKGROUND);
             Injector.MapCommand<BackgroundMenuView, SelectBackgroundCommand>(BackgroundMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<BackgroundManagerView, DeleteBackgroundCommand>(BackgroundManagerView.EVENT_DELETE_BACKGROUND);
-            Injector.MapCommand<LayoutMenuView, ChangeScreenLayoutCommand>(LayoutMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<ZoomView, ChangeZoomLevelCommand>(ZoomView.EVENT_ZOOM_LEVEL_CHANGED);
             Injector.MapCommand<ProfileMenuView, SelectProfileCommand>(ProfileMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<ProfileMenuView, CreateProfileCommand>(ProfileMenuView.EVENT_CREATE_NEW_PROFILE);

@@ -18,10 +18,12 @@ namespace R3EHUDManager.background.view
     {
         public const string EVENT_IMPORT_BACKGROUND = "importBackground";
 
-        public BackgroundMenuView() : base("Background")
+        public BackgroundMenuView()
         {
             Width = 190;
         }
+
+        protected override string Title => "Background";
 
         protected override ToolStripMenuItem ModelToItem(BackgroundModel model)
         {
