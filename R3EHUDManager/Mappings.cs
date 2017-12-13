@@ -70,7 +70,7 @@ namespace R3EHUDManager
             Injector.MapView<LayoutMenuView, LayoutMenuMediator>(true);
             Injector.MapView<ZoomView, ZoomMediator>(true);
             Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);
-            Injector.MapView<ProfileManagerView, ProfileManagerMediator>();
+            Injector.MapView<ProfileManagerView, CollectionMediator<CollectionModel<ProfileModel>, ProfileModel, ProfileManagerView>>();
             Injector.MapView<R3eDirectoryMenuView, R3eDirectoryMenuMediator>(true);
 
             Injector.MapCommand<Form1, SaveHudCommand>(Form1.EVENT_SAVE_CLICKED);

@@ -167,7 +167,6 @@
     <Compile Include="profile\model\ProfileFactory.cs" />
     <Compile Include="profile\model\ProfileModel.cs" />
     <Compile Include="profile\model\SelectedProfileModel.cs" />
-    <Compile Include="profile\view\ProfileManagerMediator.cs" />
     <Compile Include="profile\view\ProfileManagerView.cs">
       <SubType>Form</SubType>
     </Compile>

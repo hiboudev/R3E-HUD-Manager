@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.events;
 using da2mvc.framework.model;
+using da2mvc.framework.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.application.view;
 using R3EHUDManager.profile.model;
@@ -12,21 +13,25 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileManagerView : BaseModalForm, IEventDispatcher
+    class ProfileManagerView : BaseModalForm, IEventDispatcher, ICollectionView<ProfileModel>
     {
         private ListBox list;
         private Button deleteButton;
         private Dictionary<string, int> ids = new Dictionary<string, int>();
+        List<string> names = new List<string>();
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_PROFILE = "deleteProfile";
 
         public ProfileManagerView(CollectionModel<ProfileModel> collectionModel):base("Manage profiles")
         {
             InitializeUI();
+            Add(collectionModel.Items.ToArray());
+            // TODO rôle du mediator d'initialiser, idem dans l'autre manager
+        }
 
-            List<string> names = new List<string>();
-
-            foreach (ProfileModel profile in collectionModel.Items)
+        public void Add(ProfileModel[] models)
+        {
+            foreach (ProfileModel profile in models)
             {
                 list.Items.Add(profile.Name);
                 ids.Add(profile.Name, profile.Id);
@@ -36,10 +41,21 @@ namespace R3EHUDManager.profile.view
             list.Items.AddRange(names.ToArray());
         }
 
-        internal void RemoveProfile(ProfileModel model)
+        public void Remove(ProfileModel[] models)
         {
-            list.Items.Remove(model.Name);
-            ids.Remove(model.Name);
+            foreach (ProfileModel profile in models)
+            {
+                list.Items.Remove(profile.Name);
+                ids.Remove(profile.Name);
+                list.Items.Remove(profile.Name);
+            }
+        }
+
+        public void Clear()
+        {
+            list.Items.Clear();
+            ids.Clear();
+            list.Items.Clear();
         }
 
         private void InitializeUI()
