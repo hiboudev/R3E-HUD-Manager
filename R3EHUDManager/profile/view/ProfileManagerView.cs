@@ -22,11 +22,9 @@ namespace R3EHUDManager.profile.view
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_PROFILE = "deleteProfile";
 
-        public ProfileManagerView(CollectionModel<ProfileModel> collectionModel):base("Manage profiles")
+        public ProfileManagerView():base("Manage profiles")
         {
             InitializeUI();
-            Add(collectionModel.Items.ToArray());
-            // TODO rôle du mediator d'initialiser, idem dans l'autre manager
         }
 
         public void Add(ProfileModel[] models)

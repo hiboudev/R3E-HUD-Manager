@@ -22,10 +22,9 @@ namespace R3EHUDManager.background.view
         List<string> names = new List<string>();
         private Dictionary<string, int> ids = new Dictionary<string, int>();
 
-        public BackgroundManagerView(CollectionModel<BackgroundModel> collectionModel):base("Manage backgrounds")
+        public BackgroundManagerView():base("Manage backgrounds")
         {
             InitializeUI();
-            Add(collectionModel.Items.ToArray());
         }
 
         public void Add(BackgroundModel[] models)
