@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileManagerMediator : BaseMediator
+    class ProfileManagerMediator : BaseMediator<ProfileManagerView>
     {
         public ProfileManagerMediator()
         {
@@ -22,7 +22,7 @@ namespace R3EHUDManager.profile.view
         private void OnProfileRemoved(BaseEventArgs args)
         {
             foreach(var profile in ((CollectionEventArgs<ProfileModel>)args).ChangedItems)
-                ((ProfileManagerView)View).RemoveProfile(profile);
+                View.RemoveProfile(profile);
         }
     }
 }

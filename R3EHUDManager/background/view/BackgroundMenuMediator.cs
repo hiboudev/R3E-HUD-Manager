@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundMenuMediator : BaseMediator
+    class BackgroundMenuMediator : BaseMediator<BackgroundMenuView>
     {
         public BackgroundMenuMediator()
         {
@@ -28,7 +28,7 @@ namespace R3EHUDManager.background.view
         {
             var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
 
-            ((BackgroundMenuView)View).AddBackgrounds(typedArgs.ChangedItems);
+            View.AddBackgrounds(typedArgs.ChangedItems);
         }
 
         private void OnBackgroundRemoved(BaseEventArgs args)
@@ -36,12 +36,12 @@ namespace R3EHUDManager.background.view
             var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
 
             foreach(var background in typedArgs.ChangedItems)
-                ((BackgroundMenuView)View).RemoveItem(background.Id);
+                View.RemoveItem(background.Id);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((BackgroundMenuView)View).SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Id);
+            View.SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Id);
         }
     }
 }

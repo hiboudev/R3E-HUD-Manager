@@ -10,7 +10,7 @@ using R3EHUDManager.screen.events;
 
 namespace R3EHUDManager.layout.view
 {
-    class LayoutMenuMediator : BaseMediator
+    class LayoutMenuMediator : BaseMediator<LayoutMenuView>
     {
         public LayoutMenuMediator()
         {
@@ -20,7 +20,7 @@ namespace R3EHUDManager.layout.view
 
         private void OnChange(BaseEventArgs args)
         {
-            ((LayoutMenuView)View).SetSelectedItem((int)((ScreenModelEventArgs)args).ScreenModel.Layout);
+            View.SetSelectedItem((int)((ScreenModelEventArgs)args).ScreenModel.Layout);
         }
     }
 }

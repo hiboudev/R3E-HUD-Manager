@@ -12,7 +12,7 @@ using R3EHUDManager.screen.events;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundMediator : BaseMediator
+    class BackgroundMediator : BaseMediator<BackgroundView>
     {
         public BackgroundMediator()
         {
@@ -21,7 +21,7 @@ namespace R3EHUDManager.background.view
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((BackgroundView)View).SetBackground(((ScreenModelEventArgs)args).ScreenModel);
+            View.SetBackground(((ScreenModelEventArgs)args).ScreenModel);
         }
     }
 }

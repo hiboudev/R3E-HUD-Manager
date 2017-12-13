@@ -57,17 +57,15 @@ namespace R3EHUDManager
             MinimumSize = new Size(400, 400);
             Size = new Size(1020, 620);
 
-
-
             // LayoutMenuView removed since backgrounds are linked with a screen layout, this option is not useful and confusing, maybe could be added back as a layout override in profile.
             Panel topBarPanel = NewHDockPanel(DockStyle.Top, new Control[] {
-                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(BackgroundMenuView)) }),
-                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(ProfileMenuView)) })/*,
-                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(LayoutMenuView)) })*/
+                NewHToolBar( (Control)Injector.GetInstance(typeof(BackgroundMenuView)) ),
+                NewHToolBar( (Control)Injector.GetInstance(typeof(ProfileMenuView)) )
+                /*,NewHToolBar( (Control)Injector.GetInstance(typeof(LayoutMenuView)) })*/
             });
 
             Panel bottomBarPanel = NewHDockPanel(DockStyle.Bottom, new Control[] {
-                NewHToolBar( new Control[]{(Control)Injector.GetInstance(typeof(ZoomView)) })
+                NewHToolBar( (Control)Injector.GetInstance(typeof(ZoomView)) )
             });
 
             SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
@@ -117,7 +115,7 @@ namespace R3EHUDManager
             return panel;
         }
 
-        private Panel NewHToolBar(Control[] controls)
+        private Panel NewHToolBar(Control control)
         {
             Panel toolBar = new TableLayoutPanel()
             {
@@ -126,11 +124,8 @@ namespace R3EHUDManager
                 BackColor = Color.LightGray,
             };
 
-            foreach(var control in controls)
-            {
-                control.Margin = new Padding();
-                toolBar.Controls.Add(control);
-            }
+            control.Margin = new Padding();
+            toolBar.Controls.Add(control);
 
             return toolBar;
         }

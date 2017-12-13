@@ -10,7 +10,7 @@ using R3EHUDManager.screen.events;
 
 namespace R3EHUDManager.screen.view
 {
-    class ZoomMediator : BaseMediator
+    class ZoomMediator : BaseMediator<ZoomView>
     {
         private ScreenModel screenModel;
 
@@ -22,12 +22,12 @@ namespace R3EHUDManager.screen.view
 
         private void OnZoomLevelChanged(BaseEventArgs args)
         {
-            ((ZoomView)View).SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
+            View.SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
         }
 
         protected override void ViewInitialized()
         {
-            ((ZoomView)View).SetZoomLevel(screenModel.ZoomLevel);
+            View.SetZoomLevel(screenModel.ZoomLevel);
             screenModel = null;
         }
     }

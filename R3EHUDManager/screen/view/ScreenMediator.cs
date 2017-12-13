@@ -17,7 +17,7 @@ using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.screen.view
 {
-    class ScreenMediator : BaseMediator
+    class ScreenMediator : BaseMediator<ScreenView>
     {
         public ScreenMediator()
         {
@@ -35,43 +35,43 @@ namespace R3EHUDManager.screen.view
 
         private void OnZoomLevelChanged(BaseEventArgs args)
         {
-            ((ScreenView)View).SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
+            View.SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
         }
 
         private void OnTripleScreenChanged(BaseEventArgs args)
         {
-            ((ScreenView)View).TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel);
+            View.TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((ScreenView)View).BackgroundChanged(((ScreenModelEventArgs)args).ScreenModel);
+            View.BackgroundChanged(((ScreenModelEventArgs)args).ScreenModel);
         }
 
         private void OnPlaceHolderSelected(BaseEventArgs args)
         {
-            ((ScreenView)View).SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder, true);
+            View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder, true);
         }
 
         private void OnPlaceHolderUnselected(BaseEventArgs args)
         {
-            ((ScreenView)View).SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder, false);
+            View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder, false);
         }
 
         private void OnPlaceHolderUpdated(BaseEventArgs args)
         {
             PlaceHolderUpdateEventArgs typedArgs = (PlaceHolderUpdateEventArgs)args;
-            ((ScreenView)View).UpdatePlaceholder(typedArgs.Placeholder, typedArgs.UpdateType);
+            View.UpdatePlaceholder(typedArgs.Placeholder, typedArgs.UpdateType);
         }
 
         private void OnPlaceHoldersAdded(BaseEventArgs args)
         {
-            ((ScreenView)View).DisplayPlaceHolders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
+            View.DisplayPlaceHolders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
         }
 
         private void OnPlaceholderCleared(BaseEventArgs args)
         {
-            ((ScreenView)View).RemovePlaceholders();
+            View.RemovePlaceholders();
         }
     }
 }

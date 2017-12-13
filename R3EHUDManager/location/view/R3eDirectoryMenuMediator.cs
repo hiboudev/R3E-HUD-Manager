@@ -13,7 +13,7 @@ using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.location.view
 {
-    class R3eDirectoryMenuMediator : BaseMediator
+    class R3eDirectoryMenuMediator : BaseMediator<R3eDirectoryMenuView>
     {
         public R3eDirectoryMenuMediator()
         {
@@ -23,20 +23,20 @@ namespace R3EHUDManager.location.view
 
         private void OnDirectoryChanged(BaseEventArgs args)
         {
-            ((R3eDirectoryMenuView)View).SetSelectedItem(((SelectedR3eDirectoryEventArgs)args).Selection.Directory.Id);
+            View.SetSelectedItem(((SelectedR3eDirectoryEventArgs)args).Selection.Directory.Id);
         }
 
         private void OnCollectionFilled(BaseEventArgs args)
         {
             CollectionModel<R3eDirectoryModel> collection = ((CollectionEventArgs<R3eDirectoryModel>)args).Collection;
-            
-            ((R3eDirectoryMenuView)View).Visible = collection.Items.Count > 1;
+
+            View.Visible = collection.Items.Count > 1;
 
             List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
             foreach (var directory in collection.Items)
                 items.Add(new ContextMenuViewItem(directory.Id, directory.Name));
 
-            ((R3eDirectoryMenuView)View).AddItems(items);
+            View.AddItems(items);
         }
     }
 }

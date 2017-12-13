@@ -14,7 +14,7 @@ using R3EHUDManager.screen.events;
 
 namespace R3EHUDManager.selection.view
 {
-    class SelectionMediator : BaseMediator
+    class SelectionMediator : BaseMediator<SelectionView>
     {
         public SelectionMediator()
         {
@@ -29,30 +29,30 @@ namespace R3EHUDManager.selection.view
 
         private void OnTripleScreenChanged(BaseEventArgs args)
         {
-            ((SelectionView)View).TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel.Layout);
+            View.TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel.Layout);
         }
 
         private void OnBackgroundChanged(BaseEventArgs args)
         {
-            ((SelectionView)View).TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel.Layout);
+            View.TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel.Layout);
         }
 
         private void OnPlaceholderUpdated(BaseEventArgs args)
         {
-            if (((SelectionView)View).Selection == ((PlaceHolderUpdateEventArgs)args).Placeholder)
+            if (View.Selection == ((PlaceHolderUpdateEventArgs)args).Placeholder)
             {
-                ((SelectionView)View).UpdateData();
+                View.UpdateData();
             }
         }
 
         private void OnPlaceholderSelected(BaseEventArgs args)
         {
-            ((SelectionView)View).SetSelected(((SelectionModelEventArgs)args).Placeholder);
+            View.SetSelected(((SelectionModelEventArgs)args).Placeholder);
         }
 
         private void OnPlaceholderUnselected(BaseEventArgs args)
         {
-            ((SelectionView)View).Unselect();
+            View.Unselect();
         }
     }
 }

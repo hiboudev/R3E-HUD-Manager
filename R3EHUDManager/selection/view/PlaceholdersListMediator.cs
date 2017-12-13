@@ -13,7 +13,7 @@ using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.selection.view
 {
-    class PlaceholdersListMediator : BaseMediator
+    class PlaceholdersListMediator : BaseMediator<PlaceholdersListView>
     {
         public PlaceholdersListMediator()
         {
@@ -25,22 +25,22 @@ namespace R3EHUDManager.selection.view
 
         private void OnPlaceholdersSelected(BaseEventArgs args)
         {
-            ((PlaceholdersListView)View).SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder.Name);
+            View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder.Name);
         }
 
         private void OnPlaceholdersUnselected(BaseEventArgs args)
         {
-            ((PlaceholdersListView)View).UnselectPlaceholder();
+            View.UnselectPlaceholder();
         }
 
         private void OnPlaceholdersAdded(BaseEventArgs args)
         {
-            ((PlaceholdersListView)View).SetPlaceholders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
+            View.SetPlaceholders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
         }
 
         private void OnPlaceholdersCleared(BaseEventArgs args)
         {
-            ((PlaceholdersListView)View).ClearPlaceholders();
+            View.ClearPlaceholders();
         }
     }
 }

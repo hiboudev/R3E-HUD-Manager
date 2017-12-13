@@ -12,7 +12,7 @@ using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundManagerMediator : BaseMediator
+    class BackgroundManagerMediator : BaseMediator<BackgroundManagerView>
     {
         public BackgroundManagerMediator()
         {
@@ -23,7 +23,7 @@ namespace R3EHUDManager.background.view
         {
             var typedArgs = ((CollectionEventArgs<BackgroundModel>)args);
             foreach(var background in typedArgs.ChangedItems)
-                ((BackgroundManagerView)View).RemoveBackground(background);
+                View.RemoveBackground(background);
 
         }
     }

@@ -14,7 +14,7 @@ using da2mvc.framework.model.events;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileMenuMediator : BaseMediator
+    class ProfileMenuMediator : BaseMediator<ProfileMenuView>
     {
         public ProfileMenuMediator(SelectedProfileModel selectedProfile)
         {
@@ -29,28 +29,28 @@ namespace R3EHUDManager.profile.view
         
         private void OnProfileAdded(BaseEventArgs args)
         {
-             ((ProfileMenuView)View).AddProfiles(((CollectionEventArgs<ProfileModel>)args).ChangedItems);
+             View.AddProfiles(((CollectionEventArgs<ProfileModel>)args).ChangedItems);
         }
 
         private void OnProfileRemoved(BaseEventArgs args)
         {
             foreach (var profile in ((CollectionEventArgs<ProfileModel>)args).ChangedItems)
-                ((ProfileMenuView)View).RemoveItem(profile.Id);
+                View.RemoveItem(profile.Id);
         }
 
         private void OnProfileUnselected(BaseEventArgs args)
         {
-            ((ProfileMenuView)View).UnselectProfile();
+            View.UnselectProfile();
         }
 
         private void OnProfileSaved(BaseEventArgs args)
         {
-            ((ProfileMenuView)View).UpdateProfile(((ProfileEventArgs)args).Profile);
+            View.UpdateProfile(((ProfileEventArgs)args).Profile);
         }
 
         private void OnProfileSelected(BaseEventArgs args)
         {
-            ((ProfileMenuView)View).SelectProfile(((ProfileEventArgs)args).Profile);
+            View.SelectProfile(((ProfileEventArgs)args).Profile);
         }
     }
 }
