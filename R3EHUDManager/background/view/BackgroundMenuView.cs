@@ -1,7 +1,7 @@
 ﻿using da2mvc.core.injection;
+using da2mvc.framework.menubutton.view;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
-using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.graphics;
 using R3EHUDManager.screen.model;
 using System;
@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundMenuView : AbstractContextMenuView
+    class BackgroundMenuView : MenuButtonView<BackgroundModel>
     {
         public const string EVENT_IMPORT_BACKGROUND = "importBackground";
 
@@ -23,21 +23,11 @@ namespace R3EHUDManager.background.view
             Width = 190;
         }
 
-        internal void AddBackground(BackgroundModel background)
+        protected override ToolStripMenuItem ModelToItem(BackgroundModel model)
         {
-            AddItem(new ContextMenuViewItem(background.Id, background.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
-        }
-
-        internal void AddBackgrounds(BackgroundModel[] backgrounds)
-        {
-            List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
-
-            foreach (BackgroundModel background in backgrounds)
-            {
-                items.Add(new ContextMenuViewItem(background.Id, background.Name, GraphicalAsset.GetLayoutIcon(background.Layout)));
-            }
-
-            AddItems(items);
+            var item = base.ModelToItem(model);
+            item.Image = GraphicalAsset.GetLayoutIcon(model.Layout);
+            return item;
         }
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()

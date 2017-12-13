@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.command;
 using da2mvc.framework.collection.model;
+using da2mvc.framework.menubutton.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.placeholder.model;
@@ -10,12 +11,12 @@ namespace R3EHUDManager.background.command
 {
     class SelectBackgroundCommand : ICommand
     {
-        private readonly ContextMenuEventArgs args;
+        private readonly MenuButtonEventArgs args;
         private readonly ScreenModel screenModel;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
         private readonly PlaceHolderCollectionModel placeholderCollection;
 
-        public SelectBackgroundCommand(ContextMenuEventArgs args, ScreenModel screenModel, CollectionModel<BackgroundModel> backgroundCollection, PlaceHolderCollectionModel placeholderCollection)
+        public SelectBackgroundCommand(MenuButtonEventArgs args, ScreenModel screenModel, CollectionModel<BackgroundModel> backgroundCollection, PlaceHolderCollectionModel placeholderCollection)
         {
             this.args = args;
             this.screenModel = screenModel;
