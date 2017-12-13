@@ -21,52 +21,51 @@ namespace R3EHUDManager.screen.view
     {
         public ScreenMediator()
         {
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceHoldersAdded);
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholderCleared);
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
+            RegisterEventListener<CollectionEventArgs<PlaceholderModel>>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceHoldersAdded);
+            RegisterEventListener<BaseEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholderCleared);
+            RegisterEventListener<PlaceHolderUpdateEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
 
-            RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
-            RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
+            RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
+            RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
 
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
         }
 
-        private void OnZoomLevelChanged(BaseEventArgs args)
+        private void OnZoomLevelChanged(ScreenModelEventArgs args)
         {
-            View.SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
+            View.SetZoomLevel(args.ScreenModel.ZoomLevel);
         }
 
-        private void OnTripleScreenChanged(BaseEventArgs args)
+        private void OnTripleScreenChanged(ScreenModelEventArgs args)
         {
-            View.TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel);
+            View.TripleScreenChanged(args.ScreenModel);
         }
 
-        private void OnBackgroundChanged(BaseEventArgs args)
+        private void OnBackgroundChanged(ScreenModelEventArgs args)
         {
-            View.BackgroundChanged(((ScreenModelEventArgs)args).ScreenModel);
+            View.BackgroundChanged(args.ScreenModel);
         }
 
-        private void OnPlaceHolderSelected(BaseEventArgs args)
+        private void OnPlaceHolderSelected(SelectionModelEventArgs args)
         {
-            View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder, true);
+            View.SelectPlaceholder(args.Placeholder, true);
         }
 
-        private void OnPlaceHolderUnselected(BaseEventArgs args)
+        private void OnPlaceHolderUnselected(SelectionModelEventArgs args)
         {
-            View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder, false);
+            View.SelectPlaceholder(args.Placeholder, false);
         }
 
-        private void OnPlaceHolderUpdated(BaseEventArgs args)
+        private void OnPlaceHolderUpdated(PlaceHolderUpdateEventArgs args)
         {
-            PlaceHolderUpdateEventArgs typedArgs = (PlaceHolderUpdateEventArgs)args;
-            View.UpdatePlaceholder(typedArgs.Placeholder, typedArgs.UpdateType);
+            View.UpdatePlaceholder(args.Placeholder, args.UpdateType);
         }
 
-        private void OnPlaceHoldersAdded(BaseEventArgs args)
+        private void OnPlaceHoldersAdded(CollectionEventArgs<PlaceholderModel> args)
         {
-            View.DisplayPlaceHolders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
+            View.DisplayPlaceHolders(args.ChangedItems);
         }
 
         private void OnPlaceholderCleared(BaseEventArgs args)

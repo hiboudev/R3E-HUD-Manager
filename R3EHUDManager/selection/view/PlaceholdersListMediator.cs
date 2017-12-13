@@ -17,18 +17,19 @@ namespace R3EHUDManager.selection.view
     {
         public PlaceholdersListMediator()
         {
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceholdersAdded);
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholdersCleared);
-            RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceholdersSelected);
-            RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholdersUnselected);
+            RegisterEventListener<CollectionEventArgs<PlaceholderModel>>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceholdersAdded);
+            RegisterEventListener<BaseEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholdersCleared);
+
+            RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
+            RegisterEventListener<BaseEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
         }
 
-        private void OnPlaceholdersSelected(BaseEventArgs args)
+        private void OnPlaceholderSelected(BaseEventArgs args)
         {
             View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder.Name);
         }
 
-        private void OnPlaceholdersUnselected(BaseEventArgs args)
+        private void OnPlaceholderUnselected(BaseEventArgs args)
         {
             View.UnselectPlaceholder();
         }

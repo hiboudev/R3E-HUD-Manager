@@ -16,12 +16,12 @@ namespace R3EHUDManager.profile.view
     {
         public ProfileManagerMediator()
         {
-            RegisterEventListener(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
+            RegisterEventListener<CollectionEventArgs<ProfileModel>>(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
         }
 
-        private void OnProfileRemoved(BaseEventArgs args)
+        private void OnProfileRemoved(CollectionEventArgs<ProfileModel> args)
         {
-            foreach(var profile in ((CollectionEventArgs<ProfileModel>)args).ChangedItems)
+            foreach(var profile in args.ChangedItems)
                 View.RemoveProfile(profile);
         }
     }

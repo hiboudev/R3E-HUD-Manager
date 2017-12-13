@@ -14,13 +14,13 @@ namespace R3EHUDManager.layout.view
     {
         public LayoutMenuMediator()
         {
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnChange);
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnChange);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnChange);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnChange);
         }
 
-        private void OnChange(BaseEventArgs args)
+        private void OnChange(ScreenModelEventArgs args)
         {
-            View.SetSelectedItem((int)((ScreenModelEventArgs)args).ScreenModel.Layout);
+            View.SetSelectedItem((int)(args.ScreenModel.Layout));
         }
     }
 }

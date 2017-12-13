@@ -18,23 +18,23 @@ namespace R3EHUDManager.profile.view
     {
         public ProfileMenuMediator(SelectedProfileModel selectedProfile)
         {
-            RegisterEventListener(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_ADDED, OnProfileAdded);
-            RegisterEventListener(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
+            RegisterEventListener<CollectionEventArgs<ProfileModel>>(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_ADDED, OnProfileAdded);
+            RegisterEventListener<CollectionEventArgs<ProfileModel>>(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
 
-            RegisterEventListener(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CHANGED, OnProfileSelected);
-            RegisterEventListener(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CLEARED, OnProfileUnselected);
+            RegisterEventListener<ProfileEventArgs>(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CHANGED, OnProfileSelected);
+            RegisterEventListener<ProfileEventArgs>(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CLEARED, OnProfileUnselected);
 
-            RegisterEventListener(typeof(SaveProfileCommand), SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
+            RegisterEventListener<ProfileEventArgs>(typeof(SaveProfileCommand), SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
         }
         
-        private void OnProfileAdded(BaseEventArgs args)
+        private void OnProfileAdded(CollectionEventArgs<ProfileModel> args)
         {
-             View.AddProfiles(((CollectionEventArgs<ProfileModel>)args).ChangedItems);
+             View.AddProfiles(args.ChangedItems);
         }
 
-        private void OnProfileRemoved(BaseEventArgs args)
+        private void OnProfileRemoved(CollectionEventArgs<ProfileModel> args)
         {
-            foreach (var profile in ((CollectionEventArgs<ProfileModel>)args).ChangedItems)
+            foreach (var profile in args.ChangedItems)
                 View.RemoveItem(profile.Id);
         }
 
@@ -43,14 +43,14 @@ namespace R3EHUDManager.profile.view
             View.UnselectProfile();
         }
 
-        private void OnProfileSaved(BaseEventArgs args)
+        private void OnProfileSaved(ProfileEventArgs args)
         {
-            View.UpdateProfile(((ProfileEventArgs)args).Profile);
+            View.UpdateProfile(args.Profile);
         }
 
-        private void OnProfileSelected(BaseEventArgs args)
+        private void OnProfileSelected(ProfileEventArgs args)
         {
-            View.SelectProfile(((ProfileEventArgs)args).Profile);
+            View.SelectProfile(args.Profile);
         }
     }
 }

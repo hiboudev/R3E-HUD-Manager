@@ -17,23 +17,21 @@ namespace R3EHUDManager.location.view
     {
         public R3eDirectoryMenuMediator()
         {
-            RegisterEventListener(typeof(CollectionModel<R3eDirectoryModel>), CollectionModel<R3eDirectoryModel>.EVENT_ITEMS_ADDED, OnCollectionFilled);
-            RegisterEventListener(typeof(SelectedR3eDirectoryModel), SelectedR3eDirectoryModel.EVENT_DIRECTORY_CHANGED, OnDirectoryChanged);
+            RegisterEventListener<CollectionEventArgs<R3eDirectoryModel>>(typeof(CollectionModel<R3eDirectoryModel>), CollectionModel<R3eDirectoryModel>.EVENT_ITEMS_ADDED, OnCollectionFilled);
+            RegisterEventListener<SelectedR3eDirectoryEventArgs>(typeof(SelectedR3eDirectoryModel), SelectedR3eDirectoryModel.EVENT_DIRECTORY_CHANGED, OnDirectoryChanged);
         }
 
-        private void OnDirectoryChanged(BaseEventArgs args)
+        private void OnDirectoryChanged(SelectedR3eDirectoryEventArgs args)
         {
-            View.SetSelectedItem(((SelectedR3eDirectoryEventArgs)args).Selection.Directory.Id);
+            View.SetSelectedItem(args.Selection.Directory.Id);
         }
 
-        private void OnCollectionFilled(BaseEventArgs args)
+        private void OnCollectionFilled(CollectionEventArgs<R3eDirectoryModel> args)
         {
-            CollectionModel<R3eDirectoryModel> collection = ((CollectionEventArgs<R3eDirectoryModel>)args).Collection;
-
-            View.Visible = collection.Items.Count > 1;
+            View.Visible = args.Collection.Items.Count > 1;
 
             List<ContextMenuViewItem> items = new List<ContextMenuViewItem>();
-            foreach (var directory in collection.Items)
+            foreach (var directory in args.Collection.Items)
                 items.Add(new ContextMenuViewItem(directory.Id, directory.Name));
 
             View.AddItems(items);

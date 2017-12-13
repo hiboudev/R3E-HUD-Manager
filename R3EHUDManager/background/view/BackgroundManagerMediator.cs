@@ -16,13 +16,12 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundManagerMediator()
         {
-            RegisterEventListener(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
+            RegisterEventListener<CollectionEventArgs<BackgroundModel>>(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
         }
 
-        private void OnBackgroundRemoved(BaseEventArgs args)
+        private void OnBackgroundRemoved(CollectionEventArgs<BackgroundModel> args)
         {
-            var typedArgs = ((CollectionEventArgs<BackgroundModel>)args);
-            foreach(var background in typedArgs.ChangedItems)
+            foreach(var background in args.ChangedItems)
                 View.RemoveBackground(background);
 
         }

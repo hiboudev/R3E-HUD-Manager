@@ -16,13 +16,13 @@ namespace R3EHUDManager.screen.view
 
         public ZoomMediator(ScreenModel screenModel)
         {
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
             this.screenModel = screenModel;
         }
 
-        private void OnZoomLevelChanged(BaseEventArgs args)
+        private void OnZoomLevelChanged(ScreenModelEventArgs args)
         {
-            View.SetZoomLevel(((ScreenModelEventArgs)args).ScreenModel.ZoomLevel);
+            View.SetZoomLevel(args.ScreenModel.ZoomLevel);
         }
 
         protected override void ViewInitialized()

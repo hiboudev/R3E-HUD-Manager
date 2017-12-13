@@ -18,36 +18,34 @@ namespace R3EHUDManager.selection.view
     {
         public SelectionMediator()
         {
-            RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
-            RegisterEventListener(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
+            RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
+            RegisterEventListener<BaseEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
-            RegisterEventListener(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
+            RegisterEventListener<PlaceHolderUpdateEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
 
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
         }
 
-        private void OnTripleScreenChanged(BaseEventArgs args)
+        private void OnTripleScreenChanged(ScreenModelEventArgs args)
         {
-            View.TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel.Layout);
+            View.TripleScreenChanged(args.ScreenModel.Layout);
         }
 
-        private void OnBackgroundChanged(BaseEventArgs args)
+        private void OnBackgroundChanged(ScreenModelEventArgs args)
         {
-            View.TripleScreenChanged(((ScreenModelEventArgs)args).ScreenModel.Layout);
+            View.TripleScreenChanged(args.ScreenModel.Layout);
         }
 
-        private void OnPlaceholderUpdated(BaseEventArgs args)
+        private void OnPlaceholderUpdated(PlaceHolderUpdateEventArgs args)
         {
-            if (View.Selection == ((PlaceHolderUpdateEventArgs)args).Placeholder)
-            {
+            if (View.Selection == args.Placeholder)
                 View.UpdateData();
-            }
         }
 
-        private void OnPlaceholderSelected(BaseEventArgs args)
+        private void OnPlaceholderSelected(SelectionModelEventArgs args)
         {
-            View.SetSelected(((SelectionModelEventArgs)args).Placeholder);
+            View.SetSelected(args.Placeholder);
         }
 
         private void OnPlaceholderUnselected(BaseEventArgs args)

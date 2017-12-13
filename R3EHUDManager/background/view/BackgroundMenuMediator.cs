@@ -19,29 +19,29 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundMenuMediator()
         {
-            RegisterEventListener(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_ADDED, OnBackgroundAdded);
-            RegisterEventListener(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
-            RegisterEventListener(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener<CollectionEventArgs<BackgroundModel>>(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_ADDED, OnBackgroundAdded);
+            RegisterEventListener<CollectionEventArgs<BackgroundModel>>(typeof(CollectionModel<BackgroundModel>), CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
+            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
-        private void OnBackgroundAdded(BaseEventArgs args)
+        private void OnBackgroundAdded(CollectionEventArgs<BackgroundModel> args)
         {
-            var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
+            var typedArgs = args;
 
             View.AddBackgrounds(typedArgs.ChangedItems);
         }
 
-        private void OnBackgroundRemoved(BaseEventArgs args)
+        private void OnBackgroundRemoved(CollectionEventArgs<BackgroundModel> args)
         {
-            var typedArgs = (CollectionEventArgs<BackgroundModel>)args;
+            var typedArgs = args;
 
-            foreach(var background in typedArgs.ChangedItems)
+            foreach (var background in typedArgs.ChangedItems)
                 View.RemoveItem(background.Id);
         }
 
-        private void OnBackgroundChanged(BaseEventArgs args)
+        private void OnBackgroundChanged(ScreenModelEventArgs args)
         {
-            View.SetSelectedItem(((ScreenModelEventArgs)args).ScreenModel.Background.Id);
+            View.SetSelectedItem(args.ScreenModel.Background.Id);
         }
     }
 }
