@@ -16,7 +16,7 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundMediator()
         {
-            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundChanged(ScreenModelEventArgs args)

@@ -21,16 +21,16 @@ namespace R3EHUDManager.screen.view
     {
         public ScreenMediator()
         {
-            RegisterEventListener<CollectionEventArgs<PlaceholderModel>>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceHoldersAdded);
-            RegisterEventListener<BaseEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholderCleared);
-            RegisterEventListener<PlaceHolderUpdateEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
+            RegisterEventListener<PlaceHolderCollectionModel, CollectionEventArgs<PlaceholderModel>>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceHoldersAdded);
+            RegisterEventListener<PlaceHolderCollectionModel, BaseEventArgs>(PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholderCleared);
+            RegisterEventListener<PlaceHolderCollectionModel, PlaceHolderUpdateEventArgs>(PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
 
-            RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
-            RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
+            RegisterEventListener<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
+            RegisterEventListener<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
 
-            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
-            RegisterEventListener<ScreenModelEventArgs>(typeof(ScreenModel), ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
+            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
         }
 
         private void OnZoomLevelChanged(ScreenModelEventArgs args)

@@ -17,8 +17,8 @@ namespace R3EHUDManager.location.view
     {
         public R3eDirectoryMenuMediator()
         {
-            RegisterEventListener<CollectionEventArgs<R3eDirectoryModel>>(typeof(CollectionModel<R3eDirectoryModel>), CollectionModel<R3eDirectoryModel>.EVENT_ITEMS_ADDED, OnCollectionFilled);
-            RegisterEventListener<SelectedR3eDirectoryEventArgs>(typeof(SelectedR3eDirectoryModel), SelectedR3eDirectoryModel.EVENT_DIRECTORY_CHANGED, OnDirectoryChanged);
+            RegisterEventListener< CollectionModel < R3eDirectoryModel > , CollectionEventArgs <R3eDirectoryModel>>(CollectionModel<R3eDirectoryModel>.EVENT_ITEMS_ADDED, OnCollectionFilled);
+            RegisterEventListener<SelectedR3eDirectoryModel, SelectedR3eDirectoryEventArgs>(SelectedR3eDirectoryModel.EVENT_DIRECTORY_CHANGED, OnDirectoryChanged);
         }
 
         private void OnDirectoryChanged(SelectedR3eDirectoryEventArgs args)

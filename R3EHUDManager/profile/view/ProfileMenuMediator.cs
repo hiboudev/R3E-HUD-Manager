@@ -18,13 +18,13 @@ namespace R3EHUDManager.profile.view
     {
         public ProfileMenuMediator(SelectedProfileModel selectedProfile)
         {
-            RegisterEventListener<CollectionEventArgs<ProfileModel>>(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_ADDED, OnProfileAdded);
-            RegisterEventListener<CollectionEventArgs<ProfileModel>>(typeof(CollectionModel<ProfileModel>), CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
+            RegisterEventListener< CollectionModel < ProfileModel > , CollectionEventArgs <ProfileModel>>(CollectionModel<ProfileModel>.EVENT_ITEMS_ADDED, OnProfileAdded);
+            RegisterEventListener<CollectionModel<ProfileModel>, CollectionEventArgs<ProfileModel>>(CollectionModel<ProfileModel>.EVENT_ITEMS_REMOVED, OnProfileRemoved);
 
-            RegisterEventListener<ProfileEventArgs>(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CHANGED, OnProfileSelected);
-            RegisterEventListener<ProfileEventArgs>(typeof(SelectedProfileModel), SelectedProfileModel.EVENT_SELECTION_CLEARED, OnProfileUnselected);
+            RegisterEventListener<SelectedProfileModel, ProfileEventArgs>(SelectedProfileModel.EVENT_SELECTION_CHANGED, OnProfileSelected);
+            RegisterEventListener<SelectedProfileModel, ProfileEventArgs>(SelectedProfileModel.EVENT_SELECTION_CLEARED, OnProfileUnselected);
 
-            RegisterEventListener<ProfileEventArgs>(typeof(SaveProfileCommand), SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
+            RegisterEventListener<SaveProfileCommand, ProfileEventArgs>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
         }
         
         private void OnProfileAdded(CollectionEventArgs<ProfileModel> args)
