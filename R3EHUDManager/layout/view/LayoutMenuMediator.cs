@@ -14,8 +14,8 @@ namespace R3EHUDManager.layout.view
     {
         public LayoutMenuMediator()
         {
-            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnChange);
-            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnChange);
+            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnChange);
+            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnChange);
         }
 
         private void OnChange(ScreenModelEventArgs args)

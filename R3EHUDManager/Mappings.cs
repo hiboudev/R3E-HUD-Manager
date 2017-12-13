@@ -1,22 +1,14 @@
 ﻿using R3EHUDManager.huddata.command;
 using R3EHUDManager.huddata.parser;
-using R3EHUDManager.location;
 using R3EHUDManager.location.finder;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.command;
 using R3EHUDManager.placeholder.model;
-using R3EHUDManager.placeholder.view;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using da2mvc.core.injection;
 using R3EHUDManager.location.command;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.command;
 using R3EHUDManager.selection.view;
-using R3EHUDManager.contextmenu.view;
 using R3EHUDManager.fileexplorer.command;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.view;
@@ -63,7 +55,6 @@ namespace R3EHUDManager
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<SelectionView, SelectionMediator>(true);
             Injector.MapView<PlaceholdersListView, PlaceholdersListMediator>(true);
-
             Injector.MapView<BackgroundView, BackgroundMediator>(true);
             Injector.MapView<BackgroundMenuView, BackgroundMenuMediator>(true);
             Injector.MapView<BackgroundManagerView, CollectionMediator<CollectionModel<BackgroundModel>, BackgroundModel, BackgroundManagerView>>();
@@ -76,7 +67,6 @@ namespace R3EHUDManager
             Injector.MapCommand<Form1, SaveHudCommand>(Form1.EVENT_SAVE_CLICKED);
             Injector.MapCommand<Form1, LoadHudDataCommand>(Form1.EVENT_RELOAD_CLICKED);
             Injector.MapCommand<Form1, ReloadDefaultHudDataCommand>(Form1.EVENT_RELOAD_DEFAULT_CLICKED);
-
             Injector.MapCommand<ScreenView, MovePlaceholderCommand>(ScreenView.EVENT_PLACEHOLDER_MOVED);
             Injector.MapCommand<ScreenView, SelectPlaceholderCommand>(ScreenView.EVENT_PLACEHOLDER_SELECTED);
             Injector.MapCommand<ScreenView, SelectNoneCommand>(ScreenView.EVENT_BACKGROUND_CLICKED);

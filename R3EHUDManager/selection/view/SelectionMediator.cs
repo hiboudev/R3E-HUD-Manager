@@ -18,13 +18,13 @@ namespace R3EHUDManager.selection.view
     {
         public SelectionMediator()
         {
-            RegisterEventListener<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
-            RegisterEventListener<SelectionModel, BaseEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
+            HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
+            HandleEvent<SelectionModel, BaseEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
-            RegisterEventListener<PlaceHolderCollectionModel, PlaceHolderUpdateEventArgs>(PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
+            HandleEvent<PlaceHolderCollectionModel, PlaceHolderUpdateEventArgs>(PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
 
-            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
         }
 
         private void OnTripleScreenChanged(ScreenModelEventArgs args)

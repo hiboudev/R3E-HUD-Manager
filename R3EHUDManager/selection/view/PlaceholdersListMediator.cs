@@ -18,8 +18,8 @@ namespace R3EHUDManager.selection.view
     {
         public PlaceholdersListMediator()
         {
-            RegisterEventListener<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
-            RegisterEventListener<SelectionModel, BaseEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
+            HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
+            HandleEvent<SelectionModel, BaseEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
         }
 
         private void OnPlaceholderSelected(BaseEventArgs args)

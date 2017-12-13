@@ -16,7 +16,7 @@ namespace R3EHUDManager.screen.view
 
         public ZoomMediator(ScreenModel screenModel)
         {
-            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
+            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
             this.screenModel = screenModel;
         }
 

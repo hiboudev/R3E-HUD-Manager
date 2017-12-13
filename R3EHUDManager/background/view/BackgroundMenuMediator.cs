@@ -19,9 +19,9 @@ namespace R3EHUDManager.background.view
     {
         public BackgroundMenuMediator()
         {
-            RegisterEventListener<CollectionModel<BackgroundModel>, CollectionEventArgs<BackgroundModel>>(CollectionModel<BackgroundModel>.EVENT_ITEMS_ADDED, OnBackgroundAdded);
-            RegisterEventListener<CollectionModel<BackgroundModel>, CollectionEventArgs<BackgroundModel>>(CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
-            RegisterEventListener<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
+            HandleEvent<CollectionModel<BackgroundModel>, CollectionEventArgs<BackgroundModel>>(CollectionModel<BackgroundModel>.EVENT_ITEMS_ADDED, OnBackgroundAdded);
+            HandleEvent<CollectionModel<BackgroundModel>, CollectionEventArgs<BackgroundModel>>(CollectionModel<BackgroundModel>.EVENT_ITEMS_REMOVED, OnBackgroundRemoved);
+            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
         }
 
         private void OnBackgroundAdded(CollectionEventArgs<BackgroundModel> args)
