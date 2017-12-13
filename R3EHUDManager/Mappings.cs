@@ -32,6 +32,7 @@ using R3EHUDManager.profile.view;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.location.view;
 using da2mvc.framework.model;
+using da2mvc.framework.view;
 
 namespace R3EHUDManager
 {
@@ -65,7 +66,7 @@ namespace R3EHUDManager
 
             Injector.MapView<BackgroundView, BackgroundMediator>(true);
             Injector.MapView<BackgroundMenuView, BackgroundMenuMediator>(true);
-            Injector.MapView<BackgroundManagerView, BackgroundManagerMediator>();
+            Injector.MapView<BackgroundManagerView, CollectionMediator<CollectionModel<BackgroundModel>, BackgroundModel, BackgroundManagerView>>();
             Injector.MapView<LayoutMenuView, LayoutMenuMediator>(true);
             Injector.MapView<ZoomView, ZoomMediator>(true);
             Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);

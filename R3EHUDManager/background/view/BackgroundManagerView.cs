@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.events;
 using da2mvc.framework.model;
+using da2mvc.framework.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.application.view;
 using R3EHUDManager.background.model;
@@ -12,21 +13,24 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundManagerView : BaseModalForm, IEventDispatcher
+    class BackgroundManagerView : BaseModalForm, IEventDispatcher, ICollectionView<BackgroundModel>
     {
         private ListBox list;
         private Button deleteButton;
-        private Dictionary<string, int> ids = new Dictionary<string, int>();
         public event EventHandler MvcEventHandler;
         public const string EVENT_DELETE_BACKGROUND = "deleteBackground";
+        List<string> names = new List<string>();
+        private Dictionary<string, int> ids = new Dictionary<string, int>();
 
         public BackgroundManagerView(CollectionModel<BackgroundModel> collectionModel):base("Manage backgrounds")
         {
             InitializeUI();
+            Add(collectionModel.Items.ToArray());
+        }
 
-            List<string> names = new List<string>();
-
-            foreach (var background in collectionModel.Items)
+        public void Add(BackgroundModel[] models)
+        {
+            foreach (var background in models)
             {
                 // Don't change/delete the built-in background.
                 if (background.IsBuiltInt) continue;
@@ -37,6 +41,25 @@ namespace R3EHUDManager.background.view
 
             names.Sort((x, y) => string.Compare(x, y));
             list.Items.AddRange(names.ToArray());
+        }
+
+        public void Remove(BackgroundModel[] models)
+        {
+            foreach (var background in models)
+            {
+                if (background.IsBuiltInt) continue;
+
+                names.Remove(background.Name);
+                ids.Remove(background.Name);
+                list.Items.Remove(background.Name);
+            }
+        }
+
+        public void Clear()
+        {
+            names.Clear();
+            ids.Clear();
+            list.Items.Clear();
         }
 
         internal void RemoveBackground(BackgroundModel model)

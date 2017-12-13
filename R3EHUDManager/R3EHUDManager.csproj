@@ -129,7 +129,6 @@
     <Compile Include="background\view\BackgroundPreviewView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="background\view\BackgroundManagerMediator.cs" />
     <Compile Include="background\view\BackgroundManagerView.cs">
       <SubType>Form</SubType>
     </Compile>
