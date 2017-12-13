@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using R3EHUDManager.placeholder.model;
-using System.Diagnostics;
 using da2mvc.core.events;
 using R3EHUDManager.application.events;
 using System.Drawing;
-using System.Reflection;
-using da2mvc.framework.view;
+using da2mvc.framework.collection.view;
 
 namespace R3EHUDManager.selection.view
 {

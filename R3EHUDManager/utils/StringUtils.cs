@@ -19,7 +19,7 @@ namespace R3EHUDManager.utils
                                                                 || c == '_'
                                                                 )));
 
-            return new string(textChars); ;
+            return new string(textChars);
         }
 
         public static string ToDatabaseUserString(string text)

@@ -1,14 +1,8 @@
 ﻿using da2mvc.core.command;
-using da2mvc.core.injection;
-using da2mvc.framework.model;
-using R3EHUDManager.contextmenu.events;
+using da2mvc.framework.collection.model;
 using R3EHUDManager.database;
 using R3EHUDManager.profile.model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace R3EHUDManager.profile.command
 {

@@ -1,13 +1,7 @@
 ﻿using R3EHUDManager.placeholder.events;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using da2mvc.core.events;
-using System.Drawing;
 using R3EHUDManager.coordinates;
-using da2mvc.framework.model;
+using da2mvc.framework.collection.model;
 
 namespace R3EHUDManager.placeholder.model
 {

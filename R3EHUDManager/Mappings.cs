@@ -23,8 +23,8 @@ using R3EHUDManager.profile.model;
 using R3EHUDManager.profile.view;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.location.view;
-using da2mvc.framework.model;
-using da2mvc.framework.view;
+using da2mvc.framework.collection.view;
+using da2mvc.framework.collection.model;
 
 namespace R3EHUDManager
 {

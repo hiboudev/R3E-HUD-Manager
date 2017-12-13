@@ -1,16 +1,8 @@
 ﻿using R3EHUDManager.placeholder.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using da2mvc.core.events;
-using R3EHUDManager.placeholder.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
-using da2mvc.core.view;
-using da2mvc.framework.model.events;
-using da2mvc.framework.view;
+using da2mvc.framework.collection.view;
 
 namespace R3EHUDManager.selection.view
 {
@@ -22,9 +14,9 @@ namespace R3EHUDManager.selection.view
             HandleEvent<SelectionModel, BaseEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
         }
 
-        private void OnPlaceholderSelected(BaseEventArgs args)
+        private void OnPlaceholderSelected(SelectionModelEventArgs args)
         {
-            View.SelectPlaceholder(((SelectionModelEventArgs)args).Placeholder.Name);
+            View.SelectPlaceholder(args.Placeholder.Name);
         }
 
         private void OnPlaceholderUnselected(BaseEventArgs args)

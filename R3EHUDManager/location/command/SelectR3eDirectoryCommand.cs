@@ -1,12 +1,7 @@
 ﻿using da2mvc.core.command;
-using da2mvc.framework.model;
+using da2mvc.framework.collection.model;
 using R3EHUDManager.contextmenu.events;
 using R3EHUDManager.location.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace R3EHUDManager.location.command
 {

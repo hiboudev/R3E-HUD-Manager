@@ -1,19 +1,12 @@
 ﻿using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using da2mvc.core.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
-using R3EHUDManager.background.model;
-using R3EHUDManager.background.events;
 using da2mvc.core.view;
 using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
-using da2mvc.framework.model.events;
+using da2mvc.framework.collection.events;
 
 namespace R3EHUDManager.screen.view
 {

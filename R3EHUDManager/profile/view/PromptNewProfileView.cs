@@ -1,16 +1,12 @@
-﻿using da2mvc.framework.model;
+﻿using da2mvc.framework.collection.model;
 using R3EHUDManager.application.view;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
-using R3EHUDManager.utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace R3EHUDManager.profile.view
