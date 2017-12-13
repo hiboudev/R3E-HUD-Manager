@@ -10,7 +10,7 @@ namespace R3EHUDManager.location.events
 {
     class SelectedR3eDirectoryEventArgs : BaseEventArgs
     {
-        public SelectedR3eDirectoryEventArgs(string eventName, SelectedR3eDirectoryModel selection) : base(eventName)
+        public SelectedR3eDirectoryEventArgs(int eventId, SelectedR3eDirectoryModel selection) : base(eventId)
         {
             Selection = selection;
         }

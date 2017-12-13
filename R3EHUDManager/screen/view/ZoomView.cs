@@ -17,7 +17,8 @@ namespace R3EHUDManager.screen.view
         private RadioButton fitHeight;
 
         public event EventHandler MvcEventHandler;
-        public const string EVENT_ZOOM_LEVEL_CHANGED = "zoomLevelChanged";
+
+        public static readonly int EVENT_ZOOM_LEVEL_CHANGED = EventId.New();
 
         private bool holdChangeEvents = false;
 

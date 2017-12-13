@@ -9,7 +9,7 @@ namespace R3EHUDManager.placeholder.events
 {
     class PlaceHolderResizedEventArgs : BaseEventArgs
     {
-        public PlaceHolderResizedEventArgs(string eventName, string placeholderName, decimal size) : base(eventName)
+        public PlaceHolderResizedEventArgs(int eventId, string placeholderName, decimal size) : base(eventId)
         {
             PlaceholderName = placeholderName;
             Size = size;

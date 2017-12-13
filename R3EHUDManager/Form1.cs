@@ -17,9 +17,9 @@ namespace R3EHUDManager
     {
         public event EventHandler MvcEventHandler;
 
-        public const string EVENT_SAVE_CLICKED = "saveClicked";
-        public const string EVENT_RELOAD_CLICKED = "reloadClicked";
-        public const string EVENT_RELOAD_DEFAULT_CLICKED = "reloadDefaultClicked";
+        public static readonly int EVENT_SAVE_CLICKED = EventId.New();
+        public static readonly int EVENT_RELOAD_CLICKED = EventId.New();
+        public static readonly int EVENT_RELOAD_DEFAULT_CLICKED = EventId.New();
 
         public Form1()
         {
@@ -113,14 +113,14 @@ namespace R3EHUDManager
             return toolBar;
         }
 
-        private Button NewButton(string text, string eventType)
+        private Button NewButton(string text, int eventId)
         {
             Button button = new Button()
             {
                 Text = text,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right,
             };
-            button.Click += (sender, args) => DispatchEvent(new BaseEventArgs(eventType));
+            button.Click += (sender, args) => DispatchEvent(new BaseEventArgs(eventId));
             return button;
         }
 

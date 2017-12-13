@@ -28,10 +28,12 @@ namespace R3EHUDManager.selection.view
         private Label nameField;
 
         public event EventHandler MvcEventHandler;
-        public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
-        public const string EVENT_ANCHOR_MOVED = "anchorMoved";
-        public const string EVENT_PLACEHOLDER_RESIZED = "placeholderResized";
-        public const string EVENT_MOVE_TO_SCREEN = "moveToScreen";
+
+        public static readonly int EVENT_PLACEHOLDER_MOVED = EventId.New();
+        public static readonly int EVENT_ANCHOR_MOVED = EventId.New();
+        public static readonly int EVENT_PLACEHOLDER_RESIZED = EventId.New();
+        public static readonly int EVENT_MOVE_TO_SCREEN = EventId.New();
+
         private ComboBox anchorPresets;
         private ComboBox positionPresets;
         private CheckBox linkAnchorsCheck;

@@ -11,7 +11,7 @@ namespace R3EHUDManager.placeholder.events
 {
     class PlaceHolderMovedEventArgs : BaseEventArgs
     {
-        public PlaceHolderMovedEventArgs(string eventName, string placeholderName, R3ePoint position) : base(eventName)
+        public PlaceHolderMovedEventArgs(int eventId, string placeholderName, R3ePoint position) : base(eventId)
         {
             PlaceholderName = placeholderName;
             Position = position;

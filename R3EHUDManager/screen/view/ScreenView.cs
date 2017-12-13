@@ -29,11 +29,11 @@ namespace R3EHUDManager.screen.view
         
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
         public static decimal BASE_ASPECT_RATIO = (decimal)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
-        
 
-        public const string EVENT_PLACEHOLDER_MOVED = "placeholderMoved";
-        public const string EVENT_PLACEHOLDER_SELECTED = "placeholderSelected";
-        public const string EVENT_BACKGROUND_CLICKED = "backgroundClicked";
+
+        public static readonly int EVENT_PLACEHOLDER_MOVED = EventId.New();
+        public static readonly int EVENT_PLACEHOLDER_SELECTED = EventId.New();
+        public static readonly int EVENT_BACKGROUND_CLICKED = EventId.New();
 
         private BackgroundView backgroundView;
         private bool isTripleScreen;

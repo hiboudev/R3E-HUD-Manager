@@ -29,9 +29,9 @@ namespace R3EHUDManager.screen.model
         }
         public ZoomLevel ZoomLevel { get; private set; } = ZoomLevel.FIT_TO_WINDOW;
 
-        public const string EVENT_BACKGROUND_CHANGED = "backgroundChanged";
-        public const string EVENT_TRIPLE_SCREEN_CHANGED = "tripleScreenChanged";
-        public const string EVENT_ZOOM_LEVEL_CHANGED = "zoomLevelChanged";
+        public static readonly int EVENT_BACKGROUND_CHANGED = EventId.New();
+        public static readonly int EVENT_TRIPLE_SCREEN_CHANGED = EventId.New();
+        public static readonly int EVENT_ZOOM_LEVEL_CHANGED = EventId.New();
 
         private Image bitmap;
         private LocationModel locationModel;

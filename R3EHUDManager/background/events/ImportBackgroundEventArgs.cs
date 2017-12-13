@@ -12,7 +12,7 @@ namespace R3EHUDManager.background.events
     class ImportBackgroundEventArgs : BaseEventArgs
     {
 
-        public ImportBackgroundEventArgs(string eventName, string name, ScreenLayoutType layout, Rectangle cropArea, string filePath) : base(eventName)
+        public ImportBackgroundEventArgs(int eventId, string name, ScreenLayoutType layout, Rectangle cropArea, string filePath) : base(eventId)
         {
             Name = name;
             Layout = layout;

@@ -20,7 +20,7 @@ namespace R3EHUDManager.profile.command
         private readonly LocationModel location;
         private readonly ScreenModel screen;
         private readonly Database database;
-        public const string EVENT_PROFILE_CHANGES_SAVED = "profileChangesSaved";
+        public static readonly int EVENT_PROFILE_CHANGES_SAVED = EventId.New();
 
         public SaveProfileCommand(SelectedProfileModel profileSelection, HudOptionsParser parser, PlaceHolderCollectionModel placeholderCollection,
             LocationModel location, ScreenModel screen, Database database)

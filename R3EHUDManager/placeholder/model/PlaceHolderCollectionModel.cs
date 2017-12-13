@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using R3EHUDManager.coordinates;
 using da2mvc.framework.collection.model;
+using da2mvc.core.events;
 
 namespace R3EHUDManager.placeholder.model
 {
     class PlaceHolderCollectionModel : CollectionModel<PlaceholderModel>
     {
         private Dictionary<string, PlaceholderModel> placeHolders = new Dictionary<string, PlaceholderModel>();
-        public const string EVENT_PLACE_HOLDER_UPDATED = "placeHolderUpdated";
+
+        public static readonly int EVENT_PLACE_HOLDER_UPDATED = EventId.New();
 
         public override void Add(PlaceholderModel model)
         {

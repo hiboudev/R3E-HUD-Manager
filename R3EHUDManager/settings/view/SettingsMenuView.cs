@@ -10,9 +10,9 @@ namespace R3EHUDManager.settings.view
 {
     class SettingsMenuView : SettingsMenuButtonView
     {
-        public const string EVENT_OPEN_APP_DATA_DIRECTORY = "openAppDataDirectory";
-        public const string EVENT_OPEN_APP_INSTALL_DIRECTORY = "openAppInstallDirectory";
-        public const string EVENT_OPEN_HUD_DIRECTORY = "openHudDirectory";
+        public static readonly int EVENT_OPEN_APP_DATA_DIRECTORY = EventId.New();
+        public static readonly int EVENT_OPEN_APP_INSTALL_DIRECTORY = EventId.New();
+        public static readonly int EVENT_OPEN_HUD_DIRECTORY = EventId.New();
 
         public SettingsMenuView()
         {

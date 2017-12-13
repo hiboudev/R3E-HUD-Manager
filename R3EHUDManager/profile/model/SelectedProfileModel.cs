@@ -6,8 +6,8 @@ namespace R3EHUDManager.profile.model
     class SelectedProfileModel:EventDispatcher
     {
         public ProfileModel Selection { get; private set; }
-        public const string EVENT_SELECTION_CHANGED = "selectionChanged";
-        public const string EVENT_SELECTION_CLEARED = "selectionCleared";
+        public static readonly int EVENT_SELECTION_CHANGED = EventId.New();
+        public static readonly int EVENT_SELECTION_CLEARED = EventId.New();
 
         public void SelectProfile(ProfileModel profile)
         {

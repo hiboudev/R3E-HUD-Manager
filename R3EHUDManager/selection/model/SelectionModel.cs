@@ -12,8 +12,8 @@ namespace R3EHUDManager.selection.model
     class SelectionModel:EventDispatcher
     {
         private PlaceholderModel selected;
-        public const string EVENT_SELECTED = "selected";
-        public const string EVENT_UNSELECTED = "unselected";
+        public static readonly int EVENT_SELECTED = EventId.New();
+        public static readonly int EVENT_UNSELECTED = EventId.New();
 
         public void Select(PlaceholderModel placeholder)
         {

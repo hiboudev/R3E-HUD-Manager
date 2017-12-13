@@ -9,7 +9,7 @@ namespace R3EHUDManager.application.events
 {
     class StringEventArgs : BaseEventArgs
     {
-        public StringEventArgs(string eventName, string value) : base(eventName)
+        public StringEventArgs(int eventId, string value) : base(eventId)
         {
             Value = value;
         }

@@ -10,7 +10,7 @@ namespace R3EHUDManager.placeholder.events
 {
     class AnchorMovedEventArgs : BaseEventArgs
     {
-        public AnchorMovedEventArgs(string eventName, string placeholderName, R3ePoint anchor) : base(eventName)
+        public AnchorMovedEventArgs(int eventId, string placeholderName, R3ePoint anchor) : base(eventId)
         {
             PlaceholderName = placeholderName;
             Anchor = anchor;

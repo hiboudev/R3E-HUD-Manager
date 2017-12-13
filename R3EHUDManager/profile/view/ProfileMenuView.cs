@@ -14,8 +14,8 @@ namespace R3EHUDManager.profile.view
 {
     class ProfileMenuView : MenuButtonView<ProfileModel>
     {
-        public const string EVENT_CREATE_NEW_PROFILE = "createNewProfile";
-        public const string EVENT_SAVE_PROFILE = "saveProfile";
+        public static readonly int EVENT_CREATE_NEW_PROFILE = EventId.New();
+        public static readonly int EVENT_SAVE_PROFILE = EventId.New();
 
         private ToolStripMenuItem itemSaveProfile;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;

@@ -9,7 +9,7 @@ namespace R3EHUDManager.application.events
 {
     class BooleanEventArgs : BaseEventArgs
     {
-        public BooleanEventArgs(string eventName, bool value) : base(eventName)
+        public BooleanEventArgs(int eventId, bool value) : base(eventId)
         {
             Value = value;
         }

@@ -14,7 +14,7 @@ namespace R3EHUDManager.selection.view
         private ListBox list;
         private bool bypassSelectedEvent = false;
         public event EventHandler MvcEventHandler;
-        public const string EVENT_PLACEHOLDER_SELECTED = "placeholderSelected";
+        public static readonly int EVENT_PLACEHOLDER_SELECTED = EventId.New();
 
 
         public PlaceholdersListView()

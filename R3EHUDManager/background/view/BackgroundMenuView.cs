@@ -1,4 +1,5 @@
-﻿using da2mvc.core.injection;
+﻿using da2mvc.core.events;
+using da2mvc.core.injection;
 using da2mvc.framework.menubutton.view;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
@@ -16,7 +17,7 @@ namespace R3EHUDManager.background.view
 {
     class BackgroundMenuView : MenuButtonView<BackgroundModel>
     {
-        public const string EVENT_IMPORT_BACKGROUND = "importBackground";
+        public static readonly int EVENT_IMPORT_BACKGROUND = EventId.New();
 
         public BackgroundMenuView()
         {

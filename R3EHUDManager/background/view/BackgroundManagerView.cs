@@ -14,7 +14,7 @@ namespace R3EHUDManager.background.view
         private ListBox list;
         private Button deleteButton;
         public event EventHandler MvcEventHandler;
-        public const string EVENT_DELETE_BACKGROUND = "deleteBackground";
+        public static readonly int EVENT_DELETE_BACKGROUND = EventId.New();
         List<string> names = new List<string>();
         private Dictionary<string, int> ids = new Dictionary<string, int>();
 

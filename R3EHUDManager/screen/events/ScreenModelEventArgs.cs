@@ -10,7 +10,7 @@ namespace R3EHUDManager.screen.events
 {
     class ScreenModelEventArgs : BaseEventArgs
     {
-        public ScreenModelEventArgs(string eventName, ScreenModel screenModel) : base(eventName)
+        public ScreenModelEventArgs(int eventId, ScreenModel screenModel) : base(eventId)
         {
             ScreenModel = screenModel;
         }

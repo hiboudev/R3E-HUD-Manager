@@ -5,7 +5,7 @@ namespace R3EHUDManager.location.model
 {
     class SelectedR3eDirectoryModel:EventDispatcher
     {
-        public const string EVENT_DIRECTORY_CHANGED = "directoryChanged";
+        public static readonly int EVENT_DIRECTORY_CHANGED = EventId.New();
 
         public R3eDirectoryModel Directory { get; private set; }
 

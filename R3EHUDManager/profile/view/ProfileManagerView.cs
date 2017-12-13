@@ -16,7 +16,7 @@ namespace R3EHUDManager.profile.view
         private Dictionary<string, int> ids = new Dictionary<string, int>();
         List<string> names = new List<string>();
         public event EventHandler MvcEventHandler;
-        public const string EVENT_DELETE_PROFILE = "deleteProfile";
+        public static readonly int EVENT_DELETE_PROFILE = EventId.New();
 
         public ProfileManagerView():base("Manage profiles")
         {

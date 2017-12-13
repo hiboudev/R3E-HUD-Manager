@@ -10,7 +10,7 @@ namespace R3EHUDManager.selection.events
 {
     class SelectionModelEventArgs : BaseEventArgs
     {
-        public SelectionModelEventArgs(string eventName, PlaceholderModel placeholder) : base(eventName)
+        public SelectionModelEventArgs(int eventId, PlaceholderModel placeholder) : base(eventId)
         {
             Placeholder = placeholder;
         }
