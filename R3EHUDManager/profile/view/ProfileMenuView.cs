@@ -94,7 +94,7 @@ namespace R3EHUDManager.profile.view
 
         private void OnSaveToNewProfileClicked(object sender, EventArgs e)
         {
-            var newProfileDialog = (PromptNewProfileView)Injector.GetInstance(typeof(PromptNewProfileView));
+            var newProfileDialog = Injector.GetInstance<PromptNewProfileView>();
 
             if(newProfileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -111,7 +111,7 @@ namespace R3EHUDManager.profile.view
 
         private void OnManageProfileClicked(object sender, EventArgs e)
         {
-            var profileDialog = (ProfileManagerView)Injector.GetInstance(typeof(ProfileManagerView));
+            var profileDialog = Injector.GetInstance<ProfileManagerView>();
 
             if (profileDialog.ShowDialog() == DialogResult.OK)
             {

@@ -59,28 +59,28 @@ namespace R3EHUDManager
 
             // LayoutMenuView removed since backgrounds are linked with a screen layout, this option is not useful and confusing, maybe could be added back as a layout override in profile.
             Panel topBarPanel = NewHDockPanel(DockStyle.Top, new Control[] {
-                NewHToolBar( (Control)Injector.GetInstance(typeof(BackgroundMenuView)) ),
-                NewHToolBar( (Control)Injector.GetInstance(typeof(ProfileMenuView)) )
+                NewHToolBar( Injector.GetInstance<BackgroundMenuView>() ),
+                NewHToolBar( Injector.GetInstance<ProfileMenuView>() )
                 /*,NewHToolBar( (Control)Injector.GetInstance(typeof(LayoutMenuView)) })*/
             });
 
             Panel bottomBarPanel = NewHDockPanel(DockStyle.Bottom, new Control[] {
-                NewHToolBar( (Control)Injector.GetInstance(typeof(ZoomView)) )
+                NewHToolBar( Injector.GetInstance<ZoomView>() )
             });
 
-            SelectionView selectionView = (SelectionView)Injector.GetInstance(typeof(SelectionView));
+            SelectionView selectionView = Injector.GetInstance< SelectionView>();
             selectionView.FlowDirection = FlowDirection.TopDown;
             selectionView.Margin = new Padding(selectionView.Margin.Left, selectionView.Margin.Top, selectionView.Margin.Right, 10);
             selectionView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
-            PlaceholdersListView listView = (PlaceholdersListView)Injector.GetInstance(typeof(PlaceholdersListView));
+            PlaceholdersListView listView = Injector.GetInstance<PlaceholdersListView>();
             listView.Height = 160;
             listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
-            SettingsMenuView prefsButton = (SettingsMenuView)Injector.GetInstance(typeof(SettingsMenuView));
+            SettingsMenuView prefsButton = Injector.GetInstance< SettingsMenuView>();
             prefsButton.Anchor = AnchorStyles.Left;
 
-            var directoryMenu = (Control)Injector.GetInstance(typeof(R3eDirectoryMenuView));
+            var directoryMenu = Injector.GetInstance<R3eDirectoryMenuView>();
             directoryMenu.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             FlowLayoutPanel leftBarPanel = new FlowLayoutPanel()
@@ -95,7 +95,7 @@ namespace R3EHUDManager
                 selectionView, listView, NewButton("Apply to R3E", EVENT_SAVE_CLICKED), NewButton("Reload from R3E", EVENT_RELOAD_CLICKED),
                 NewButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED), directoryMenu, prefsButton} );
 
-            ScreenView screenView = (ScreenView)Injector.GetInstance(typeof(ScreenView));
+            ScreenView screenView = Injector.GetInstance<ScreenView>();
             screenView.Dock = DockStyle.Fill;
 
             Controls.AddRange(new Control[] { screenView, topBarPanel, bottomBarPanel, leftBarPanel });

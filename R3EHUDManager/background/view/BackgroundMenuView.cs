@@ -57,7 +57,7 @@ namespace R3EHUDManager.background.view
 
         private void OnManageBackgroundClicked(object sender, EventArgs e)
         {
-            var backgroundManager = (BackgroundManagerView)Injector.GetInstance(typeof(BackgroundManagerView));
+            var backgroundManager = Injector.GetInstance< BackgroundManagerView>();
 
             backgroundManager.ShowDialog();
 
@@ -72,7 +72,7 @@ namespace R3EHUDManager.background.view
             };
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                var backgroundDialog = (PromptNewBackgroundView)Injector.GetInstance(typeof(PromptNewBackgroundView));
+                var backgroundDialog = Injector.GetInstance< PromptNewBackgroundView>();
                 backgroundDialog.SetBitmap(new Bitmap(fileDialog.FileName));
 
                 if (backgroundDialog.ShowDialog() == DialogResult.OK)
