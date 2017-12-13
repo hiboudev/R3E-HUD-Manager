@@ -10,16 +10,14 @@ using R3EHUDManager.selection.model;
 using R3EHUDManager.selection.events;
 using da2mvc.core.view;
 using da2mvc.framework.model.events;
+using da2mvc.framework.view;
 
 namespace R3EHUDManager.selection.view
 {
-    class PlaceholdersListMediator : BaseMediator<PlaceholdersListView>
+    class PlaceholdersListMediator : CollectionMediator<PlaceHolderCollectionModel, PlaceholderModel, PlaceholdersListView>
     {
         public PlaceholdersListMediator()
         {
-            RegisterEventListener<CollectionEventArgs<PlaceholderModel>>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceholdersAdded);
-            RegisterEventListener<BaseEventArgs>(typeof(PlaceHolderCollectionModel), PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholdersCleared);
-
             RegisterEventListener<SelectionModelEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
             RegisterEventListener<BaseEventArgs>(typeof(SelectionModel), SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
         }
@@ -32,16 +30,6 @@ namespace R3EHUDManager.selection.view
         private void OnPlaceholderUnselected(BaseEventArgs args)
         {
             View.UnselectPlaceholder();
-        }
-
-        private void OnPlaceholdersAdded(BaseEventArgs args)
-        {
-            View.SetPlaceholders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
-        }
-
-        private void OnPlaceholdersCleared(BaseEventArgs args)
-        {
-            View.ClearPlaceholders();
         }
     }
 }

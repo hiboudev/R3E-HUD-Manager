@@ -10,10 +10,11 @@ using da2mvc.core.events;
 using R3EHUDManager.application.events;
 using System.Drawing;
 using System.Reflection;
+using da2mvc.framework.view;
 
 namespace R3EHUDManager.selection.view
 {
-    class PlaceholdersListView : Panel, IEventDispatcher
+    class PlaceholdersListView : Panel, IEventDispatcher, ICollectionView<PlaceholderModel>
     {
         private ListBox list;
         private bool bypassSelectedEvent = false;
@@ -24,6 +25,33 @@ namespace R3EHUDManager.selection.view
         public PlaceholdersListView()
         {
             InitializeUI();
+        }
+
+        public void Add(PlaceholderModel[] models)
+        {
+            foreach (PlaceholderModel model in models.OrderBy(x => x.Name))
+                list.Items.Add(model.Name);
+        }
+
+        public void Remove(PlaceholderModel[] models)
+        {
+            foreach (PlaceholderModel model in models)
+                list.Items.Remove(model.Name);
+        }
+
+        public void Clear()
+        {
+            list.Items.Clear();
+        }
+
+        internal void SelectPlaceholder(string name)
+        {
+            SelectListItem(name);
+        }
+
+        internal void UnselectPlaceholder()
+        {
+            SelectListItem(null);
         }
 
         private void InitializeUI()
@@ -57,29 +85,6 @@ namespace R3EHUDManager.selection.view
             if (bypassSelectedEvent) return;
 
             DispatchEvent(new StringEventArgs(EVENT_PLACEHOLDER_SELECTED, list.SelectedItem.ToString()));
-        }
-
-        internal void ClearPlaceholders()
-        {
-            list.Items.Clear();
-        }
-
-        internal void SetPlaceholders(PlaceholderModel[] placeHolders)
-        {
-            foreach(PlaceholderModel model in placeHolders.OrderBy(x=>x.Name).ToList())
-            {
-                list.Items.Add(model.Name);
-            }
-        }
-
-        internal void SelectPlaceholder(string name)
-        {
-            SelectListItem(name);
-        }
-
-        internal void UnselectPlaceholder()
-        {
-            SelectListItem(null);
         }
 
         private void SelectListItem(string name)
