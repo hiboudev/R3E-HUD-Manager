@@ -49,7 +49,7 @@ namespace R3EHUDManager
 
         private void OnFormShown(object sender, EventArgs e)
         {
-            Injector.ExecuteCommand(typeof(StartApplicationCommand));
+            Injector.ExecuteCommand<StartApplicationCommand>();
         }
 
         private void InitializeUI()

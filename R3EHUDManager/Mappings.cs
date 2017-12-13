@@ -39,63 +39,64 @@ namespace R3EHUDManager
     {
         public static void InitializeMappings(Form1 form)
         {
-            Injector.MapInstance(typeof(Form1), form);
+            Injector.MapInstance<Form1>(form);
 
-            Injector.MapType(typeof(LocationModel), true);
-            Injector.MapType(typeof(R3eHomeDirectoryFinder), true); 
-            Injector.MapType(typeof(HudOptionsParser), true);
-            Injector.MapType(typeof(PlaceHolderCollectionModel), true);
-            Injector.MapType(typeof(SelectionModel), true);
-            Injector.MapType(typeof(ScreenModel), true);
-            Injector.MapType(typeof(Database), true);
-            Injector.MapType(typeof(CollectionModel<BackgroundModel>), true);
-            Injector.MapType(typeof(PromptNewBackgroundView));
-            Injector.MapType(typeof(SettingsMenuView), true);
-            Injector.MapType(typeof(DatabaseUpgrader), true); 
-            Injector.MapType(typeof(CollectionModel<ProfileModel>), true);
-            Injector.MapType(typeof(SelectedProfileModel), true); 
-            Injector.MapType(typeof(PromptNewProfileView));
-            Injector.MapType(typeof(CollectionModel<R3eDirectoryModel>), true);
-            Injector.MapType(typeof(SelectedR3eDirectoryModel), true);
+            Injector.MapType<LocationModel>(true);
+            Injector.MapType<R3eHomeDirectoryFinder>(true);
+            Injector.MapType<HudOptionsParser>(true);
+            Injector.MapType<PlaceHolderCollectionModel>(true);
+            Injector.MapType<SelectionModel>(true);
+            Injector.MapType<ScreenModel>(true);
+            Injector.MapType<Database>(true);
+            Injector.MapType<CollectionModel<BackgroundModel>>(true);
+            Injector.MapType<PromptNewBackgroundView>();
+            Injector.MapType<SettingsMenuView>(true);
+            Injector.MapType<DatabaseUpgrader>(true);
+            Injector.MapType<CollectionModel<ProfileModel>>(true);
+            Injector.MapType<SelectedProfileModel>(true);
+            Injector.MapType<PromptNewProfileView>();
+            Injector.MapType<CollectionModel<R3eDirectoryModel>>(true);
+            Injector.MapType<SelectedR3eDirectoryModel>(true);
 
 
-            Injector.MapView(typeof(ScreenView), typeof(ScreenMediator), true);
-            Injector.MapView(typeof(SelectionView), typeof(SelectionMediator), true);
-            Injector.MapView(typeof(PlaceholdersListView), typeof(PlaceholdersListMediator), true);
-            Injector.MapView(typeof(BackgroundView), typeof(BackgroundMediator), true);
-            Injector.MapView(typeof(BackgroundMenuView), typeof(BackgroundMenuMediator), true);
-            Injector.MapView(typeof(BackgroundManagerView), typeof(BackgroundManagerMediator));
-            Injector.MapView(typeof(LayoutMenuView), typeof(LayoutMenuMediator), true);
-            Injector.MapView(typeof(ZoomView), typeof(ZoomMediator), true);
-            Injector.MapView(typeof(ProfileMenuView), typeof(ProfileMenuMediator), true);
-            Injector.MapView(typeof(ProfileManagerView), typeof(ProfileManagerMediator));
-            Injector.MapView(typeof(R3eDirectoryMenuView), typeof(R3eDirectoryMenuMediator), true);
+            Injector.MapView<ScreenView, ScreenMediator>(true);
+            Injector.MapView<SelectionView, SelectionMediator>(true);
+            Injector.MapView<PlaceholdersListView, PlaceholdersListMediator>(true);
 
-            Injector.MapCommand(typeof(Form1), Form1.EVENT_SAVE_CLICKED, typeof(SaveHudCommand));
-            Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_CLICKED, typeof(LoadHudDataCommand));
-            Injector.MapCommand(typeof(Form1), Form1.EVENT_RELOAD_DEFAULT_CLICKED, typeof(ReloadDefaultHudDataCommand));
+            Injector.MapView<BackgroundView, BackgroundMediator>(true);
+            Injector.MapView<BackgroundMenuView, BackgroundMenuMediator>(true);
+            Injector.MapView<BackgroundManagerView, BackgroundManagerMediator>();
+            Injector.MapView<LayoutMenuView, LayoutMenuMediator>(true);
+            Injector.MapView<ZoomView, ZoomMediator>(true);
+            Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);
+            Injector.MapView<ProfileManagerView, ProfileManagerMediator>();
+            Injector.MapView<R3eDirectoryMenuView, R3eDirectoryMenuMediator>(true);
 
-            Injector.MapCommand(typeof(ScreenView), ScreenView.EVENT_PLACEHOLDER_MOVED, typeof(MovePlaceholderCommand));
-            Injector.MapCommand(typeof(ScreenView), ScreenView.EVENT_PLACEHOLDER_SELECTED, typeof(SelectPlaceholderCommand));
-            Injector.MapCommand(typeof(ScreenView), ScreenView.EVENT_BACKGROUND_CLICKED, typeof(SelectNoneCommand));
-            Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_MOVED, typeof(MovePlaceholderCommand));
-            Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_ANCHOR_MOVED, typeof(MoveAnchorCommand));
-            Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_PLACEHOLDER_RESIZED, typeof(ResizePlaceholderCommand));
-            Injector.MapCommand(typeof(SelectionView), SelectionView.EVENT_MOVE_TO_SCREEN, typeof(ChangePlaceholderScreenCommand));
-            Injector.MapCommand(typeof(PlaceholdersListView), PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED, typeof(SelectPlaceholderCommand));
-            Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY, typeof(OpenAppInstallDirectoryCommand));
-            Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY, typeof(OpenAppDataDirectoryCommand));
-            Injector.MapCommand(typeof(SettingsMenuView), SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY, typeof(OpenHudDirectoryCommand));
-            Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_IMPORT_BACKGROUND, typeof(ImportBackgroundCommand));
-            Injector.MapCommand(typeof(BackgroundMenuView), BackgroundMenuView.EVENT_ITEM_CLICKED, typeof(SelectBackgroundCommand));
-            Injector.MapCommand(typeof(BackgroundManagerView), BackgroundManagerView.EVENT_DELETE_BACKGROUND, typeof(DeleteBackgroundCommand));
-            Injector.MapCommand(typeof(LayoutMenuView), LayoutMenuView.EVENT_ITEM_CLICKED, typeof(ChangeScreenLayoutCommand));
-            Injector.MapCommand(typeof(ZoomView), ZoomView.EVENT_ZOOM_LEVEL_CHANGED, typeof(ChangeZoomLevelCommand));
-            Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_ITEM_CLICKED, typeof(SelectProfileCommand));
-            Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_CREATE_NEW_PROFILE, typeof(CreateProfileCommand));
-            Injector.MapCommand(typeof(ProfileMenuView), ProfileMenuView.EVENT_SAVE_PROFILE, typeof(SaveProfileCommand));
-            Injector.MapCommand(typeof(ProfileManagerView), ProfileManagerView.EVENT_DELETE_PROFILE, typeof(DeleteProfileCommand));
-            Injector.MapCommand(typeof(R3eDirectoryMenuView), R3eDirectoryMenuView.EVENT_ITEM_CLICKED, typeof(SelectR3eDirectoryCommand));
+            Injector.MapCommand<Form1, SaveHudCommand>(Form1.EVENT_SAVE_CLICKED);
+            Injector.MapCommand<Form1, LoadHudDataCommand>(Form1.EVENT_RELOAD_CLICKED);
+            Injector.MapCommand<Form1, ReloadDefaultHudDataCommand>(Form1.EVENT_RELOAD_DEFAULT_CLICKED);
+
+            Injector.MapCommand<ScreenView, MovePlaceholderCommand>(ScreenView.EVENT_PLACEHOLDER_MOVED);
+            Injector.MapCommand<ScreenView, SelectPlaceholderCommand>(ScreenView.EVENT_PLACEHOLDER_SELECTED);
+            Injector.MapCommand<ScreenView, SelectNoneCommand>(ScreenView.EVENT_BACKGROUND_CLICKED);
+            Injector.MapCommand<SelectionView, MovePlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_MOVED);
+            Injector.MapCommand<SelectionView, MoveAnchorCommand>(SelectionView.EVENT_ANCHOR_MOVED);
+            Injector.MapCommand<SelectionView, ResizePlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_RESIZED);
+            Injector.MapCommand<SelectionView, ChangePlaceholderScreenCommand>(SelectionView.EVENT_MOVE_TO_SCREEN);
+            Injector.MapCommand<PlaceholdersListView, SelectPlaceholderCommand>(PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED);
+            Injector.MapCommand<SettingsMenuView, OpenAppInstallDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY);
+            Injector.MapCommand<SettingsMenuView, OpenAppDataDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY);
+            Injector.MapCommand<SettingsMenuView, OpenHudDirectoryCommand>(SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY);
+            Injector.MapCommand<BackgroundMenuView, ImportBackgroundCommand>(BackgroundMenuView.EVENT_IMPORT_BACKGROUND);
+            Injector.MapCommand<BackgroundMenuView, SelectBackgroundCommand>(BackgroundMenuView.EVENT_ITEM_CLICKED);
+            Injector.MapCommand<BackgroundManagerView, DeleteBackgroundCommand>(BackgroundManagerView.EVENT_DELETE_BACKGROUND);
+            Injector.MapCommand<LayoutMenuView, ChangeScreenLayoutCommand>(LayoutMenuView.EVENT_ITEM_CLICKED);
+            Injector.MapCommand<ZoomView, ChangeZoomLevelCommand>(ZoomView.EVENT_ZOOM_LEVEL_CHANGED);
+            Injector.MapCommand<ProfileMenuView, SelectProfileCommand>(ProfileMenuView.EVENT_ITEM_CLICKED);
+            Injector.MapCommand<ProfileMenuView, CreateProfileCommand>(ProfileMenuView.EVENT_CREATE_NEW_PROFILE);
+            Injector.MapCommand<ProfileMenuView, SaveProfileCommand>(ProfileMenuView.EVENT_SAVE_PROFILE);
+            Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);
+            Injector.MapCommand<R3eDirectoryMenuView, SelectR3eDirectoryCommand>(R3eDirectoryMenuView.EVENT_ITEM_CLICKED);
         }
     }
 }

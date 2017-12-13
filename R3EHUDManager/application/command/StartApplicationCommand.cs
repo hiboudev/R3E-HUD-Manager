@@ -13,14 +13,14 @@ namespace R3EHUDManager.application.command
     {
         public void Execute()
         {
-            Injector.ExecuteCommand(typeof(InitializeLocalDirectoriesCommand)); 
-            Injector.ExecuteCommand(typeof(InitializeLoggerCommand)); 
-            Injector.ExecuteCommand(typeof(InitializeDatabaseCommand));
-            Injector.ExecuteCommand(typeof(FindR3eHomeDirectoryCommand));
-            Injector.ExecuteCommand(typeof(SaveOriginalFileCommand));
-            Injector.ExecuteCommand(typeof(LoadHudDataCommand));
-            Injector.ExecuteCommand(typeof(InitializeBackgroundsCommand)); 
-            Injector.ExecuteCommand(typeof(InitializeProfilesCommand));
+            Injector.ExecuteCommand<InitializeLocalDirectoriesCommand>();
+            Injector.ExecuteCommand<InitializeLoggerCommand>();
+            Injector.ExecuteCommand<InitializeDatabaseCommand>();
+            Injector.ExecuteCommand<FindR3eHomeDirectoryCommand>();
+            Injector.ExecuteCommand<SaveOriginalFileCommand>();
+            Injector.ExecuteCommand<LoadHudDataCommand>();
+            Injector.ExecuteCommand<InitializeBackgroundsCommand>();
+            Injector.ExecuteCommand<InitializeProfilesCommand>();
         }
     }
 }
