@@ -175,6 +175,14 @@
     <Compile Include="profile\view\PromptNewProfileView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
+    <Compile Include="r3esupport\command\ValidateRulesCommand.cs" />
+    <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
+    <Compile Include="r3esupport\rule\OperatorType.cs" />
+    <Compile Include="r3esupport\rule\PropertyType.cs" />
+    <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
+    <Compile Include="r3esupport\rule\SupportRule.cs" />
+    <Compile Include="r3esupport\rule\RulePart.cs" />
     <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
@@ -326,11 +334,24 @@
     <Content Include="_graphical_assets\virtualmirror.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="_r3eRules\r3e_support_rules.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="_template\hud_options_template_v6.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PublishFile Include="_r3eRules\r3e_support_rules.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
     <PublishFile Include="_template\hud_options_template_v6.xml">
       <Visible>False</Visible>
       <Group>

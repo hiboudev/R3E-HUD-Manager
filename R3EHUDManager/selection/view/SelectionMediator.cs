@@ -39,6 +39,9 @@ namespace R3EHUDManager.selection.view
 
         private void OnPlaceholderUpdated(PlaceHolderUpdatedEventArgs args)
         {
+            if (View.Selection == null)
+                return;
+
             if (View.Selection.Id == args.Placeholder.Id)
                 View.UpdateData();
         }

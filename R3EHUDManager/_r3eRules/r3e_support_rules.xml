@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<xml>
+  
+<!--
+** Placeholder names:
+*********************
+
+MoTeC
+Mini MoTeC
+Position Bar
+Virtual Mirror
+Flags
+Track Map
+Apexhunt Display
+Driver Name Tags
+Car Status
+FFB Graph
+
+** Operators:
+*************
+>
+<
+>=
+<=
+=
+
+** Properties:
+**************
+X
+Y
+SIZE
+
+* Values:
+*********
+a float number
+ANY
+
+-->
+
+    
+  
+  <rule name="Outside X center screen">
+    
+    <invalid>
+      <property>X</property>
+      <operator><![CDATA[>]]></operator>
+      <value>1</value>
+      <description><![CDATA[This placeholder will be drawn by R3E at X=1.]]></description>
+    </invalid>
+
+    <invalid>
+      <property>X</property>
+      <operator><![CDATA[<]]></operator>
+      <value>-1</value>
+      <description><![CDATA[This placeholder will be drawn by R3E at X=-1.]]></description>
+    </invalid>
+
+    <placeholder name="MoTeC" />
+    <placeholder name="Mini MoTeC" />
+    <placeholder name="Position Bar" />
+    <placeholder name="Virtual Mirror" />
+    <placeholder name="Flags" />
+    <placeholder name="Track Map" />
+    <placeholder name="Apexhunt Display" />
+    <placeholder name="Driver Name Tags" />
+    <placeholder name="Car Status" />
+    
+  </rule>
+
+  <rule name="Virtual Mirror Y">
+    <invalid>
+      <property>Y</property>
+      <operator><![CDATA[=]]></operator>
+      <value>ANY</value>
+      <description><![CDATA[Virtual mirror Y position is decided by R3E.]]></description>
+    </invalid>
+    
+    <placeholder name="Virtual Mirror" />
+  </rule>
+
+  <rule name="FFB right screen">
+    <invalid>
+      <property>X</property>
+      <operator><![CDATA[>]]></operator>
+      <value>1</value>
+      <description><![CDATA[FFB meter won't appear in R3E.]]></description>
+    </invalid>
+
+    <placeholder name="FFB Graph" />
+  </rule>
+
+  <rule name="FFB left screen">
+    <invalid>
+      <property>X</property>
+      <operator><![CDATA[<]]></operator>
+      <value>-1</value>
+      <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
+    </invalid>
+
+    <placeholder name="FFB Graph" />
+  </rule>
+
+  <rule name="Mini MoTeC position">
+    <invalid>
+      <property>X</property>
+      <operator><![CDATA[=]]></operator>
+      <value>ANY</value>
+      <description><![CDATA[Mini MoTeC X position is not taken into account by R3E.]]></description>
+    </invalid>
+    
+    <invalid>
+      <property>Y</property>
+      <operator><![CDATA[=]]></operator>
+      <value>ANY</value>
+      <description><![CDATA[Mini MoTeC Y position is not taken into account by R3E.]]></description>
+    </invalid>
+
+    <placeholder name="Mini MoTeC" />
+  </rule>
+  
+  
+</xml>

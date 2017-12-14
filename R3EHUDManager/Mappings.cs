@@ -26,6 +26,9 @@ using da2mvc.framework.collection.view;
 using da2mvc.framework.collection.model;
 using R3EHUDManager.placeholder.view;
 using R3EHUDManager.placeholder.validator;
+using R3EHUDManager.r3esupport.parser;
+using R3EHUDManager.r3esupport.rule;
+using R3EHUDManager.r3esupport.command;
 
 namespace R3EHUDManager
 {
@@ -53,6 +56,8 @@ namespace R3EHUDManager
             Injector.MapType<SelectedR3eDirectoryModel>(true);
             Injector.MapType<PlaceholderModel>();
             Injector.MapType<PlaceholderMoveValidator>(true);
+            Injector.MapType<SupportRuleParser>(true);
+            Injector.MapType<SupportRuleValidator>(true);
 
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
@@ -90,6 +95,7 @@ namespace R3EHUDManager
             Injector.MapCommand<ProfileMenuView, SaveProfileCommand>(ProfileMenuView.EVENT_SAVE_PROFILE);
             Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);
             Injector.MapCommand<R3eDirectoryMenuView, SelectR3eDirectoryCommand>(R3eDirectoryMenuView.EVENT_ITEM_CLICKED);
+            Injector.MapCommand<PlaceholderModel, ValidateRulesCommand>(PlaceholderModel.EVENT_UPDATED);
         }
     }
 }

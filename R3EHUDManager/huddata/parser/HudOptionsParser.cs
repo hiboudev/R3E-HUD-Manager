@@ -60,13 +60,13 @@ namespace R3EHUDManager.huddata.parser
                     switch (item.ItemType)
                     {
                         case ItemType.POSITION:
-                            placeHolders[item.Name].Position = ParseVector(value);
+                            placeHolders[item.Name].Move(ParseVector(value));
                             break;
                         case ItemType.SIZE:
-                            placeHolders[item.Name].Size = ParseVector(value);
+                            placeHolders[item.Name].Resize(ParseVector(value));
                             break;
                         case ItemType.ANCHOR:
-                            placeHolders[item.Name].Anchor = ParseVector(value);
+                            placeHolders[item.Name].MoveAnchor(ParseVector(value));
                             break;
                     }
                 }
