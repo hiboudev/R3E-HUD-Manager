@@ -36,7 +36,6 @@ namespace R3EHUDManager.placeholder.view
         public static readonly int EVENT_REQUEST_MOVE = EventId.New();
 
         public PlaceholderModel Model { get; private set; } // TODO remove model from view
-        private GlobalMouseHandler mouseHandler;
 
         public void Initialize(PlaceholderModel model, Size screenSize, Point screenOffset, bool isTripleScreen)
         {
@@ -46,9 +45,6 @@ namespace R3EHUDManager.placeholder.view
             InitializeUI();
             SetScreenSize(screenSize, isTripleScreen, screenOffset);
             Disposed += OnDispose;
-
-            mouseHandler = new GlobalMouseHandler();
-            mouseHandler.MouseMoved += Drag;
         }
 
         private Point AnchorPosition
@@ -200,7 +196,7 @@ namespace R3EHUDManager.placeholder.view
             dragStartPosition = Cursor.Position;
             dragMouseOffset = Location;
 
-            mouseHandler.Enable();
+            MouseMove += Drag;
         }
 
         void Drag(object sender, EventArgs e)
@@ -221,7 +217,7 @@ namespace R3EHUDManager.placeholder.view
             if (!isDragging) return;
             isDragging = false;
 
-            mouseHandler.Disable();
+            MouseMove -= Drag;
 
             var location = new Point(dragMouseOffset.X + Cursor.Position.X - dragStartPosition.X, dragMouseOffset.Y + Cursor.Position.Y - dragStartPosition.Y);
 

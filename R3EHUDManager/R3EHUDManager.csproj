@@ -118,7 +118,6 @@
     <Compile Include="application\view\BaseModalForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="application\view\GlobalMouseHandler.cs" />
     <Compile Include="background\command\DeleteBackgroundCommand.cs" />
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
     <Compile Include="background\command\InitializeBackgroundsCommand.cs" />
