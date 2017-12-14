@@ -49,22 +49,26 @@ namespace R3EHUDManager.r3esupport.parser
 
         private RulePart ParseRulePartNode(XmlNode rulePartNode)
         {
-            string valueText = rulePartNode["value"].InnerText;
-
-            if (valueText == "ANY")
-            {
-                return new RulePart(
-                    GetPropertyType(rulePartNode["property"].InnerText),
-                    rulePartNode["description"].InnerText
-                    );
-            }
-
             return new RulePart(
                     GetPropertyType(rulePartNode["property"].InnerText),
-                    GetOperatorType(rulePartNode["operator"].InnerText),
-                    Convert.ToDouble(rulePartNode["value"].InnerText),
+                    GetOperations(rulePartNode.SelectNodes("check")),
                     rulePartNode["description"].InnerText
                     );
+        }
+
+        private Operation[] GetOperations(XmlNodeList xmlNodeList)
+        {
+            List<Operation> operations = new List<Operation>();
+
+            foreach (XmlNode checkNode in xmlNodeList)
+            {
+                if(checkNode.Attributes["value"].Value == "ANY")
+                    operations.Add(new Operation());
+                else
+                    operations.Add(new Operation(Convert.ToDouble(checkNode.Attributes["value"].Value), GetOperatorType(checkNode.InnerText)));
+            }
+
+            return operations.ToArray();
         }
 
         private PropertyType GetPropertyType(string propertyName)
@@ -95,6 +99,8 @@ namespace R3EHUDManager.r3esupport.parser
                     return OperatorType.LESS_OR_EQUAL;
                 case ">=":
                     return OperatorType.GREATER_OR_EQUAL;
+                case "!=":
+                    return OperatorType.NOT_EQUAL;
             }
             throw new Exception($"Invalid operator name {operatorName}.");
         }

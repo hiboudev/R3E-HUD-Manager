@@ -17,13 +17,14 @@ Driver Name Tags
 Car Status
 FFB Graph
 
-** Operators:
+** check operators:
 *************
 >
 <
 >=
 <=
 =
+!=
 
 ** Properties:
 **************
@@ -34,7 +35,7 @@ SIZE
 * Values:
 *********
 a float number
-ANY
+ANY (match any value, doesn't use the operator)
 
 -->
 
@@ -44,15 +45,13 @@ ANY
     
     <invalid>
       <property>X</property>
-      <operator><![CDATA[>]]></operator>
-      <value>1</value>
+      <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder will be drawn by R3E at X=1.]]></description>
     </invalid>
 
     <invalid>
       <property>X</property>
-      <operator><![CDATA[<]]></operator>
-      <value>-1</value>
+      <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder will be drawn by R3E at X=-1.]]></description>
     </invalid>
 
@@ -71,8 +70,7 @@ ANY
   <rule name="Virtual Mirror Y">
     <invalid>
       <property>Y</property>
-      <operator><![CDATA[=]]></operator>
-      <value>ANY</value>
+      <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[Virtual mirror Y position is decided by R3E.]]></description>
     </invalid>
     
@@ -82,8 +80,7 @@ ANY
   <rule name="FFB right screen">
     <invalid>
       <property>X</property>
-      <operator><![CDATA[>]]></operator>
-      <value>1</value>
+      <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[FFB meter won't appear in R3E.]]></description>
     </invalid>
 
@@ -93,8 +90,8 @@ ANY
   <rule name="FFB left screen">
     <invalid>
       <property>X</property>
-      <operator><![CDATA[<]]></operator>
-      <value>-1</value>
+      <check value="-1"><![CDATA[<]]></check>
+      <check value="-3"><![CDATA[!=]]></check>
       <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
     </invalid>
 
@@ -104,15 +101,13 @@ ANY
   <rule name="Mini MoTeC position">
     <invalid>
       <property>X</property>
-      <operator><![CDATA[=]]></operator>
-      <value>ANY</value>
+      <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[Mini MoTeC X position is not taken into account by R3E.]]></description>
     </invalid>
     
     <invalid>
       <property>Y</property>
-      <operator><![CDATA[=]]></operator>
-      <value>ANY</value>
+      <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[Mini MoTeC Y position is not taken into account by R3E.]]></description>
     </invalid>
 

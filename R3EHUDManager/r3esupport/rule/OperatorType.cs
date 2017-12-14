@@ -12,6 +12,7 @@ namespace R3EHUDManager.r3esupport.rule
         LESS,
         GREATER_OR_EQUAL,
         LESS_OR_EQUAL,
-        EQUAL
+        EQUAL,
+        NOT_EQUAL
     }
 }

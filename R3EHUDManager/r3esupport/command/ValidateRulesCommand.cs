@@ -33,6 +33,7 @@ namespace R3EHUDManager.r3esupport.command
             string description = "";
             if (validator.Matches(args.Placeholder, ref description))
             {
+                Debug.WriteLine(description);
                 DispatchEvent(new InvalidLayoutEventArgs(EVENT_INVALID_LAYOUT, args.Placeholder, description));
             }
             else DispatchEvent(new IntEventArgs(EVENT_VALID_LAYOUT, args.Placeholder.Id));

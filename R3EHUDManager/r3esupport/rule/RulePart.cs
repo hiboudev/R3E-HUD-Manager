@@ -11,41 +11,25 @@ namespace R3EHUDManager.r3esupport.rule
     {
         private readonly PropertyType property;
         private readonly string propertyName;
-        private readonly bool matchAny;
-        private readonly OperatorType operatorType;
-        private readonly double value;
+        private readonly Operation[] operations;
 
         public string Description { get; }
 
-        public RulePart(PropertyType property, OperatorType operatorType, double value, string description)
+        public RulePart(PropertyType property, Operation[] operations, string description)
         {
             this.property = property;
             propertyName = GetPropertyName(property);
-            this.operatorType = operatorType;
-            this.value = value;
-            Description = description;
-        }
-
-        /**
-         * Use this ctor to match any value.
-         */
-        public RulePart(PropertyType property, string description)
-        {
-            propertyName = GetPropertyName(property);
-            matchAny = true;
+            this.operations = operations;
             Description = description;
         }
 
         public bool Matches(PlaceholderModel placeholder)
         {
-            //if (updateType == UpdateType.POSITION && (property != PropertyType.X && property != PropertyType.Y)) return false;
-            //if (updateType == UpdateType.ANCHOR) return false; // TODO manage anchor
-            //if (updateType == UpdateType.SIZE && (property != PropertyType.SIZE)) return false;
+            foreach (Operation operation in operations)
+                if (!operation.Matches(GetPropertyValue(placeholder)))
+                    return false;
 
-            if (matchAny) return true;
-
-
-            return Matches(GetPropertyValue(placeholder));
+            return true;
         }
 
         private double GetPropertyValue(PlaceholderModel placeholder)
@@ -60,24 +44,6 @@ namespace R3EHUDManager.r3esupport.rule
 
             }
             throw new Exception("Unsupported property type.");
-        }
-
-        private bool Matches(double placeholderValue)
-        {
-            switch (operatorType)
-            {
-                case OperatorType.EQUAL:
-                    return placeholderValue == value;
-                case OperatorType.GREATER_OR_EQUAL:
-                    return placeholderValue >= value;
-                case OperatorType.LESS_OR_EQUAL:
-                    return placeholderValue <= value;
-                case OperatorType.GREATER:
-                    return placeholderValue > value;
-                case OperatorType.LESS:
-                    return placeholderValue < value;
-            }
-            throw new Exception("Unsupported operator type.");
         }
 
         private string GetPropertyName(PropertyType type)

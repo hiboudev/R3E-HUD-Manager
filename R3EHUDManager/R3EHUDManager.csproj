@@ -179,6 +179,7 @@
     <Compile Include="r3esupport\command\ValidateRulesCommand.cs" />
     <Compile Include="r3esupport\events\InvalidLayoutEventArgs.cs" />
     <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
+    <Compile Include="r3esupport\rule\Operation.cs" />
     <Compile Include="r3esupport\rule\OperatorType.cs" />
     <Compile Include="r3esupport\rule\PropertyType.cs" />
     <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
