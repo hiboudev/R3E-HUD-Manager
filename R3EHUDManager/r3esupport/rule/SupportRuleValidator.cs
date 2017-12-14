@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.placeholder.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,14 @@ namespace R3EHUDManager.r3esupport.rule
             this.rules = rules;
         }
 
-        public bool Matches(PlaceholderModel placeholder, ref string description)
+        public bool Matches(PlaceholderModel placeholder, ScreenLayoutType layout, ref string description)
         {
             description = "";
             bool isMatch = false;
 
             foreach (var rule in rules)
             {
-                if (rule.Matches(placeholder, ref description))
+                if (rule.Matches(placeholder, ref description, layout))
                 {
                     isMatch = true;
                 }

@@ -4,6 +4,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.r3esupport.rule;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,11 +20,13 @@ namespace R3EHUDManager.r3esupport.command
 
         private readonly PlaceHolderUpdatedEventArgs args;
         private readonly SupportRuleValidator validator;
+        private readonly ScreenModel screenModel;
 
-        public ValidateRulesCommand(PlaceHolderUpdatedEventArgs args, SupportRuleValidator validator)
+        public ValidateRulesCommand(PlaceHolderUpdatedEventArgs args, SupportRuleValidator validator, ScreenModel screenModel)
         {
             this.args = args;
             this.validator = validator;
+            this.screenModel = screenModel;
         }
 
         public void Execute()
@@ -31,7 +34,7 @@ namespace R3EHUDManager.r3esupport.command
             string description = "";
             ValidationResult result;
 
-            if (validator.Matches(args.Placeholder, ref description))
+            if (validator.Matches(args.Placeholder, screenModel.Layout, ref description))
             {
                 result = ValidationResult.GetInvalid(description);
             }

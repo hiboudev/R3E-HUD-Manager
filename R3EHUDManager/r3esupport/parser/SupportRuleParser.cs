@@ -41,10 +41,24 @@ namespace R3EHUDManager.r3esupport.parser
                 targets.Add(rulePartNode.Attributes["name"].Value);
             }
 
-            SupportRule rule = new SupportRule(ruleNode.Attributes["name"].Value);
+            SupportRule rule = new SupportRule(ruleNode.Attributes["name"].Value, GetLayoutType(ruleNode.Attributes["layout"].Value));
             rule.SetParts(parts.ToArray());
             rule.SetTargets(targets);
             return rule;
+        }
+
+        private RuleLayoutType GetLayoutType(string value)
+        {
+            switch (value)
+            {
+                case "single":
+                    return RuleLayoutType.SINGLE;
+                case "triple":
+                    return RuleLayoutType.TRIPLE;
+                case "ANY":
+                    return RuleLayoutType.ANY;
+            }
+            throw new Exception($"Invalid layout name {value}.");
         }
 
         private RulePart ParseRulePartNode(XmlNode rulePartNode)
@@ -75,11 +89,11 @@ namespace R3EHUDManager.r3esupport.parser
         {
             switch (propertyName)
             {
-                case "X":
+                case "x":
                     return PropertyType.X;
-                case "Y":
+                case "y":
                     return PropertyType.Y;
-                case "SIZE":
+                case "size":
                     return PropertyType.SIZE;
             }
             throw new Exception($"Invalid property name {propertyName}.");

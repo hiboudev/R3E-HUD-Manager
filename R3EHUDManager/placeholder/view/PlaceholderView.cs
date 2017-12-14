@@ -130,6 +130,7 @@ namespace R3EHUDManager.placeholder.view
         internal void SetValidationResult(ValidationResult result)
         {
             validationResult = result;
+            Invalidate();
         }
 
         private void ComputeSize()

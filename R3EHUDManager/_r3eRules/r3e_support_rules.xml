@@ -5,7 +5,6 @@
 <!--
 ** Placeholder names:
 *********************
-
 MoTeC
 Mini MoTeC
 Position Bar
@@ -17,8 +16,14 @@ Driver Name Tags
 Car Status
 FFB Graph
 
-** check operators:
-*************
+** property:
+**************
+x
+y
+size
+
+** check operator:
+******************
 >
 <
 >=
@@ -26,33 +31,39 @@ FFB Graph
 =
 !=
 
-** Properties:
-**************
-X
-Y
-SIZE
-
-* Values:
+** check value:
 *********
 a float number
 ANY (match any value, doesn't use the operator)
+
+** placeholder:
+****************
+To match all placeholders, just add no placeholder element to the rule.
+
+** layout:
+**********
+single
+triple
+ANY
 
 -->
 
     
   
-  <rule name="Outside X center screen">
+  <rule name="Invalid position on left/right screen" layout="triple">
     
     <invalid>
-      <property>X</property>
+      <property>x</property>
       <check value="1"><![CDATA[>]]></check>
-      <description><![CDATA[This placeholder will be drawn by R3E at X=1.]]></description>
+      <check value="3"><![CDATA[<=]]></check>
+      <description><![CDATA[This placeholder will be displayed by R3E at X=1.]]></description>
     </invalid>
 
     <invalid>
-      <property>X</property>
+      <property>x</property>
       <check value="-1"><![CDATA[<]]></check>
-      <description><![CDATA[This placeholder will be drawn by R3E at X=-1.]]></description>
+      <check value="-3"><![CDATA[>=]]></check>
+      <description><![CDATA[This placeholder will be displayed by R3E at X=-1.]]></description>
     </invalid>
 
     <placeholder name="MoTeC" />
@@ -67,9 +78,9 @@ ANY (match any value, doesn't use the operator)
     
   </rule>
 
-  <rule name="Virtual Mirror Y">
+  <rule name="Virtual Mirror Y" layout="ANY">
     <invalid>
-      <property>Y</property>
+      <property>y</property>
       <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[Virtual mirror Y position is decided by R3E.]]></description>
     </invalid>
@@ -77,9 +88,9 @@ ANY (match any value, doesn't use the operator)
     <placeholder name="Virtual Mirror" />
   </rule>
 
-  <rule name="FFB right screen">
+  <rule name="FFB right screen" layout="triple">
     <invalid>
-      <property>X</property>
+      <property>x</property>
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[FFB meter won't appear in R3E.]]></description>
     </invalid>
@@ -87,9 +98,9 @@ ANY (match any value, doesn't use the operator)
     <placeholder name="FFB Graph" />
   </rule>
 
-  <rule name="FFB left screen">
+  <rule name="FFB left screen" layout="triple">
     <invalid>
-      <property>X</property>
+      <property>x</property>
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
       <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
@@ -98,17 +109,17 @@ ANY (match any value, doesn't use the operator)
     <placeholder name="FFB Graph" />
   </rule>
 
-  <rule name="Not taken into account by R3E">
+  <rule name="Position not taken into account by R3E" layout="ANY">
     <invalid>
-      <property>X</property>
+      <property>x</property>
       <check value="ANY"><![CDATA[=]]></check>
-      <description><![CDATA[Mini MoTeC X position is not taken into account by R3E.]]></description>
+      <description><![CDATA[This placeholder X position is not taken into account by R3E.]]></description>
     </invalid>
     
     <invalid>
-      <property>Y</property>
+      <property>y</property>
       <check value="ANY"><![CDATA[=]]></check>
-      <description><![CDATA[Mini MoTeC Y position is not taken into account by R3E.]]></description>
+      <description><![CDATA[This placeholder Y position is not taken into account by R3E.]]></description>
     </invalid>
 
     <placeholder name="Mini MoTeC" />
@@ -116,6 +127,62 @@ ANY (match any value, doesn't use the operator)
     <placeholder name="Car Status" />
     <placeholder name="Flags" />
     <placeholder name="Apexhunt Display" />
+  </rule>
+
+  <rule name="Outside of screen range" layout="triple">
+
+    <invalid>
+      <property>x</property>
+      <check value="-3"><![CDATA[<]]></check>
+      <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+    </invalid>
+
+    <invalid>
+      <property>x</property>
+      <check value="3"><![CDATA[>]]></check>
+      <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+    </invalid>
+    
+    <invalid>
+      <property>y</property>
+      <check value="-1"><![CDATA[<]]></check>
+      <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+    </invalid>
+
+    <invalid>
+      <property>y</property>
+      <check value="1"><![CDATA[>]]></check>
+      <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+    </invalid>
+    
+  </rule>
+  
+  <rule name="Outside of screen range" layout="single">
+
+    <invalid>
+      <property>x</property>
+      <check value="-1"><![CDATA[<]]></check>
+      <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+    </invalid>
+
+    <invalid>
+      <property>x</property>
+      <check value="1"><![CDATA[>]]></check>
+      <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+    </invalid>
+
+    <invalid>
+      <property>y</property>
+      <check value="-1"><![CDATA[<]]></check>
+      <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+    </invalid>
+
+    <invalid>
+      <property>y</property>
+      <check value="1"><![CDATA[>]]></check>
+      <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+    </invalid>
+
   </rule>
   
 </xml>
