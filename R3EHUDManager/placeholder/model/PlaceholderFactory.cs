@@ -16,31 +16,8 @@ namespace R3EHUDManager.placeholder.model
             PlaceholderModel placeholder = Injector.GetInstance<PlaceholderModel>();
             placeholder.Id = ++idCounter;
             placeholder.Name = name;
-            placeholder.ResizeRule = GetResizeRule(name);
+            placeholder.ResizeRule = ResizeRule.Get(name);
             return placeholder;
-        }
-
-        private static IResizeRule GetResizeRule(string name)
-        {
-            switch (name)
-            {
-                case PlaceholderName.APEXHUNT_DISPLAY:
-                case PlaceholderName.CAR_STATUS:
-                case PlaceholderName.DRIVER_NAME_TAGS:
-                case PlaceholderName.FFB_GRAPH:
-                case PlaceholderName.FLAGS:
-                case PlaceholderName.MINI_MOTEC:
-                case PlaceholderName.MOTEC:
-                case PlaceholderName.TRACK_MAP:
-                    return new RegularRule();
-
-                case PlaceholderName.VIRTUAL_MIRROR:
-                case PlaceholderName.POSITION_BAR:
-                    return new BarRule();
-
-                default:
-                    return new RegularRule();
-            }
         }
     }
 }
