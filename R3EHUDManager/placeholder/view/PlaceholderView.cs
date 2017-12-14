@@ -33,6 +33,7 @@ namespace R3EHUDManager.placeholder.view
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
         public static readonly int EVENT_REQUEST_SELECTION = EventId.New();
+
         public static readonly int EVENT_REQUEST_MOVE = EventId.New();
 
         public PlaceholderModel Model { get; private set; } // TODO remove model from view
@@ -121,6 +122,16 @@ namespace R3EHUDManager.placeholder.view
             label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
             if (selected) BringToFront();
             Invalidate();
+        }
+
+        internal void ShowInvalidLayout(string description)
+        {
+            label.BackColor = Color.Red; // TODO quand les vues s'initialisent, l'event a déjà été envoyé. Passer par le modèle ?
+        }
+
+        internal void ShowValidLayout()
+        {
+            label.BackColor = Color.Gray;
         }
 
         private void ComputeSize()

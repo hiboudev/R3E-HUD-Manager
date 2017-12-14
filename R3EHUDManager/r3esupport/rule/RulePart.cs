@@ -36,11 +36,11 @@ namespace R3EHUDManager.r3esupport.rule
             Description = description;
         }
 
-        public bool Matches(PlaceholderModel placeholder, UpdateType updateType)
+        public bool Matches(PlaceholderModel placeholder)
         {
-            if (updateType == UpdateType.POSITION && (property != PropertyType.X && property != PropertyType.Y)) return false;
-            if (updateType == UpdateType.ANCHOR) return false; // TODO manage anchor
-            if (updateType == UpdateType.SIZE && (property != PropertyType.SIZE)) return false;
+            //if (updateType == UpdateType.POSITION && (property != PropertyType.X && property != PropertyType.Y)) return false;
+            //if (updateType == UpdateType.ANCHOR) return false; // TODO manage anchor
+            //if (updateType == UpdateType.SIZE && (property != PropertyType.SIZE)) return false;
 
             if (matchAny) return true;
 

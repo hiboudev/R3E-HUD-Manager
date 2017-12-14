@@ -16,14 +16,14 @@ namespace R3EHUDManager.r3esupport.rule
             this.rules = rules;
         }
 
-        public bool Matches(PlaceholderModel placeholder, UpdateType updateType, ref string description)
+        public bool Matches(PlaceholderModel placeholder, ref string description)
         {
             description = "";
             bool isMatch = false;
 
             foreach (var rule in rules)
             {
-                if (rule.Matches(placeholder, updateType, ref description))
+                if (rule.Matches(placeholder, ref description))
                 {
                     isMatch = true;
                 }

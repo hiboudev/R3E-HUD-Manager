@@ -30,7 +30,7 @@ namespace R3EHUDManager.r3esupport.rule
             this.parts = parts;
         }
 
-        public bool Matches(PlaceholderModel placeholder, UpdateType updateType, ref string description)
+        public bool Matches(PlaceholderModel placeholder, ref string description)
         {
             if (!targets.Contains(placeholder.Name))
                 return false;
@@ -40,7 +40,7 @@ namespace R3EHUDManager.r3esupport.rule
 
             foreach(var part in parts)
             {
-                if (part.Matches(placeholder, updateType))
+                if (part.Matches(placeholder))
                 {
                     isMatch = true;
                     description += part.Description + Environment.NewLine;

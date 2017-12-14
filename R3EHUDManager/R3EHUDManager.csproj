@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
     <Compile Include="r3esupport\command\ValidateRulesCommand.cs" />
+    <Compile Include="r3esupport\events\InvalidLayoutEventArgs.cs" />
     <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
     <Compile Include="r3esupport\rule\OperatorType.cs" />
     <Compile Include="r3esupport\rule\PropertyType.cs" />
@@ -344,22 +345,22 @@
   <ItemGroup>
     <PublishFile Include="_r3eRules\r3e_support_rules.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="_template\hud_options_template_v6.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
