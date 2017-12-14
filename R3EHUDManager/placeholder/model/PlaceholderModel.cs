@@ -2,6 +2,7 @@
 using da2mvc.framework.model;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.placeholder.events;
+using R3EHUDManager.r3esupport.result;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace R3EHUDManager.placeholder.model
     class PlaceholderModel : EventDispatcher, IModel
     {
         public static readonly int EVENT_UPDATED = EventId.New();
+        public static readonly int EVENT_VALIDATION_CHANGED = EventId.New();
 
         // TODO refaire le parsing xml pour que tous les params soient immutables.
         public int Id { get; internal set; }
@@ -21,7 +23,7 @@ namespace R3EHUDManager.placeholder.model
         public R3ePoint Anchor { get; internal set; }
         public R3ePoint Size { get; internal set; }
         public IResizeRule ResizeRule { get; internal set; }
-
+        public ValidationResult ValidationResult { get; private set; } = ValidationResult.GetValid();
 
         public void Move(R3ePoint position)
         {
@@ -40,6 +42,14 @@ namespace R3EHUDManager.placeholder.model
         {
             Size = position;
             DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this, UpdateType.SIZE));
+        }
+
+        internal void SetValidationResult(ValidationResult result)
+        {
+            if (ValidationResult.Equals(result)) return;
+
+            ValidationResult = result;
+            DispatchEvent(new ValidationChangedEventArgs(EVENT_VALIDATION_CHANGED, this, result));
         }
     }
 }

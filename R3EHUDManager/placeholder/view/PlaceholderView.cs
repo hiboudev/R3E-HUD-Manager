@@ -5,6 +5,7 @@ using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
+using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.screen.view;
 using System;
 using System.Diagnostics;
@@ -29,6 +30,7 @@ namespace R3EHUDManager.placeholder.view
         private Point screenOffset;
         private bool isTripleScreen;
         private bool selected;
+        private ValidationResult validationResult;
         private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
@@ -45,6 +47,7 @@ namespace R3EHUDManager.placeholder.view
 
             InitializeUI();
             SetScreenSize(screenSize, isTripleScreen, screenOffset);
+            SetValidationResult(Model.ValidationResult);
             Disposed += OnDispose;
         }
 
@@ -124,14 +127,9 @@ namespace R3EHUDManager.placeholder.view
             Invalidate();
         }
 
-        internal void ShowInvalidLayout(string description)
+        internal void SetValidationResult(ValidationResult result)
         {
-            label.BackColor = Color.Red; // TODO quand les vues s'initialisent, l'event a déjà été envoyé. Passer par le modèle ?
-        }
-
-        internal void ShowValidLayout()
-        {
-            label.BackColor = Color.Gray;
+            validationResult = result;
         }
 
         private void ComputeSize()
@@ -165,6 +163,14 @@ namespace R3EHUDManager.placeholder.view
                     Alignment = PenAlignment.Inset
                 }, insideRectangle);
             }
+
+            if(validationResult != null && validationResult.Type == ResultType.INVALID)
+                e.Graphics.DrawLine(
+                    new Pen(new SolidBrush(Color.OrangeRed), 3),
+                        new Point(label.Location.X, label.Location.Y + label.Height),
+                        new Point(label.Location.X + label.Width, label.Location.Y + label.Height)
+                        );
+
         }
 
         void StartDrag(object sender, MouseEventArgs e)

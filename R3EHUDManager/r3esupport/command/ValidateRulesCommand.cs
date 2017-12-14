@@ -2,7 +2,7 @@
 using da2mvc.core.events;
 using R3EHUDManager.application.events;
 using R3EHUDManager.placeholder.events;
-using R3EHUDManager.r3esupport.events;
+using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.r3esupport.rule;
 using System;
 using System.Collections.Generic;
@@ -16,8 +16,6 @@ namespace R3EHUDManager.r3esupport.command
     class ValidateRulesCommand : ICommand, IEventDispatcher
     {
         public event EventHandler MvcEventHandler;
-        public static readonly int EVENT_INVALID_LAYOUT = EventId.New();
-        public static readonly int EVENT_VALID_LAYOUT = EventId.New();
 
         private readonly PlaceHolderUpdatedEventArgs args;
         private readonly SupportRuleValidator validator;
@@ -31,12 +29,18 @@ namespace R3EHUDManager.r3esupport.command
         public void Execute()
         {
             string description = "";
+            ValidationResult result;
+
             if (validator.Matches(args.Placeholder, ref description))
             {
-                Debug.WriteLine(description);
-                DispatchEvent(new InvalidLayoutEventArgs(EVENT_INVALID_LAYOUT, args.Placeholder, description));
+                result = ValidationResult.GetInvalid(description);
             }
-            else DispatchEvent(new IntEventArgs(EVENT_VALID_LAYOUT, args.Placeholder.Id));
+            else
+            {
+                result = ValidationResult.GetValid();
+            }
+
+            args.Placeholder.SetValidationResult(result);
         }
 
         public void DispatchEvent(BaseEventArgs args)

@@ -3,7 +3,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.command;
-using R3EHUDManager.r3esupport.events;
+using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.model;
 using System;
@@ -23,20 +23,15 @@ namespace R3EHUDManager.placeholder.view
             HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
             HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
-            HandleEvent<ValidateRulesCommand, IntEventArgs>(ValidateRulesCommand.EVENT_VALID_LAYOUT, OnValidLayout);
-            HandleEvent<ValidateRulesCommand, InvalidLayoutEventArgs>(ValidateRulesCommand.EVENT_INVALID_LAYOUT, OnInvalidLayout);
+            HandleEvent<PlaceholderModel, ValidationChangedEventArgs>(PlaceholderModel.EVENT_VALIDATION_CHANGED, OnValidationChanged);
         }
 
-        private void OnInvalidLayout(InvalidLayoutEventArgs args)
+        private void OnValidationChanged(ValidationChangedEventArgs args)
         {
-            if (args.Placeholder.Id == View.Model.Id)
-                View.ShowInvalidLayout(args.Description);
-        }
+            if (args.Placeholder.Id != View.Model.Id)
+                return;
 
-        private void OnValidLayout(IntEventArgs args)
-        {
-            if (args.Value == View.Model.Id)
-                View.ShowValidLayout();
+            View.SetValidationResult(args.Result);
         }
 
         private void OnPlaceholderSelected(SelectionModelEventArgs args)

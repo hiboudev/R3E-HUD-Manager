@@ -98,7 +98,7 @@ ANY (match any value, doesn't use the operator)
     <placeholder name="FFB Graph" />
   </rule>
 
-  <rule name="Mini MoTeC position">
+  <rule name="Not taken into account by R3E">
     <invalid>
       <property>X</property>
       <check value="ANY"><![CDATA[=]]></check>
@@ -112,7 +112,10 @@ ANY (match any value, doesn't use the operator)
     </invalid>
 
     <placeholder name="Mini MoTeC" />
+    <placeholder name="Driver Name Tags" />
+    <placeholder name="Car Status" />
+    <placeholder name="Flags" />
+    <placeholder name="Apexhunt Display" />
   </rule>
-  
   
 </xml>

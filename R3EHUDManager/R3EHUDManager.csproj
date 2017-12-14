@@ -177,8 +177,10 @@
     </Compile>
     <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
     <Compile Include="r3esupport\command\ValidateRulesCommand.cs" />
-    <Compile Include="r3esupport\events\InvalidLayoutEventArgs.cs" />
+    <Compile Include="placeholder\events\ValidationChangedEventArgs.cs" />
     <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
+    <Compile Include="r3esupport\result\ResultType.cs" />
+    <Compile Include="r3esupport\result\ValidationResult.cs" />
     <Compile Include="r3esupport\rule\Operation.cs" />
     <Compile Include="r3esupport\rule\OperatorType.cs" />
     <Compile Include="r3esupport\rule\PropertyType.cs" />
@@ -364,6 +366,9 @@
       </TargetPath>
       <FileType>File</FileType>
     </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="r3esupport\events\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" />
