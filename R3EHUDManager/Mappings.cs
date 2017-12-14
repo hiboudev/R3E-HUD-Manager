@@ -25,6 +25,7 @@ using R3EHUDManager.location.view;
 using da2mvc.framework.collection.view;
 using da2mvc.framework.collection.model;
 using R3EHUDManager.placeholder.view;
+using R3EHUDManager.placeholder.validator;
 
 namespace R3EHUDManager
 {
@@ -51,6 +52,7 @@ namespace R3EHUDManager
             Injector.MapType<CollectionModel<R3eDirectoryModel>>(true);
             Injector.MapType<SelectedR3eDirectoryModel>(true);
             Injector.MapType<PlaceholderModel>();
+            Injector.MapType<PlaceholderMoveValidator>(true);
 
 
             Injector.MapView<ScreenView, ScreenMediator>(true);

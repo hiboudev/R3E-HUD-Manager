@@ -10,6 +10,7 @@ using R3EHUDManager.coordinates;
 using System.Drawing;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.placeholder.validator;
 
 namespace R3EHUDManager.placeholder.command
 {
@@ -19,19 +20,22 @@ namespace R3EHUDManager.placeholder.command
         private readonly PlaceHolderCollectionModel collectionModel;
         private readonly ScreenView screenView;
         private readonly ScreenModel screenModel;
+        private readonly PlaceholderMoveValidator moveValidator;
 
-        public MovePlaceholderCommand(PlaceholderViewEventArgs args, PlaceHolderCollectionModel collectionModel, ScreenView screenView, ScreenModel screenModel)
+        public MovePlaceholderCommand(PlaceholderViewEventArgs args, PlaceHolderCollectionModel collectionModel, ScreenView screenView, ScreenModel screenModel,
+            PlaceholderMoveValidator moveValidator)
         {
             this.args = args;
             this.collectionModel = collectionModel;
             this.screenView = screenView;
             this.screenModel = screenModel;
+            this.moveValidator = moveValidator;
         }
 
         public void Execute()
         {
             PlaceholderModel placeholder = collectionModel.Get(args.View.Model.Id); // TODO id
-            placeholder.Move(GetR3eLocation(args.Point));
+            placeholder.Move(moveValidator.GetValidPosition(placeholder, GetR3eLocation(args.Point)));
         }
 
         private R3ePoint GetR3eLocation(Point location)

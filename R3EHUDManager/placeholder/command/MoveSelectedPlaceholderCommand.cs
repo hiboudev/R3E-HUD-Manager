@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using R3EHUDManager.placeholder.validator;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.model;
 using System;
@@ -13,16 +14,18 @@ namespace R3EHUDManager.placeholder.command
     {
         private readonly SelectionViewEventArgs args;
         private readonly SelectionModel selectionModel;
+        private readonly PlaceholderMoveValidator moveValidator;
 
-        public MoveSelectedPlaceholderCommand(SelectionViewEventArgs args, SelectionModel selectionModel)
+        public MoveSelectedPlaceholderCommand(SelectionViewEventArgs args, SelectionModel selectionModel, PlaceholderMoveValidator moveValidator)
         {
             this.args = args;
             this.selectionModel = selectionModel;
+            this.moveValidator = moveValidator;
         }
 
         public void Execute()
         {
-            selectionModel.Selection.Move(args.Point);
+            selectionModel.Selection.Move(moveValidator.GetValidPosition(selectionModel.Selection, args.Point));
         }
     }
 }

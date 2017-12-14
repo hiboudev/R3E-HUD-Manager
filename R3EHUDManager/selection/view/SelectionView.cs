@@ -63,7 +63,7 @@ namespace R3EHUDManager.selection.view
             holdStepperEvent = true;
             stepperX.Value = (decimal)Selection.Position.X;
             stepperY.Value = (decimal)Selection.Position.Y;
-            if ((decimal)Selection.Size.X > stepperSize.Minimum)
+            if ((decimal)Selection.Size.X > stepperSize.Minimum) // TODO and what if not > ?
                 stepperSize.Value = (decimal)Selection.Size.X;
             holdStepperEvent = false;
 
@@ -137,7 +137,7 @@ namespace R3EHUDManager.selection.view
             linkAnchorsCheck.Checked = true;
 
             stepperX.DecimalPlaces = stepperY.DecimalPlaces = stepperSize.DecimalPlaces = 3;
-            stepperX.Minimum = stepperY.Minimum = stepperSize.Minimum = decimal.MinValue;
+            stepperX.Minimum = stepperY.Minimum = decimal.MinValue;
             stepperX.Maximum = stepperY.Maximum = stepperSize.Maximum = decimal.MaxValue;
 
             stepperSize.Minimum = (decimal)0.1;

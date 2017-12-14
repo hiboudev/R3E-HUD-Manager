@@ -43,45 +43,6 @@ namespace R3EHUDManager.screen.view
             InitializeUI();
         }
 
-        private void InitializeUI()
-        {
-            //DoubleBuffered = true;
-
-            BackColor = Color.FromArgb(47,65,75);
-
-            AutoScroll = false;
-            Scroll += OnScrollChanged;
-
-            backgroundView = Injector.GetInstance<BackgroundView>();
-            backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
-
-            Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
-            backgroundView.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
-
-            Controls.Add(backgroundView);
-        }
-        private void OnScrollChanged(object sender, ScrollEventArgs e)
-        {
-            foreach (PlaceholderView view in views.Values)
-                view.OnScreenScrolled(backgroundView.Location);
-        }
-
-        internal void BackgroundChanged(ScreenModel screenModel)
-        {
-            VerticalScroll.Value = HorizontalScroll.Value = 0;
-            isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
-            UpdateScreenSize();
-            UpdatePlaceholdersPosition();
-        }
-
-        internal void TripleScreenChanged(ScreenModel screenModel)
-        {
-            isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
-            backgroundView.SetTripleScreen(isTripleScreen);
-            UpdateScreenSize();
-            UpdatePlaceholdersPosition();
-        }
-
         internal void DisplayPlaceHolders(PlaceholderModel[] placeHolders)
         {
             UpdateScreenSize();
@@ -98,6 +59,38 @@ namespace R3EHUDManager.screen.view
 
             Controls.AddRange(views.Values.ToArray());
             backgroundView.SendToBack();
+        }
+
+        internal void RemovePlaceholders()
+        {
+            if (views != null)
+            {
+                foreach (PlaceholderView placeholder in views.Values)
+                {
+                    placeholder.Dragging -= OnPlaceholderDragging;
+
+                    Controls.Remove(placeholder);
+                    placeholder.Dispose();
+                }
+
+                views.Clear();
+            }
+        }
+
+        internal void BackgroundChanged(ScreenModel screenModel)
+        {
+            VerticalScroll.Value = HorizontalScroll.Value = 0;
+            isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
+        }
+
+        internal void TripleScreenChanged(ScreenModel screenModel)
+        {
+            isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
+            backgroundView.SetTripleScreen(isTripleScreen);
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
         }
 
         internal void SetZoomLevel(ZoomLevel zoomLevel)
@@ -121,29 +114,10 @@ namespace R3EHUDManager.screen.view
             UpdatePlaceholdersPosition();
         }
 
-        private void UpdatePlaceholdersPosition()
+        private void OnScrollChanged(object sender, ScrollEventArgs e)
         {
-            if(views != null)
-                foreach(PlaceholderView view in views.Values)
-                {
-                    view.SetScreenSize(backgroundView.Size, isTripleScreen, backgroundView.Location);
-                }
-        }
-
-        internal void RemovePlaceholders()
-        {
-            if (views != null)
-            {
-                foreach (PlaceholderView placeholder in views.Values)
-                {
-                    placeholder.Dragging -= OnPlaceholderDragging;
-
-                    Controls.Remove(placeholder);
-                    placeholder.Dispose();
-                }
-
-                views.Clear();
-            }
+            foreach (PlaceholderView view in views.Values)
+                view.OnScreenScrolled(backgroundView.Location);
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -151,6 +125,15 @@ namespace R3EHUDManager.screen.view
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
             base.OnSizeChanged(e);
+        }
+
+        private void UpdatePlaceholdersPosition()
+        {
+            if (views != null)
+                foreach (PlaceholderView view in views.Values)
+                {
+                    view.SetScreenSize(backgroundView.Size, isTripleScreen, backgroundView.Location);
+                }
         }
 
         private void UpdateScreenSize()
@@ -179,6 +162,24 @@ namespace R3EHUDManager.screen.view
         {
             // To avoid some artefacts while mouseMove.
             Update();
+        }
+
+        private void InitializeUI()
+        {
+            //DoubleBuffered = true;
+
+            BackColor = Color.FromArgb(47, 65, 75);
+
+            AutoScroll = false;
+            Scroll += OnScrollChanged;
+
+            backgroundView = Injector.GetInstance<BackgroundView>();
+            backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
+
+            Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
+            backgroundView.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
+
+            Controls.Add(backgroundView);
         }
 
         public void DispatchEvent(BaseEventArgs args)

@@ -21,8 +21,8 @@ namespace R3EHUDManager.placeholder.view
 
         private Label label;
         private bool isDragging;
-        private Point dragStartPosition;
-        private Point dragMouseOffset;
+        private Point dragStartCursorPosition;
+        private Point dragStartLocation;
         private AnchorView anchor;
         private Size screenSize;
         //private double screenRatio;
@@ -123,33 +123,6 @@ namespace R3EHUDManager.placeholder.view
             Invalidate();
         }
 
-        private void InitializeUI()
-        {
-            DoubleBuffered = true;
-            BackColor = Color.FromArgb(0x22, 0x22, 0x22);
-
-            label = new Label()
-            {
-                Text = Model.Name,
-                AutoSize = true,
-                BackColor = LABEL_BACK_COLOR,
-                ForeColor = Color.Black,
-                Enabled = false,
-            };
-
-            anchor = new AnchorView
-            {
-                Enabled = false
-            };
-
-            Controls.Add(anchor);
-            Controls.Add(label);
-
-            MouseDown += StartDrag;
-            MouseUp += StopDrag;
-            MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
-        }
-
         private void ComputeSize()
         {
             Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
@@ -193,23 +166,15 @@ namespace R3EHUDManager.placeholder.view
 
             isDragging = true;
 
-            dragStartPosition = Cursor.Position;
-            dragMouseOffset = Location;
+            dragStartCursorPosition = Cursor.Position;
+            dragStartLocation = Location;
 
             MouseMove += Drag;
         }
 
         void Drag(object sender, EventArgs e)
         {
-            var location = new Point(dragMouseOffset.X + Cursor.Position.X - dragStartPosition.X , dragMouseOffset.Y + Cursor.Position.Y - dragStartPosition.Y );
-            //Location = location;
-
-            Dragging?.Invoke(this, EventArgs.Empty);
-
-            if (!Location.Equals(dragStartPosition))
-            {
-                DispatchEvent(new PlaceholderViewEventArgs(EVENT_REQUEST_MOVE, this, location));
-            }
+            OnDrag();
         }
 
         void StopDrag(object sender, MouseEventArgs e)
@@ -218,13 +183,46 @@ namespace R3EHUDManager.placeholder.view
             isDragging = false;
 
             MouseMove -= Drag;
+            OnDrag();
+        }
 
-            var location = new Point(dragMouseOffset.X + Cursor.Position.X - dragStartPosition.X, dragMouseOffset.Y + Cursor.Position.Y - dragStartPosition.Y);
+        private void OnDrag()
+        {
+            var requestedLocation = new Point(dragStartLocation.X + Cursor.Position.X - dragStartCursorPosition.X, dragStartLocation.Y + Cursor.Position.Y - dragStartCursorPosition.Y);
 
-            if (!Location.Equals(dragStartPosition))
+            if (!Location.Equals(dragStartCursorPosition))
             {
-                DispatchEvent(new PlaceholderViewEventArgs(EVENT_REQUEST_MOVE, this, location));
+                DispatchEvent(new PlaceholderViewEventArgs(EVENT_REQUEST_MOVE, this, requestedLocation));
             }
+
+            Dragging?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void InitializeUI()
+        {
+            DoubleBuffered = true;
+            BackColor = Color.FromArgb(0x22, 0x22, 0x22);
+
+            label = new Label()
+            {
+                Text = Model.Name,
+                AutoSize = true,
+                BackColor = LABEL_BACK_COLOR,
+                ForeColor = Color.Black,
+                Enabled = false,
+            };
+
+            anchor = new AnchorView
+            {
+                Enabled = false
+            };
+
+            Controls.Add(anchor);
+            Controls.Add(label);
+
+            MouseDown += StartDrag;
+            MouseUp += StopDrag;
+            MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
         }
 
         private void OnDispose(object sender, EventArgs e)
