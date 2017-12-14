@@ -61,42 +61,11 @@ namespace R3EHUDManager.screen.view
 
             Controls.Add(backgroundView);
         }
-
-        //[DllImport("user32.dll", SetLastError = true)]
-        //private static extern bool LockWindowUpdate(IntPtr hWnd);
-
         private void OnScrollChanged(object sender, ScrollEventArgs e)
         {
             foreach (PlaceholderView view in views.Values)
                 view.OnScreenScrolled(backgroundView.Location);
-
-            // TODO update data and refresh
-            //Refresh();
-            //Refresh();
-
-            //if (e.Type == ScrollEventType.First)
-            //{
-            //    LockWindowUpdate(this.Handle);
-            //}
-            //else
-            //{
-            //    LockWindowUpdate(IntPtr.Zero);
-            //    Update();
-            //    if (e.Type != ScrollEventType.Last)
-            //        LockWindowUpdate(this.Handle);
-            //}
         }
-
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        const int WS_EX_COMPOSITED = 0x02000000;
-        //        var cp = base.CreateParams;
-        //        cp.ExStyle |= WS_EX_COMPOSITED;
-        //        return cp;
-        //    }
-        //}
 
         internal void BackgroundChanged(ScreenModel screenModel)
         {
