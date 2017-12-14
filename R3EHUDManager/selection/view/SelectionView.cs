@@ -17,6 +17,7 @@ using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.events;
 using R3EHUDManager.placeholder.command;
 using R3EHUDManager.screen.utils;
+using R3EHUDManager.selection.events;
 
 namespace R3EHUDManager.selection.view
 {
@@ -178,7 +179,7 @@ namespace R3EHUDManager.selection.view
             R3ePoint anchor = R3ePointPreset.GetPreset(name);
             if(anchor != null)
             {
-                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, anchor));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED, UpdateType.ANCHOR, anchor));
             }
         }
 
@@ -187,12 +188,12 @@ namespace R3EHUDManager.selection.view
             string name = positionPresets.SelectedItem.ToString();
             R3ePoint position = isTripleScreen ? R3ePointPreset.GetPreset(name, ScreenUtils.GetScreen(Selection)) : R3ePointPreset.GetPreset(name);
 
-            DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, position));
+            DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, position));
 
             if (linkAnchorsCheck.Checked)
             {
                 anchorPresets.SelectedItem = position;
-                DispatchEvent(new AnchorMovedEventArgs(EVENT_ANCHOR_MOVED, Selection.Name, R3ePointPreset.GetPreset(name)));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED, UpdateType.ANCHOR, R3ePointPreset.GetPreset(name)));
             }
         }
 
@@ -220,15 +221,15 @@ namespace R3EHUDManager.selection.view
 
             if(sender == stepperX)
             {
-                DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, new R3ePoint((double)stepperX.Value, Selection.Position.Y)));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, new R3ePoint((double)stepperX.Value, Selection.Position.Y)));
             }
             else if (sender == stepperY)
             {
-                DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED, Selection.Name, new R3ePoint(Selection.Position.X, (double)stepperY.Value)));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, new R3ePoint(Selection.Position.X, (double)stepperY.Value)));
             }
             else if (sender == stepperSize)
             {
-                DispatchEvent(new PlaceHolderResizedEventArgs(EVENT_PLACEHOLDER_RESIZED, Selection.Name, stepperSize.Value));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED, UpdateType.SIZE, new R3ePoint((double)stepperSize.Value, (double)stepperSize.Value)));
             }
         }
 

@@ -11,27 +11,29 @@ namespace R3EHUDManager.selection.model
 {
     class SelectionModel:EventDispatcher
     {
-        private PlaceholderModel selected;
+        private PlaceholderModel selection;
         public static readonly int EVENT_SELECTED = EventId.New();
         public static readonly int EVENT_UNSELECTED = EventId.New();
 
+        internal PlaceholderModel Selection { get => selection; }
+
         public void Select(PlaceholderModel placeholder)
         {
-            if (placeholder == selected) return;
+            if (placeholder == Selection) return;
 
-            if (selected != null)
-                DispatchEvent(new SelectionModelEventArgs(EVENT_UNSELECTED, selected));
+            if (Selection != null)
+                DispatchEvent(new SelectionModelEventArgs(EVENT_UNSELECTED, Selection));
 
-            selected = placeholder;
-            DispatchEvent(new SelectionModelEventArgs(EVENT_SELECTED, selected));
+            selection = placeholder;
+            DispatchEvent(new SelectionModelEventArgs(EVENT_SELECTED, Selection));
         }
 
         public void Unselect()
         {
-            if (selected == null) return;
+            if (Selection == null) return;
 
-            PlaceholderModel oldSelected = selected;
-            selected = null;
+            PlaceholderModel oldSelected = Selection;
+            selection = null;
 
             DispatchEvent(new SelectionModelEventArgs(EVENT_UNSELECTED, oldSelected));
         }

@@ -12,11 +12,11 @@ namespace R3EHUDManager.selection.command
 {
     class SelectPlaceholderCommand : ICommand
     {
-        private readonly StringEventArgs args;
+        private readonly IntEventArgs args;
         private readonly PlaceHolderCollectionModel collectionModel;
         private readonly SelectionModel selectionModel;
 
-        public SelectPlaceholderCommand(StringEventArgs args, PlaceHolderCollectionModel collectionModel, SelectionModel selectionModel)
+        public SelectPlaceholderCommand(IntEventArgs args, PlaceHolderCollectionModel collectionModel, SelectionModel selectionModel)
         {
             this.args = args;
             this.collectionModel = collectionModel;

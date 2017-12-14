@@ -118,6 +118,7 @@
     <Compile Include="application\view\BaseModalForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="application\view\GlobalMouseHandler.cs" />
     <Compile Include="background\command\DeleteBackgroundCommand.cs" />
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
     <Compile Include="background\command\InitializeBackgroundsCommand.cs" />
@@ -152,7 +153,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
+    <Compile Include="placeholder\command\MoveSelectedPlaceholderCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
+    <Compile Include="placeholder\view\PlaceholderMediator.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />
     <Compile Include="profile\command\DeleteProfileCommand.cs" />
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
@@ -191,6 +194,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="selection\command\SelectNoneCommand.cs" />
+    <Compile Include="selection\events\SelectionViewEventArgs.cs" />
     <Compile Include="settings\view\SettingsMenuView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -212,13 +216,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="graphics\GraphicalAsset.cs" />
-    <Compile Include="placeholder\command\MoveAnchorCommand.cs" />
+    <Compile Include="placeholder\command\MoveSelectedAnchorCommand.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
-    <Compile Include="placeholder\command\ResizePlaceholderCommand.cs" />
-    <Compile Include="placeholder\events\AnchorMovedEventArgs.cs" />
-    <Compile Include="placeholder\events\PlaceHolderResizedEventArgs.cs" />
-    <Compile Include="placeholder\events\PlaceHolderUpdateEventArgs.cs" />
-    <Compile Include="placeholder\events\PlaceHolderMovedEventArgs.cs" />
+    <Compile Include="placeholder\command\ResizeSelectedPlaceholderCommand.cs" />
+    <Compile Include="placeholder\events\PlaceholderViewEventArgs.cs" />
+    <Compile Include="placeholder\events\PlaceHolderUpdatedEventArgs.cs" />
     <Compile Include="selection\view\AnchorPreset.cs" />
     <Compile Include="placeholder\model\PlaceHolderCollectionModel.cs" />
     <Compile Include="placeholder\model\PlaceholderModel.cs" />

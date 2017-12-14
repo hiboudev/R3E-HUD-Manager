@@ -24,6 +24,7 @@ using R3EHUDManager.profile.command;
 using R3EHUDManager.location.view;
 using da2mvc.framework.collection.view;
 using da2mvc.framework.collection.model;
+using R3EHUDManager.placeholder.view;
 
 namespace R3EHUDManager
 {
@@ -49,6 +50,7 @@ namespace R3EHUDManager
             Injector.MapType<PromptNewProfileView>();
             Injector.MapType<CollectionModel<R3eDirectoryModel>>(true);
             Injector.MapType<SelectedR3eDirectoryModel>(true);
+            Injector.MapType<PlaceholderModel>();
 
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
@@ -61,16 +63,17 @@ namespace R3EHUDManager
             Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);
             Injector.MapView<ProfileManagerView, CollectionMediator<CollectionModel<ProfileModel>, ProfileModel, ProfileManagerView>>();
             Injector.MapView<R3eDirectoryMenuView, R3eDirectoryMenuMediator>(true);
+            Injector.MapView<PlaceholderView, PlaceholderMediator>();
 
             Injector.MapCommand<Form1, SaveHudCommand>(Form1.EVENT_SAVE_CLICKED);
             Injector.MapCommand<Form1, LoadHudDataCommand>(Form1.EVENT_RELOAD_CLICKED);
             Injector.MapCommand<Form1, ReloadDefaultHudDataCommand>(Form1.EVENT_RELOAD_DEFAULT_CLICKED);
-            Injector.MapCommand<ScreenView, MovePlaceholderCommand>(ScreenView.EVENT_PLACEHOLDER_MOVED);
-            Injector.MapCommand<ScreenView, SelectPlaceholderCommand>(ScreenView.EVENT_PLACEHOLDER_SELECTED);
+            Injector.MapCommand<PlaceholderView, SelectPlaceholderCommand>(PlaceholderView.EVENT_REQUEST_SELECTION);
+            Injector.MapCommand<PlaceholderView, MovePlaceholderCommand>(PlaceholderView.EVENT_REQUEST_MOVE);
             Injector.MapCommand<ScreenView, SelectNoneCommand>(ScreenView.EVENT_BACKGROUND_CLICKED);
-            Injector.MapCommand<SelectionView, MovePlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_MOVED);
-            Injector.MapCommand<SelectionView, MoveAnchorCommand>(SelectionView.EVENT_ANCHOR_MOVED);
-            Injector.MapCommand<SelectionView, ResizePlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_RESIZED);
+            Injector.MapCommand<SelectionView, MoveSelectedPlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_MOVED);
+            Injector.MapCommand<SelectionView, MoveSelectedAnchorCommand>(SelectionView.EVENT_ANCHOR_MOVED);
+            Injector.MapCommand<SelectionView, ResizeSelectedPlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_RESIZED);
             Injector.MapCommand<SelectionView, ChangePlaceholderScreenCommand>(SelectionView.EVENT_MOVE_TO_SCREEN);
             Injector.MapCommand<PlaceholdersListView, SelectPlaceholderCommand>(PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED);
             Injector.MapCommand<SettingsMenuView, OpenAppInstallDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY);

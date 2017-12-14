@@ -1,5 +1,9 @@
-﻿using R3EHUDManager.coordinates;
+﻿using da2mvc.core.events;
+using R3EHUDManager.application.events;
+using R3EHUDManager.application.view;
+using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
+using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.view;
 using System;
@@ -10,10 +14,11 @@ using System.Windows.Forms;
 
 namespace R3EHUDManager.placeholder.view
 {
-    class PlaceholderView : Panel
+    class PlaceholderView : Panel, IEventDispatcher
     {
-        public event EventHandler PositionChanged;
         public event EventHandler Dragging;
+        public event EventHandler MvcEventHandler;
+
         private Label label;
         private bool isDragging;
         private Point dragStartPosition;
@@ -27,9 +32,13 @@ namespace R3EHUDManager.placeholder.view
         private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
-        public PlaceholderModel Model { get; }
+        public static readonly int EVENT_REQUEST_SELECTION = EventId.New();
+        public static readonly int EVENT_REQUEST_MOVE = EventId.New();
 
-        public PlaceholderView(PlaceholderModel model, Size screenSize, Point screenOffset, bool isTripleScreen)
+        public PlaceholderModel Model { get; private set; } // TODO remove model from view
+        private GlobalMouseHandler mouseHandler;
+
+        public void Initialize(PlaceholderModel model, Size screenSize, Point screenOffset, bool isTripleScreen)
         {
             Model = model;
             this.isTripleScreen = isTripleScreen;
@@ -37,6 +46,9 @@ namespace R3EHUDManager.placeholder.view
             InitializeUI();
             SetScreenSize(screenSize, isTripleScreen, screenOffset);
             Disposed += OnDispose;
+
+            mouseHandler = new GlobalMouseHandler();
+            mouseHandler.MouseMoved += Drag;
         }
 
         private Point AnchorPosition
@@ -49,31 +61,6 @@ namespace R3EHUDManager.placeholder.view
         {
             get => new Size(Width - anchor.Width, Height - anchor.Height);
         }
-
-        //private void RefreshLocation()
-        //{
-        //    R3ePoint modelLocation = Model.Position.Clone();
-
-        //    if (isTripleScreen)
-        //    {
-        //        modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
-        //    }
-
-        //    SizeF objectScreenRatio = new SizeF((float)Width / screenSize.Width, (float)Height / screenSize.Height);
-
-        //    R3ePoint r3eLocation = new R3ePoint(
-        //        modelLocation.X - objectScreenRatio.Width * (Model.Anchor.X + 1),
-        //        modelLocation.Y - objectScreenRatio.Height * (Model.Anchor.Y - 1));
-
-        //    Point location = Coordinates.FromR3e(r3eLocation, new Size(screenSize.Width, screenSize.Height));
-        //    Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
-
-        //    location.Offset(new Point(screenOffset.X, screenOffset.Y));
-
-        //    Location = location;
-
-        //    AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
-        //}
 
         private void RefreshLocation()
         {
@@ -92,25 +79,6 @@ namespace R3EHUDManager.placeholder.view
             Location = location;
 
             AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
-        }
-
-        public R3ePoint GetR3eLocation()
-        {
-            SizeF objectScreenRatio = new SizeF((float)Width / screenSize.Width, (float)Height / screenSize.Height);
-
-            R3ePoint anchorSize = new R3ePoint(
-                objectScreenRatio.Width * (Model.Anchor.X + 1),
-                objectScreenRatio.Height * (Model.Anchor.Y - 1));
-
-            Point position = new Point(Location.X - screenOffset.X, Location.Y - screenOffset.Y);
-            R3ePoint r3ePosition = Coordinates.ToR3e(position, screenSize);
-
-            r3ePosition = new R3ePoint(r3ePosition.X + anchorSize.X, r3ePosition.Y + anchorSize.Y);
-
-            if(isTripleScreen)
-                return new R3ePoint(r3ePosition.X * 3, r3ePosition.Y);
-            else
-                return r3ePosition;
         }
 
         public void SetScreenSize(Size screenSize, bool isTripleScreen, Point screenOffset)
@@ -155,6 +123,7 @@ namespace R3EHUDManager.placeholder.view
             this.selected = selected;
             label.BackColor = selected ? SELECTION_COLOR : LABEL_BACK_COLOR;
             label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
+            if (selected) BringToFront();
             Invalidate();
         }
 
@@ -220,23 +189,31 @@ namespace R3EHUDManager.placeholder.view
 
         void StartDrag(object sender, MouseEventArgs e)
         {
-            if (!selected) return;
+            if (!selected)
+            {
+                DispatchEvent(new IntEventArgs(EVENT_REQUEST_SELECTION, Model.Id));
+                return;
+            }
 
             isDragging = true;
 
-            dragStartPosition = Location;
-            dragMouseOffset = e.Location;
+            dragStartPosition = Cursor.Position;
+            dragMouseOffset = Location;
 
-            MouseMove += Drag;
+            mouseHandler.Enable();
         }
 
-        void Drag(object sender, MouseEventArgs e)
+        void Drag(object sender, EventArgs e)
         {
-            var location = Location;
-            location.Offset(e.Location.X - dragMouseOffset.X, e.Location.Y - dragMouseOffset.Y);
-            Location = location;
+            var location = new Point(dragMouseOffset.X + Cursor.Position.X - dragStartPosition.X , dragMouseOffset.Y + Cursor.Position.Y - dragStartPosition.Y );
+            //Location = location;
 
             Dragging?.Invoke(this, EventArgs.Empty);
+
+            if (!Location.Equals(dragStartPosition))
+            {
+                DispatchEvent(new PlaceholderViewEventArgs(EVENT_REQUEST_MOVE, this, location));
+            }
         }
 
         void StopDrag(object sender, MouseEventArgs e)
@@ -244,11 +221,13 @@ namespace R3EHUDManager.placeholder.view
             if (!isDragging) return;
             isDragging = false;
 
-            MouseMove -= Drag;
+            mouseHandler.Disable();
+
+            var location = new Point(dragMouseOffset.X + Cursor.Position.X - dragStartPosition.X, dragMouseOffset.Y + Cursor.Position.Y - dragStartPosition.Y);
 
             if (!Location.Equals(dragStartPosition))
             {
-                PositionChanged?.Invoke(this, EventArgs.Empty);
+                DispatchEvent(new PlaceholderViewEventArgs(EVENT_REQUEST_MOVE, this, location));
             }
         }
 
@@ -256,5 +235,37 @@ namespace R3EHUDManager.placeholder.view
         {
         }
 
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
+        }
     }
 }
+
+
+//private void RefreshLocation()
+//{
+//    R3ePoint modelLocation = Model.Position.Clone();
+
+//    if (isTripleScreen)
+//    {
+//        modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
+//    }
+
+//    SizeF objectScreenRatio = new SizeF((float)Width / screenSize.Width, (float)Height / screenSize.Height);
+
+//    R3ePoint r3eLocation = new R3ePoint(
+//        modelLocation.X - objectScreenRatio.Width * (Model.Anchor.X + 1),
+//        modelLocation.Y - objectScreenRatio.Height * (Model.Anchor.Y - 1));
+
+//    Point location = Coordinates.FromR3e(r3eLocation, new Size(screenSize.Width, screenSize.Height));
+//    Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
+
+//    location.Offset(new Point(screenOffset.X, screenOffset.Y));
+
+//    Location = location;
+
+//    AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
+//}
+
+

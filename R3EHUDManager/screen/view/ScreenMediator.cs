@@ -16,10 +16,10 @@ namespace R3EHUDManager.screen.view
         {
             HandleEvent<PlaceHolderCollectionModel, CollectionEventArgs<PlaceholderModel>>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED, OnPlaceHoldersAdded);
             HandleEvent<PlaceHolderCollectionModel, BaseEventArgs>(PlaceHolderCollectionModel.EVENT_CLEARED, OnPlaceholderCleared);
-            HandleEvent<PlaceHolderCollectionModel, PlaceHolderUpdateEventArgs>(PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
+            //HandleEvent<PlaceHolderCollectionModel, PlaceHolderUpdatedEventArgs>(PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceHolderUpdated);
 
-            HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
-            HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
+            //HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceHolderSelected);
+            //HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceHolderUnselected);
 
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
@@ -41,20 +41,20 @@ namespace R3EHUDManager.screen.view
             View.BackgroundChanged(args.ScreenModel);
         }
 
-        private void OnPlaceHolderSelected(SelectionModelEventArgs args)
-        {
-            View.SelectPlaceholder(args.Placeholder, true);
-        }
+        //private void OnPlaceHolderSelected(SelectionModelEventArgs args)
+        //{
+        //    View.SelectPlaceholder(args.Placeholder, true);
+        //}
 
-        private void OnPlaceHolderUnselected(SelectionModelEventArgs args)
-        {
-            View.SelectPlaceholder(args.Placeholder, false);
-        }
+        //private void OnPlaceHolderUnselected(SelectionModelEventArgs args)
+        //{
+        //    View.SelectPlaceholder(args.Placeholder, false);
+        //}
 
-        private void OnPlaceHolderUpdated(PlaceHolderUpdateEventArgs args)
-        {
-            View.UpdatePlaceholder(args.Placeholder, args.UpdateType);
-        }
+        //private void OnPlaceHolderUpdated(PlaceHolderUpdatedEventArgs args)
+        //{
+        //    View.UpdatePlaceholder(args.Placeholder, args.UpdateType);
+        //}
 
         private void OnPlaceHoldersAdded(CollectionEventArgs<PlaceholderModel> args)
         {

@@ -6,23 +6,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using da2mvc.core.command;
+using R3EHUDManager.coordinates;
+using System.Drawing;
+using R3EHUDManager.screen.view;
+using R3EHUDManager.screen.model;
 
 namespace R3EHUDManager.placeholder.command
 {
     class MovePlaceholderCommand : ICommand
     {
-        private readonly PlaceHolderMovedEventArgs args;
+        private readonly PlaceholderViewEventArgs args;
         private readonly PlaceHolderCollectionModel collectionModel;
+        private readonly ScreenView screenView;
+        private readonly ScreenModel screenModel;
 
-        public MovePlaceholderCommand(PlaceHolderMovedEventArgs args, PlaceHolderCollectionModel collectionModel)
+        public MovePlaceholderCommand(PlaceholderViewEventArgs args, PlaceHolderCollectionModel collectionModel, ScreenView screenView, ScreenModel screenModel)
         {
             this.args = args;
             this.collectionModel = collectionModel;
+            this.screenView = screenView;
+            this.screenModel = screenModel;
         }
 
         public void Execute()
         {
-            collectionModel.UpdatePlaceholderPosition(args.PlaceholderName, args.Position);
+            PlaceholderModel placeholder = collectionModel.Get(args.View.Model.Id); // TODO id
+            placeholder.Move(GetR3eLocation(args.Point));
+        }
+
+        private R3ePoint GetR3eLocation(Point location)
+        {
+            SizeF objectScreenRatio = new SizeF((float)args.View.Width / screenView.ScreenArea.Width, (float)args.View.Height / screenView.ScreenArea.Height);
+
+            R3ePoint anchorSize = new R3ePoint(
+                objectScreenRatio.Width * (args.View.Model.Anchor.X + 1),
+                objectScreenRatio.Height * (args.View.Model.Anchor.Y - 1));
+
+            Point position = new Point(location.X - screenView.ScreenArea.X, location.Y - screenView.ScreenArea.Y);
+            R3ePoint r3ePosition = Coordinates.ToR3e(position, screenView.ScreenArea.Size);
+
+            r3ePosition = new R3ePoint(r3ePosition.X + anchorSize.X, r3ePosition.Y + anchorSize.Y);
+
+            if (screenModel.Layout == ScreenLayoutType.TRIPLE)
+                return new R3ePoint(r3ePosition.X * 3, r3ePosition.Y);
+            else
+                return r3ePosition;
         }
     }
 }

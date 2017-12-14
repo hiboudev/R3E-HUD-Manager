@@ -6,6 +6,7 @@ using da2mvc.core.events;
 using R3EHUDManager.application.events;
 using System.Drawing;
 using da2mvc.framework.collection.view;
+using System.Collections.Generic;
 
 namespace R3EHUDManager.selection.view
 {
@@ -15,7 +16,7 @@ namespace R3EHUDManager.selection.view
         private bool bypassSelectedEvent = false;
         public event EventHandler MvcEventHandler;
         public static readonly int EVENT_PLACEHOLDER_SELECTED = EventId.New();
-
+        private Dictionary<string, int> ids = new Dictionary<string, int>();
 
         public PlaceholdersListView()
         {
@@ -25,18 +26,25 @@ namespace R3EHUDManager.selection.view
         public void Add(PlaceholderModel[] models)
         {
             foreach (PlaceholderModel model in models.OrderBy(x => x.Name))
+            {
                 list.Items.Add(model.Name);
+                ids.Add(model.Name, model.Id);
+            }
         }
 
         public void Remove(PlaceholderModel[] models)
         {
             foreach (PlaceholderModel model in models)
+            {
                 list.Items.Remove(model.Name);
+                ids.Remove(model.Name);
+            }
         }
 
         public void Clear()
         {
             list.Items.Clear();
+            ids.Clear();
         }
 
         internal void SelectPlaceholder(string name)
@@ -79,7 +87,7 @@ namespace R3EHUDManager.selection.view
         {
             if (bypassSelectedEvent) return;
 
-            DispatchEvent(new StringEventArgs(EVENT_PLACEHOLDER_SELECTED, list.SelectedItem.ToString()));
+            DispatchEvent(new IntEventArgs(EVENT_PLACEHOLDER_SELECTED, ids[list.SelectedItem.ToString()]));
         }
 
         private void SelectListItem(string name)

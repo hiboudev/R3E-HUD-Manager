@@ -30,14 +30,13 @@ namespace R3EHUDManager.screen.view
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
         public static decimal BASE_ASPECT_RATIO = (decimal)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
 
-
-        public static readonly int EVENT_PLACEHOLDER_MOVED = EventId.New();
-        public static readonly int EVENT_PLACEHOLDER_SELECTED = EventId.New();
         public static readonly int EVENT_BACKGROUND_CLICKED = EventId.New();
 
         private BackgroundView backgroundView;
         private bool isTripleScreen;
         private ZoomLevel zoomLevel = ZoomLevel.FIT_TO_WINDOW;
+
+        public Rectangle ScreenArea { get => new Rectangle(backgroundView.Location, backgroundView.Size); }
 
         public ScreenView()
         {
@@ -89,24 +88,16 @@ namespace R3EHUDManager.screen.view
 
             foreach (PlaceholderModel model in placeHolders)
             {
-                PlaceholderView view = new PlaceholderView(model, backgroundView.Size, new Point(backgroundView.Location.X, backgroundView.Location.Y), isTripleScreen);
+                PlaceholderView view = Injector.GetInstance<PlaceholderView>();
+                view.Initialize(model, backgroundView.Size, new Point(backgroundView.Location.X, backgroundView.Location.Y), isTripleScreen);
 
-                view.PositionChanged += OnViewPositionChanged;
                 view.Dragging += OnPlaceholderDragging;
-                view.MouseDown += OnPlaceholderMouseDown;
 
                 views.Add(model.Name, view);
             }
 
             Controls.AddRange(views.Values.ToArray());
             backgroundView.SendToBack();
-        }
-
-        internal void SelectPlaceholder(PlaceholderModel placeholder, bool selected)
-        {
-            PlaceholderView view = views[placeholder.Name];
-            view.SetSelected(selected);
-            view.BringToFront();
         }
 
         internal void SetZoomLevel(ZoomLevel zoomLevel)
@@ -130,16 +121,6 @@ namespace R3EHUDManager.screen.view
             UpdatePlaceholdersPosition();
         }
 
-        private void OnPlaceholderMouseDown(object sender, MouseEventArgs e)
-        {
-            DispatchEvent(new StringEventArgs(EVENT_PLACEHOLDER_SELECTED, ((PlaceholderView)sender).Model.Name));
-        }
-
-        internal void UpdatePlaceholder(PlaceholderModel placeholder, UpdateType updateType)
-        {
-            views[placeholder.Name].Update(updateType);
-        }
-
         private void UpdatePlaceholdersPosition()
         {
             if(views != null)
@@ -155,9 +136,7 @@ namespace R3EHUDManager.screen.view
             {
                 foreach (PlaceholderView placeholder in views.Values)
                 {
-                    placeholder.PositionChanged -= OnViewPositionChanged;
                     placeholder.Dragging -= OnPlaceholderDragging;
-                    placeholder.MouseDown -= OnPlaceholderMouseDown;
 
                     Controls.Remove(placeholder);
                     placeholder.Dispose();
@@ -165,16 +144,6 @@ namespace R3EHUDManager.screen.view
 
                 views.Clear();
             }
-        }
-
-        private void OnViewPositionChanged(object sender, EventArgs e)
-        {
-            PlaceholderView view = (PlaceholderView)sender;
-
-            R3ePoint r3eLocation = view.GetR3eLocation();
-
-            DispatchEvent(new PlaceHolderMovedEventArgs(EVENT_PLACEHOLDER_MOVED,
-                ((PlaceholderView)sender).Model.Name, r3eLocation));
         }
 
         protected override void OnSizeChanged(EventArgs e)

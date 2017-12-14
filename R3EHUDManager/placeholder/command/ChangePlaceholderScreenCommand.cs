@@ -34,8 +34,10 @@ namespace R3EHUDManager.placeholder.command
 
             R3ePoint screenOffset = ScreenUtils.ToScreenOffset(placeholder, args.ScreenType);
             R3ePoint newPosition = new R3ePoint(placeholder.Position.X + screenOffset.X, placeholder.Position.Y + screenOffset.Y);
-            if(!newPosition.Equals(placeholder.Position))
-                collectionModel.UpdatePlaceholderPosition(placeholder.Name, newPosition);
+            if (!newPosition.Equals(placeholder.Position))
+            {
+                placeholder.Move(newPosition);
+            }
         }
     }
 }

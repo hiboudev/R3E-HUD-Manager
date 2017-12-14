@@ -21,7 +21,7 @@ namespace R3EHUDManager.selection.view
             HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
             HandleEvent<SelectionModel, BaseEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
-            HandleEvent<PlaceHolderCollectionModel, PlaceHolderUpdateEventArgs>(PlaceHolderCollectionModel.EVENT_PLACE_HOLDER_UPDATED, OnPlaceholderUpdated);
+            HandleEvent<PlaceholderModel, PlaceHolderUpdatedEventArgs>(PlaceholderModel.EVENT_UPDATED, OnPlaceholderUpdated);
 
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
@@ -37,9 +37,9 @@ namespace R3EHUDManager.selection.view
             View.TripleScreenChanged(args.ScreenModel.Layout);
         }
 
-        private void OnPlaceholderUpdated(PlaceHolderUpdateEventArgs args)
+        private void OnPlaceholderUpdated(PlaceHolderUpdatedEventArgs args)
         {
-            if (View.Selection == args.Placeholder)
+            if (View.Selection.Id == args.Placeholder.Id)
                 View.UpdateData();
         }
 
