@@ -19,9 +19,9 @@ namespace R3EHUDManager.placeholder.model
         // TODO refaire le parsing xml pour que tous les params soient immutables.
         public int Id { get; internal set; }
         public string Name { get; internal set; }
-        public R3ePoint Position { get; internal set; }
-        public R3ePoint Anchor { get; internal set; }
-        public R3ePoint Size { get; internal set; }
+        public R3ePoint Position { get; internal set; } = new R3ePoint(0,0);
+        public R3ePoint Anchor { get; internal set; } = new R3ePoint(0, 0);
+        public R3ePoint Size { get; internal set; } = new R3ePoint(1, 1);
         public IResizeRule ResizeRule { get; internal set; }
         public ValidationResult ValidationResult { get; private set; } = ValidationResult.GetValid();
 

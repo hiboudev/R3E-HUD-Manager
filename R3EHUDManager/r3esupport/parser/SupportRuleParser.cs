@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,7 +80,7 @@ namespace R3EHUDManager.r3esupport.parser
                 if(checkNode.Attributes["value"].Value == "ANY")
                     operations.Add(new Operation());
                 else
-                    operations.Add(new Operation(Convert.ToDouble(checkNode.Attributes["value"].Value), GetOperatorType(checkNode.InnerText)));
+                    operations.Add(new Operation(double.Parse(checkNode.Attributes["value"].Value, CultureInfo.InvariantCulture), GetOperatorType(checkNode.InnerText)));
             }
 
             return operations.ToArray();
