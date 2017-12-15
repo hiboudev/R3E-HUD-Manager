@@ -96,10 +96,13 @@ namespace R3EHUDManager.selection.view
         private void OnDrawItem(object sender, DrawListViewItemEventArgs e)
         {
             bool selected = list.SelectedIndices.Contains(e.ItemIndex);
+            int thickness = 2, spacing = 1;
+
+            e.DrawBackground();
 
             if (selected)
             {
-                e.Graphics.FillRectangle(Brushes.LightSkyBlue, e.Bounds);
+                e.Graphics.FillRectangle(Brushes.LightSkyBlue, new Rectangle(e.Bounds.X + thickness, e.Bounds.Y + spacing, e.Bounds.Width, e.Bounds.Height - 2 * spacing));
                 //e.DrawFocusRectangle();
             }
             else
@@ -111,10 +114,9 @@ namespace R3EHUDManager.selection.view
 
             if (validations.ContainsKey(modelId) && validations[modelId].Type == ResultType.INVALID)
             {
-                int thickness = 3;
-                e.Graphics.DrawLine(new Pen(Color.OrangeRed, thickness),
-                    new Point(e.Bounds.Right - thickness, e.Bounds.Top),
-                    new Point(e.Bounds.Right - thickness, e.Bounds.Bottom));
+                e.Graphics.DrawLine(new Pen(Color.FromArgb(130, Color.OrangeRed), thickness),
+                    new Point(e.Bounds.Left + 1, e.Bounds.Top + spacing),
+                    new Point(e.Bounds.Left + 1, e.Bounds.Bottom - spacing));
             }
 
             e.DrawText(TextFormatFlags.VerticalCenter);

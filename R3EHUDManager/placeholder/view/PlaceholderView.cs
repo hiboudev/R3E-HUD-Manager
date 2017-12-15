@@ -31,6 +31,7 @@ namespace R3EHUDManager.placeholder.view
         private bool isTripleScreen;
         private bool selected;
         private ValidationResult validationResult;
+        private ToolTip toolTip;
         private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
@@ -130,6 +131,9 @@ namespace R3EHUDManager.placeholder.view
         internal void SetValidationResult(ValidationResult result)
         {
             validationResult = result;
+
+            toolTip.SetToolTip(label, result.Description);
+
             Invalidate();
         }
 
@@ -241,6 +245,19 @@ namespace R3EHUDManager.placeholder.view
             MouseDown += StartDrag;
             MouseUp += StopDrag;
             MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
+
+            CreateToolTip();
+        }
+
+        private void CreateToolTip()
+        {
+            toolTip = new ToolTip
+            {
+                AutoPopDelay = 5000,
+                InitialDelay = 750,
+                ReshowDelay = 500,
+                ShowAlways = true,
+            };
         }
 
         private void OnDispose(object sender, EventArgs e)
