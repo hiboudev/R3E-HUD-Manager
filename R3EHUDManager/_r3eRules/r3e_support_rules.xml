@@ -21,6 +21,8 @@ FFB Graph
 x
 y
 size
+ax (anchor x)
+ay (anchor y)
 
 ** check operator:
 ******************
@@ -57,6 +59,11 @@ ANY
       <check value="1"><![CDATA[>]]></check>
       <check value="3"><![CDATA[<=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=1.]]></description>
+
+      <!-->fix>
+        <property value="1">x</property>
+        <property value="-1">ax</property>
+      </fix-->
     </invalid>
 
     <invalid>

@@ -10,7 +10,6 @@ namespace R3EHUDManager.r3esupport.rule
     class RulePart
     {
         private readonly PropertyType property;
-        private readonly string propertyName;
         private readonly Operation[] operations;
 
         public string Description { get; }
@@ -18,7 +17,6 @@ namespace R3EHUDManager.r3esupport.rule
         public RulePart(PropertyType property, Operation[] operations, string description)
         {
             this.property = property;
-            propertyName = GetPropertyName(property);
             this.operations = operations;
             Description = description;
         }
@@ -38,9 +36,13 @@ namespace R3EHUDManager.r3esupport.rule
             {
                 case PropertyType.X:
                 case PropertyType.Y:
-                    return (double)placeholder.Position.GetType().GetProperty(propertyName).GetValue(placeholder.Position);
+                    return (double)placeholder.Position.GetType().GetProperty(GetPropertyName(property)).GetValue(placeholder.Position);
                 case PropertyType.SIZE:
                     return placeholder.Size.X;
+                case PropertyType.ANCHOR_X:
+                    return placeholder.Anchor.X;
+                case PropertyType.ANCHOR_Y:
+                    return placeholder.Anchor.Y;
 
             }
             throw new Exception("Unsupported property type.");

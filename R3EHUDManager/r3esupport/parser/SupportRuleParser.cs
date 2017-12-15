@@ -96,6 +96,10 @@ namespace R3EHUDManager.r3esupport.parser
                     return PropertyType.Y;
                 case "size":
                     return PropertyType.SIZE;
+                case "ax":
+                    return PropertyType.ANCHOR_X;
+                case "ay":
+                    return PropertyType.ANCHOR_Y;
             }
             throw new Exception($"Invalid property name {propertyName}.");
         }
