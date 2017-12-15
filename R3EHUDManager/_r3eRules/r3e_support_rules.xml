@@ -90,6 +90,20 @@ ANY
     
   </rule>
 
+  <rule name="Max size is 1" layout="ANY">
+
+    <invalid>
+      <property>size</property>
+      <check value="1"><![CDATA[>]]></check>
+      <description><![CDATA[Max placeholder size is 1.]]></description>
+
+      <fix>
+        <property value="1">size</property>
+      </fix>
+    </invalid>
+
+  </rule>
+
   <rule name="Virtual Mirror Y" layout="ANY">
     <invalid>
       <property>y</property>
@@ -129,7 +143,8 @@ ANY
       <property>x</property>
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
-      <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
+      <description><![CDATA[FFB meter will be displayed at X=-3.]]></description> <!-- TODO Check if this is true by displaying it on middle of left screen. -->
+      <!-- TODO Also check if we can display it everywhere in right screen if anchor is bottom left, and same for center screen. -->
       
       <fix>
         <property value="-3">x</property>
