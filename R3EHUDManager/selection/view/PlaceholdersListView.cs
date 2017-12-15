@@ -20,8 +20,10 @@ namespace R3EHUDManager.selection.view
         private bool bypassSelectedEvent = false;
         public event EventHandler MvcEventHandler;
         public static readonly int EVENT_PLACEHOLDER_SELECTED = EventId.New();
+        public static readonly int EVENT_REQUEST_LAYOUT_FIX = EventId.New();
         private Dictionary<int, ListViewItem> items = new Dictionary<int, ListViewItem>();
         private Dictionary<int, ValidationResult> validations = new Dictionary<int, ValidationResult>();
+        private MenuItem menuItemFixLayout;
 
         public PlaceholdersListView()
         {
@@ -37,8 +39,8 @@ namespace R3EHUDManager.selection.view
                     Tag = model.Id,
                 };
 
-                if (validations.ContainsKey(model.Id))
-                    item.ToolTipText = validations[model.Id].Description;
+                SetValidationResult(model, model.ValidationResult);
+                item.ToolTipText = validations[model.Id].Description;
 
                 list.Items.Add(item);
                 items.Add(model.Id, item);
@@ -51,6 +53,7 @@ namespace R3EHUDManager.selection.view
             {
                 list.Items.Remove(items[model.Id]);
                 items.Remove(model.Id);
+                validations.Remove(model.Id);
             }
         }
 
@@ -58,6 +61,7 @@ namespace R3EHUDManager.selection.view
         {
             list.Items.Clear();
             items.Clear();
+            validations.Clear();
         }
 
         internal void SelectPlaceholder(int id)
@@ -174,6 +178,52 @@ namespace R3EHUDManager.selection.view
 
             Controls.Add(list);
             Controls.Add(title);
+
+            InitializeContextMenu();
+        }
+
+        private void InitializeContextMenu()
+        {
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.Popup += OnContextMenuPopup;
+            menuItemFixLayout = new MenuItem("Apply layout fixes", OnMenuFixLayoutClick);
+            contextMenu.MenuItems.Add(menuItemFixLayout);
+
+            ContextMenu = contextMenu;
+        }
+
+        private void OnContextMenuPopup(object sender, EventArgs e)
+        {
+            if (list.SelectedItems.Count == 0) return;
+
+            int modelId = (int)list.SelectedItems[0].Tag;
+
+            if (!validations.ContainsKey(modelId)) return;
+
+            if (validations[modelId].Type == ResultType.INVALID && validations[modelId].HasFix())
+            {
+                menuItemFixLayout.Text = "Apply layout fix";
+                menuItemFixLayout.Enabled = true;
+            }
+            else
+            {
+                menuItemFixLayout.Text = "No available layout fix";
+                menuItemFixLayout.Enabled = false;
+            }
+        }
+
+        private void OnMenuFixLayoutClick(object sender, EventArgs e)
+        {
+            if (list.SelectedItems.Count == 0) return;
+
+            int modelId = (int)list.SelectedItems[0].Tag;
+
+            if (!validations.ContainsKey(modelId)) return;
+
+            ValidationResult validationResult = validations[modelId];
+
+            if (validationResult != null && validationResult.HasFix())
+                DispatchEvent(new IntEventArgs(EVENT_REQUEST_LAYOUT_FIX, modelId));
         }
 
         public void DispatchEvent(BaseEventArgs args)

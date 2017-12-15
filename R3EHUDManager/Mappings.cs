@@ -84,6 +84,7 @@ namespace R3EHUDManager
             Injector.MapCommand<SelectionView, ResizeSelectedPlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_RESIZED);
             Injector.MapCommand<SelectionView, ChangePlaceholderScreenCommand>(SelectionView.EVENT_MOVE_TO_SCREEN);
             Injector.MapCommand<PlaceholdersListView, SelectPlaceholderCommand>(PlaceholdersListView.EVENT_PLACEHOLDER_SELECTED);
+            Injector.MapCommand<PlaceholdersListView, ApplyLayoutFixCommand>(PlaceholdersListView.EVENT_REQUEST_LAYOUT_FIX);
             Injector.MapCommand<SettingsMenuView, OpenAppInstallDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY);
             Injector.MapCommand<SettingsMenuView, OpenAppDataDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY);
             Injector.MapCommand<SettingsMenuView, OpenHudDirectoryCommand>(SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY);

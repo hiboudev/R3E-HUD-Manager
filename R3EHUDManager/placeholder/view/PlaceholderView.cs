@@ -267,13 +267,13 @@ namespace R3EHUDManager.placeholder.view
         private void InitializeContextMenu()
         {
             ContextMenu menu = new ContextMenu();
-            menuItemFixLayout = new MenuItem("Apply layout fixes", OnMenuFixLayoutClck);
+            menuItemFixLayout = new MenuItem("Apply layout fixes", OnMenuFixLayoutClick);
             menu.MenuItems.Add(menuItemFixLayout);
 
             ContextMenu = menu;
         }
 
-        private void OnMenuFixLayoutClck(object sender, EventArgs e)
+        private void OnMenuFixLayoutClick(object sender, EventArgs e)
         {
             if (validationResult != null && Model != null && validationResult.HasFix())
                 DispatchEvent(new IntEventArgs(EVENT_REQUEST_LAYOUT_FIX, Model.Id));
