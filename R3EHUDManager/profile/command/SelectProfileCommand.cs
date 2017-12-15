@@ -6,6 +6,7 @@ using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
+using R3EHUDManager.savestatus.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.selection.model;
 using System.Collections.Generic;

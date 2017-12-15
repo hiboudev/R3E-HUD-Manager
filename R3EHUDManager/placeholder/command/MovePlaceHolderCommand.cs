@@ -11,6 +11,7 @@ using System.Drawing;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.placeholder.validator;
+using R3EHUDManager.savestatus.model;
 
 namespace R3EHUDManager.placeholder.command
 {
@@ -34,7 +35,7 @@ namespace R3EHUDManager.placeholder.command
 
         public void Execute()
         {
-            PlaceholderModel placeholder = collectionModel.Get(args.View.Model.Id); // TODO id
+            PlaceholderModel placeholder = collectionModel.Get(args.View.Model.Id);
             placeholder.Move(moveValidator.GetValidPosition(placeholder, GetR3eLocation(args.Point)));
         }
 

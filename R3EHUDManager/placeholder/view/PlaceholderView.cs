@@ -33,7 +33,6 @@ namespace R3EHUDManager.placeholder.view
         private ValidationResult validationResult;
         private ToolTip toolTip;
         private MenuItem menuItemFixLayout;
-        private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
         public static readonly int EVENT_REQUEST_SELECTION = EventId.New();
@@ -123,7 +122,7 @@ namespace R3EHUDManager.placeholder.view
         internal void SetSelected(bool selected)
         {
             this.selected = selected;
-            label.BackColor = selected ? SELECTION_COLOR : LABEL_BACK_COLOR;
+            label.BackColor = selected ? Colors.PLACEHOLDER_SELECTION : LABEL_BACK_COLOR;
             label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
             if (selected) BringToFront();
             Invalidate();
@@ -173,7 +172,7 @@ namespace R3EHUDManager.placeholder.view
             {
                 Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
 
-                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, SELECTION_COLOR), 1)
+                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, Colors.PLACEHOLDER_SELECTION), 1)
                 {
                     Alignment = PenAlignment.Inset
                 }, insideRectangle);

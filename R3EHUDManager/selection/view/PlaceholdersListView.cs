@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using R3EHUDManager.r3esupport.result;
 using System.Reflection;
+using R3EHUDManager.graphics;
 
 namespace R3EHUDManager.selection.view
 {
@@ -106,7 +107,8 @@ namespace R3EHUDManager.selection.view
 
             if (selected)
             {
-                e.Graphics.FillRectangle(Brushes.LightSkyBlue, new Rectangle(e.Bounds.X + thickness, e.Bounds.Y + spacing, e.Bounds.Width, e.Bounds.Height - 2 * spacing));
+                e.Graphics.FillRectangle(new SolidBrush(Colors.PLACEHOLDER_LIST_SELECTION),
+                    new Rectangle(e.Bounds.X + thickness, e.Bounds.Y + spacing, e.Bounds.Width, e.Bounds.Height - 2 * spacing));
                 //e.DrawFocusRectangle();
             }
             else

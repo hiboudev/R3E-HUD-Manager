@@ -1,7 +1,9 @@
 ﻿using da2mvc.core.command;
 using da2mvc.core.events;
+using da2mvc.framework.collection.events;
 using R3EHUDManager.application.events;
 using R3EHUDManager.placeholder.events;
+using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.r3esupport.rule;
 using R3EHUDManager.screen.model;
@@ -17,11 +19,12 @@ namespace R3EHUDManager.r3esupport.command
     class ValidatePlaceholderCommand : ICommand
     {
 
-        private readonly PlaceHolderUpdatedEventArgs args;
+        private readonly BaseEventArgs args;
         private readonly SupportRuleValidator validator;
         private readonly ScreenModel screenModel;
 
-        public ValidatePlaceholderCommand(PlaceHolderUpdatedEventArgs args, SupportRuleValidator validator, ScreenModel screenModel)
+        // TODO improve commands in MVC by choosing the ctor depending of event arg type.
+        public ValidatePlaceholderCommand(BaseEventArgs args, SupportRuleValidator validator, ScreenModel screenModel)
         {
             this.args = args;
             this.validator = validator;
@@ -30,17 +33,28 @@ namespace R3EHUDManager.r3esupport.command
 
         public void Execute()
         {
-            string description = "";
-            ValidationResult result;
+            if (args is PlaceHolderUpdatedEventArgs)
+                ValidatePlaceholders(new PlaceholderModel[] { ((PlaceHolderUpdatedEventArgs)args).Placeholder });
+            else if(args is CollectionEventArgs<PlaceholderModel>)
+                ValidatePlaceholders(((CollectionEventArgs<PlaceholderModel>)args).ChangedItems);
+        }
 
-            List<Fix> fixes = new List<Fix>();
+        private void ValidatePlaceholders(PlaceholderModel[] placeholders)
+        {
+            foreach(var placeholder in placeholders)
+            {
+                string description = "";
+                ValidationResult result;
 
-            if (validator.Matches(args.Placeholder, screenModel.Layout, ref description, fixes))
-                result = ValidationResult.GetInvalid(description, fixes);
-            else
-                result = ValidationResult.GetValid();
+                List<Fix> fixes = new List<Fix>();
 
-            args.Placeholder.SetValidationResult(result);
+                if (validator.Matches(placeholder, screenModel.Layout, ref description, fixes))
+                    result = ValidationResult.GetInvalid(description, fixes);
+                else
+                    result = ValidationResult.GetValid();
+
+                placeholder.SetValidationResult(result);
+            }
         }
     }
 }

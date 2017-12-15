@@ -29,6 +29,7 @@ using R3EHUDManager.placeholder.validator;
 using R3EHUDManager.r3esupport.parser;
 using R3EHUDManager.r3esupport.rule;
 using R3EHUDManager.r3esupport.command;
+using R3EHUDManager.savestatus.model;
 
 namespace R3EHUDManager
 {
@@ -58,6 +59,7 @@ namespace R3EHUDManager
             Injector.MapType<PlaceholderUserChangeValidator>(true);
             Injector.MapType<SupportRuleParser>(true);
             Injector.MapType<SupportRuleValidator>(true);
+            Injector.MapType<SaveStatusModel>(true);
 
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
@@ -98,6 +100,7 @@ namespace R3EHUDManager
             Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);
             Injector.MapCommand<R3eDirectoryMenuView, SelectR3eDirectoryCommand>(R3eDirectoryMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<PlaceholderModel, ValidatePlaceholderCommand>(PlaceholderModel.EVENT_UPDATED);
+            Injector.MapCommand<PlaceHolderCollectionModel, ValidatePlaceholderCommand>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED);
         }
     }
 }

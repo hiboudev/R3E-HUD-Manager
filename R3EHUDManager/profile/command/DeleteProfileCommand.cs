@@ -4,6 +4,7 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.database;
 using R3EHUDManager.location.model;
 using R3EHUDManager.profile.model;
+using R3EHUDManager.savestatus.model;
 using System;
 using System.IO;
 
@@ -32,8 +33,10 @@ namespace R3EHUDManager.profile.command
             ProfileModel profile = profileCollection.Get(args.Value);
             String filePath = Path.Combine(location.LocalDirectoryProfiles, profile.fileName);
 
-            if(profileSelection.Selection == profile)
+            if (profileSelection.Selection == profile)
+            {
                 profileSelection.SelectNone();
+            }
 
             profileCollection.Remove(profile);
             database.DeleteProfile(profile);

@@ -9,6 +9,7 @@ using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
 using da2mvc.framework.collection.model;
 using da2mvc.framework.menubutton.view;
+using System.Drawing;
 
 namespace R3EHUDManager.profile.view
 {
@@ -18,6 +19,7 @@ namespace R3EHUDManager.profile.view
         public static readonly int EVENT_SAVE_PROFILE = EventId.New();
 
         private ToolStripMenuItem itemSaveProfile;
+        private bool isSaved;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
 
         public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection)
@@ -27,6 +29,8 @@ namespace R3EHUDManager.profile.view
         }
 
         protected override string Title => "Profile";
+
+        internal bool HasSelection { get; private set; }
 
         protected override List<ToolStripMenuItem> GetBuiltInItems()
         {
@@ -59,8 +63,13 @@ namespace R3EHUDManager.profile.view
 
         internal void SelectProfile(ProfileModel profile)
         {
-            if(SetSelectedItem(profile.Id))
+            if (SetSelectedItem(profile.Id))
+            {
+                HasSelection = true;
                 itemSaveProfile.Enabled = true;
+            }
+            else
+                HasSelection = false;
 
             itemSaveProfile.Text = $"<Save profile '{profile.Name}'>";
         }
@@ -68,6 +77,7 @@ namespace R3EHUDManager.profile.view
         internal void UnselectProfile()
         {
             SetSelectedItem(null);
+            HasSelection = false;
             itemSaveProfile.Enabled = false;
             itemSaveProfile.Text = "<Save profile>";
         }
@@ -75,7 +85,7 @@ namespace R3EHUDManager.profile.view
         internal void UpdateProfile(ProfileModel profile)
         {
             // TODO Add update management to abstract class?
-            foreach(ToolStripMenuItem item in ContextMenuStrip.Items)
+            foreach (ToolStripMenuItem item in ContextMenuStrip.Items)
             {
                 if ((int)item.Tag == profile.Id)
                 {
@@ -86,11 +96,23 @@ namespace R3EHUDManager.profile.view
             }
         }
 
+        internal void SetSaveStatus(bool isSaved)
+        {
+            this.isSaved = isSaved;
+            Font = new Font(Font, isSaved ? FontStyle.Regular : FontStyle.Italic);
+        }
+
+        //protected override string FormatTitle(string selectedName)
+        //{
+        //    if (!isSaved) return base.FormatTitle(selectedName) + " *";
+        //    return base.FormatTitle(selectedName);
+        //}
+
         private void OnSaveToNewProfileClicked(object sender, EventArgs e)
         {
             var newProfileDialog = Injector.GetInstance<PromptNewProfileView>();
 
-            if(newProfileDialog.ShowDialog() == DialogResult.OK)
+            if (newProfileDialog.ShowDialog() == DialogResult.OK)
             {
                 DispatchEvent(new StringEventArgs(EVENT_CREATE_NEW_PROFILE, newProfileDialog.ProfileName));
             }

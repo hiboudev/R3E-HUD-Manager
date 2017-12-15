@@ -7,6 +7,7 @@ using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
+using R3EHUDManager.savestatus.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.utils;
 using System.IO;
@@ -25,7 +26,8 @@ namespace R3EHUDManager.profile.command
         private readonly SelectedProfileModel selectedProfile;
 
         public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database, 
-            HudOptionsParser parser, LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection, SelectedProfileModel selectedProfile)
+            HudOptionsParser parser, LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection,
+            SelectedProfileModel selectedProfile)
         {
             this.args = args;
             this.profileCollection = profileCollection;

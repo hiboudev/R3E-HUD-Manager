@@ -7,6 +7,7 @@ using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.events;
 using R3EHUDManager.profile.model;
+using R3EHUDManager.savestatus.model;
 using R3EHUDManager.screen.model;
 using System.IO;
 
