@@ -176,7 +176,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
-    <Compile Include="r3esupport\command\ValidateRulesCommand.cs" />
+    <Compile Include="r3esupport\command\ValidateCollectionCommand.cs" />
+    <Compile Include="r3esupport\command\ValidatePlaceholderCommand.cs" />
     <Compile Include="placeholder\events\ValidationChangedEventArgs.cs" />
     <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
     <Compile Include="r3esupport\result\ResultType.cs" />
@@ -368,9 +369,7 @@
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="r3esupport\events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

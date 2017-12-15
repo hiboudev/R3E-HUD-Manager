@@ -7,6 +7,7 @@ using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.selection.model;
 using System.Collections.Generic;
 using System.IO;
 
@@ -22,10 +23,11 @@ namespace R3EHUDManager.profile.command
         private readonly HudOptionsParser parser;
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel placeholderCollection;
+        private readonly SelectionModel selectionModel;
 
         public SelectProfileCommand(MenuButtonEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel selectedProfile,
                                     CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screen, HudOptionsParser parser, LocationModel location,
-                                    PlaceHolderCollectionModel placeholderCollection)
+                                    PlaceHolderCollectionModel placeholderCollection, SelectionModel selectionModel)
         {
             this.args = args;
             this.profileCollection = profileCollection;
@@ -35,6 +37,7 @@ namespace R3EHUDManager.profile.command
             this.parser = parser;
             this.location = location;
             this.placeholderCollection = placeholderCollection;
+            this.selectionModel = selectionModel;
         }
 
         public void Execute()
@@ -42,6 +45,8 @@ namespace R3EHUDManager.profile.command
             ProfileModel profile = profileCollection.Get(args.ItemId);
             BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
             List<PlaceholderModel> placeholders = parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.fileName));
+
+            selectionModel.Unselect();
 
             screen.SetBackground(background);
             placeholderCollection.Clear();

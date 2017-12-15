@@ -14,15 +14,14 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.command
 {
-    class ValidateRulesCommand : ICommand, IEventDispatcher
+    class ValidatePlaceholderCommand : ICommand
     {
-        public event EventHandler MvcEventHandler;
 
         private readonly PlaceHolderUpdatedEventArgs args;
         private readonly SupportRuleValidator validator;
         private readonly ScreenModel screenModel;
 
-        public ValidateRulesCommand(PlaceHolderUpdatedEventArgs args, SupportRuleValidator validator, ScreenModel screenModel)
+        public ValidatePlaceholderCommand(PlaceHolderUpdatedEventArgs args, SupportRuleValidator validator, ScreenModel screenModel)
         {
             this.args = args;
             this.validator = validator;
@@ -35,20 +34,11 @@ namespace R3EHUDManager.r3esupport.command
             ValidationResult result;
 
             if (validator.Matches(args.Placeholder, screenModel.Layout, ref description))
-            {
                 result = ValidationResult.GetInvalid(description);
-            }
             else
-            {
                 result = ValidationResult.GetValid();
-            }
 
             args.Placeholder.SetValidationResult(result);
-        }
-
-        public void DispatchEvent(BaseEventArgs args)
-        {
-            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

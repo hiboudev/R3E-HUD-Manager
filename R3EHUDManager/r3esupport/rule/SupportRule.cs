@@ -43,7 +43,6 @@ namespace R3EHUDManager.r3esupport.rule
             if (targets.Count > 0 && !targets.Contains(placeholder.Name))
                 return false;
 
-            description = "";
             bool isMatch = false;
 
             foreach (var part in parts)
@@ -56,7 +55,7 @@ namespace R3EHUDManager.r3esupport.rule
             }
 
             if (description.Length > 0)
-                description = description.Substring(0, description.Length - Environment.NewLine.Length);
+                description = description.TrimEnd(Environment.NewLine.ToCharArray());
 
             return isMatch;
         }

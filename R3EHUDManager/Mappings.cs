@@ -95,7 +95,7 @@ namespace R3EHUDManager
             Injector.MapCommand<ProfileMenuView, SaveProfileCommand>(ProfileMenuView.EVENT_SAVE_PROFILE);
             Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);
             Injector.MapCommand<R3eDirectoryMenuView, SelectR3eDirectoryCommand>(R3eDirectoryMenuView.EVENT_ITEM_CLICKED);
-            Injector.MapCommand<PlaceholderModel, ValidateRulesCommand>(PlaceholderModel.EVENT_UPDATED);
+            Injector.MapCommand<PlaceholderModel, ValidatePlaceholderCommand>(PlaceholderModel.EVENT_UPDATED);
         }
     }
 }

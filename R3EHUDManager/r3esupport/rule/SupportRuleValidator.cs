@@ -19,7 +19,6 @@ namespace R3EHUDManager.r3esupport.rule
 
         public bool Matches(PlaceholderModel placeholder, ScreenLayoutType layout, ref string description)
         {
-            description = "";
             bool isMatch = false;
 
             foreach (var rule in rules)
