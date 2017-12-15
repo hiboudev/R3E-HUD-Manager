@@ -38,9 +38,10 @@ namespace R3EHUDManager.r3esupport.rule
                 case PropertyType.ANCHOR_Y:
                     placeholder.MoveAnchor(new R3ePoint(placeholder.Anchor.X, value));
                     break;
-            }
 
-            throw new Exception("Not implemented property type.");
+                default:
+                    throw new Exception("Not implemented property type.");
+            }
         }
     }
 }

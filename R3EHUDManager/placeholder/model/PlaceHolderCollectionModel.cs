@@ -6,7 +6,7 @@ using da2mvc.core.events;
 
 namespace R3EHUDManager.placeholder.model
 {
-    class PlaceHolderCollectionModel : CollectionModel<PlaceholderModel>
+    class PlaceHolderCollectionModel : CollectionModel<PlaceholderModel> // TODO delete this class and use generic collection only, edit the view API.
     {
         private Dictionary<string, PlaceholderModel> placeHolders = new Dictionary<string, PlaceholderModel>();
 

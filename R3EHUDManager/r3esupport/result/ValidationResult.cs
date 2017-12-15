@@ -41,6 +41,11 @@ namespace R3EHUDManager.r3esupport.result
                 fix.Apply(placeholder);
         }
 
+        public bool HasFix()
+        {
+            return fixes.Count > 0;
+        }
+
         public bool Equals(ValidationResult result)
         {
             return

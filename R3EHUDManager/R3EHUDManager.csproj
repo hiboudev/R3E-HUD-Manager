@@ -175,6 +175,7 @@
     <Compile Include="profile\view\PromptNewProfileView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="r3esupport\command\ApplyLayoutFixCommand.cs" />
     <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
     <Compile Include="r3esupport\command\ValidateCollectionCommand.cs" />
     <Compile Include="r3esupport\command\ValidatePlaceholderCommand.cs" />

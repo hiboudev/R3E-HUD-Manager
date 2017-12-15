@@ -32,12 +32,13 @@ namespace R3EHUDManager.placeholder.view
         private bool selected;
         private ValidationResult validationResult;
         private ToolTip toolTip;
+        private MenuItem menuItemFixLayout;
         private readonly static Color SELECTION_COLOR = Color.DeepSkyBlue;
         private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
 
         public static readonly int EVENT_REQUEST_SELECTION = EventId.New();
-
         public static readonly int EVENT_REQUEST_MOVE = EventId.New();
+        public static readonly int EVENT_REQUEST_LAYOUT_FIX = EventId.New();
 
         public PlaceholderModel Model { get; private set; } // TODO remove model from view
 
@@ -131,8 +132,17 @@ namespace R3EHUDManager.placeholder.view
         internal void SetValidationResult(ValidationResult result)
         {
             validationResult = result;
-
             toolTip.SetToolTip(label, result.Description);
+            if(validationResult.Type == ResultType.INVALID && validationResult.HasFix())
+            {
+                menuItemFixLayout.Text = "Apply layout fix";
+                menuItemFixLayout.Enabled = true;
+            }
+            else
+            {
+                menuItemFixLayout.Text = "No available layout fix";
+                menuItemFixLayout.Enabled = false;
+            }
 
             Invalidate();
         }
@@ -175,11 +185,13 @@ namespace R3EHUDManager.placeholder.view
                         new Point(label.Location.X, label.Location.Y + label.Height),
                         new Point(label.Location.X + label.Width, label.Location.Y + label.Height)
                         );
-
         }
 
         void StartDrag(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+                return;
+
             if (!selected)
             {
                 DispatchEvent(new IntEventArgs(EVENT_REQUEST_SELECTION, Model.Id));
@@ -248,10 +260,26 @@ namespace R3EHUDManager.placeholder.view
             MouseDown += StartDrag;
             label.MouseDown += StartDrag;
 
-            CreateToolTip();
+            InitializeToolTip();
+            InitializeContextMenu();
         }
 
-        private void CreateToolTip()
+        private void InitializeContextMenu()
+        {
+            ContextMenu menu = new ContextMenu();
+            menuItemFixLayout = new MenuItem("Apply layout fixes", OnMenuFixLayoutClck);
+            menu.MenuItems.Add(menuItemFixLayout);
+
+            ContextMenu = menu;
+        }
+
+        private void OnMenuFixLayoutClck(object sender, EventArgs e)
+        {
+            if (validationResult != null && Model != null && validationResult.HasFix())
+                DispatchEvent(new IntEventArgs(EVENT_REQUEST_LAYOUT_FIX, Model.Id));
+        }
+
+        private void InitializeToolTip()
         {
             toolTip = new ToolTip
             {

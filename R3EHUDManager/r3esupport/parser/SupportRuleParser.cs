@@ -83,6 +83,7 @@ namespace R3EHUDManager.r3esupport.parser
                 Fix fix = new Fix(
                     double.Parse(propertyNode.Attributes["value"].Value, CultureInfo.InvariantCulture),
                     GetPropertyType(propertyNode.InnerText));
+                fixes.Add(fix);
             }
             return fixes.ToArray();
         }

@@ -100,11 +100,25 @@ ANY
     <placeholder name="Virtual Mirror" />
   </rule>
 
-  <rule name="FFB right screen" layout="triple">
+  <rule name="FFB anchor not movable" layout="ANY">
     <invalid>
-      <property>x</property>
-      <check value="1"><![CDATA[>]]></check>
-      <description><![CDATA[FFB meter won't appear in R3E.]]></description><!-- TODO Is it really not displayed or the anchor is forced to bottom left and it pushes it outside? Check and add fix. -->
+      <property>ax</property>
+      <check value="-1"><![CDATA[!=]]></check>
+      <description><![CDATA[FFB anchor position X will be left.]]></description>
+
+      <fix>
+        <property value="-1">ax</property>
+      </fix>
+    </invalid>
+    
+    <invalid>
+      <property>ay</property>
+      <check value="-1"><![CDATA[!=]]></check>
+      <description><![CDATA[FFB anchor position Y will be bottom.]]></description>
+
+      <fix>
+        <property value="-1">ay</property>
+      </fix>
     </invalid>
 
     <placeholder name="FFB Graph" />
@@ -119,7 +133,8 @@ ANY
       
       <fix>
         <property value="-3">x</property>
-        <property value="-1">ax</property> <!-- TODO Check if anchor Y is movable or stuck at bottom left, and adjust fix. -->
+        <property value="-1">ax</property>
+        <property value="-1">ay</property>
       </fix>
     </invalid>
 
