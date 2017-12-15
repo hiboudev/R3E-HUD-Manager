@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.placeholder.validator
 {
-    class PlaceholderMoveValidator
+    class PlaceholderUserChangeValidator
     {
         private readonly ScreenModel screenModel;
 
-        public PlaceholderMoveValidator(ScreenModel screenModel)
+        public PlaceholderUserChangeValidator(ScreenModel screenModel)
         {
             this.screenModel = screenModel;
         }
@@ -35,6 +35,14 @@ namespace R3EHUDManager.placeholder.validator
             else if (wantedPosition.Y > yMax && placeholder.Position.Y <= yMax) validY = yMax;
 
             return new R3ePoint(validX, validY);
+        }
+
+        public R3ePoint GetValidSize(PlaceholderModel placeholder, double wantedSize)
+        {
+            if (wantedSize < 0.1) return new R3ePoint(0.1, 0.1);
+            if (wantedSize > 1) return new R3ePoint(1, 1);
+
+            return new R3ePoint(wantedSize, wantedSize);
         }
     }
 }

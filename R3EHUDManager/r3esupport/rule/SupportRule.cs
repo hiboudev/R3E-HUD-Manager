@@ -50,13 +50,11 @@ namespace R3EHUDManager.r3esupport.rule
                 if (part.Matches(placeholder))
                 {
                     isMatch = true;
-                    description += part.Description + Environment.NewLine;
+                    
+                    description += (description.Length > 0 ? Environment.NewLine : "") + part.Description;
                     fixes.AddRange(part.Fixes);
                 }
             }
-
-            if (description.Length > 0)
-                description = description.TrimEnd(Environment.NewLine.ToCharArray());
 
             return isMatch;
         }

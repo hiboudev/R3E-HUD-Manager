@@ -95,7 +95,7 @@ ANY
     <invalid>
       <property>size</property>
       <check value="1"><![CDATA[>]]></check>
-      <description><![CDATA[Max placeholder size is 1.]]></description>
+      <description><![CDATA[Maximum placeholder size is 1.]]></description>
 
       <fix>
         <property value="1">size</property>

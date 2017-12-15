@@ -14,9 +14,9 @@ namespace R3EHUDManager.placeholder.command
     {
         private readonly SelectionViewEventArgs args;
         private readonly SelectionModel selectionModel;
-        private readonly PlaceholderMoveValidator moveValidator;
+        private readonly PlaceholderUserChangeValidator moveValidator;
 
-        public MoveSelectedPlaceholderCommand(SelectionViewEventArgs args, SelectionModel selectionModel, PlaceholderMoveValidator moveValidator)
+        public MoveSelectedPlaceholderCommand(SelectionViewEventArgs args, SelectionModel selectionModel, PlaceholderUserChangeValidator moveValidator)
         {
             this.args = args;
             this.selectionModel = selectionModel;

@@ -154,7 +154,7 @@
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\command\MoveSelectedPlaceholderCommand.cs" />
     <Compile Include="placeholder\events\PlaceholderScreenEventArgs.cs" />
-    <Compile Include="placeholder\validator\PlaceholderMoveValidator.cs" />
+    <Compile Include="placeholder\validator\PlaceholderUserChangeValidator.cs" />
     <Compile Include="placeholder\view\PlaceholderMediator.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />
     <Compile Include="profile\command\DeleteProfileCommand.cs" />

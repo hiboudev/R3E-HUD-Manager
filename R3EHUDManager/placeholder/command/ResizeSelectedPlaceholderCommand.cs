@@ -2,6 +2,7 @@
 using R3EHUDManager.coordinates;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
+using R3EHUDManager.placeholder.validator;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.model;
 using System;
@@ -16,19 +17,18 @@ namespace R3EHUDManager.placeholder.command
     {
         private readonly SelectionViewEventArgs args;
         private readonly SelectionModel selectionModel;
+        private readonly PlaceholderUserChangeValidator validator;
 
-        public ResizeSelectedPlaceholderCommand(SelectionViewEventArgs args, SelectionModel selectionModel)
+        public ResizeSelectedPlaceholderCommand(SelectionViewEventArgs args, SelectionModel selectionModel, PlaceholderUserChangeValidator validator)
         {
             this.args = args;
             this.selectionModel = selectionModel;
+            this.validator = validator;
         }
 
         public void Execute()
         {
-            if (args.Point.X < 0.1)
-                selectionModel.Selection.Resize(new R3ePoint(0.1, 0.1));
-            else
-                selectionModel.Selection.Resize(args.Point);
+            selectionModel.Selection.Resize(validator.GetValidSize(selectionModel.Selection, args.Point.X));
         }
     }
 }

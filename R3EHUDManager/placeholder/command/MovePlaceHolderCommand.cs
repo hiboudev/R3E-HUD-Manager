@@ -20,10 +20,10 @@ namespace R3EHUDManager.placeholder.command
         private readonly PlaceHolderCollectionModel collectionModel;
         private readonly ScreenView screenView;
         private readonly ScreenModel screenModel;
-        private readonly PlaceholderMoveValidator moveValidator;
+        private readonly PlaceholderUserChangeValidator moveValidator;
 
         public MovePlaceholderCommand(PlaceholderViewEventArgs args, PlaceHolderCollectionModel collectionModel, ScreenView screenView, ScreenModel screenModel,
-            PlaceholderMoveValidator moveValidator)
+            PlaceholderUserChangeValidator moveValidator)
         {
             this.args = args;
             this.collectionModel = collectionModel;

@@ -55,7 +55,7 @@ namespace R3EHUDManager
             Injector.MapType<CollectionModel<R3eDirectoryModel>>(true);
             Injector.MapType<SelectedR3eDirectoryModel>(true);
             Injector.MapType<PlaceholderModel>();
-            Injector.MapType<PlaceholderMoveValidator>(true);
+            Injector.MapType<PlaceholderUserChangeValidator>(true);
             Injector.MapType<SupportRuleParser>(true);
             Injector.MapType<SupportRuleValidator>(true);
 
