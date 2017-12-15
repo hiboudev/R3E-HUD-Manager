@@ -112,6 +112,7 @@ namespace R3EHUDManager.screen.view
             {
                 Scroll += OnScrollChanged;
                 AutoScroll = true;
+                //TODO Gérer le scroll en manuel pour virer la barre verticale qui peut appraître avec la molette souris sur le position preset.
             }
         }
 

@@ -191,7 +191,9 @@ namespace R3EHUDManager.placeholder.view
             dragStartCursorPosition = Cursor.Position;
             dragStartLocation = Location;
 
-            MouseMove += Drag;
+            ((Control)sender).MouseMove += Drag;
+            ((Control)sender).MouseUp += StopDrag;
+            //MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
         }
 
         void Drag(object sender, EventArgs e)
@@ -204,7 +206,8 @@ namespace R3EHUDManager.placeholder.view
             if (!isDragging) return;
             isDragging = false;
 
-            MouseMove -= Drag;
+            ((Control)sender).MouseUp -= StopDrag;
+            ((Control)sender).MouseMove -= Drag;
             OnDrag();
         }
 
@@ -231,7 +234,7 @@ namespace R3EHUDManager.placeholder.view
                 AutoSize = true,
                 BackColor = LABEL_BACK_COLOR,
                 ForeColor = Color.Black,
-                Enabled = false,
+                //Enabled = false,
             };
 
             anchor = new AnchorView
@@ -243,8 +246,7 @@ namespace R3EHUDManager.placeholder.view
             Controls.Add(label);
 
             MouseDown += StartDrag;
-            MouseUp += StopDrag;
-            MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
+            label.MouseDown += StartDrag;
 
             CreateToolTip();
         }
