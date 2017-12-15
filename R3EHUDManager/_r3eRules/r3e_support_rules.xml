@@ -60,10 +60,10 @@ ANY
       <check value="3"><![CDATA[<=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=1.]]></description>
 
-      <!-->fix>
+      <fix>
         <property value="1">x</property>
         <property value="-1">ax</property>
-      </fix-->
+      </fix>
     </invalid>
 
     <invalid>
@@ -71,6 +71,11 @@ ANY
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[>=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=-1.]]></description>
+
+      <fix>
+        <property value="-1">x</property>
+        <property value="1">ax</property>
+      </fix>
     </invalid>
 
     <placeholder name="MoTeC" />
@@ -99,7 +104,7 @@ ANY
     <invalid>
       <property>x</property>
       <check value="1"><![CDATA[>]]></check>
-      <description><![CDATA[FFB meter won't appear in R3E.]]></description>
+      <description><![CDATA[FFB meter won't appear in R3E.]]></description><!-- TODO Is it really not displayed or the anchor is forced to bottom left and it pushes it outside? Check and add fix. -->
     </invalid>
 
     <placeholder name="FFB Graph" />
@@ -111,6 +116,11 @@ ANY
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
       <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
+      
+      <fix>
+        <property value="-3">x</property>
+        <property value="-1">ax</property> <!-- TODO Check if anchor Y is movable or stuck at bottom left, and adjust fix. -->
+      </fix>
     </invalid>
 
     <placeholder name="FFB Graph" />
@@ -142,24 +152,44 @@ ANY
       <property>x</property>
       <check value="-3"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+
+      <fix>
+        <property value="-3">x</property>
+        <property value="-1">ax</property>
+      </fix>
     </invalid>
 
     <invalid>
       <property>x</property>
       <check value="3"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+
+      <fix>
+        <property value="3">x</property>
+        <property value="1">ax</property>
+      </fix>
     </invalid>
     
     <invalid>
       <property>y</property>
       <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+
+      <fix>
+        <property value="-1">y</property>
+        <property value="-1">ay</property>
+      </fix>
     </invalid>
 
     <invalid>
       <property>y</property>
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+
+      <fix>
+        <property value="1">y</property>
+        <property value="1">ay</property>
+      </fix>
     </invalid>
     
   </rule>
@@ -170,24 +200,44 @@ ANY
       <property>x</property>
       <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+
+      <fix>
+        <property value="-1">x</property>
+        <property value="-1">ax</property>
+      </fix>
     </invalid>
 
     <invalid>
       <property>x</property>
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
+
+      <fix>
+        <property value="1">x</property>
+        <property value="1">ax</property>
+      </fix>
     </invalid>
 
     <invalid>
       <property>y</property>
       <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+
+      <fix>
+        <property value="-1">y</property>
+        <property value="-1">ay</property>
+      </fix>
     </invalid>
 
     <invalid>
       <property>y</property>
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
+
+      <fix>
+        <property value="1">y</property>
+        <property value="1">ay</property>
+      </fix>
     </invalid>
 
   </rule>

@@ -32,9 +32,10 @@ namespace R3EHUDManager.r3esupport.command
             foreach(var placeholder in placeholderCollection.Items)
             {
                 description = "";
+                List<Fix> fixes = new List<Fix>();
 
-                if (validator.Matches(placeholder, screenModel.Layout, ref description))
-                    result = ValidationResult.GetInvalid(description);
+                if (validator.Matches(placeholder, screenModel.Layout, ref description, fixes))
+                    result = ValidationResult.GetInvalid(description, fixes);
                 else
                     result = ValidationResult.GetValid();
 

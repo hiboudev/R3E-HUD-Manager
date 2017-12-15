@@ -33,8 +33,10 @@ namespace R3EHUDManager.r3esupport.command
             string description = "";
             ValidationResult result;
 
-            if (validator.Matches(args.Placeholder, screenModel.Layout, ref description))
-                result = ValidationResult.GetInvalid(description);
+            List<Fix> fixes = new List<Fix>();
+
+            if (validator.Matches(args.Placeholder, screenModel.Layout, ref description, fixes))
+                result = ValidationResult.GetInvalid(description, fixes);
             else
                 result = ValidationResult.GetValid();
 

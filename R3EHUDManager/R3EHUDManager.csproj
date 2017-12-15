@@ -182,6 +182,7 @@
     <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
     <Compile Include="r3esupport\result\ResultType.cs" />
     <Compile Include="r3esupport\result\ValidationResult.cs" />
+    <Compile Include="r3esupport\rule\Fix.cs" />
     <Compile Include="r3esupport\rule\Operation.cs" />
     <Compile Include="r3esupport\rule\OperatorType.cs" />
     <Compile Include="r3esupport\rule\PropertyType.cs" />
@@ -350,22 +351,22 @@
   <ItemGroup>
     <PublishFile Include="_r3eRules\r3e_support_rules.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="_template\hud_options_template_v6.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

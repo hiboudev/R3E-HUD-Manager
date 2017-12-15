@@ -13,12 +13,14 @@ namespace R3EHUDManager.r3esupport.rule
         private readonly Operation[] operations;
 
         public string Description { get; }
+        public Fix[] Fixes { get; }
 
-        public RulePart(PropertyType property, Operation[] operations, string description)
+        public RulePart(PropertyType property, Operation[] operations, string description, Fix[] fixes)
         {
             this.property = property;
             this.operations = operations;
             Description = description;
+            Fixes = fixes;
         }
 
         public bool Matches(PlaceholderModel placeholder)

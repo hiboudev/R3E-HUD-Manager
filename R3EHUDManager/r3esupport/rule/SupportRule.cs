@@ -33,7 +33,7 @@ namespace R3EHUDManager.r3esupport.rule
             this.parts = parts;
         }
 
-        public bool Matches(PlaceholderModel placeholder, ref string description, ScreenLayoutType layout)
+        public bool Matches(PlaceholderModel placeholder, ref string description, ScreenLayoutType layout, List<Fix> fixes)
         {
             if (this.layout == RuleLayoutType.SINGLE && layout != ScreenLayoutType.SINGLE ||
                 this.layout == RuleLayoutType.TRIPLE && layout != ScreenLayoutType.TRIPLE)
@@ -51,6 +51,7 @@ namespace R3EHUDManager.r3esupport.rule
                 {
                     isMatch = true;
                     description += part.Description + Environment.NewLine;
+                    fixes.AddRange(part.Fixes);
                 }
             }
 

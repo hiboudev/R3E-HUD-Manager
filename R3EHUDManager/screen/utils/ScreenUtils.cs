@@ -150,6 +150,7 @@ namespace R3EHUDManager.screen.utils
                 }
             }
 
+            // TODO use validation rules and the corresponding fix and don't prompt user and do nothing, color code is already showing the problem.
             if (outsidePlaceholder)
             {
                 DialogResult result = MessageBox.Show("Some placeholders are now outside of the center screen, move them to center screen?", "Placeholders outside of center screen", MessageBoxButtons.YesNo);

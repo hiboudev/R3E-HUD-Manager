@@ -17,13 +17,13 @@ namespace R3EHUDManager.r3esupport.rule
             this.rules = rules;
         }
 
-        public bool Matches(PlaceholderModel placeholder, ScreenLayoutType layout, ref string description)
+        public bool Matches(PlaceholderModel placeholder, ScreenLayoutType layout, ref string description, List<Fix> fixes)
         {
             bool isMatch = false;
 
             foreach (var rule in rules)
             {
-                if (rule.Matches(placeholder, ref description, layout))
+                if (rule.Matches(placeholder, ref description, layout, fixes))
                 {
                     isMatch = true;
                 }

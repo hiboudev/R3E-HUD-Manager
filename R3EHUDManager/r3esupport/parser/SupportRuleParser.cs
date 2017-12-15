@@ -64,11 +64,27 @@ namespace R3EHUDManager.r3esupport.parser
 
         private RulePart ParseRulePartNode(XmlNode rulePartNode)
         {
+            Fix[] fixes = GetFixes(rulePartNode);
+
             return new RulePart(
                     GetPropertyType(rulePartNode["property"].InnerText),
                     GetOperations(rulePartNode.SelectNodes("check")),
-                    rulePartNode["description"].InnerText
+                    rulePartNode["description"].InnerText,
+                    fixes
                     );
+        }
+
+        private Fix[] GetFixes(XmlNode rulePartNode)
+        {
+            List<Fix> fixes = new List<Fix>();
+
+            foreach (XmlNode propertyNode in rulePartNode.SelectNodes("fix/property"))
+            {
+                Fix fix = new Fix(
+                    double.Parse(propertyNode.Attributes["value"].Value, CultureInfo.InvariantCulture),
+                    GetPropertyType(propertyNode.InnerText));
+            }
+            return fixes.ToArray();
         }
 
         private Operation[] GetOperations(XmlNodeList xmlNodeList)
