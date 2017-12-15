@@ -1,8 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <xml>
+
+  <!--
   
-<!--
+Here we check some layout properties that are not supported by R3E,
+and we associate those invalid cases with a description and when possible
+with a fix.
+
+Goal is to allow the user to get a comprehensive WYSIWYG layout, and not being
+surprised by R3E displaying HUD elements in an unexpected way.
+
+
 ** Placeholder names:
 *********************
 MoTeC
@@ -16,7 +25,7 @@ Driver Name Tags
 Car Status
 FFB Graph
 
-** property:
+** property name:
 **************
 x
 y
@@ -40,7 +49,7 @@ ANY (match any value, doesn't use the operator)
 
 ** placeholder:
 ****************
-To match all placeholders, just add no placeholder element to the rule.
+  To match all placeholders, just add no placeholder element to the rule.
 
 ** layout:
 **********
@@ -50,31 +59,29 @@ ANY
 
 -->
 
-    
-  
+
+
   <rule name="Invalid position on left/right screen" layout="triple">
-    
-    <invalid>
-      <property>x</property>
+
+    <invalid property="x">
       <check value="1"><![CDATA[>]]></check>
       <check value="3"><![CDATA[<=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=1.]]></description>
 
       <fix>
-        <property value="1">x</property>
-        <property value="-1">ax</property>
+        <property name="x" value="1"/>
+        <property name="ax" value="-1"/>
       </fix>
     </invalid>
 
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[>=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=-1.]]></description>
 
       <fix>
-        <property value="-1">x</property>
-        <property value="1">ax</property>
+        <property name="x" value="-1"/>
+        <property name="ax" value="1"/>
       </fix>
     </invalid>
 
@@ -87,51 +94,47 @@ ANY
     <placeholder name="Apexhunt Display" />
     <placeholder name="Driver Name Tags" />
     <placeholder name="Car Status" />
-    
+
   </rule>
 
   <rule name="Max size is 1" layout="ANY">
 
-    <invalid>
-      <property>size</property>
+    <invalid property="size">
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[Maximum placeholder size is 1.]]></description>
 
       <fix>
-        <property value="1">size</property>
+        <property name="size" value="1"/>
       </fix>
     </invalid>
 
   </rule>
 
   <rule name="Virtual Mirror Y" layout="ANY">
-    <invalid>
-      <property>y</property>
+    <invalid property="y">
       <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[Virtual mirror Y position is decided by R3E.]]></description>
     </invalid>
-    
+
     <placeholder name="Virtual Mirror" />
   </rule>
 
   <rule name="FFB anchor not movable" layout="ANY">
-    <invalid>
-      <property>ax</property>
+    <invalid property="ax">
       <check value="-1"><![CDATA[!=]]></check>
       <description><![CDATA[FFB anchor position X will be left.]]></description>
 
       <fix>
-        <property value="-1">ax</property>
+        <property name="ax" value="-1"/>
       </fix>
     </invalid>
-    
-    <invalid>
-      <property>ay</property>
+
+    <invalid property="ay">
       <check value="-1"><![CDATA[!=]]></check>
       <description><![CDATA[FFB anchor position Y will be bottom.]]></description>
 
       <fix>
-        <property value="-1">ay</property>
+        <property name="ay" value="-1"/>
       </fix>
     </invalid>
 
@@ -139,17 +142,17 @@ ANY
   </rule>
 
   <rule name="FFB left screen" layout="triple">
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
-      <description><![CDATA[FFB meter will be displayed at X=-3.]]></description> <!-- TODO Check if this is true by displaying it on middle of left screen. -->
+      <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
+      <!-- TODO Check if this is true by displaying it on middle of left screen. -->
       <!-- TODO Also check if we can display it everywhere in right screen if anchor is bottom left, and same for center screen. -->
-      
+
       <fix>
-        <property value="-3">x</property>
-        <property value="-1">ax</property>
-        <property value="-1">ay</property>
+        <property name="x" value="-3"/>
+        <property name="ax" value="-1"/>
+        <property name="ay" value="-1"/>
       </fix>
     </invalid>
 
@@ -157,14 +160,12 @@ ANY
   </rule>
 
   <rule name="Position not taken into account by R3E" layout="ANY">
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[This placeholder X position is not taken into account by R3E.]]></description>
     </invalid>
-    
-    <invalid>
-      <property>y</property>
+
+    <invalid property="x">
       <check value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[This placeholder Y position is not taken into account by R3E.]]></description>
     </invalid>
@@ -178,98 +179,90 @@ ANY
 
   <rule name="Outside of screen range" layout="triple">
 
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="-3"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
 
       <fix>
-        <property value="-3">x</property>
-        <property value="-1">ax</property>
+        <property name="x" value="-3"/>
+        <property name="ax" value="-1"/>
       </fix>
     </invalid>
 
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="3"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
 
       <fix>
-        <property value="3">x</property>
-        <property value="1">ax</property>
+        <property name="x" value="3"/>
+        <property name="ax" value="1"/>
       </fix>
     </invalid>
-    
-    <invalid>
-      <property>y</property>
+
+    <invalid property="y">
       <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
 
       <fix>
-        <property value="-1">y</property>
-        <property value="-1">ay</property>
+        <property name="y" value="-1"/>
+        <property name="ay" value="-1"/>
       </fix>
     </invalid>
 
-    <invalid>
-      <property>y</property>
+    <invalid property="y">
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
 
       <fix>
-        <property value="1">y</property>
-        <property value="1">ay</property>
+        <property name="y" value="1"/>
+        <property name="ay" value="1"/>
       </fix>
     </invalid>
-    
+
   </rule>
-  
+
   <rule name="Outside of screen range" layout="single">
 
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
 
       <fix>
-        <property value="-1">x</property>
-        <property value="-1">ax</property>
+        <property name="x" value="-1"/>
+        <property name="ax" value="-1"/>
       </fix>
     </invalid>
 
-    <invalid>
-      <property>x</property>
+    <invalid property="x">
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
 
       <fix>
-        <property value="1">x</property>
-        <property value="1">ax</property>
+        <property name="x" value="1"/>
+        <property name="ax" value="1"/>
       </fix>
     </invalid>
 
-    <invalid>
-      <property>y</property>
+    <invalid property="y">
       <check value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
 
       <fix>
-        <property value="-1">y</property>
-        <property value="-1">ay</property>
+        <property name="y" value="-1"/>
+        <property name="ay" value="-1"/>
       </fix>
     </invalid>
 
-    <invalid>
-      <property>y</property>
+    <invalid property="y">
       <check value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
 
       <fix>
-        <property value="1">y</property>
-        <property value="1">ay</property>
+        <property name="y" value="1"/>
+        <property name="ay" value="1"/>
       </fix>
     </invalid>
 
   </rule>
-  
+
 </xml>

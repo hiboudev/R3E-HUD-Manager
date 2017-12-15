@@ -67,7 +67,7 @@ namespace R3EHUDManager.r3esupport.parser
             Fix[] fixes = GetFixes(rulePartNode);
 
             return new RulePart(
-                    GetPropertyType(rulePartNode["property"].InnerText),
+                    GetPropertyType(rulePartNode.Attributes["property"].Value),
                     GetOperations(rulePartNode.SelectNodes("check")),
                     rulePartNode["description"].InnerText,
                     fixes
@@ -82,7 +82,7 @@ namespace R3EHUDManager.r3esupport.parser
             {
                 Fix fix = new Fix(
                     double.Parse(propertyNode.Attributes["value"].Value, CultureInfo.InvariantCulture),
-                    GetPropertyType(propertyNode.InnerText));
+                    GetPropertyType(propertyNode.Attributes["name"].Value));
                 fixes.Add(fix);
             }
             return fixes.ToArray();
