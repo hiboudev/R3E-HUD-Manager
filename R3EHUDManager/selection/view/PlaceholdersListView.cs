@@ -114,7 +114,7 @@ namespace R3EHUDManager.selection.view
 
             if (validations.ContainsKey(modelId) && validations[modelId].Type == ResultType.INVALID)
             {
-                e.Graphics.DrawLine(new Pen(Color.FromArgb(130, Color.OrangeRed), thickness),
+                e.Graphics.DrawLine(new Pen(Color.FromArgb(160, Color.OrangeRed), thickness),
                     new Point(e.Bounds.Left + 1, e.Bounds.Top + spacing),
                     new Point(e.Bounds.Left + 1, e.Bounds.Bottom - spacing));
             }

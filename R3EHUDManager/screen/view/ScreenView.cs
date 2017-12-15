@@ -79,7 +79,6 @@ namespace R3EHUDManager.screen.view
 
         internal void BackgroundChanged(ScreenModel screenModel)
         {
-            VerticalScroll.Value = HorizontalScroll.Value = 0;
             isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
             UpdateScreenSize();
             UpdatePlaceholdersPosition();
@@ -99,19 +98,21 @@ namespace R3EHUDManager.screen.view
 
             this.zoomLevel = zoomLevel;
 
+            backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
+            UpdateScreenSize();
+            UpdatePlaceholdersPosition();
+
             if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
+                Scroll -= OnScrollChanged;
                 VerticalScroll.Value = HorizontalScroll.Value = 0;
                 AutoScroll = false;
             }
             else
             {
+                Scroll += OnScrollChanged;
                 AutoScroll = true;
-                backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
             }
-
-            UpdateScreenSize();
-            UpdatePlaceholdersPosition();
         }
 
         private void OnScrollChanged(object sender, ScrollEventArgs e)
@@ -169,10 +170,6 @@ namespace R3EHUDManager.screen.view
             //DoubleBuffered = true;
 
             BackColor = Color.FromArgb(47, 65, 75);
-
-            AutoScroll = false;
-            Scroll += OnScrollChanged;
-
             backgroundView = Injector.GetInstance<BackgroundView>();
             backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
 

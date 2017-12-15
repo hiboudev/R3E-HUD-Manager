@@ -62,7 +62,7 @@ namespace R3EHUDManager.screen.view
 
         private void OnRadioChange(object sender, EventArgs e)
         {
-            if (holdChangeEvents) return;
+            if (holdChangeEvents || !((RadioButton)sender).Checked) return;
 
             if (fitWindow.Checked)
                 DispatchEvent(new IntEventArgs(EVENT_ZOOM_LEVEL_CHANGED, (int)ZoomLevel.FIT_TO_WINDOW));
