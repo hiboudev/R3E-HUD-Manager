@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.background.model;
 using da2mvc.core.events;
+using R3EHUDManager.layout.model;
 
 namespace R3EHUDManager.huddata.command
 {
@@ -23,13 +24,16 @@ namespace R3EHUDManager.huddata.command
         private readonly HudOptionsParser parser;
         private readonly PlaceHolderCollectionModel placeHolderCollection;
         private readonly SelectionModel selectionModel;
+        private readonly LayoutSourceModel layoutSource;
 
-        public LoadHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel)
+        public LoadHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel,
+            LayoutSourceModel layoutSource)
         {
             this.locationModel = locationModel;
             this.parser = parser;
             this.placeHolderCollection = placeHolderCollection;
             this.selectionModel = selectionModel;
+            this.layoutSource = layoutSource;
         }
         
         public void Execute()
@@ -53,6 +57,7 @@ namespace R3EHUDManager.huddata.command
                 placeHolderCollection.AddRange(placeholders);
 
                 DispatchEvent(new BaseEventArgs(EVENT_HUD_LAYOUT_LOADED));
+                layoutSource.SetSource(LayoutSourceType.R3E, locationModel.HudOptionsFile);
             }
         }
 

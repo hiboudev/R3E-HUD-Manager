@@ -149,6 +149,13 @@
     <Compile Include="huddata\view\ReloadLayoutView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="layout\events\LayoutSourceEventArgs.cs" />
+    <Compile Include="layout\model\LayoutSourceModel.cs" />
+    <Compile Include="layout\model\LayoutSourceType.cs" />
+    <Compile Include="layout\view\LayoutSourceMediator.cs" />
+    <Compile Include="layout\view\LayoutSourceView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="location\command\SelectR3eDirectoryCommand.cs" />
     <Compile Include="location\events\SelectedR3eDirectoryEventArgs.cs" />
     <Compile Include="location\model\R3eDirectoryModel.cs" />

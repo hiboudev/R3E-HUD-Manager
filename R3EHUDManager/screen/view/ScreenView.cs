@@ -170,7 +170,7 @@ namespace R3EHUDManager.screen.view
         {
             //DoubleBuffered = true;
 
-            BackColor = Color.FromArgb(47, 65, 75);
+            BackColor = Colors.SCREEN_BACKGROUND;
             backgroundView = Injector.GetInstance<BackgroundView>();
             backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
 

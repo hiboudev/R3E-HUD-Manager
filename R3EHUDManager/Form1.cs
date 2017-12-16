@@ -13,6 +13,7 @@ using R3EHUDManager.location.view;
 using R3EHUDManager.screen.model;
 using System.Diagnostics;
 using R3EHUDManager.huddata.view;
+using R3EHUDManager.layout.view;
 
 namespace R3EHUDManager
 {
@@ -47,7 +48,8 @@ namespace R3EHUDManager
             });
 
             Panel bottomBarPanel = NewHDockPanel(DockStyle.Bottom, new Control[] {
-                NewHToolBar( Injector.GetInstance<ZoomView>() )
+                NewHToolBar( Injector.GetInstance<ZoomView>() ),
+                Injector.GetInstance<LayoutSourceView>(),
             });
 
             SelectionView selectionView = Injector.GetInstance< SelectionView>();
@@ -92,14 +94,24 @@ namespace R3EHUDManager
 
         private Panel NewHDockPanel(DockStyle dock, Control[] controls)
         {
-            FlowLayoutPanel panel = new FlowLayoutPanel()
+            TableLayoutPanel panel = new TableLayoutPanel()
             {
                 Dock = dock,
-                AutoSize = true
+                AutoSize = true,
+                RowCount = 1,
+                ColumnCount = controls.Length,
             };
 
+            int count = 0;
             foreach (var control in controls)
+            {
+                ColumnStyle columnStyle = count++ == controls.Length - 1 ? new ColumnStyle(SizeType.Percent, 100) : new ColumnStyle(SizeType.AutoSize);
+
+                control.Anchor |= AnchorStyles.Left;
+
+                panel.ColumnStyles.Add(columnStyle);
                 panel.Controls.Add(control);
+            }
 
             return panel;
         }
@@ -111,7 +123,8 @@ namespace R3EHUDManager
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 BackColor = Color.LightGray,
-            };
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
+        };
 
             control.Margin = new Padding();
             toolBar.Controls.Add(control);

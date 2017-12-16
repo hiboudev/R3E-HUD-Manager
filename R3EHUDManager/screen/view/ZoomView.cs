@@ -31,6 +31,7 @@ namespace R3EHUDManager.screen.view
         {
             AutoSize = true;
             BackColor = Color.LightGray;
+            WrapContents = false;
 
             Label label = new Label()
             {

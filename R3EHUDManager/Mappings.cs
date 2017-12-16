@@ -32,6 +32,8 @@ using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.savestatus.model;
 using R3EHUDManager.savestatus.command;
 using R3EHUDManager.huddata.view;
+using R3EHUDManager.layout.model;
+using R3EHUDManager.layout.view;
 
 namespace R3EHUDManager
 {
@@ -62,8 +64,9 @@ namespace R3EHUDManager
             Injector.MapType<SupportRuleParser>(true);
             Injector.MapType<SupportRuleValidator>(true);
             Injector.MapType<SaveStatusModel>(true);
+            Injector.MapType<LayoutSourceModel>(true);
 
-
+            
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<SelectionView, SelectionMediator>(true);
             Injector.MapView<PlaceholdersListView, PlaceholdersListMediator>(true);
@@ -76,6 +79,7 @@ namespace R3EHUDManager
             Injector.MapView<R3eDirectoryMenuView, R3eDirectoryMenuMediator>(true);
             Injector.MapView<PlaceholderView, PlaceholderMediator>();
             Injector.MapView<ReloadLayoutView, ReloadLayoutMediator>(true);
+            Injector.MapView<LayoutSourceView, LayoutSourceMediator>(true);
 
             Injector.MapCommand<ReloadLayoutView, SaveHudCommand>(ReloadLayoutView.EVENT_SAVE_CLICKED);
             Injector.MapCommand<ReloadLayoutView, LoadHudDataCommand>(ReloadLayoutView.EVENT_RELOAD_CLICKED);
@@ -113,6 +117,7 @@ namespace R3EHUDManager
             Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
             Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CHANGED);
             Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CLEARED);
+            Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
         }
     }
 }

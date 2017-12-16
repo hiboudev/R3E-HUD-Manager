@@ -11,5 +11,7 @@ namespace R3EHUDManager.graphics
     {
         public static readonly Color PLACEHOLDER_SELECTION = Color.DeepSkyBlue;
         public static readonly Color PLACEHOLDER_LIST_SELECTION = Color.FromArgb(143, 206, 250);
+
+        public static readonly Color SCREEN_BACKGROUND = Color.FromArgb(47, 65, 75);
     }
 }

@@ -35,7 +35,7 @@ namespace R3EHUDManager.r3esupport.result
             Description = "";
         }
 
-        public void ApplyFixes(PlaceholderModel placeholder) // TODO il ne faudrait pas garder sa référence ? Les fixes sont propres à un placeholder.
+        public void ApplyFixes(PlaceholderModel placeholder)
         {
             foreach (Fix fix in fixes)
                 fix.Apply(placeholder);

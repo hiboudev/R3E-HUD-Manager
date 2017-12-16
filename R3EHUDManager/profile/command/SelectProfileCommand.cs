@@ -3,6 +3,7 @@ using da2mvc.framework.collection.model;
 using da2mvc.framework.menubutton.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.huddata.parser;
+using R3EHUDManager.layout.model;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
@@ -25,10 +26,11 @@ namespace R3EHUDManager.profile.command
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel placeholderCollection;
         private readonly SelectionModel selectionModel;
+        private readonly LayoutSourceModel layoutSource;
 
         public SelectProfileCommand(MenuButtonEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel selectedProfile,
                                     CollectionModel<BackgroundModel> backgroundCollection, ScreenModel screen, HudOptionsParser parser, LocationModel location,
-                                    PlaceHolderCollectionModel placeholderCollection, SelectionModel selectionModel)
+                                    PlaceHolderCollectionModel placeholderCollection, SelectionModel selectionModel, LayoutSourceModel layoutSource)
         {
             this.args = args;
             this.profileCollection = profileCollection;
@@ -39,6 +41,7 @@ namespace R3EHUDManager.profile.command
             this.location = location;
             this.placeholderCollection = placeholderCollection;
             this.selectionModel = selectionModel;
+            this.layoutSource = layoutSource;
         }
 
         public void Execute()
@@ -53,6 +56,7 @@ namespace R3EHUDManager.profile.command
             placeholderCollection.Clear();
             placeholderCollection.AddRange(placeholders);
             selectedProfile.SelectProfile(profile);
+            layoutSource.SetSource(LayoutSourceType.PROFILE, profile.Name);
         }
     }
 }

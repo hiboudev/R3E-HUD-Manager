@@ -28,11 +28,12 @@ namespace R3EHUDManager.savestatus.command
                 {PlaceholderModel.EVENT_UPDATED, (model) => model.SetChanged(SaveType.PROFILE | SaveType.R3E_HUD) },
                 {SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, (model) => model.SetSaved(SaveType.PROFILE) },
                 {SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED, (model) => model.SetSaved(SaveType.R3E_HUD) },
-                {LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED, (model) => model.SetSaved(SaveType.R3E_HUD) },
+                {LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED, (model) => {model.SetSaved(SaveType.R3E_HUD); model.SetChanged(SaveType.PROFILE); } },
                 {CreateProfileCommand.EVENT_PROFILE_CREATED, (model) => model.SetSaved(SaveType.PROFILE) },
                 {ScreenModel.EVENT_BACKGROUND_CHANGED, (model) => model.SetChanged(SaveType.PROFILE) },
-                {SelectedProfileModel.EVENT_SELECTION_CHANGED,  (model) => {model.SetSaved(SaveType.PROFILE); model.SetChanged(SaveType.R3E_HUD);}  },
+                {SelectedProfileModel.EVENT_SELECTION_CHANGED,  (model) => {model.SetSaved(SaveType.PROFILE); model.SetChanged(SaveType.R3E_HUD); }  },
                 {SelectedProfileModel.EVENT_SELECTION_CLEARED,  (model) => model.SetSaved(SaveType.PROFILE)},
+                {ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED,  (model) => model.SetChanged(SaveType.PROFILE | SaveType.R3E_HUD)},
             };
         }
 
