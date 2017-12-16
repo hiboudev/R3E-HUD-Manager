@@ -109,12 +109,6 @@ namespace R3EHUDManager.profile.view
             }
         }
 
-        //protected override string FormatTitle(string selectedName)
-        //{
-        //    if (!isSaved) return base.FormatTitle(selectedName) + " *";
-        //    return base.FormatTitle(selectedName);
-        //}
-
         private void OnSaveToNewProfileClicked(object sender, EventArgs e)
         {
             var newProfileDialog = Injector.GetInstance<PromptNewProfileView>();

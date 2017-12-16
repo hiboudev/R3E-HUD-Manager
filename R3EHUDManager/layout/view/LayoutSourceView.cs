@@ -58,7 +58,7 @@ namespace R3EHUDManager.layout.view
             if (text.Length <= MAX_LENGTH)
                 return text;
 
-            return $"(...){text.Substring(text.Length - MAX_LENGTH, MAX_LENGTH)}";
+            return $"...{text.Substring(text.Length - MAX_LENGTH, MAX_LENGTH)}";
         }
     }
 }
