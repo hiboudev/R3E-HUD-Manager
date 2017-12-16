@@ -61,7 +61,7 @@ ANY
 
 
 
-  <rule name="Invalid position on left/right screen" layout="triple">
+  <rule name="Valid positions on left/right screen are only -1|1 except for FFB." layout="triple">
 
     <invalid property="x">
       <check value="1"><![CDATA[>]]></check>
@@ -97,7 +97,7 @@ ANY
 
   </rule>
 
-  <rule name="Max size is 1" layout="ANY">
+  <rule name="Max size is 1." layout="ANY">
 
     <invalid property="size">
       <check value="1"><![CDATA[>]]></check>
@@ -141,15 +141,30 @@ ANY
     <placeholder name="FFB Graph" />
   </rule>
 
-  <rule name="FFB left screen" layout="triple">
+  <rule name="FFB on left screen always at X = -3." layout="triple">
     <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
       <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
-      <!-- TODO Also check if we can display it everywhere in right screen if anchor is bottom left, and same for center screen. -->
 
       <fix>
         <property name="x" value="-3"/>
+        <property name="ax" value="-1"/>
+        <property name="ay" value="-1"/>
+      </fix>
+    </invalid>
+
+    <placeholder name="FFB Graph" />
+  </rule>
+
+  <rule name="FFB on center screen always at X = -1." layout="triple">
+    <invalid property="x">
+      <check value="-1"><![CDATA[>]]></check>
+      <check value="1"><![CDATA[<=]]></check>
+      <description><![CDATA[FFB meter will be displayed at X=-1.]]></description>
+
+      <fix>
+        <property name="x" value="-1"/>
         <property name="ax" value="-1"/>
         <property name="ay" value="-1"/>
       </fix>
@@ -162,7 +177,7 @@ ANY
     <invalid property="x">
       <check value="1"><![CDATA[>]]></check>
       <check value="3"><![CDATA[<=]]></check>
-      <description><![CDATA[FFB meter won't be displayed by R3E.]]></description>
+      <description><![CDATA[FFB meter on right screen won't show at all in R3E.]]></description>
       <!-- TODO Also check if we can display it everywhere in center screen. -->
 
       <fix>
@@ -193,7 +208,7 @@ ANY
     <placeholder name="Apexhunt Display" />
   </rule>
 
-  <rule name="Outside of screen range" layout="triple">
+  <rule name="Outside of screen range (triple)." layout="triple">
 
     <invalid property="x">
       <check value="-3"><![CDATA[<]]></check>
@@ -237,7 +252,7 @@ ANY
 
   </rule>
 
-  <rule name="Outside of screen range" layout="single">
+  <rule name="Outside of screen range (single)." layout="single">
 
     <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
