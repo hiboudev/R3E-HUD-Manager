@@ -146,11 +146,27 @@ ANY
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
       <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
-      <!-- TODO Check if this is true by displaying it on middle of left screen. -->
       <!-- TODO Also check if we can display it everywhere in right screen if anchor is bottom left, and same for center screen. -->
 
       <fix>
         <property name="x" value="-3"/>
+        <property name="ax" value="-1"/>
+        <property name="ay" value="-1"/>
+      </fix>
+    </invalid>
+
+    <placeholder name="FFB Graph" />
+  </rule>
+
+  <rule name="FFB doesn't show on right screen" layout="triple">
+    <invalid property="x">
+      <check value="1"><![CDATA[>]]></check>
+      <check value="3"><![CDATA[<=]]></check>
+      <description><![CDATA[FFB meter won't be displayed by R3E.]]></description>
+      <!-- TODO Also check if we can display it everywhere in center screen. -->
+
+      <fix>
+        <property name="x" value="-1"/>
         <property name="ax" value="-1"/>
         <property name="ay" value="-1"/>
       </fix>

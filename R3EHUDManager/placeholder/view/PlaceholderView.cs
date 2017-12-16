@@ -132,7 +132,7 @@ namespace R3EHUDManager.placeholder.view
         {
             validationResult = result;
             toolTip.SetToolTip(label, result.Description);
-            if(validationResult.Type == ResultType.INVALID && validationResult.HasFix())
+            if (validationResult.Type == ResultType.INVALID && validationResult.HasFix())
             {
                 menuItemFixLayout.Text = "Apply layout fix";
                 menuItemFixLayout.Enabled = true;
@@ -155,35 +155,6 @@ namespace R3EHUDManager.placeholder.view
             int height = (int)(newSize.Height * Model.Size.Y);
 
             Size = new Size(width, height);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-
-            e.Graphics.DrawImage(
-                GraphicalAsset.GetPlaceholderImage(Model.Name),
-                new Rectangle(0, 0, Size.Width, Size.Height)
-                );
-
-            if (selected)
-            {
-                Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
-
-                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, Colors.PLACEHOLDER_SELECTION), 1)
-                {
-                    Alignment = PenAlignment.Inset
-                }, insideRectangle);
-            }
-
-            if(validationResult != null && validationResult.Type == ResultType.INVALID)
-                e.Graphics.DrawLine(
-                    new Pen(new SolidBrush(Color.OrangeRed), 3),
-                        new Point(label.Location.X, label.Location.Y + label.Height),
-                        new Point(label.Location.X + label.Width, label.Location.Y + label.Height)
-                        );
         }
 
         void StartDrag(object sender, MouseEventArgs e)
@@ -245,6 +216,7 @@ namespace R3EHUDManager.placeholder.view
                 AutoSize = true,
                 BackColor = LABEL_BACK_COLOR,
                 ForeColor = Color.Black,
+                Location = new Point(3,0),
                 //Enabled = false,
             };
 
@@ -287,6 +259,38 @@ namespace R3EHUDManager.placeholder.view
                 ReshowDelay = 500,
                 ShowAlways = true,
             };
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e); e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+
+            e.Graphics.DrawImage(
+                GraphicalAsset.GetPlaceholderImage(Model.Name),
+                new Rectangle(0, 0, Size.Width, Size.Height)
+                );
+
+            if (selected)
+            {
+                Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
+
+                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, Colors.PLACEHOLDER_SELECTION), 1)
+                {
+                    Alignment = PenAlignment.Inset
+                }, insideRectangle);
+            }
+
+            Color lineColor;
+            if (validationResult != null && validationResult.Type == ResultType.INVALID)
+                lineColor = Color.OrangeRed;
+            else
+                lineColor = Color.Gray;
+
+            e.Graphics.DrawLine(
+                    new Pen(new SolidBrush(lineColor), 3),
+                        new Point(1, 0),
+                        new Point(1, label.DisplayRectangle.Bottom)
+                        );
         }
 
         private void OnDispose(object sender, EventArgs e)

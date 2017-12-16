@@ -26,13 +26,12 @@ namespace R3EHUDManager.layout.view
             Font = new Font(Font.FontFamily, 7);
             ForeColor = Color.FromArgb(0x96a2a8);
             Dock = DockStyle.Fill;
-            //BackColor = Color.Red;
             Margin = new Padding();
         }
 
         internal void SetSource(LayoutSourceType sourceType, string name)
         {
-            string headerText = "Layout from";
+            string headerText = "Layout source";
             string sourceText = "";
 
             switch (sourceType)
@@ -42,15 +41,15 @@ namespace R3EHUDManager.layout.view
                     break;
 
                 case LayoutSourceType.BACKUP:
-                    sourceText = "backup";
+                    sourceText = "Backup";
                     break;
 
                 case LayoutSourceType.PROFILE:
-                    sourceText = "profile";
+                    sourceText = "Profile";
                     break;
             }
 
-            Text = $"{headerText} {sourceText}: {TroncateText(name)}";
+            Text = $"{headerText}: {sourceText} \"{TroncateText(name)}\"";
         }
 
         private string TroncateText(string text)

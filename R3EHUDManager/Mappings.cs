@@ -109,15 +109,16 @@ namespace R3EHUDManager
             Injector.MapCommand<PlaceholderModel, ValidatePlaceholderCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<PlaceHolderCollectionModel, ValidatePlaceholderCommand>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED);
 
-            Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);
             Injector.MapCommand<SaveHudCommand, UpdateSaveStatusCommand>(SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED);
             Injector.MapCommand<LoadHudDataCommand, UpdateSaveStatusCommand>(LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED);
+            Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
+
+            Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<CreateProfileCommand, UpdateSaveStatusCommand>(CreateProfileCommand.EVENT_PROFILE_CREATED);
             Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
             Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CHANGED);
             Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CLEARED);
-            Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
         }
     }
 }
