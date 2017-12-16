@@ -12,21 +12,17 @@ namespace R3EHUDManager.savestatus.model
     {
         public static readonly int EVENT_STATUS_CHANGED = EventId.New();
 
-        private Dictionary<SaveType, bool> isSaved = new Dictionary<SaveType, bool>
-        {
-            { SaveType.PROFILE, true },
-            { SaveType.R3E_HUD, true },
-        };
+        private SaveType isSaved = SaveType.PROFILE | SaveType.R3E_HUD;
 
         public void SetChanged(SaveType type)
         {
-            isSaved[type] = false;
+            isSaved &= ~type;
             DispatchEvent(new SaveStatusEventArgs(EVENT_STATUS_CHANGED, type, false));
         }
 
         public void SetSaved(SaveType type)
         {
-            isSaved[type] = true;
+            isSaved |= type;
             DispatchEvent(new SaveStatusEventArgs(EVENT_STATUS_CHANGED, type, true));
         }
     }

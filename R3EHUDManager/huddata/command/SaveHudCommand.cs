@@ -13,8 +13,11 @@ using da2mvc.core.events;
 
 namespace R3EHUDManager.huddata.command
 {
-    class SaveHudCommand : ICommand
+    class SaveHudCommand : ICommand, IEventDispatcher
     {
+        public event EventHandler MvcEventHandler;
+        public static readonly int EVENT_HUD_LAYOUT_APPLIED = EventId.New();
+
         private readonly BaseEventArgs args;
         private readonly PlaceHolderCollectionModel placeholders;
         private readonly HudOptionsParser parser;
@@ -31,6 +34,12 @@ namespace R3EHUDManager.huddata.command
         public void Execute()
         {
             parser.Write(location.HudOptionsFile, placeholders.Items);
+            DispatchEvent(new BaseEventArgs(EVENT_HUD_LAYOUT_APPLIED));
+        }
+
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

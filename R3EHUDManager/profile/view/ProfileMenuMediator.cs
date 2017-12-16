@@ -26,7 +26,7 @@ namespace R3EHUDManager.profile.view
 
         private void OnSaveStatusChanged(SaveStatusEventArgs args)
         {
-            if (View.HasSelection && args.Type == SaveType.PROFILE)
+            if (View.HasSelection && args.Type.HasFlag(SaveType.PROFILE))
                 View.SetSaveStatus(args.IsSaved);
         }
 

@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.command;
+using da2mvc.core.events;
 using da2mvc.framework.collection.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
@@ -10,12 +11,15 @@ using R3EHUDManager.profile.model;
 using R3EHUDManager.savestatus.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.utils;
+using System;
 using System.IO;
 
 namespace R3EHUDManager.profile.command
 {
-    class CreateProfileCommand : ICommand
+    class CreateProfileCommand : ICommand, IEventDispatcher
     {
+        public static readonly int EVENT_PROFILE_CREATED = EventId.New();
+
         private readonly StringEventArgs args;
         private readonly CollectionModel<ProfileModel> profileCollection;
         private readonly Database database;
@@ -24,6 +28,8 @@ namespace R3EHUDManager.profile.command
         private readonly ScreenModel screen;
         private readonly PlaceHolderCollectionModel placeholderCollection;
         private readonly SelectedProfileModel selectedProfile;
+
+        public event EventHandler MvcEventHandler;
 
         public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database, 
             HudOptionsParser parser, LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection,
@@ -55,11 +61,18 @@ namespace R3EHUDManager.profile.command
             profileCollection.Add(newProfile);
 
             selectedProfile.SelectProfile(newProfile);
+
+            DispatchEvent(new BaseEventArgs(EVENT_PROFILE_CREATED));
         }
 
         public static string ToFileName(string profileName)
         {
             return $"profile_{StringUtils.ToValidFileName(profileName)}.xml";
+        }
+
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

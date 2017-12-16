@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.savestatus.model
 {
+    [Flags]
     enum SaveType
     {
-        PROFILE,
-        R3E_HUD
+        PROFILE = 1,
+        R3E_HUD = 2
     }
 }

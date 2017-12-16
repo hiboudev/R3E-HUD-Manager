@@ -30,6 +30,8 @@ using R3EHUDManager.r3esupport.parser;
 using R3EHUDManager.r3esupport.rule;
 using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.savestatus.model;
+using R3EHUDManager.savestatus.command;
+using R3EHUDManager.huddata.view;
 
 namespace R3EHUDManager
 {
@@ -73,10 +75,11 @@ namespace R3EHUDManager
             Injector.MapView<ProfileManagerView, CollectionMediator<CollectionModel<ProfileModel>, ProfileModel, ProfileManagerView>>();
             Injector.MapView<R3eDirectoryMenuView, R3eDirectoryMenuMediator>(true);
             Injector.MapView<PlaceholderView, PlaceholderMediator>();
+            Injector.MapView<ReloadLayoutView, ReloadLayoutMediator>(true);
 
-            Injector.MapCommand<Form1, SaveHudCommand>(Form1.EVENT_SAVE_CLICKED);
-            Injector.MapCommand<Form1, LoadHudDataCommand>(Form1.EVENT_RELOAD_CLICKED);
-            Injector.MapCommand<Form1, ReloadDefaultHudDataCommand>(Form1.EVENT_RELOAD_DEFAULT_CLICKED);
+            Injector.MapCommand<ReloadLayoutView, SaveHudCommand>(ReloadLayoutView.EVENT_SAVE_CLICKED);
+            Injector.MapCommand<ReloadLayoutView, LoadHudDataCommand>(ReloadLayoutView.EVENT_RELOAD_CLICKED);
+            Injector.MapCommand<ReloadLayoutView, ReloadDefaultHudDataCommand>(ReloadLayoutView.EVENT_RELOAD_DEFAULT_CLICKED);
             Injector.MapCommand<PlaceholderView, SelectPlaceholderCommand>(PlaceholderView.EVENT_REQUEST_SELECTION);
             Injector.MapCommand<PlaceholderView, MovePlaceholderCommand>(PlaceholderView.EVENT_REQUEST_MOVE);
             Injector.MapCommand<PlaceholderView, ApplyLayoutFixCommand>(PlaceholderView.EVENT_REQUEST_LAYOUT_FIX);
@@ -101,6 +104,15 @@ namespace R3EHUDManager
             Injector.MapCommand<R3eDirectoryMenuView, SelectR3eDirectoryCommand>(R3eDirectoryMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<PlaceholderModel, ValidatePlaceholderCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<PlaceHolderCollectionModel, ValidatePlaceholderCommand>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED);
+
+            Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
+            Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);
+            Injector.MapCommand<SaveHudCommand, UpdateSaveStatusCommand>(SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED);
+            Injector.MapCommand<LoadHudDataCommand, UpdateSaveStatusCommand>(LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED);
+            Injector.MapCommand<CreateProfileCommand, UpdateSaveStatusCommand>(CreateProfileCommand.EVENT_PROFILE_CREATED);
+            Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
+            Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CHANGED);
+            Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CLEARED);
         }
     }
 }

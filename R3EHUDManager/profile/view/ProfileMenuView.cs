@@ -19,7 +19,6 @@ namespace R3EHUDManager.profile.view
         public static readonly int EVENT_SAVE_PROFILE = EventId.New();
 
         private ToolStripMenuItem itemSaveProfile;
-        private bool isSaved;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
 
         public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection)
@@ -98,8 +97,16 @@ namespace R3EHUDManager.profile.view
 
         internal void SetSaveStatus(bool isSaved)
         {
-            this.isSaved = isSaved;
-            Font = new Font(Font, isSaved ? FontStyle.Regular : FontStyle.Italic);
+            if (isSaved)
+            {
+                Font = Fonts.SAVED_FONT;
+                itemSaveProfile.Font = Fonts.SAVED_FONT;
+            }
+            else
+            {
+                Font = Fonts.UNSAVED_FONT;
+                itemSaveProfile.Font = Fonts.UNSAVED_FONT;
+            }
         }
 
         //protected override string FormatTitle(string selectedName)

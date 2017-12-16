@@ -12,16 +12,13 @@ using R3EHUDManager.profile.view;
 using R3EHUDManager.location.view;
 using R3EHUDManager.screen.model;
 using System.Diagnostics;
+using R3EHUDManager.huddata.view;
 
 namespace R3EHUDManager
 {
     public partial class Form1 : Form, IEventDispatcher
     {
         public event EventHandler MvcEventHandler;
-
-        public static readonly int EVENT_SAVE_CLICKED = EventId.New();
-        public static readonly int EVENT_RELOAD_CLICKED = EventId.New();
-        public static readonly int EVENT_RELOAD_DEFAULT_CLICKED = EventId.New();
 
         public Form1()
         {
@@ -62,6 +59,10 @@ namespace R3EHUDManager
             listView.Height = 160;
             listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
+            ReloadLayoutView reloadView = Injector.GetInstance<ReloadLayoutView>();
+            reloadView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            reloadView.Margin = new Padding(reloadView.Margin.Left, 10, reloadView.Margin.Right, reloadView.Margin.Bottom);
+
             SettingsMenuView prefsButton = Injector.GetInstance< SettingsMenuView>();
             prefsButton.Anchor = AnchorStyles.Left;
 
@@ -77,8 +78,11 @@ namespace R3EHUDManager
             };
 
             leftBarPanel.Controls.AddRange(new Control[] {
-                selectionView, listView, NewButton("Apply to R3E", EVENT_SAVE_CLICKED), NewButton("Reload from R3E", EVENT_RELOAD_CLICKED),
-                NewButton("Reload original", EVENT_RELOAD_DEFAULT_CLICKED), directoryMenu, prefsButton} );
+                selectionView,
+                listView,
+                reloadView,
+                directoryMenu,
+                prefsButton } );
 
             ScreenView screenView = Injector.GetInstance<ScreenView>();
             screenView.Dock = DockStyle.Fill;
