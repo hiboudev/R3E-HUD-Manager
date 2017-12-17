@@ -122,7 +122,7 @@ namespace R3EHUDManager.selection.view
             {
                 Color color = validations[modelId].HasFix() ? Colors.LAYOUT_NOTIFICATION_FIX : Colors.LAYOUT_NOTIFICATION_NO_FIX;
 
-                e.Graphics.DrawLine(new Pen(Color.FromArgb(200, color), thickness),
+                e.Graphics.DrawLine(new Pen(color, thickness),
                     new Point(e.Bounds.Left + 1, e.Bounds.Top + spacing),
                     new Point(e.Bounds.Left + 1, e.Bounds.Bottom - spacing));
             }

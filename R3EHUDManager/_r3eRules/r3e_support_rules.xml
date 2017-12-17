@@ -66,7 +66,7 @@ ANY
     <invalid property="x">
       <check value="1"><![CDATA[>]]></check>
       <check value="3"><![CDATA[<=]]></check>
-      <description><![CDATA[This placeholder will be displayed by R3E at X=1.]]></description>
+      <description><![CDATA[This placeholder will be displayed by R3E at X=1 (left edge).]]></description>
 
       <fix>
         <property name="x" value="1"/>
@@ -77,7 +77,7 @@ ANY
     <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[>=]]></check>
-      <description><![CDATA[This placeholder will be displayed by R3E at X=-1.]]></description>
+      <description><![CDATA[This placeholder will be displayed by R3E at X=-1 (right edge).]]></description>
 
       <fix>
         <property name="x" value="-1"/>
