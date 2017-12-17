@@ -35,6 +35,7 @@ using R3EHUDManager.huddata.view;
 using R3EHUDManager.layout.model;
 using R3EHUDManager.layout.view;
 using R3EHUDManager.huddata.model;
+using R3EHUDManager.apppresentation.view;
 
 namespace R3EHUDManager
 {
@@ -68,6 +69,7 @@ namespace R3EHUDManager
             Injector.MapType<LayoutSourceModel>(true);
             Injector.MapType<PlaceholderBlackListModel>(true);
             Injector.MapType<PlaceholderBlackListView>();
+            Injector.MapType<AppPresentationView>();
 
 
             Injector.MapView<ScreenView, ScreenMediator>(true);

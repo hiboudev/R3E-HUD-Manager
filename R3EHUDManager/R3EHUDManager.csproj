@@ -118,6 +118,9 @@
     <Compile Include="application\view\BaseModalForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="apppresentation\view\AppPresentationView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="background\command\DeleteBackgroundCommand.cs" />
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
     <Compile Include="background\command\InitializeBackgroundsCommand.cs" />
@@ -358,6 +361,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="_graphical_assets\preference_icon4_22_alpha85.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\presentation\screen01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\presentation\screen02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\presentation\screen03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\presentation\screen04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\presentation\screen05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\presentation\screen06.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="_graphical_assets\trackmap.png">
