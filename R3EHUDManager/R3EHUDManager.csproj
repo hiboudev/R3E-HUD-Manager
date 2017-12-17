@@ -111,7 +111,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="application\command\ApplicationExitCommand.cs" />
     <Compile Include="application\command\StartApplicationCommand.cs" />
+    <Compile Include="application\events\ApplicationExitEventArgs.cs" />
     <Compile Include="application\events\BooleanEventArgs.cs" />
     <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />

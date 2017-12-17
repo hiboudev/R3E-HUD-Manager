@@ -38,6 +38,7 @@ using R3EHUDManager.huddata.model;
 using R3EHUDManager.apppresentation.view;
 using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.userpreferences.command;
+using R3EHUDManager.application.command;
 
 namespace R3EHUDManager
 {
@@ -90,6 +91,7 @@ namespace R3EHUDManager
             Injector.MapView<ReloadLayoutView, ReloadLayoutMediator>(true);
             Injector.MapView<LayoutSourceView, LayoutSourceMediator>(true);
 
+            Injector.MapCommand<Form1, ApplicationExitCommand>(Form1.EVENT_PROCESS_EXIT);
             Injector.MapCommand<ReloadLayoutView, SaveHudCommand>(ReloadLayoutView.EVENT_SAVE_CLICKED);
             Injector.MapCommand<ReloadLayoutView, LoadHudDataCommand>(ReloadLayoutView.EVENT_RELOAD_CLICKED);
             Injector.MapCommand<ReloadLayoutView, ReloadDefaultHudDataCommand>(ReloadLayoutView.EVENT_RELOAD_DEFAULT_CLICKED);

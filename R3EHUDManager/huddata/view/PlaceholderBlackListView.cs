@@ -59,7 +59,7 @@ namespace R3EHUDManager.huddata.view
 
             Button okButton = new Button()
             {
-                Text = "OK",
+                Text = "Apply",
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
             };
             okButton.Click += OnOkClicked;

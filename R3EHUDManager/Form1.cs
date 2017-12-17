@@ -14,12 +14,14 @@ using R3EHUDManager.screen.model;
 using System.Diagnostics;
 using R3EHUDManager.huddata.view;
 using R3EHUDManager.layout.view;
+using R3EHUDManager.application.events;
 
 namespace R3EHUDManager
 {
     public partial class Form1 : Form, IEventDispatcher
     {
         public event EventHandler MvcEventHandler;
+        public static readonly int EVENT_PROCESS_EXIT = EventId.New();
 
         public Form1()
         {
@@ -30,6 +32,7 @@ namespace R3EHUDManager
             InitializeUI();
 
             Shown += OnFormShown;
+            FormClosing += (sender, args) => DispatchEvent(new ApplicationExitEventArgs(EVENT_PROCESS_EXIT, args));
         }
 
         private void OnFormShown(object sender, EventArgs e)

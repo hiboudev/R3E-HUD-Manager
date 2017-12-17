@@ -18,34 +18,36 @@ namespace R3EHUDManager.savestatus.command
     {
         private readonly BaseEventArgs args;
         private readonly SaveStatusModel saveStatus;
+        private readonly SelectedProfileModel selectedProfile;
         private static readonly Dictionary<int, SetStatus> actions;
-        private delegate void SetStatus(SaveStatusModel model);
+        private delegate void SetStatus(SaveStatusModel model, SelectedProfileModel selectedProfile);
 
         static UpdateSaveStatusCommand()
         {
             actions = new Dictionary<int, SetStatus>
             {
-                {PlaceholderModel.EVENT_UPDATED, (model) => model.SetChanged(SaveType.PROFILE | SaveType.R3E_HUD) },
-                {SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, (model) => model.SetSaved(SaveType.PROFILE) },
-                {SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED, (model) => model.SetSaved(SaveType.R3E_HUD) },
-                {LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED, (model) => {model.SetSaved(SaveType.R3E_HUD); model.SetChanged(SaveType.PROFILE); } },
-                {CreateProfileCommand.EVENT_PROFILE_CREATED, (model) => model.SetSaved(SaveType.PROFILE) },
-                {ScreenModel.EVENT_BACKGROUND_CHANGED, (model) => model.SetChanged(SaveType.PROFILE) },
-                {SelectedProfileModel.EVENT_SELECTION_CHANGED,  (model) => {model.SetSaved(SaveType.PROFILE); model.SetChanged(SaveType.R3E_HUD); }  },
-                {SelectedProfileModel.EVENT_SELECTION_CLEARED,  (model) => model.SetSaved(SaveType.PROFILE)},
-                {ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED,  (model) => model.SetChanged(SaveType.PROFILE | SaveType.R3E_HUD)},
+                {PlaceholderModel.EVENT_UPDATED, (model, selectedProfile) => model.SetChanged(SaveType.PROFILE | SaveType.R3E_HUD) },
+                {SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, (model, selectedProfile) => model.SetSaved(SaveType.PROFILE) },
+                {SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED, (model, selectedProfile) => model.SetSaved(SaveType.R3E_HUD) },
+                {LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED, (model, selectedProfile) => {model.SetSaved(SaveType.R3E_HUD); if(selectedProfile.Selection != null) model.SetChanged(SaveType.PROFILE); } },
+                {CreateProfileCommand.EVENT_PROFILE_CREATED, (model, selectedProfile) => model.SetSaved(SaveType.PROFILE) },
+                {ScreenModel.EVENT_BACKGROUND_CHANGED, (model, selectedProfile) => { if(selectedProfile.Selection != null) model.SetChanged(SaveType.PROFILE); } },
+                {SelectedProfileModel.EVENT_SELECTION_CHANGED,  (model, selectedProfile) => {model.SetSaved(SaveType.PROFILE); model.SetChanged(SaveType.R3E_HUD); }  },
+                {SelectedProfileModel.EVENT_SELECTION_CLEARED,  (model, selectedProfile) => model.SetSaved(SaveType.PROFILE)},
+                {ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED,  (model, selectedProfile) => {if(selectedProfile.Selection != null) model.SetChanged(SaveType.PROFILE); model.SetChanged(SaveType.R3E_HUD); } },
             };
         }
 
-        public UpdateSaveStatusCommand(BaseEventArgs args, SaveStatusModel saveStatus)
+        public UpdateSaveStatusCommand(BaseEventArgs args, SaveStatusModel saveStatus, SelectedProfileModel selectedProfile)
         {
             this.args = args;
             this.saveStatus = saveStatus;
+            this.selectedProfile = selectedProfile;
         }
 
         public void Execute()
         {
-            actions[args.EventId].Invoke(saveStatus);
+            actions[args.EventId].Invoke(saveStatus, selectedProfile);
         }
     }
 }

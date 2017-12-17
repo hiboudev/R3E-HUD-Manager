@@ -175,7 +175,7 @@ namespace R3EHUDManager.background.view
 
             okButton = new Button()
             {
-                Text = "OK",
+                Text = "Import",
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
             };
             okButton.Click += (sender, args) => this.DialogResult = DialogResult.OK;

@@ -11,7 +11,6 @@ namespace R3EHUDManager.savestatus.model
     class SaveStatusModel:EventDispatcher
     {
         public static readonly int EVENT_STATUS_CHANGED = EventId.New();
-
         private SaveType isSaved = SaveType.PROFILE | SaveType.R3E_HUD;
 
         public void SetChanged(SaveType type)
@@ -24,6 +23,11 @@ namespace R3EHUDManager.savestatus.model
         {
             isSaved |= type;
             DispatchEvent(new SaveStatusEventArgs(EVENT_STATUS_CHANGED, type, true));
+        }
+
+        public bool IsSaved(SaveType type)
+        {
+            return isSaved.HasFlag(type);
         }
     }
 }

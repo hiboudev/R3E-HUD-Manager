@@ -156,7 +156,7 @@ namespace R3EHUDManager.screen.utils
                 }
             }
 
-            // TODO use validation rules and the corresponding fix and don't prompt user and do nothing, color code is already showing the problem.
+            // TODO use validation rules and the corresponding fix.
             if (outsidePlaceholder)
             {
                 if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.MOVE)
