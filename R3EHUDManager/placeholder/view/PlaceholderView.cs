@@ -282,7 +282,7 @@ namespace R3EHUDManager.placeholder.view
 
             Color lineColor;
             if (validationResult != null && validationResult.Type == ResultType.INVALID)
-                lineColor = Color.OrangeRed;
+                lineColor = validationResult.HasFix() ? Colors.LAYOUT_NOTIFICATION_FIX : Colors.LAYOUT_NOTIFICATION_NO_FIX;
             else
                 lineColor = Color.Gray;
 

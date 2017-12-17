@@ -13,5 +13,8 @@ namespace R3EHUDManager.graphics
         public static readonly Color PLACEHOLDER_LIST_SELECTION = Color.FromArgb(143, 206, 250);
 
         public static readonly Color SCREEN_BACKGROUND = Color.FromArgb(47, 65, 75);
+
+        public static readonly Color LAYOUT_NOTIFICATION_FIX = Color.OrangeRed;
+        public static readonly Color LAYOUT_NOTIFICATION_NO_FIX = Color.FromArgb(240, 183, 77);
     }
 }

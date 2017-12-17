@@ -53,11 +53,11 @@ namespace R3EHUDManager.settings.view
             openFilteredPlaceholders.Click += OpenFiltersManager;
 
             return new List<ToolStripItem>(new ToolStripItem[] {
+                openFilteredPlaceholders,
+                separator,
                 openHudDirItem,
                 openDataDirItem,
                 openInstallDirItem,
-                separator,
-                openFilteredPlaceholders
             });
         }
 
