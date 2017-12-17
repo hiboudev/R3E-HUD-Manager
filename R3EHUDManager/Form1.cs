@@ -42,7 +42,7 @@ namespace R3EHUDManager
 
         private void InitializeUI()
         {
-            MinimumSize = new Size(400, 400);
+            MinimumSize = new Size(620, 520);
             Size = new Size(1020, 620);
 
             Panel topBarPanel = NewHDockPanel(DockStyle.Top, new Control[] {

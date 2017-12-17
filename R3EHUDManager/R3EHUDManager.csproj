@@ -120,6 +120,8 @@
     <Compile Include="application\view\BaseModalForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="apppresentation\command\CheckUserWatchedPresentationCommand.cs" />
+    <Compile Include="apppresentation\command\ShowPresentationCommand.cs" />
     <Compile Include="apppresentation\view\AppPresentationView.cs">
       <SubType>Form</SubType>
     </Compile>

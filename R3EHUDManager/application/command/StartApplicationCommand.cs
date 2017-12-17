@@ -8,6 +8,7 @@ using da2mvc.core.injection;
 using da2mvc.core.command;
 using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.userpreferences.command;
+using R3EHUDManager.apppresentation.command;
 
 namespace R3EHUDManager.application.command
 {
@@ -26,6 +27,7 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand<InitializeProfilesCommand>();
             Injector.ExecuteCommand<LoadFiltersCommand>();
             Injector.ExecuteCommand<LoadHudDataCommand>();
+            Injector.ExecuteCommand<CheckUserWatchedPresentationCommand>();
         }
     }
 }

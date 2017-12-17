@@ -16,6 +16,7 @@ namespace R3EHUDManager.settings.view
         public static readonly int EVENT_OPEN_APP_DATA_DIRECTORY = EventId.New();
         public static readonly int EVENT_OPEN_APP_INSTALL_DIRECTORY = EventId.New();
         public static readonly int EVENT_OPEN_HUD_DIRECTORY = EventId.New();
+        public static readonly int EVENT_SHOW_PRESENTATION = EventId.New();
 
         public SettingsMenuView()
         {
@@ -57,7 +58,7 @@ namespace R3EHUDManager.settings.view
             openDataDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_DATA_DIRECTORY));
             openInstallDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_INSTALL_DIRECTORY));
             openFilteredPlaceholders.Click += OpenFiltersManager;
-            showPresentation.Click += ShowPresentation;
+            showPresentation.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_SHOW_PRESENTATION));
             openSettings.Click += OpenSettings;
 
             return new List<ToolStripItem>(new ToolStripItem[] {
@@ -79,17 +80,6 @@ namespace R3EHUDManager.settings.view
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-            }
-            dialog.Dispose();
-        }
-
-        private void ShowPresentation(object sender, EventArgs e)
-        {
-            var dialog = Injector.GetInstance<AppPresentationView>();
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                // TODO enregistrer en DB que le user ait vu au moins une fois
             }
             dialog.Dispose();
         }

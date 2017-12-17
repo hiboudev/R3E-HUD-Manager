@@ -39,6 +39,7 @@ using R3EHUDManager.apppresentation.view;
 using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.userpreferences.command;
 using R3EHUDManager.application.command;
+using R3EHUDManager.apppresentation.command;
 
 namespace R3EHUDManager
 {
@@ -108,6 +109,7 @@ namespace R3EHUDManager
             Injector.MapCommand<SettingsMenuView, OpenAppInstallDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_INSTALL_DIRECTORY);
             Injector.MapCommand<SettingsMenuView, OpenAppDataDirectoryCommand>(SettingsMenuView.EVENT_OPEN_APP_DATA_DIRECTORY);
             Injector.MapCommand<SettingsMenuView, OpenHudDirectoryCommand>(SettingsMenuView.EVENT_OPEN_HUD_DIRECTORY);
+            Injector.MapCommand<SettingsMenuView, ShowPresentationCommand>(SettingsMenuView.EVENT_SHOW_PRESENTATION);
             Injector.MapCommand<BackgroundMenuView, ImportBackgroundCommand>(BackgroundMenuView.EVENT_IMPORT_BACKGROUND);
             Injector.MapCommand<BackgroundMenuView, SelectBackgroundCommand>(BackgroundMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<BackgroundManagerView, DeleteBackgroundCommand>(BackgroundManagerView.EVENT_DELETE_BACKGROUND);

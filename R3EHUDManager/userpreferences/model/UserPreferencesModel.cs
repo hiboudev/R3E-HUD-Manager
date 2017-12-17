@@ -9,7 +9,7 @@ namespace R3EHUDManager.userpreferences.model
     class UserPreferencesModel
     {
 
-        public OutsidePlaceholdersPrefType PromptOutsidePlaceholders { get; set; }
-
+        public OutsidePlaceholdersPrefType PromptOutsidePlaceholders { get; internal set; }
+        public bool UserWatchedPresentation { get; internal set; }
     }
 }

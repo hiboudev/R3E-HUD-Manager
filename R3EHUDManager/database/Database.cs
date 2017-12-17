@@ -70,6 +70,10 @@ namespace R3EHUDManager.database
                     $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER}, {(int)OutsidePlaceholdersPrefType.PROMPT});"
                     , db);
 
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USER_WATCHED_PRESENTATION}, {0});"
+                    , db);
+
                 NoQuery("end", db);
 
                 db.Close();
@@ -125,6 +129,9 @@ namespace R3EHUDManager.database
                             case PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER:
                                 model.PromptOutsidePlaceholders = (OutsidePlaceholdersPrefType)reader.GetInt32(1);
                                 break;
+                            case PreferenceType.USER_WATCHED_PRESENTATION:
+                                model.UserWatchedPresentation = Convert.ToBoolean(reader.GetInt32(1));
+                                break;
                         }
                     }
                     reader.Close();
@@ -142,6 +149,23 @@ namespace R3EHUDManager.database
 
                 NoQuery(
                         $"UPDATE userPreferences SET value = {(int)prefValue} WHERE type = {(int)PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER};"
+                        , db);
+
+
+                NoQuery("end", db);
+                db.Close();
+            }
+        }
+
+        internal void SaveUserWatchedPresentationPref(bool prefValue)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                NoQuery("begin", db);
+
+                NoQuery(
+                        $"UPDATE userPreferences SET value = {Convert.ToInt32(prefValue)} WHERE type = {(int)PreferenceType.USER_WATCHED_PRESENTATION};"
                         , db);
 
 
