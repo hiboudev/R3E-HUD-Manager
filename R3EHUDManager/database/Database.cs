@@ -2,6 +2,7 @@
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.utils;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,8 @@ namespace R3EHUDManager.database
                     "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT, layoutType INT);" +
                     "CREATE TABLE config (key TEXT unique, value BLOB);" +
                     "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);" +
-                    "CREATE TABLE placeholderFilter (name TEXT UNIQUE, isFiltered INT);"
+                    "CREATE TABLE placeholderFilter (name TEXT UNIQUE, isFiltered INT);" +
+                    "CREATE TABLE userPreferences (type INT UNIQUE, value BLOB);"
                     , db);
 
                 NoQuery(
@@ -63,6 +65,10 @@ namespace R3EHUDManager.database
                     NoQuery(
                         $"INSERT INTO placeholderFilter (name, isFiltered) VALUES ('{keyValue.Key}', {Convert.ToInt32(keyValue.Value)});"
                         , db);
+
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER}, {(int)OutsidePlaceholdersPrefType.PROMPT});"
+                    , db);
 
                 NoQuery("end", db);
 
@@ -105,6 +111,45 @@ namespace R3EHUDManager.database
             }
         }
 
+        public void GetPreferences(UserPreferencesModel model)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                using (SQLiteDataReader reader = new SQLiteCommand("SELECT * from userPreferences", db).ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        switch ((PreferenceType)reader.GetInt32(0))
+                        {
+                            case PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER:
+                                model.PromptOutsidePlaceholders = (OutsidePlaceholdersPrefType)reader.GetInt32(1);
+                                break;
+                        }
+                    }
+                    reader.Close();
+                }
+                db.Close();
+            }
+        }
+
+        internal void SaveOutsidePlaceholdersPref(OutsidePlaceholdersPrefType prefValue)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                NoQuery("begin", db);
+
+                NoQuery(
+                        $"UPDATE userPreferences SET value = {(int)prefValue} WHERE type = {(int)PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER};"
+                        , db);
+
+
+                NoQuery("end", db);
+                db.Close();
+            }
+        }
+
         public Dictionary<string, bool> GetPlaceholderFilters()
         {
             Dictionary<string, bool> filters = new Dictionary<string, bool>();
@@ -135,7 +180,7 @@ namespace R3EHUDManager.database
                 db.Open();
                 NoQuery("begin", db);
 
-                foreach(KeyValuePair<string, bool> keyValue in filters)
+                foreach (KeyValuePair<string, bool> keyValue in filters)
                     NoQuery(
                         $"UPDATE placeholderFilter SET isFiltered = {Convert.ToInt32(keyValue.Value)} WHERE name = '{keyValue.Key}';"
                         , db);

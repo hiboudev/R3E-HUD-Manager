@@ -265,16 +265,16 @@ namespace R3EHUDManager.background.view
             layout.Controls.Add(control);
         }
 
-        private void OnStepperFocused(object sender, EventArgs e)
-        {
-            var stepper = (NumericUpDown)sender;
-            stepper.Select(0, stepper.Text.Length);
-        }
-
         private void AddControl(Control control, SizeType sizeType, int height)
         {
             layout.RowStyles.Add(new RowStyle(sizeType, height));
             layout.Controls.Add(control);
+        }
+
+        private void OnStepperFocused(object sender, EventArgs e)
+        {
+            var stepper = (NumericUpDown)sender;
+            stepper.Select(0, stepper.Text.Length);
         }
     }
 }

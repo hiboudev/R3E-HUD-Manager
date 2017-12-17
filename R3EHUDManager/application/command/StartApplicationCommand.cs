@@ -7,6 +7,7 @@ using R3EHUDManager.profile.command;
 using da2mvc.core.injection;
 using da2mvc.core.command;
 using R3EHUDManager.r3esupport.command;
+using R3EHUDManager.userpreferences.command;
 
 namespace R3EHUDManager.application.command
 {
@@ -17,6 +18,7 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand<InitializeLocalDirectoriesCommand>();
             Injector.ExecuteCommand<InitializeLoggerCommand>();
             Injector.ExecuteCommand<InitializeDatabaseCommand>();
+            Injector.ExecuteCommand<LoadPreferencesCommand>();
             Injector.ExecuteCommand<FindR3eHomeDirectoryCommand>();
             Injector.ExecuteCommand<SaveOriginalFileCommand>();
             Injector.ExecuteCommand<InitializeSupportRulesCommand>();

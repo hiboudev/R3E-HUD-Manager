@@ -131,7 +131,6 @@ namespace R3EHUDManager.apppresentation.view
             }
             
             DisplayNextImage();
-
             UpdateButtons();
         }
 

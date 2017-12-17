@@ -3,6 +3,7 @@ using da2mvc.framework.menubutton.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
+using R3EHUDManager.userpreferences.model;
 
 namespace R3EHUDManager.screen.command
 {
@@ -11,12 +12,14 @@ namespace R3EHUDManager.screen.command
         private readonly MenuButtonEventArgs args;
         private readonly ScreenModel screenModel;
         private readonly PlaceHolderCollectionModel collectionModel;
+        private readonly UserPreferencesModel preferences;
 
-        public ChangeScreenLayoutCommand(MenuButtonEventArgs args, ScreenModel screenModel, PlaceHolderCollectionModel collectionModel)
+        public ChangeScreenLayoutCommand(MenuButtonEventArgs args, ScreenModel screenModel, PlaceHolderCollectionModel collectionModel, UserPreferencesModel preferences)
         {
             this.args = args;
             this.screenModel = screenModel;
             this.collectionModel = collectionModel;
+            this.preferences = preferences;
         }
 
         public void Execute()
@@ -26,7 +29,7 @@ namespace R3EHUDManager.screen.command
             if (screenModel.Layout == layout) return;
 
             if (layout == ScreenLayoutType.SINGLE)
-                ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(collectionModel);
+                ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(collectionModel, preferences);
             
             screenModel.SetLayout(layout);
         }

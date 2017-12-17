@@ -232,6 +232,9 @@
     <Compile Include="screen\model\ScreenPositionType.cs" />
     <Compile Include="screen\utils\ScreenUtils.cs" />
     <Compile Include="screen\model\ZoomLevel.cs" />
+    <Compile Include="screen\view\PromptOutsidePlaceholderView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="screen\view\ZoomMediator.cs" />
     <Compile Include="screen\view\ZoomView.cs">
       <SubType>Component</SubType>
@@ -298,6 +301,14 @@
     <Compile Include="selection\view\SelectionView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="settings\view\SettingsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="userpreferences\command\LoadPreferencesCommand.cs" />
+    <Compile Include="userpreferences\command\SaveOutsidePlaceholdersPrefCommand.cs" />
+    <Compile Include="userpreferences\model\OutsidePlaceholdersPrefType.cs" />
+    <Compile Include="userpreferences\model\PreferenceType.cs" />
+    <Compile Include="userpreferences\model\UserPreferencesModel.cs" />
     <Compile Include="utils\StringUtils.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

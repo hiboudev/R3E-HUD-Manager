@@ -1,6 +1,9 @@
-﻿using R3EHUDManager.coordinates;
+﻿using da2mvc.core.injection;
+using R3EHUDManager.coordinates;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.screen.view;
+using R3EHUDManager.userpreferences.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,7 +56,7 @@ namespace R3EHUDManager.screen.utils
             double offsetX = 0;
             double offsetY = positionYInScreen - placeholder.Position.Y;
 
-            if(currentScreen == ScreenPositionType.OUTSIDE)
+            if (currentScreen == ScreenPositionType.OUTSIDE)
                 offsetX = GetOffsetXFromOutside(placeholder, targetScreen);
             else
                 switch (targetScreen)
@@ -136,8 +139,11 @@ namespace R3EHUDManager.screen.utils
             return a;
         }
 
-        public static void PromptUserIfOutsideOfCenterScreenPlaceholders(PlaceHolderCollectionModel collectionModel)
+        public static void PromptUserIfOutsideOfCenterScreenPlaceholders(PlaceHolderCollectionModel collectionModel, UserPreferencesModel preferences)
         {
+            if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.DO_NOTHING)
+                return;
+
             bool outsidePlaceholder = false;
 
             foreach (PlaceholderModel placeholder in collectionModel.Items)
@@ -153,19 +159,31 @@ namespace R3EHUDManager.screen.utils
             // TODO use validation rules and the corresponding fix and don't prompt user and do nothing, color code is already showing the problem.
             if (outsidePlaceholder)
             {
-                DialogResult result = MessageBox.Show("Some placeholders are now outside of the center screen, move them to center screen?", "Placeholders outside of center screen", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.MOVE)
                 {
-                    foreach (PlaceholderModel placeholder in collectionModel.Items)
-                    {
-                        ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
-                        if (screen != ScreenPositionType.CENTER)
-                        {
-                            R3ePoint offset = ScreenUtils.ToScreenOffset(placeholder, ScreenPositionType.CENTER);
-                            R3ePoint newPosition = new R3ePoint(placeholder.Position.X + offset.X, placeholder.Position.Y + offset.Y);
-                            placeholder.Move(newPosition);
-                        }
-                    }
+                    MovePlaceholders(collectionModel);
+                }
+                else if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.PROMPT)
+                {
+                    var dialog = Injector.GetInstance<PromptOutsidePlaceholderView>();
+                    if(dialog.ShowDialog() == DialogResult.Yes)
+                    //DialogResult result = MessageBox.Show("Some placeholders are now outside of the center screen, move them to center screen?", "Placeholders outside of center screen", MessageBoxButtons.YesNo);
+                    //if (result == DialogResult.Yes)
+                        MovePlaceholders(collectionModel);
+                }
+            }
+        }
+
+        private static void MovePlaceholders(PlaceHolderCollectionModel collectionModel)
+        {
+            foreach (PlaceholderModel placeholder in collectionModel.Items)
+            {
+                ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
+                if (screen != ScreenPositionType.CENTER)
+                {
+                    R3ePoint offset = ScreenUtils.ToScreenOffset(placeholder, ScreenPositionType.CENTER);
+                    R3ePoint newPosition = new R3ePoint(placeholder.Position.X + offset.X, placeholder.Position.Y + offset.Y);
+                    placeholder.Move(newPosition);
                 }
             }
         }

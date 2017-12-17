@@ -147,10 +147,10 @@ namespace R3EHUDManager.selection.view
             {
                 Height = 15,
                 Text = "Placeholders",
-                Margin = new Padding(0, Margin.Top, 0, 4),
+                Margin = new Padding(),
                 TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.LightGray,
-        };
+            };
 
             list = new ListView
             {
@@ -162,11 +162,12 @@ namespace R3EHUDManager.selection.view
                 MultiSelect = false,
                 OwnerDraw = true,
                 ShowItemToolTips = true,
+                Margin = new Padding(),
             };
 
             ColumnHeader column = new ColumnHeader
             {
-                Width = 125,
+                Width = 130,
             };
             list.Columns.Add(column);
 

@@ -1,5 +1,6 @@
 ﻿using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.userpreferences.model;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -68,6 +69,15 @@ namespace R3EHUDManager.database
                 new SQLiteCommand(
                     $"INSERT INTO placeholderFilter (name, isFiltered) VALUES ('{keyValue.Key}', {Convert.ToInt32(keyValue.Value)});"
                     , connection).ExecuteNonQuery();
+
+
+            new SQLiteCommand(
+                "CREATE TABLE userPreferences (type INT UNIQUE, value BLOB);"
+                , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER}, {(int)OutsidePlaceholdersPrefType.PROMPT});"
+                , connection).ExecuteNonQuery();
         }
     }
 }

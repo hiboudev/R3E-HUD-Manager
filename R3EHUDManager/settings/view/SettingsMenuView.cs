@@ -50,11 +50,15 @@ namespace R3EHUDManager.settings.view
             ToolStripItem separator2 = new ToolStripSeparator();
             ToolStripMenuItem showPresentation = new ToolStripMenuItem("Quick presentation");
 
+            ToolStripItem separator3 = new ToolStripSeparator();
+            ToolStripMenuItem openSettings = new ToolStripMenuItem("Settings");
+
             openHudDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_HUD_DIRECTORY));
             openDataDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_DATA_DIRECTORY));
             openInstallDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_INSTALL_DIRECTORY));
             openFilteredPlaceholders.Click += OpenFiltersManager;
             showPresentation.Click += ShowPresentation;
+            openSettings.Click += OpenSettings;
 
             return new List<ToolStripItem>(new ToolStripItem[] {
                 openFilteredPlaceholders,
@@ -63,8 +67,20 @@ namespace R3EHUDManager.settings.view
                 openDataDirItem,
                 openInstallDirItem,
                 separator2,
-                showPresentation
+                showPresentation,
+                separator3,
+                openSettings
             });
+        }
+
+        private void OpenSettings(object sender, EventArgs e)
+        {
+            var dialog = Injector.GetInstance<SettingsView>();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+            }
+            dialog.Dispose();
         }
 
         private void ShowPresentation(object sender, EventArgs e)

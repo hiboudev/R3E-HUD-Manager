@@ -7,6 +7,7 @@ using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
+using R3EHUDManager.userpreferences.model;
 using System.Diagnostics;
 
 namespace R3EHUDManager.background.command
@@ -17,13 +18,16 @@ namespace R3EHUDManager.background.command
         private readonly ScreenModel screenModel;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
         private readonly PlaceHolderCollectionModel placeholderCollection;
+        private readonly UserPreferencesModel preferences;
 
-        public SelectBackgroundCommand(MenuButtonEventArgs args, ScreenModel screenModel, CollectionModel<BackgroundModel> backgroundCollection, PlaceHolderCollectionModel placeholderCollection)
+        public SelectBackgroundCommand(MenuButtonEventArgs args, ScreenModel screenModel, CollectionModel<BackgroundModel> backgroundCollection,
+            PlaceHolderCollectionModel placeholderCollection, UserPreferencesModel preferences)
         {
             this.args = args;
             this.screenModel = screenModel;
             this.backgroundCollection = backgroundCollection;
             this.placeholderCollection = placeholderCollection;
+            this.preferences = preferences;
         }
 
         public void Execute()
@@ -34,7 +38,7 @@ namespace R3EHUDManager.background.command
             screenModel.SetBackground(background);
 
             if (currentLayout == ScreenLayoutType.TRIPLE && background.Layout == ScreenLayoutType.SINGLE)
-                ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection);
+                ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection, preferences);
 
             Injector.ExecuteCommand<ValidateCollectionCommand>();
         }
