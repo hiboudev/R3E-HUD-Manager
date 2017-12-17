@@ -132,17 +132,14 @@ namespace R3EHUDManager.apppresentation.view
             
             DisplayNextImage();
 
-            if (currentPathIndex == paths.Length - 1)
-            {
-                nextButton.Text = "Thanks! :)";
-            }
-
             UpdateButtons();
         }
 
         private void UpdateButtons()
         {
             prevButton.Enabled = currentPathIndex > 0;
+
+            nextButton.Text = currentPathIndex == paths.Length - 1 ? "Thanks! :)" : "Next";
         }
 
         private void OnCloseClicked(object sender, EventArgs e)
