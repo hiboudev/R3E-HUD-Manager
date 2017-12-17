@@ -108,7 +108,7 @@ namespace R3EHUDManager.selection.view
             if (selected)
             {
                 e.Graphics.FillRectangle(new SolidBrush(Colors.PLACEHOLDER_LIST_SELECTION),
-                    new Rectangle(e.Bounds.X + thickness, e.Bounds.Y + spacing, e.Bounds.Width, e.Bounds.Height - 2 * spacing));
+                    new Rectangle(e.Bounds.X + thickness, e.Bounds.Y + spacing, e.Bounds.Width - thickness, e.Bounds.Height - 2 * spacing));
                 //e.DrawFocusRectangle();
             }
             else
@@ -164,7 +164,7 @@ namespace R3EHUDManager.selection.view
 
             ColumnHeader column = new ColumnHeader
             {
-                Width = -2, // Autosize... o.O
+                Width = 130,
             };
             list.Columns.Add(column);
 
