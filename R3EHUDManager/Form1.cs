@@ -55,41 +55,48 @@ namespace R3EHUDManager
             SelectionView selectionView = Injector.GetInstance< SelectionView>();
             selectionView.FlowDirection = FlowDirection.TopDown;
             selectionView.Margin = new Padding(selectionView.Margin.Left, selectionView.Margin.Top, selectionView.Margin.Right, 10);
-            selectionView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             PlaceholdersListView listView = Injector.GetInstance<PlaceholdersListView>();
-            listView.Height = 160;
-            listView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             ReloadLayoutView reloadView = Injector.GetInstance<ReloadLayoutView>();
-            reloadView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             reloadView.Margin = new Padding(reloadView.Margin.Left, 10, reloadView.Margin.Right, reloadView.Margin.Bottom);
 
             SettingsMenuView prefsButton = Injector.GetInstance< SettingsMenuView>();
             prefsButton.Anchor = AnchorStyles.Left;
 
             var directoryMenu = Injector.GetInstance<R3eDirectoryMenuView>();
-            directoryMenu.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
-            FlowLayoutPanel leftBarPanel = new FlowLayoutPanel()
+            TableLayoutPanel leftBarPanel = new TableLayoutPanel()
             {
-                FlowDirection = FlowDirection.TopDown,
                 Dock = DockStyle.Left,
                 AutoSize = true,
-                WrapContents = false,
+                ColumnCount = 1,
             };
 
-            leftBarPanel.Controls.AddRange(new Control[] {
-                selectionView,
-                listView,
-                reloadView,
-                directoryMenu,
-                prefsButton } );
+            AddToTable(leftBarPanel, selectionView, SizeType.AutoSize, AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
+            AddToTable(leftBarPanel, listView, SizeType.Percent, 100, AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
+            AddToTable(leftBarPanel, reloadView, SizeType.AutoSize, AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
+            AddToTable(leftBarPanel, directoryMenu, SizeType.AutoSize, AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
+            AddToTable(leftBarPanel, prefsButton, SizeType.AutoSize, AnchorStyles.Left);
 
             ScreenView screenView = Injector.GetInstance<ScreenView>();
             screenView.Dock = DockStyle.Fill;
 
             Controls.AddRange(new Control[] { screenView, topBarPanel, bottomBarPanel, leftBarPanel });
+        }
+
+        private void AddToTable(TableLayoutPanel table, Control control, SizeType sizeType, AnchorStyles anchor)
+        {
+            control.Anchor = anchor;
+            table.RowStyles.Add(new RowStyle(sizeType));
+            table.Controls.Add(control);
+        }
+
+        private void AddToTable(TableLayoutPanel table, Control control, SizeType sizeType, int height, AnchorStyles anchor)
+        {
+            control.Anchor = anchor;
+            table.RowStyles.Add(new RowStyle(sizeType, height));
+            table.Controls.Add(control);
         }
 
         private Panel NewHDockPanel(DockStyle dock, Control[] controls)

@@ -15,7 +15,7 @@ using R3EHUDManager.graphics;
 
 namespace R3EHUDManager.selection.view
 {
-    class PlaceholdersListView : Panel, IEventDispatcher, ICollectionView<PlaceholderModel>
+    class PlaceholdersListView : TableLayoutPanel, IEventDispatcher, ICollectionView<PlaceholderModel>
     {
         private ListView list;
         private bool bypassSelectedEvent = false;
@@ -140,22 +140,22 @@ namespace R3EHUDManager.selection.view
 
         private void InitializeUI()
         {
+            AutoSize = true;
+            MinimumSize = new Size(100, 100);
+
             Label title = new Label()
             {
-                Anchor = AnchorStyles.Left | AnchorStyles.Right,
                 Height = 15,
                 Text = "Placeholders",
-                Dock = DockStyle.Top,
-                Margin = new Padding(Margin.Left, Margin.Top, Margin.Right, 4),
+                Margin = new Padding(0, Margin.Top, 0, 4),
                 TextAlign = ContentAlignment.MiddleCenter,
                 BackColor = Color.LightGray,
-            };
+        };
 
             list = new ListView
             {
                 BorderStyle = BorderStyle.None,
                 BackColor = Color.WhiteSmoke,
-                Dock = DockStyle.Fill,
                 View = View.Details,
                 HeaderStyle = ColumnHeaderStyle.None,
                 FullRowSelect = true,
@@ -166,7 +166,7 @@ namespace R3EHUDManager.selection.view
 
             ColumnHeader column = new ColumnHeader
             {
-                Width = 130,
+                Width = 125,
             };
             list.Columns.Add(column);
 
@@ -180,8 +180,8 @@ namespace R3EHUDManager.selection.view
                list,
                new object[] { true });
 
-            Controls.Add(list);
-            Controls.Add(title);
+            AddToTable(title, SizeType.AutoSize, AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+            AddToTable(list, SizeType.Percent, AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom);
 
             InitializeContextMenu();
         }
@@ -228,6 +228,20 @@ namespace R3EHUDManager.selection.view
 
             if (validationResult != null && validationResult.HasFix())
                 DispatchEvent(new IntEventArgs(EVENT_REQUEST_LAYOUT_FIX, modelId));
+        }
+
+        private void AddToTable(Control control, SizeType sizeType, AnchorStyles anchor)
+        {
+            control.Anchor = anchor;
+            RowStyles.Add(new RowStyle(sizeType));
+            Controls.Add(control);
+        }
+
+        private void AddToTable(Control control, SizeType sizeType, int height, AnchorStyles anchor)
+        {
+            control.Anchor = anchor;
+            RowStyles.Add(new RowStyle(sizeType, height));
+            Controls.Add(control);
         }
 
         public void DispatchEvent(BaseEventArgs args)
