@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.screen.model;
+﻿using R3EHUDManager.placeholder.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -17,15 +18,22 @@ namespace R3EHUDManager.database
 
         public void Upgrade(Database database, SQLiteConnection connection)
         {
-            if (database.GetVersion() == 1)
-                UpgradeVersion1(connection);
+            switch (database.GetVersion())
+            {
+                case 1:
+                    UpgradeVersion1To2(connection);
+                    goto case 2;
+                case 2:
+                    UpgradeVersion2To3(connection);
+                    break;
+            }
 
             new SQLiteCommand(
                 $"UPDATE config SET value = {Database.VERSION} WHERE key = 'dbVersion'"
                 , connection).ExecuteNonQuery();
         }
 
-        private void UpgradeVersion1(SQLiteConnection connection)
+        private void UpgradeVersion1To2(SQLiteConnection connection)
         {
             new SQLiteCommand(
                 $"ALTER TABLE backgrounds ADD COLUMN layoutType INTEGER DEFAULT {(int)ScreenLayoutType.SINGLE}"
@@ -33,6 +41,32 @@ namespace R3EHUDManager.database
 
             new SQLiteCommand(
                     "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);"
+                    , connection).ExecuteNonQuery();
+        }
+
+        private void UpgradeVersion2To3(SQLiteConnection connection)
+        {
+            new SQLiteCommand(
+                "CREATE TABLE placeholderFilter (name TEXT UNIQUE, isFiltered INT);"
+                , connection).ExecuteNonQuery();
+
+            Dictionary<string, bool> values = new Dictionary<string, bool>
+            {
+                { PlaceholderName.APEXHUNT_DISPLAY, true },
+                { PlaceholderName.CAR_STATUS, true },
+                { PlaceholderName.DRIVER_NAME_TAGS, true },
+                { PlaceholderName.FFB_GRAPH, false },
+                { PlaceholderName.FLAGS, true },
+                { PlaceholderName.MINI_MOTEC, true },
+                { PlaceholderName.MOTEC, false },
+                { PlaceholderName.POSITION_BAR, false },
+                { PlaceholderName.TRACK_MAP, false },
+                { PlaceholderName.VIRTUAL_MIRROR, false }
+            };
+
+            foreach(KeyValuePair<string, bool> keyValue in values)
+                new SQLiteCommand(
+                    $"INSERT INTO placeholderFilter (name, isFiltered) VALUES ('{keyValue.Key}', {Convert.ToInt32(keyValue.Value)});"
                     , connection).ExecuteNonQuery();
         }
     }

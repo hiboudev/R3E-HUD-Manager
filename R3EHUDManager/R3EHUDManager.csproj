@@ -145,6 +145,13 @@
     <Compile Include="database\DatabaseUpgrader.cs" />
     <Compile Include="graphics\Colors.cs" />
     <Compile Include="graphics\Fonts.cs" />
+    <Compile Include="huddata\command\LoadFiltersCommand.cs" />
+    <Compile Include="huddata\command\UpdateFiltersCommand.cs" />
+    <Compile Include="huddata\events\FiltersChangedEventArgs.cs" />
+    <Compile Include="huddata\model\PlaceholderBlackListModel.cs" />
+    <Compile Include="huddata\view\PlaceholderBlackListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="huddata\view\ReloadLayoutMediator.cs" />
     <Compile Include="huddata\view\ReloadLayoutView.cs">
       <SubType>Component</SubType>

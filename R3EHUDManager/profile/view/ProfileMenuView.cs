@@ -31,9 +31,9 @@ namespace R3EHUDManager.profile.view
 
         internal bool HasSelection { get; private set; }
 
-        protected override List<ToolStripMenuItem> GetBuiltInItems()
+        protected override List<ToolStripItem> GetBuiltInItems()
         {
-            var list = new List<ToolStripMenuItem>();
+            var list = new List<ToolStripItem>();
 
             itemSaveProfile = new ToolStripMenuItem("<Save profile>");
             itemSaveProfile.Click += OnSaveProfileClicked;

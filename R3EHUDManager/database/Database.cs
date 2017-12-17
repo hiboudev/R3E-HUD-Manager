@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.background.model;
+using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.utils;
@@ -15,7 +16,7 @@ namespace R3EHUDManager.database
     class Database
     {
         private string dbArgs;
-        public const int VERSION = 2;
+        public const int VERSION = 3;
 
         public void Initialize(string path)
         {
@@ -33,17 +34,35 @@ namespace R3EHUDManager.database
 
                 NoQuery("begin", db);
 
-                // V2 added backgrounds.layoutType
-                // V2 added table profiles
                 NoQuery(
                     "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT, layoutType INT);" +
                     "CREATE TABLE config (key TEXT unique, value BLOB);" +
-                    "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);"
+                    "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);" +
+                    "CREATE TABLE placeholderFilter (name TEXT UNIQUE, isFiltered INT);"
                     , db);
 
                 NoQuery(
                     $"INSERT INTO config (key, value) VALUES ('dbVersion', {VERSION})"
                     , db);
+
+                Dictionary<string, bool> values = new Dictionary<string, bool>
+                {
+                    { PlaceholderName.APEXHUNT_DISPLAY, true },
+                    { PlaceholderName.CAR_STATUS, true },
+                    { PlaceholderName.DRIVER_NAME_TAGS, true },
+                    { PlaceholderName.FFB_GRAPH, false },
+                    { PlaceholderName.FLAGS, true },
+                    { PlaceholderName.MINI_MOTEC, true },
+                    { PlaceholderName.MOTEC, false },
+                    { PlaceholderName.POSITION_BAR, false },
+                    { PlaceholderName.TRACK_MAP, false },
+                    { PlaceholderName.VIRTUAL_MIRROR, false }
+                };
+
+                foreach (KeyValuePair<string, bool> keyValue in values)
+                    NoQuery(
+                        $"INSERT INTO placeholderFilter (name, isFiltered) VALUES ('{keyValue.Key}', {Convert.ToInt32(keyValue.Value)});"
+                        , db);
 
                 NoQuery("end", db);
 
@@ -82,6 +101,46 @@ namespace R3EHUDManager.database
                 upgrader.Upgrade(this, db);
                 NoQuery("end", db);
 
+                db.Close();
+            }
+        }
+
+        public Dictionary<string, bool> GetPlaceholderFilters()
+        {
+            Dictionary<string, bool> filters = new Dictionary<string, bool>();
+
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+
+                using (SQLiteDataReader reader = new SQLiteCommand("SELECT * from placeholderFilter", db).ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        filters.Add(reader.GetString(0), Convert.ToBoolean(reader.GetInt32(1)));
+                    }
+                    reader.Close();
+                }
+
+                db.Close();
+            }
+
+            return filters;
+        }
+
+        public void UpdatePlaceholderFilters(Dictionary<string, bool> filters)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                NoQuery("begin", db);
+
+                foreach(KeyValuePair<string, bool> keyValue in filters)
+                    NoQuery(
+                        $"UPDATE placeholderFilter SET isFiltered = {Convert.ToInt32(keyValue.Value)} WHERE name = '{keyValue.Key}';"
+                        , db);
+
+                NoQuery("end", db);
                 db.Close();
             }
         }
@@ -161,11 +220,11 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                
+
                 NoQuery("INSERT INTO backgrounds (id, name, fileName, directoryType, isBuiltIn, layoutType) VALUES " +
                     $"({background.Id}, '{StringUtils.ToDatabaseUserString(background.Name)}', '{background.FileName}', {(int)background.DirectoryType}, {Convert.ToInt32(background.IsBuiltInt)}, {(int)background.Layout})"
                     , db);
-                
+
                 db.Close();
             }
         }
@@ -178,7 +237,7 @@ namespace R3EHUDManager.database
 
                 NoQuery($"DELETE FROM backgrounds WHERE id = {background.Id}"
                     , db);
-                
+
                 db.Close();
             }
         }
@@ -196,9 +255,9 @@ namespace R3EHUDManager.database
                     while (reader.Read())
                     {
                         backgrounds.Add(BackgroundFactory.NewBackgroundModel(
-                            reader.GetInt32(0), 
+                            reader.GetInt32(0),
                             reader.GetString(1),
-                            reader.GetString(2), 
+                            reader.GetString(2),
                             (BaseDirectoryType)reader.GetInt32(3),
                             Convert.ToBoolean(reader.GetInt32(4)),
                             (ScreenLayoutType)reader.GetInt32(5)));

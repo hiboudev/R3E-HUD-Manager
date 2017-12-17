@@ -33,9 +33,9 @@ namespace R3EHUDManager.background.view
             return item;
         }
 
-        protected override List<ToolStripMenuItem> GetBuiltInItems()
+        protected override List<ToolStripItem> GetBuiltInItems()
         {
-            List<ToolStripMenuItem> builtInItems = new List<ToolStripMenuItem>();
+            List<ToolStripItem> builtInItems = new List<ToolStripItem>();
 
             ToolStripMenuItem itemImport = new ToolStripMenuItem("<Import new background>");
             itemImport.Click += OnImportBackgroundClicked;

@@ -34,6 +34,7 @@ using R3EHUDManager.savestatus.command;
 using R3EHUDManager.huddata.view;
 using R3EHUDManager.layout.model;
 using R3EHUDManager.layout.view;
+using R3EHUDManager.huddata.model;
 
 namespace R3EHUDManager
 {
@@ -65,8 +66,10 @@ namespace R3EHUDManager
             Injector.MapType<SupportRuleValidator>(true);
             Injector.MapType<SaveStatusModel>(true);
             Injector.MapType<LayoutSourceModel>(true);
+            Injector.MapType<PlaceholderBlackListModel>(true);
+            Injector.MapType<PlaceholderBlackListView>();
 
-            
+
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<SelectionView, SelectionMediator>(true);
             Injector.MapView<PlaceholdersListView, PlaceholdersListMediator>(true);
@@ -108,12 +111,13 @@ namespace R3EHUDManager
             Injector.MapCommand<R3eDirectoryMenuView, SelectR3eDirectoryCommand>(R3eDirectoryMenuView.EVENT_ITEM_CLICKED);
             Injector.MapCommand<PlaceholderModel, ValidatePlaceholderCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<PlaceHolderCollectionModel, ValidatePlaceholderCommand>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED);
+            Injector.MapCommand<PlaceholderBlackListView, UpdateFiltersCommand>(PlaceholderBlackListView.EVENT_FILTERS_CHANGED);
 
+            // Save status
             Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);
             Injector.MapCommand<SaveHudCommand, UpdateSaveStatusCommand>(SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED);
             Injector.MapCommand<LoadHudDataCommand, UpdateSaveStatusCommand>(LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED);
             Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
-
             Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<CreateProfileCommand, UpdateSaveStatusCommand>(CreateProfileCommand.EVENT_PROFILE_CREATED);
             Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);

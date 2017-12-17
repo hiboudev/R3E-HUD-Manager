@@ -113,7 +113,7 @@ ANY
   <rule name="Virtual Mirror Y" layout="ANY">
     <invalid property="y">
       <check value="ANY"><![CDATA[=]]></check>
-      <description><![CDATA[Virtual mirror Y position is decided by R3E.]]></description>
+      <description><![CDATA[Virtual mirror Y position is dynamically set by R3E.]]></description>
     </invalid>
 
     <placeholder name="Virtual Mirror" />
@@ -122,7 +122,7 @@ ANY
   <rule name="FFB anchor not movable" layout="ANY">
     <invalid property="ax">
       <check value="-1"><![CDATA[!=]]></check>
-      <description><![CDATA[FFB anchor position X will be left.]]></description>
+      <description><![CDATA[Anchor X position will be at left (-1).]]></description>
 
       <fix>
         <property name="ax" value="-1"/>
@@ -131,7 +131,7 @@ ANY
 
     <invalid property="ay">
       <check value="-1"><![CDATA[!=]]></check>
-      <description><![CDATA[FFB anchor position Y will be bottom.]]></description>
+      <description><![CDATA[Anchor Y position will be at bottom (-1).]]></description>
 
       <fix>
         <property name="ay" value="-1"/>
@@ -145,7 +145,7 @@ ANY
     <invalid property="x">
       <check value="-1"><![CDATA[<]]></check>
       <check value="-3"><![CDATA[!=]]></check>
-      <description><![CDATA[FFB meter will be displayed at X=-3.]]></description>
+      <description><![CDATA[X position will be at left edge (X = -3).]]></description>
 
       <fix>
         <property name="x" value="-3"/>
@@ -161,7 +161,7 @@ ANY
     <invalid property="x">
       <check value="-1"><![CDATA[>]]></check>
       <check value="1"><![CDATA[<=]]></check>
-      <description><![CDATA[FFB meter will be displayed at X=-1.]]></description>
+      <description><![CDATA[X position will be X=-1.]]></description> <!-- TODO it's more complicated than that, faire faire un autre test à Eric -->
 
       <fix>
         <property name="x" value="-1"/>

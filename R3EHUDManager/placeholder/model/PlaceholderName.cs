@@ -6,8 +6,25 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.placeholder.model
 {
-    class PlaceholderName
+    class PlaceholderName // TODO this should be dynamic from the XML
     {
+        public static HashSet<String> GetAll()
+        {
+            return new HashSet<string>
+            {
+                MOTEC,
+                MINI_MOTEC,
+                POSITION_BAR,
+                VIRTUAL_MIRROR,
+                FLAGS,
+                TRACK_MAP,
+                APEXHUNT_DISPLAY,
+                DRIVER_NAME_TAGS,
+                CAR_STATUS,
+                FFB_GRAPH,
+            };
+        }
+
         public const string MOTEC = "MoTeC";
         public const string MINI_MOTEC = "Mini MoTeC";
         public const string POSITION_BAR = "Position Bar";

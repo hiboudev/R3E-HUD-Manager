@@ -220,7 +220,7 @@ namespace R3EHUDManager.background.view
             AddControl(preview, SizeType.Percent, 100);
             AddControl(radioPanel, SizeType.AutoSize);
             AddControl(stepperPanel, SizeType.AutoSize);
-            AddControl(okButton, SizeType.AutoSize);
+            AddControl(okButton, SizeType.AutoSize); // TODO Généraliser ça
 
             Controls.Add(layout);
 
