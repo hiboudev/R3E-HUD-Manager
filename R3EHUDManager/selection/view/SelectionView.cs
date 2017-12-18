@@ -151,6 +151,10 @@ namespace R3EHUDManager.selection.view
             stepperY.GotFocus += SelectStepperText;
             stepperSize.GotFocus += SelectStepperText;
 
+            stepperX.MouseWheel += OnStepperMouseWheel;
+            stepperY.MouseWheel += OnStepperMouseWheel;
+            stepperSize.MouseWheel += OnStepperMouseWheel;
+
             foreach (string presetName in R3ePointPreset.presets.Keys)
             {
                 anchorPresets.Items.Add(presetName);
@@ -163,6 +167,14 @@ namespace R3EHUDManager.selection.view
             screenLeftRadio.CheckedChanged += ScreenRadioChanged;
             screenCenterRadio.CheckedChanged += ScreenRadioChanged;
             screenRightRadio.CheckedChanged += ScreenRadioChanged;
+        }
+
+        private void OnStepperMouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs handledArgs = (HandledMouseEventArgs) e;
+            handledArgs.Handled = true;
+            var stepper = (NumericUpDown)sender;
+            stepper.Value += (e.Delta > 0 ? 1 : -1) * stepper.Increment * 20;
         }
 
         private void SelectStepperText(object sender, EventArgs e)
