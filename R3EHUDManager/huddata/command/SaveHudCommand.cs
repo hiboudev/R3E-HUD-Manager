@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using da2mvc.core.command;
 using da2mvc.core.events;
+using R3EHUDManager.huddata.model;
 
 namespace R3EHUDManager.huddata.command
 {
@@ -20,20 +21,20 @@ namespace R3EHUDManager.huddata.command
 
         private readonly BaseEventArgs args;
         private readonly PlaceHolderCollectionModel placeholders;
-        private readonly HudOptionsParser parser;
         private readonly LocationModel location;
+        private readonly LayoutIOModel layoutIO;
 
-        public SaveHudCommand(BaseEventArgs args, PlaceHolderCollectionModel placeholders, HudOptionsParser parser, LocationModel location)
+        public SaveHudCommand(BaseEventArgs args, PlaceHolderCollectionModel placeholders, LocationModel location, LayoutIOModel layoutIO)
         {
             this.args = args;
             this.placeholders = placeholders;
-            this.parser = parser;
             this.location = location;
+            this.layoutIO = layoutIO;
         }
 
         public void Execute()
         {
-            parser.Write(location.HudOptionsFile, placeholders.Items);
+            layoutIO.WriteR3eLayout(placeholders.Items);
             DispatchEvent(new BaseEventArgs(EVENT_HUD_LAYOUT_APPLIED));
         }
 

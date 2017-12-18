@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.command;
 using da2mvc.core.events;
+using R3EHUDManager.huddata.model;
 using R3EHUDManager.huddata.parser;
 using R3EHUDManager.layout.model;
 using R3EHUDManager.location.model;
@@ -20,19 +21,19 @@ namespace R3EHUDManager.huddata.command
         public static readonly int EVENT_DEFAULT_HUD_LAYOUT_LOADED = EventId.New();
 
         private readonly LocationModel locationModel;
-        private readonly HudOptionsParser parser;
         private readonly PlaceHolderCollectionModel placeHolderCollection;
         private readonly SelectionModel selectionModel;
         private readonly LayoutSourceModel layoutSource;
+        private readonly LayoutIOModel layoutIO;
 
-        public ReloadDefaultHudDataCommand(LocationModel locationModel, HudOptionsParser parser, PlaceHolderCollectionModel placeHolderCollection,
-            SelectionModel selectionModel, LayoutSourceModel layoutSource)
+        public ReloadDefaultHudDataCommand(LocationModel locationModel, PlaceHolderCollectionModel placeHolderCollection,
+            SelectionModel selectionModel, LayoutSourceModel layoutSource, LayoutIOModel layoutIO)
         {
             this.locationModel = locationModel;
-            this.parser = parser;
             this.placeHolderCollection = placeHolderCollection;
             this.selectionModel = selectionModel;
             this.layoutSource = layoutSource;
+            this.layoutIO = layoutIO;
         }
 
         public void Execute()
@@ -42,7 +43,7 @@ namespace R3EHUDManager.huddata.command
             List<PlaceholderModel> placeholders = null;
             try
             {
-                placeholders = parser.Parse(locationModel.HudOptionsBackupFile);
+                placeholders = layoutIO.LoadDefaultR3eLayout();
             }
             catch (Exception e)
             {

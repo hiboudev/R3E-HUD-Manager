@@ -77,6 +77,7 @@ namespace R3EHUDManager
             Injector.MapType<UserPreferencesModel>(true);
             Injector.MapType<PromptOutsidePlaceholderView>();
             Injector.MapType<SettingsView>();
+            Injector.MapType<LayoutIOModel>(true);
             
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<SelectionView, SelectionMediator>(true);
