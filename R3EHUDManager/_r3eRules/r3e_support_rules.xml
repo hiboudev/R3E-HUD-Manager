@@ -129,7 +129,7 @@ ANY
     <placeholder name="Virtual Mirror" />
   </rule>
 
-  <rule name="FFB anchor not movable, special case in top corners" layout="ANY"><!-- TODO Not elegant -->
+  <rule name="FFB anchor not movable, special case in top corners" layout="ANY">
     <invalid>
       <check property="ax" value="1"><![CDATA[=]]></check>
       <check property="x" value="1"><![CDATA[=]]></check>
@@ -311,7 +311,7 @@ ANY
 
   </rule>
 
-  <rule name="Outside of screen range." layout="single">
+  <rule name="Outside of screen range, all except FFB." layout="single">
 
     <invalid>
       <check property="x" value="-1"><![CDATA[<]]></check>
@@ -352,6 +352,65 @@ ANY
         <property name="ay" value="1"/>
       </fix>
     </invalid>
+
+    <placeholder name="MoTeC" />
+    <placeholder name="Mini MoTeC" />
+    <placeholder name="Position Bar" />
+    <placeholder name="Virtual Mirror" />
+    <placeholder name="Flags" />
+    <placeholder name="Track Map" />
+    <placeholder name="Apexhunt Display" />
+    <placeholder name="Driver Name Tags" />
+    <placeholder name="Car Status" />
+  </rule>
+
+  <rule name="Outside of screen range, FFB." layout="single">
+
+    <invalid>
+      <!-- save rule as others -->
+      <check property="x" value="-1"><![CDATA[<]]></check>
+      <description><![CDATA[This placeholder X is outside of screen.]]></description>
+
+      <fix>
+        <property name="x" value="-1"/>
+        <property name="ax" value="-1"/>
+      </fix>
+    </invalid>
+
+    <invalid>
+      <check property="x" value="1"><![CDATA[>]]></check>
+      <description><![CDATA[This placeholder X is outside of screen.]]></description>
+
+      <fix>
+        <property name="x" value="1"/>
+        <property name="ax" value="-1"/>
+        <property name="w" value="-1"/>
+      </fix>
+    </invalid>
+
+    <invalid>
+      <!-- save rule as others -->
+      <check property="y" value="-1"><![CDATA[<]]></check>
+      <description><![CDATA[This placeholder Y is outside of screen.]]></description>
+
+      <fix>
+        <property name="y" value="-1"/>
+        <property name="ay" value="-1"/>
+      </fix>
+    </invalid>
+
+    <invalid>
+      <check property="y" value="1"><![CDATA[>]]></check>
+      <description><![CDATA[This placeholder Y is outside of screen.]]></description>
+
+      <fix>
+        <property name="y" value="1"/>
+        <property name="ay" value="-1"/>
+        <property name="h" value="-1"/>
+      </fix>
+    </invalid>
+    
+    <placeholder name="FFB Graph" />
   </rule>
 
   <rule name="Not visible X, all except FFB." layout="single">
