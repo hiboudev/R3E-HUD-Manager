@@ -48,20 +48,6 @@ namespace R3EHUDManager.r3esupport.parser
             return rule;
         }
 
-        private RuleLayoutType GetLayoutType(string value)
-        {
-            switch (value)
-            {
-                case "single":
-                    return RuleLayoutType.SINGLE;
-                case "triple":
-                    return RuleLayoutType.TRIPLE;
-                case "ANY":
-                    return RuleLayoutType.ANY;
-            }
-            throw new Exception($"Invalid layout name {value}.");
-        }
-
         private RulePart ParseRulePartNode(XmlNode rulePartNode)
         {
             Fix[] fixes = GetFixes(rulePartNode);
@@ -80,7 +66,7 @@ namespace R3EHUDManager.r3esupport.parser
             foreach (XmlNode checkNode in rulePartNode.SelectNodes("check"))
             {
                 PropertyCheck check = new PropertyCheck(
-                    GetPropertyType(checkNode.Attributes["property"].Value),
+                    GetCheckPropertyType(checkNode.Attributes["property"].Value),
                     GetOperation(checkNode)
                     );
                 checks.Add(check);
@@ -96,7 +82,7 @@ namespace R3EHUDManager.r3esupport.parser
             {
                 Fix fix = new Fix(
                     double.Parse(propertyNode.Attributes["value"].Value, CultureInfo.InvariantCulture),
-                    GetPropertyType(propertyNode.Attributes["name"].Value));
+                    GetFixPropertyType(propertyNode.Attributes["name"].Value));
                 fixes.Add(fix);
             }
             return fixes.ToArray();
@@ -110,22 +96,58 @@ namespace R3EHUDManager.r3esupport.parser
                 return new Operation(double.Parse(checkNode.Attributes["value"].Value, CultureInfo.InvariantCulture), GetOperatorType(checkNode.InnerText));
         }
 
-        private PropertyType GetPropertyType(string propertyName)
+        private RuleLayoutType GetLayoutType(string value)
+        {
+            switch (value)
+            {
+                case "single":
+                    return RuleLayoutType.SINGLE;
+                case "triple":
+                    return RuleLayoutType.TRIPLE;
+                case "ANY":
+                    return RuleLayoutType.ANY;
+            }
+            throw new Exception($"Invalid layout name {value}.");
+        }
+
+        private CheckPropertyType GetCheckPropertyType(string propertyName)
         {
             switch (propertyName)
             {
                 case "x":
-                    return PropertyType.X;
+                    return CheckPropertyType.X;
                 case "y":
-                    return PropertyType.Y;
+                    return CheckPropertyType.Y;
                 case "size":
-                    return PropertyType.SIZE;
+                    return CheckPropertyType.SIZE;
                 case "ax":
-                    return PropertyType.ANCHOR_X;
+                    return CheckPropertyType.ANCHOR_X;
                 case "ay":
-                    return PropertyType.ANCHOR_Y;
+                    return CheckPropertyType.ANCHOR_Y;
             }
-            throw new Exception($"Invalid property name {propertyName}.");
+            throw new Exception($"Invalid check property name {propertyName}.");
+        }
+
+        private FixPropertyType GetFixPropertyType(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "x":
+                    return FixPropertyType.X;
+                case "y":
+                    return FixPropertyType.Y;
+                case "size":
+                    return FixPropertyType.SIZE;
+                case "ax":
+                    return FixPropertyType.ANCHOR_X;
+                case "ay":
+                    return FixPropertyType.ANCHOR_Y;
+                case "w":
+                    return FixPropertyType.WIDTH;
+                case "h":
+                    return FixPropertyType.HEIGHT;
+            }
+            throw new Exception($"Invalid fix property name {propertyName}.");
         }
 
         private OperatorType GetOperatorType(string operatorName)

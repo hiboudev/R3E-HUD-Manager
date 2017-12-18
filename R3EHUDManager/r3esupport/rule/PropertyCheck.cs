@@ -9,10 +9,10 @@ namespace R3EHUDManager.r3esupport.rule
 {
     class PropertyCheck
     {
-        private readonly PropertyType property;
+        private readonly CheckPropertyType property;
         private readonly Operation operation;
 
-        public PropertyCheck(PropertyType property, Operation operation)
+        public PropertyCheck(CheckPropertyType property, Operation operation)
         {
             this.property = property;
             this.operation = operation;
@@ -27,29 +27,29 @@ namespace R3EHUDManager.r3esupport.rule
         {
             switch (property)
             {
-                case PropertyType.X:
-                case PropertyType.Y:
+                case CheckPropertyType.X:
+                case CheckPropertyType.Y:
                     return (double)placeholder.Position.GetType().GetProperty(GetPropertyName(property)).GetValue(placeholder.Position);
-                case PropertyType.SIZE:
+                case CheckPropertyType.SIZE:
                     return placeholder.Size.X;
-                case PropertyType.ANCHOR_X:
+                case CheckPropertyType.ANCHOR_X:
                     return placeholder.Anchor.X;
-                case PropertyType.ANCHOR_Y:
+                case CheckPropertyType.ANCHOR_Y:
                     return placeholder.Anchor.Y;
 
             }
             throw new Exception("Unsupported property type.");
         }
 
-        private string GetPropertyName(PropertyType type)
+        private string GetPropertyName(CheckPropertyType type)
         {
             switch (type)
             {
-                case PropertyType.X:
+                case CheckPropertyType.X:
                     return "X";
-                case PropertyType.Y:
+                case CheckPropertyType.Y:
                     return "Y";
-                case PropertyType.SIZE:
+                case CheckPropertyType.SIZE:
                     return "Size";
             }
             throw new Exception("Unsupported property type.");

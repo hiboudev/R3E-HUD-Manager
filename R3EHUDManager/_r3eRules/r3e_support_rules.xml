@@ -11,7 +11,7 @@ with a fix.
 Goal is to allow the user to get a comprehensive WYSIWYG layout, and not being
 surprised by R3E displaying HUD elements in an unexpected way.
 
-
+*********************
 ** Placeholder names:
 *********************
 <placeholder name="MoTeC" />
@@ -25,14 +25,21 @@ surprised by R3E displaying HUD elements in an unexpected way.
 <placeholder name="Car Status" />
 <placeholder name="FFB Graph" />
 
+*****************
 ** property name:
-**************
+*****************
 x
 y
 size
 ax (anchor x)
 ay (anchor y)
 
+* Only for "fix" elements:
+
+w (width of placeholder, example: <property name="w" value="-1"/> will move the placeholder to the left by the value of its width, -0.5 by half of the width...)
+h (height of placeholder)
+
+******************
 ** check operator:
 ******************
 >
@@ -42,15 +49,18 @@ ay (anchor y)
 =
 !=
 
+***************
 ** check value:
-*********
+***************
 a float number
 ANY (match any value, doesn't use the operator)
 
+****************
 ** placeholder:
 ****************
   To match all placeholders, just add no placeholder element to the rule.
 
+**********
 ** layout:
 **********
 single
@@ -127,7 +137,7 @@ ANY
 
       <fix>
         <property name="ax" value="-1"/>
-        <property name="x" value="-1"/>
+        <property name="w" value="-1"/>
       </fix>
     </invalid>
     
@@ -138,7 +148,7 @@ ANY
 
       <fix>
         <property name="ay" value="-1"/>
-        <property name="y" value="-1"/>
+        <property name="h" value="-1"/>
       </fix>
     </invalid>
 
@@ -418,7 +428,7 @@ ANY
       <description><![CDATA[This placeholder won't be visible.]]></description>
 
       <fix>
-        <property name="x" value="-1"/>
+        <property name="w" value="-1"/>
       </fix>
     </invalid>
 
@@ -442,7 +452,7 @@ ANY
       <description><![CDATA[This placeholder won't be visible.]]></description>
 
       <fix>
-        <property name="y" value="-1"/>
+        <property name="h" value="-1"/>
       </fix>
     </invalid>
 

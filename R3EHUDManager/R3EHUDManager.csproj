@@ -211,10 +211,11 @@
     <Compile Include="r3esupport\result\ResultType.cs" />
     <Compile Include="r3esupport\result\ValidationResult.cs" />
     <Compile Include="r3esupport\rule\Fix.cs" />
+    <Compile Include="r3esupport\rule\FixPropertyType.cs" />
     <Compile Include="r3esupport\rule\Operation.cs" />
     <Compile Include="r3esupport\rule\OperatorType.cs" />
     <Compile Include="r3esupport\rule\PropertyCheck.cs" />
-    <Compile Include="r3esupport\rule\PropertyType.cs" />
+    <Compile Include="r3esupport\rule\CheckPropertyType.cs" />
     <Compile Include="r3esupport\rule\RuleLayoutType.cs" />
     <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
     <Compile Include="r3esupport\rule\SupportRule.cs" />

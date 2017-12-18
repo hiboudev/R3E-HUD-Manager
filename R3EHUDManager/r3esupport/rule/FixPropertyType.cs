@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    enum PropertyType
+    enum FixPropertyType
     {
         X,
         Y,
         SIZE,
         ANCHOR_X,
         ANCHOR_Y,
+        WIDTH,
+        HEIGHT
     }
 }
