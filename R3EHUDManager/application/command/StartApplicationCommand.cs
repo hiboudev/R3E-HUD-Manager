@@ -20,12 +20,12 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand<InitializeLoggerCommand>();
             Injector.ExecuteCommand<InitializeDatabaseCommand>();
             Injector.ExecuteCommand<LoadPreferencesCommand>();
+            Injector.ExecuteCommand<LoadFiltersCommand>();
             Injector.ExecuteCommand<FindR3eHomeDirectoryCommand>();
             Injector.ExecuteCommand<SaveOriginalFileCommand>();
             Injector.ExecuteCommand<InitializeSupportRulesCommand>();
             Injector.ExecuteCommand<InitializeBackgroundsCommand>();
             Injector.ExecuteCommand<InitializeProfilesCommand>();
-            Injector.ExecuteCommand<LoadFiltersCommand>();
             Injector.ExecuteCommand<LoadHudDataCommand>();
             Injector.ExecuteCommand<CheckUserWatchedPresentationCommand>();
         }

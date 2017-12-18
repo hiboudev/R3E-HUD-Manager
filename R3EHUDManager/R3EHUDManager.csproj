@@ -152,13 +152,16 @@
     <Compile Include="database\DatabaseUpgrader.cs" />
     <Compile Include="graphics\Colors.cs" />
     <Compile Include="graphics\Fonts.cs" />
+    <Compile Include="huddata\command\CheckSaveStatusCommand.cs" />
     <Compile Include="huddata\command\LoadFiltersCommand.cs" />
     <Compile Include="huddata\command\PromptUnsavedChangesCommand.cs" />
     <Compile Include="huddata\command\UpdateFiltersCommand.cs" />
     <Compile Include="huddata\events\FiltersChangedEventArgs.cs" />
+    <Compile Include="huddata\events\SaveStatusEventArgs.cs" />
     <Compile Include="huddata\events\UnsavedChangesEventArgs.cs" />
     <Compile Include="huddata\model\LayoutIOModel.cs" />
     <Compile Include="huddata\model\PlaceholderBlackListModel.cs" />
+    <Compile Include="huddata\model\SaveStatusChecker.cs" />
     <Compile Include="huddata\model\UnsavedChangeType.cs" />
     <Compile Include="huddata\view\PlaceholderBlackListView.cs">
       <SubType>Form</SubType>
@@ -223,10 +226,6 @@
     <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
     <Compile Include="r3esupport\rule\SupportRule.cs" />
     <Compile Include="r3esupport\rule\RulePart.cs" />
-    <Compile Include="savestatus\command\UpdateSaveStatusCommand.cs" />
-    <Compile Include="savestatus\events\SaveStatusEventArgs.cs" />
-    <Compile Include="savestatus\model\SaveStatusModel.cs" />
-    <Compile Include="savestatus\model\SaveType.cs" />
     <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />

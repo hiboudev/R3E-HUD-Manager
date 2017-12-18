@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.events;
+using R3EHUDManager.application.events;
 using R3EHUDManager.huddata.events;
 using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
@@ -19,10 +20,12 @@ namespace R3EHUDManager.huddata.model
     {
         public static readonly int EVENT_SOURCE_CHANGED = EventId.New();
         public static readonly int EVENT_UNSAVED_CHANGES = EventId.New();
+        public static readonly int EVENT_SAVE_STATUS = EventId.New();
 
         private readonly HudOptionsParser parser;
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel collection;
+
         private readonly ScreenModel screenModel;
         private SourceLayout source;
         private SaveStatus saveStatus;
@@ -114,6 +117,32 @@ namespace R3EHUDManager.huddata.model
             DispatchEvent(new LayoutSourceEventArgs(EVENT_SOURCE_CHANGED, sourceType, name));
 
             return list;
+        }
+
+        internal UnsavedChangeType GetSaveStatus()
+        {
+            if (source == null) return UnsavedChangeType.PROFILE | UnsavedChangeType.R3E;
+
+            bool profileIsSaved;
+            bool r3eIsSaved;
+
+            if (source.SourceType == LayoutSourceType.PROFILE)
+            {
+                profileIsSaved = saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel);
+                r3eIsSaved = saveStatus.IsSaved(collection.Items, currentR3eLayout, currentR3eLayout, screenModel);
+            }
+            else
+            {
+                profileIsSaved = true;
+                r3eIsSaved = saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel);
+            }
+
+            return (profileIsSaved ? UnsavedChangeType.PROFILE : 0) | (r3eIsSaved ? UnsavedChangeType.R3E : 0);
+        }
+
+        internal void DispatchSaveStatus()
+        {
+            DispatchEvent(new SaveStatusEventArgs(EVENT_SAVE_STATUS, GetSaveStatus()));
         }
 
 

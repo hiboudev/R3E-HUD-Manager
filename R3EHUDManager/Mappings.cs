@@ -29,8 +29,6 @@ using R3EHUDManager.placeholder.validator;
 using R3EHUDManager.r3esupport.parser;
 using R3EHUDManager.r3esupport.rule;
 using R3EHUDManager.r3esupport.command;
-using R3EHUDManager.savestatus.model;
-using R3EHUDManager.savestatus.command;
 using R3EHUDManager.huddata.view;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.apppresentation.view;
@@ -38,7 +36,6 @@ using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.userpreferences.command;
 using R3EHUDManager.application.command;
 using R3EHUDManager.apppresentation.command;
-using R3EHUDManager.huddata.events;
 
 namespace R3EHUDManager
 {
@@ -68,7 +65,6 @@ namespace R3EHUDManager
             Injector.MapType<PlaceholderUserChangeValidator>(true);
             Injector.MapType<SupportRuleParser>(true);
             Injector.MapType<SupportRuleValidator>(true);
-            Injector.MapType<SaveStatusModel>(true);
             Injector.MapType<PlaceholderBlackListModel>(true);
             Injector.MapType<PlaceholderBlackListView>();
             Injector.MapType<AppPresentationView>();
@@ -76,6 +72,7 @@ namespace R3EHUDManager
             Injector.MapType<PromptOutsidePlaceholderView>();
             Injector.MapType<SettingsView>();
             Injector.MapType<LayoutIOModel>(true);
+            Injector.MapType<SaveStatusChecker>(true);
             
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<SelectionView, SelectionMediator>(true);
@@ -126,15 +123,19 @@ namespace R3EHUDManager
             Injector.MapCommand<LayoutIOModel, PromptUnsavedChangesCommand>(LayoutIOModel.EVENT_UNSAVED_CHANGES);
 
             // Save status
-            Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);
-            Injector.MapCommand<SaveHudCommand, UpdateSaveStatusCommand>(SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED);
-            Injector.MapCommand<LoadHudDataCommand, UpdateSaveStatusCommand>(LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED);
-            Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
-            Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
-            Injector.MapCommand<CreateProfileCommand, UpdateSaveStatusCommand>(CreateProfileCommand.EVENT_PROFILE_CREATED);
-            Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
-            Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CHANGED);
-            Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CLEARED);
+            //Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);
+            //Injector.MapCommand<SaveHudCommand, UpdateSaveStatusCommand>(SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED);
+            //Injector.MapCommand<LoadHudDataCommand, UpdateSaveStatusCommand>(LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED);
+            //Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
+            //Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
+            //Injector.MapCommand<CreateProfileCommand, UpdateSaveStatusCommand>(CreateProfileCommand.EVENT_PROFILE_CREATED);
+            //Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
+            //Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CHANGED);
+            //Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CLEARED);
+
+            // New save status
+            Injector.MapCommand<PlaceholderModel, CheckSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
+            Injector.MapCommand<ScreenModel, CheckSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
         }
     }
 }

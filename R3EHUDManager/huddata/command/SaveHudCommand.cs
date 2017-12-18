@@ -14,11 +14,8 @@ using R3EHUDManager.huddata.model;
 
 namespace R3EHUDManager.huddata.command
 {
-    class SaveHudCommand : ICommand, IEventDispatcher
+    class SaveHudCommand : ICommand
     {
-        public event EventHandler MvcEventHandler;
-        public static readonly int EVENT_HUD_LAYOUT_APPLIED = EventId.New();
-
         private readonly BaseEventArgs args;
         private readonly PlaceHolderCollectionModel placeholders;
         private readonly LocationModel location;
@@ -35,12 +32,7 @@ namespace R3EHUDManager.huddata.command
         public void Execute()
         {
             layoutIO.WriteR3eLayout(placeholders.Items);
-            DispatchEvent(new BaseEventArgs(EVENT_HUD_LAYOUT_APPLIED));
-        }
-
-        public void DispatchEvent(BaseEventArgs args)
-        {
-            MvcEventHandler?.Invoke(this, args);
+            layoutIO.DispatchSaveStatus();
         }
     }
 }

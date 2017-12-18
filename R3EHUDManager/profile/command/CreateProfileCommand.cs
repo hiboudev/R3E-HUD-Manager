@@ -15,9 +15,8 @@ using System.IO;
 
 namespace R3EHUDManager.profile.command
 {
-    class CreateProfileCommand : ICommand, IEventDispatcher
+    class CreateProfileCommand : ICommand
     {
-        public static readonly int EVENT_PROFILE_CREATED = EventId.New();
 
         private readonly StringEventArgs args;
         private readonly CollectionModel<ProfileModel> profileCollection;
@@ -27,8 +26,6 @@ namespace R3EHUDManager.profile.command
         private readonly PlaceHolderCollectionModel placeholderCollection;
         private readonly SelectedProfileModel selectedProfile;
         private readonly LayoutIOModel layoutIO;
-
-        public event EventHandler MvcEventHandler;
 
         public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database, 
             LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection,
@@ -60,18 +57,12 @@ namespace R3EHUDManager.profile.command
             profileCollection.Add(newProfile);
 
             selectedProfile.SelectProfile(newProfile);
-
-            DispatchEvent(new BaseEventArgs(EVENT_PROFILE_CREATED));
+            layoutIO.DispatchSaveStatus();
         }
 
         public static string ToFileName(string profileName)
         {
             return $"profile_{StringUtils.ToValidFileName(profileName)}.xml";
-        }
-
-        public void DispatchEvent(BaseEventArgs args)
-        {
-            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

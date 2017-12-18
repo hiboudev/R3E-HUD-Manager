@@ -3,12 +3,10 @@ using da2mvc.core.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
 using R3EHUDManager.huddata.model;
-using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.events;
 using R3EHUDManager.profile.model;
-using R3EHUDManager.savestatus.model;
 using R3EHUDManager.screen.model;
 using System.IO;
 
@@ -46,6 +44,7 @@ namespace R3EHUDManager.profile.command
             profile.BackgroundId = background.Id;
             database.UpdateProfile(profile);
             layoutIO.WriteProfileLayout(profile, placeholderCollection.Items);
+            layoutIO.DispatchSaveStatus();
 
             DispatchEvent(new ProfileEventArgs(EVENT_PROFILE_CHANGES_SAVED, profile));
         }

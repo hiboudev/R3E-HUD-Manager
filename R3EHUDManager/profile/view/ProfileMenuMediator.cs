@@ -6,9 +6,9 @@ using R3EHUDManager.profile.command;
 using da2mvc.framework.collection.events;
 using da2mvc.framework.collection.model;
 using da2mvc.framework.collection.view;
-using R3EHUDManager.savestatus.model;
-using R3EHUDManager.savestatus.events;
 using System;
+using R3EHUDManager.huddata.model;
+using R3EHUDManager.huddata.events;
 
 namespace R3EHUDManager.profile.view
 {
@@ -21,13 +21,12 @@ namespace R3EHUDManager.profile.view
 
             HandleEvent<SaveProfileCommand, ProfileEventArgs>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, OnProfileSaved);
 
-            HandleEvent<SaveStatusModel, SaveStatusEventArgs>(SaveStatusModel.EVENT_STATUS_CHANGED, OnSaveStatusChanged);
+            HandleEvent<LayoutIOModel, SaveStatusEventArgs>(LayoutIOModel.EVENT_SAVE_STATUS, OnSaveStatusChanged);
         }
 
         private void OnSaveStatusChanged(SaveStatusEventArgs args)
         {
-            if (View.HasSelection && args.Type.HasFlag(SaveType.PROFILE))
-                View.SetSaveStatus(args.IsSaved);
+            View.SetSaveStatus(args.SavedTypes.HasFlag(UnsavedChangeType.PROFILE));
         }
 
         private void OnProfileUnselected(BaseEventArgs args)

@@ -55,6 +55,7 @@ namespace R3EHUDManager.profile.command
             placeholderCollection.Clear();
             placeholderCollection.AddRange(placeholders);
             selectedProfile.SelectProfile(profile);
+            layoutIO.DispatchSaveStatus();
         }
     }
 }

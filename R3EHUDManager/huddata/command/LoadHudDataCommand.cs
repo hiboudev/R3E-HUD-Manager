@@ -11,10 +11,8 @@ using R3EHUDManager.profile.model;
 
 namespace R3EHUDManager.huddata.command
 {
-    class LoadHudDataCommand : ICommand, IEventDispatcher
+    class LoadHudDataCommand : ICommand
     {
-        public event EventHandler MvcEventHandler;
-        public static readonly int EVENT_HUD_LAYOUT_LOADED = EventId.New();
 
         private readonly LocationModel locationModel;
         private readonly PlaceHolderCollectionModel placeHolderCollection;
@@ -51,14 +49,8 @@ namespace R3EHUDManager.huddata.command
                 selectedProfile.SelectNone();
                 placeHolderCollection.Clear();
                 placeHolderCollection.AddRange(placeholders);
-
-                DispatchEvent(new BaseEventArgs(EVENT_HUD_LAYOUT_LOADED));
+                layoutIO.DispatchSaveStatus();
             }
-        }
-
-        public void DispatchEvent(BaseEventArgs args)
-        {
-            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

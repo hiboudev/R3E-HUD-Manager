@@ -1,6 +1,6 @@
 ﻿using da2mvc.core.view;
-using R3EHUDManager.savestatus.events;
-using R3EHUDManager.savestatus.model;
+using R3EHUDManager.huddata.events;
+using R3EHUDManager.huddata.model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +13,12 @@ namespace R3EHUDManager.huddata.view
     {
         public ReloadLayoutMediator()
         {
-            HandleEvent<SaveStatusModel, SaveStatusEventArgs>(SaveStatusModel.EVENT_STATUS_CHANGED, OnSaveStatusChanged);
+            HandleEvent<LayoutIOModel, SaveStatusEventArgs>(LayoutIOModel.EVENT_SAVE_STATUS, OnSaveStatusChanged);
         }
 
         private void OnSaveStatusChanged(SaveStatusEventArgs args)
         {
-            if (args.Type.HasFlag(SaveType.R3E_HUD))
-                View.SetSaveStatus(args.IsSaved);
+            View.SetSaveStatus(args.SavedTypes.HasFlag(UnsavedChangeType.R3E));
         }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.huddata.model
 {
+    [Flags]
     enum UnsavedChangeType
     {
-        PROFILE,
-        R3E,
+        PROFILE = 1,
+        R3E = 2,
     }
 }

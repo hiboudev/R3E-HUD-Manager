@@ -1,17 +1,11 @@
 ﻿using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using da2mvc.core.command;
 using R3EHUDManager.coordinates;
 using System.Drawing;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.placeholder.validator;
-using R3EHUDManager.savestatus.model;
 
 namespace R3EHUDManager.placeholder.command
 {
