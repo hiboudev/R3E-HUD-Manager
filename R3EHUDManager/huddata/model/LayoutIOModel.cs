@@ -4,6 +4,7 @@ using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,14 +23,16 @@ namespace R3EHUDManager.huddata.model
         private readonly HudOptionsParser parser;
         private readonly LocationModel location;
         private readonly PlaceHolderCollectionModel collection;
+        private readonly ScreenModel screenModel;
         private SourceLayout source;
         private SaveStatus saveStatus;
 
-        public LayoutIOModel(HudOptionsParser parser, LocationModel location, PlaceHolderCollectionModel collection)
+        public LayoutIOModel(HudOptionsParser parser, LocationModel location, PlaceHolderCollectionModel collection, ScreenModel screenModel)
         {
             this.parser = parser;
             this.location = location;
             this.collection = collection;
+            this.screenModel = screenModel;
             saveStatus = new SaveStatus();
         }
 
@@ -51,24 +54,31 @@ namespace R3EHUDManager.huddata.model
         public void WriteR3eLayout(List<PlaceholderModel> placeholders)
         {
             parser.Write(location.HudOptionsFile, placeholders);
+            if (source.SourceType == LayoutSourceType.R3E || source.SourceType == LayoutSourceType.BACKUP)
+                source.UpdateLayout(placeholders);
         }
 
         public void WriteProfileLayout(ProfileModel profile, List<PlaceholderModel> placeholders)
         {
             parser.Write(Path.Combine(location.LocalDirectoryProfiles, profile.FileName), placeholders);
+            if (source.SourceType == LayoutSourceType.PROFILE) // TODO faudrait pas checher l'id du profil ?
+            { 
+                source.UpdateLayout(placeholders);
+                source.UpdateBackgroundId(profile.BackgroundId);
+            }
         }
 
-        private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path)
+        private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path, int backgroundId = -1)
         {
             // TODO quand on recharge l'original on devrait comparer le layout actuel avec le R3E et non l'original.
-            if (!saveStatus.IsSaved(collection.Items, source))
+            if (!saveStatus.IsSaved(collection.Items, source, screenModel))
             {
                 UnsavedChangesEventArgs args = new UnsavedChangesEventArgs(EVENT_UNSAVED_CHANGES, ToUnsavedType(source.SourceType), source.Name);
                 DispatchEvent(args);
                 if (args.IsLoadingCancelled)
                     return null;
             }
-            return SetSource(type, name, parser.Parse(path));
+            return SetSource(type, name, parser.Parse(path), backgroundId);
         }
 
         private UnsavedChangeType ToUnsavedType(LayoutSourceType sourceType)
@@ -87,13 +97,9 @@ namespace R3EHUDManager.huddata.model
             }
         }
 
-        private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list)
+        private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list, int backgroundId)
         {
-            List<PlaceholderModel> newList = new List<PlaceholderModel>();
-            foreach (var placeholder in list)
-                newList.Add(placeholder.Clone());
-
-            source = new SourceLayout(sourceType, name, newList);
+            source = new SourceLayout(sourceType, name, list, backgroundId);
 
             DispatchEvent(new LayoutSourceEventArgs(EVENT_SOURCE_CHANGED, sourceType, name));
 
@@ -104,25 +110,47 @@ namespace R3EHUDManager.huddata.model
 
         class SourceLayout
         {
-            public SourceLayout(LayoutSourceType sourceType, String name, List<PlaceholderModel> layout)
+            public SourceLayout(LayoutSourceType sourceType, String name, List<PlaceholderModel> layout, int backgroundId)
             {
                 SourceType = sourceType;
                 Name = name;
-                Layout = layout;
+                Layout = CloneLayout(layout);
+                BackgroundId = backgroundId;
+            }
+
+            public void UpdateLayout(List<PlaceholderModel> layout)
+            {
+                Layout = CloneLayout(layout);
+            }
+
+            public void UpdateBackgroundId(int backgroundId)
+            {
+                BackgroundId = backgroundId;
+            }
+
+            private List<PlaceholderModel> CloneLayout(List<PlaceholderModel> layout)
+            {
+                List<PlaceholderModel> newList = new List<PlaceholderModel>();
+                foreach (var placeholder in layout)
+                    newList.Add(placeholder.Clone());
+                return newList;
             }
 
             public LayoutSourceType SourceType { get; }
             public string Name { get; }
-            public List<PlaceholderModel> Layout { get; }
+            public List<PlaceholderModel> Layout { get; private set; }
+            public int BackgroundId { get; private set; } = -1;
         }
 
 
 
         class SaveStatus
         {
-            public bool IsSaved(List<PlaceholderModel> currentLayout, SourceLayout source)
+            public bool IsSaved(List<PlaceholderModel> currentLayout, SourceLayout source, ScreenModel screenModel)
             {
                 if (source == null) return true;
+                if (source.SourceType == LayoutSourceType.PROFILE && source.BackgroundId != screenModel.Background.Id)
+                    return false;
                 return AreLayoutEquals(currentLayout, source.Layout);
             }
 
