@@ -26,6 +26,7 @@ namespace R3EHUDManager.huddata.model
         private readonly ScreenModel screenModel;
         private SourceLayout source;
         private SaveStatus saveStatus;
+        private SourceLayout currentR3eLayout;
 
         public LayoutIOModel(HudOptionsParser parser, LocationModel location, PlaceHolderCollectionModel collection, ScreenModel screenModel)
         {
@@ -48,21 +49,21 @@ namespace R3EHUDManager.huddata.model
 
         public List<PlaceholderModel> LoadProfileLayout(ProfileModel profile)
         {
-            return LoadLayout(LayoutSourceType.PROFILE, profile.Name, Path.Combine(location.LocalDirectoryProfiles, profile.FileName));
+            return LoadLayout(LayoutSourceType.PROFILE, profile.Name, Path.Combine(location.LocalDirectoryProfiles, profile.FileName), profile.BackgroundId);
         }
 
         public void WriteR3eLayout(List<PlaceholderModel> placeholders)
         {
             parser.Write(location.HudOptionsFile, placeholders);
-            if (source.SourceType == LayoutSourceType.R3E || source.SourceType == LayoutSourceType.BACKUP)
-                source.UpdateLayout(placeholders);
+            //if (source.SourceType == LayoutSourceType.R3E || source.SourceType == LayoutSourceType.BACKUP)
+            currentR3eLayout.UpdateLayout(placeholders);
         }
 
         public void WriteProfileLayout(ProfileModel profile, List<PlaceholderModel> placeholders)
         {
             parser.Write(Path.Combine(location.LocalDirectoryProfiles, profile.FileName), placeholders);
             if (source.SourceType == LayoutSourceType.PROFILE) // TODO faudrait pas checher l'id du profil ?
-            { 
+            {
                 source.UpdateLayout(placeholders);
                 source.UpdateBackgroundId(profile.BackgroundId);
             }
@@ -71,7 +72,7 @@ namespace R3EHUDManager.huddata.model
         private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path, int backgroundId = -1)
         {
             // TODO quand on recharge l'original on devrait comparer le layout actuel avec le R3E et non l'original.
-            if (!saveStatus.IsSaved(collection.Items, source, screenModel))
+            if (!saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel))
             {
                 UnsavedChangesEventArgs args = new UnsavedChangesEventArgs(EVENT_UNSAVED_CHANGES, ToUnsavedType(source.SourceType), source.Name);
                 DispatchEvent(args);
@@ -99,7 +100,15 @@ namespace R3EHUDManager.huddata.model
 
         private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list, int backgroundId)
         {
-            source = new SourceLayout(sourceType, name, list, backgroundId);
+            if (sourceType == LayoutSourceType.R3E)
+            {
+                if (currentR3eLayout == null) currentR3eLayout = new SourceLayout(LayoutSourceType.R3E, name, list, backgroundId);
+                else { currentR3eLayout.UpdateLayout(list); currentR3eLayout.UpdateBackgroundId(backgroundId); }
+
+                source = currentR3eLayout;
+            }
+            else
+                source = new SourceLayout(sourceType, name, list, backgroundId);
 
             DispatchEvent(new LayoutSourceEventArgs(EVENT_SOURCE_CHANGED, sourceType, name));
 
@@ -146,11 +155,13 @@ namespace R3EHUDManager.huddata.model
 
         class SaveStatus
         {
-            public bool IsSaved(List<PlaceholderModel> currentLayout, SourceLayout source, ScreenModel screenModel)
+            public bool IsSaved(List<PlaceholderModel> currentLayout, SourceLayout source, SourceLayout r3eLayout, ScreenModel screenModel)
             {
                 if (source == null) return true;
                 if (source.SourceType == LayoutSourceType.PROFILE && source.BackgroundId != screenModel.Background.Id)
                     return false;
+                if(source.SourceType == LayoutSourceType.BACKUP)
+                    return AreLayoutEquals(currentLayout, source.Layout) || AreLayoutEquals(currentLayout, r3eLayout.Layout);
                 return AreLayoutEquals(currentLayout, source.Layout);
             }
 
