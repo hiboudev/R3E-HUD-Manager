@@ -14,16 +14,16 @@ surprised by R3E displaying HUD elements in an unexpected way.
 
 ** Placeholder names:
 *********************
-MoTeC
-Mini MoTeC
-Position Bar
-Virtual Mirror
-Flags
-Track Map
-Apexhunt Display
-Driver Name Tags
-Car Status
-FFB Graph
+<placeholder name="MoTeC" />
+<placeholder name="Mini MoTeC" />
+<placeholder name="Position Bar" />
+<placeholder name="Virtual Mirror" />
+<placeholder name="Flags" />
+<placeholder name="Track Map" />
+<placeholder name="Apexhunt Display" />
+<placeholder name="Driver Name Tags" />
+<placeholder name="Car Status" />
+<placeholder name="FFB Graph" />
 
 ** property name:
 **************
@@ -63,9 +63,9 @@ ANY
 
   <rule name="Valid positions on left/right screen are only -1|1 except for FFB." layout="triple">
 
-    <invalid property="x">
-      <check value="1"><![CDATA[>]]></check>
-      <check value="3"><![CDATA[<=]]></check>
+    <invalid>
+      <check property="x" value="1"><![CDATA[>]]></check>
+      <check property="x" value="3"><![CDATA[<=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=1 (left edge).]]></description>
 
       <fix>
@@ -74,9 +74,9 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="x">
-      <check value="-1"><![CDATA[<]]></check>
-      <check value="-3"><![CDATA[>=]]></check>
+    <invalid>
+      <check property="x" value="-1"><![CDATA[<]]></check>
+      <check property="x" value="-3"><![CDATA[>=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=-1 (right edge).]]></description>
 
       <fix>
@@ -99,8 +99,8 @@ ANY
 
   <rule name="Max size is 1." layout="ANY">
 
-    <invalid property="size">
-      <check value="1"><![CDATA[>]]></check>
+    <invalid>
+      <check property="size" value="1"><![CDATA[>]]></check>
       <description><![CDATA[Maximum placeholder size is 1.]]></description>
 
       <fix>
@@ -111,17 +111,45 @@ ANY
   </rule>
 
   <rule name="Virtual Mirror Y" layout="ANY">
-    <invalid property="y">
-      <check value="ANY"><![CDATA[=]]></check>
+    <invalid>
+      <check property="y" value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[Virtual mirror Y position is dynamically set by R3E.]]></description>
     </invalid>
 
     <placeholder name="Virtual Mirror" />
   </rule>
 
-  <rule name="FFB anchor not movable" layout="ANY">
-    <invalid property="ax">
-      <check value="-1"><![CDATA[!=]]></check>
+  <rule name="FFB anchor not movable, special case in top corners" layout="ANY"><!-- TODO Not elegant -->
+    <invalid>
+      <check property="ax" value="1"><![CDATA[=]]></check>
+      <check property="x" value="1"><![CDATA[=]]></check>
+      <description><![CDATA[Anchor X position is forced to -1 by R3E (left).]]></description>
+
+      <fix>
+        <property name="ax" value="-1"/>
+        <property name="x" value="-1"/>
+      </fix>
+    </invalid>
+    
+    <invalid>
+      <check property="ay" value="1"><![CDATA[=]]></check>
+      <check property="y" value="1"><![CDATA[=]]></check>
+      <description><![CDATA[Anchor Y position is forced to -1 by R3E (bottom).]]></description>
+
+      <fix>
+        <property name="ay" value="-1"/>
+        <property name="y" value="-1"/>
+      </fix>
+    </invalid>
+
+    <placeholder name="FFB Graph" />
+  </rule>
+  
+  <rule name="FFB anchor not movable, other cases" layout="ANY">
+    <invalid>
+      <check property="ax" value="-1"><![CDATA[!=]]></check>
+      <!-- cause of special case in top corners: -->
+      <check property="x" value="1"><![CDATA[!=]]></check>
       <description><![CDATA[Anchor X position is forced to -1 by R3E (left).]]></description>
 
       <fix>
@@ -129,8 +157,10 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="ay">
-      <check value="-1"><![CDATA[!=]]></check>
+    <invalid>
+      <check property="ay" value="-1"><![CDATA[!=]]></check>
+      <!-- cause of special case in top corners: -->
+      <check property="y" value="1"><![CDATA[!=]]></check>
       <description><![CDATA[Anchor Y position is forced to -1 by R3E (bottom).]]></description>
 
       <fix>
@@ -178,9 +208,9 @@ ANY
   </rule -->
 
   <rule name="FFB X position on left/center screens is a bit unpredictable, except at X=-3" layout="triple">
-    <invalid property="x">
-      <check value="-3"><![CDATA[>]]></check>
-      <check value="1"><![CDATA[<=]]></check>
+    <invalid>
+      <check property="x" value="-3"><![CDATA[>]]></check>
+      <check property="x" value="1"><![CDATA[<=]]></check>
       <description><![CDATA[FFB X position on left/center screens is a bit unpredictable, except at X=-3 (left screen left edge).]]></description>
 
       <fix>
@@ -194,9 +224,9 @@ ANY
   </rule>
 
   <rule name="FFB doesn't show on right screen" layout="triple">
-    <invalid property="x">
-      <check value="1"><![CDATA[>]]></check>
-      <check value="3"><![CDATA[<=]]></check>
+    <invalid>
+      <check property="x" value="1"><![CDATA[>]]></check>
+      <check property="x" value="3"><![CDATA[<=]]></check>
       <description><![CDATA[FFB meter on right screen won't be displayed at all by R3E.]]></description>
 
       <fix>
@@ -210,13 +240,13 @@ ANY
   </rule>
 
   <rule name="Position not taken into account by R3E" layout="ANY">
-    <invalid property="x">
-      <check value="ANY"><![CDATA[=]]></check>
+    <invalid>
+      <check property="x" value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[This placeholder X position is not taken into account by R3E.]]></description>
     </invalid>
 
-    <invalid property="x">
-      <check value="ANY"><![CDATA[=]]></check>
+    <invalid>
+      <check property="x" value="ANY"><![CDATA[=]]></check>
       <description><![CDATA[This placeholder Y position is not taken into account by R3E.]]></description>
     </invalid>
 
@@ -227,10 +257,10 @@ ANY
     <placeholder name="Apexhunt Display" />
   </rule>
 
-  <rule name="Outside of screen range (triple)." layout="triple">
+  <rule name="Outside of screen range." layout="triple">
 
-    <invalid property="x">
-      <check value="-3"><![CDATA[<]]></check>
+    <invalid>
+      <check property="x" value="-3"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
 
       <fix>
@@ -239,8 +269,8 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="x">
-      <check value="3"><![CDATA[>]]></check>
+    <invalid>
+      <check property="x" value="3"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
 
       <fix>
@@ -249,8 +279,8 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="y">
-      <check value="-1"><![CDATA[<]]></check>
+    <invalid>
+      <check property="y" value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
 
       <fix>
@@ -259,8 +289,8 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="y">
-      <check value="1"><![CDATA[>]]></check>
+    <invalid>
+      <check property="y" value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder Y is outside of any screen.]]></description>
 
       <fix>
@@ -271,10 +301,10 @@ ANY
 
   </rule>
 
-  <rule name="Outside of screen range (single)." layout="single">
+  <rule name="Outside of screen range." layout="single">
 
-    <invalid property="x">
-      <check value="-1"><![CDATA[<]]></check>
+    <invalid>
+      <check property="x" value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder X is outside of screen.]]></description>
 
       <fix>
@@ -283,8 +313,8 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="x">
-      <check value="1"><![CDATA[>]]></check>
+    <invalid>
+      <check property="x" value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of screen.]]></description>
 
       <fix>
@@ -293,8 +323,8 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="y">
-      <check value="-1"><![CDATA[<]]></check>
+    <invalid>
+      <check property="y" value="-1"><![CDATA[<]]></check>
       <description><![CDATA[This placeholder Y is outside of screen.]]></description>
 
       <fix>
@@ -303,8 +333,8 @@ ANY
       </fix>
     </invalid>
 
-    <invalid property="y">
-      <check value="1"><![CDATA[>]]></check>
+    <invalid>
+      <check property="y" value="1"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder Y is outside of screen.]]></description>
 
       <fix>
@@ -312,7 +342,121 @@ ANY
         <property name="ay" value="1"/>
       </fix>
     </invalid>
+  </rule>
 
+  <rule name="Not visible X, all except FFB." layout="single">
+    <!-- TODO test that it's correct for all. -->
+
+    <invalid>
+      <check property="x" value="1"><![CDATA[=]]></check>
+      <check property="ax" value="-1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="ax" value="1"/>
+      </fix>
+    </invalid>
+
+    <invalid>
+      <check property="x" value="-1"><![CDATA[=]]></check>
+      <check property="ax" value="1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="ax" value="-1"/>
+      </fix>
+    </invalid>
+
+    <placeholder name="MoTeC" />
+    <placeholder name="Mini MoTeC" />
+    <placeholder name="Position Bar" />
+    <placeholder name="Virtual Mirror" />
+    <placeholder name="Flags" />
+    <placeholder name="Track Map" />
+    <placeholder name="Apexhunt Display" />
+    <placeholder name="Driver Name Tags" />
+    <placeholder name="Car Status" />
+  </rule>
+
+  <rule name="Not visible Y, all except FFB." layout="ANY"> <!-- TODO test that it's correct for all. -->
+
+    <invalid>
+      <check property="y" value="1"><![CDATA[=]]></check>
+      <check property="ay" value="-1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="ay" value="1"/>
+      </fix>
+    </invalid>
+    
+    <invalid>
+      <check property="y" value="-1"><![CDATA[=]]></check>
+      <check property="ay" value="1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="ay" value="-1"/>
+      </fix>
+    </invalid>
+    
+    <placeholder name="MoTeC" />
+    <placeholder name="Mini MoTeC" />
+    <placeholder name="Position Bar" />
+    <placeholder name="Virtual Mirror" />
+    <placeholder name="Flags" />
+    <placeholder name="Track Map" />
+    <placeholder name="Apexhunt Display" />
+    <placeholder name="Driver Name Tags" />
+    <placeholder name="Car Status" />
+  </rule>
+
+  <rule name="Not visible X, FFB." layout="single">
+    <invalid>
+      <check property="x" value="1"><![CDATA[=]]></check>
+      <check property="ax" value="-1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="x" value="-1"/>
+      </fix>
+    </invalid>
+
+    <invalid>
+      <check property="x" value="-1"><![CDATA[=]]></check>
+      <check property="ax" value="1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="ax" value="-1"/>
+      </fix>
+    </invalid>
+    
+    <placeholder name="FFB Graph" />
+  </rule>
+
+  <rule name="Not visible Y, FFB." layout="ANY">
+    <invalid>
+      <check property="y" value="1"><![CDATA[=]]></check>
+      <check property="ay" value="-1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="y" value="-1"/>
+      </fix>
+    </invalid>
+
+    <invalid>
+      <check property="y" value="-1"><![CDATA[=]]></check>
+      <check property="ay" value="1"><![CDATA[=]]></check>
+      <description><![CDATA[This placeholder won't be visible.]]></description>
+
+      <fix>
+        <property name="ay" value="-1"/>
+      </fix>
+    </invalid>
+
+    <placeholder name="FFB Graph" />
   </rule>
 
 </xml>

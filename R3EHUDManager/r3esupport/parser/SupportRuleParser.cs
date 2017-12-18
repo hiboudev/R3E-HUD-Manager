@@ -67,11 +67,25 @@ namespace R3EHUDManager.r3esupport.parser
             Fix[] fixes = GetFixes(rulePartNode);
 
             return new RulePart(
-                    GetPropertyType(rulePartNode.Attributes["property"].Value),
-                    GetOperations(rulePartNode.SelectNodes("check")),
+                    GetChecks(rulePartNode),
                     rulePartNode["description"].InnerText,
                     fixes
                     );
+        }
+
+        private PropertyCheck[] GetChecks(XmlNode rulePartNode)
+        {
+            List<PropertyCheck> checks = new List<PropertyCheck>();
+
+            foreach (XmlNode checkNode in rulePartNode.SelectNodes("check"))
+            {
+                PropertyCheck check = new PropertyCheck(
+                    GetPropertyType(checkNode.Attributes["property"].Value),
+                    GetOperation(checkNode)
+                    );
+                checks.Add(check);
+            }
+            return checks.ToArray();
         }
 
         private Fix[] GetFixes(XmlNode rulePartNode)
@@ -88,19 +102,12 @@ namespace R3EHUDManager.r3esupport.parser
             return fixes.ToArray();
         }
 
-        private Operation[] GetOperations(XmlNodeList xmlNodeList)
+        private Operation GetOperation(XmlNode checkNode)
         {
-            List<Operation> operations = new List<Operation>();
-
-            foreach (XmlNode checkNode in xmlNodeList)
-            {
-                if(checkNode.Attributes["value"].Value == "ANY")
-                    operations.Add(new Operation());
-                else
-                    operations.Add(new Operation(double.Parse(checkNode.Attributes["value"].Value, CultureInfo.InvariantCulture), GetOperatorType(checkNode.InnerText)));
-            }
-
-            return operations.ToArray();
+            if (checkNode.Attributes["value"].Value == "ANY")
+                return new Operation();
+            else
+                return new Operation(double.Parse(checkNode.Attributes["value"].Value, CultureInfo.InvariantCulture), GetOperatorType(checkNode.InnerText));
         }
 
         private PropertyType GetPropertyType(string propertyName)

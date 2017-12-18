@@ -25,7 +25,7 @@ namespace R3EHUDManager.r3esupport.rule
 
         public void SetTargets(HashSet<string> placeholderNames)
         {
-            this.targets = placeholderNames;
+            targets = placeholderNames;
         }
 
         public void SetParts(RulePart[] parts)

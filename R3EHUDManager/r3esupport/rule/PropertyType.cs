@@ -12,6 +12,6 @@ namespace R3EHUDManager.r3esupport.rule
         Y,
         SIZE,
         ANCHOR_X,
-        ANCHOR_Y
+        ANCHOR_Y,
     }
 }
