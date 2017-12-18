@@ -153,10 +153,13 @@
     <Compile Include="graphics\Colors.cs" />
     <Compile Include="graphics\Fonts.cs" />
     <Compile Include="huddata\command\LoadFiltersCommand.cs" />
+    <Compile Include="huddata\command\PromptUnsavedChangesCommand.cs" />
     <Compile Include="huddata\command\UpdateFiltersCommand.cs" />
     <Compile Include="huddata\events\FiltersChangedEventArgs.cs" />
+    <Compile Include="huddata\events\UnsavedChangesEventArgs.cs" />
     <Compile Include="huddata\model\LayoutIOModel.cs" />
     <Compile Include="huddata\model\PlaceholderBlackListModel.cs" />
+    <Compile Include="huddata\model\UnsavedChangeType.cs" />
     <Compile Include="huddata\view\PlaceholderBlackListView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -414,22 +417,22 @@
   <ItemGroup>
     <PublishFile Include="_r3eRules\r3e_support_rules.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="_template\hud_options_template_v6.xml">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

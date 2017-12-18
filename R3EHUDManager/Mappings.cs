@@ -32,13 +32,13 @@ using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.savestatus.model;
 using R3EHUDManager.savestatus.command;
 using R3EHUDManager.huddata.view;
-using R3EHUDManager.layout.view;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.apppresentation.view;
 using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.userpreferences.command;
 using R3EHUDManager.application.command;
 using R3EHUDManager.apppresentation.command;
+using R3EHUDManager.huddata.events;
 
 namespace R3EHUDManager
 {
@@ -123,6 +123,7 @@ namespace R3EHUDManager
             Injector.MapCommand<PlaceholderBlackListView, UpdateFiltersCommand>(PlaceholderBlackListView.EVENT_FILTERS_CHANGED);
             Injector.MapCommand<PromptOutsidePlaceholderView, SaveOutsidePlaceholdersPrefCommand>(PromptOutsidePlaceholderView.EVENT_REMEMBER_CHOICE);
             Injector.MapCommand<SettingsView, SaveOutsidePlaceholdersPrefCommand>(SettingsView.EVENT_OUTSIDE_PLACEHOLDERS_PREF_CHANGED);
+            Injector.MapCommand<LayoutIOModel, PromptUnsavedChangesCommand>(LayoutIOModel.EVENT_UNSAVED_CHANGES);
 
             // Save status
             Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);

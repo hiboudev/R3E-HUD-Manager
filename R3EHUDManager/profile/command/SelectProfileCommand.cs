@@ -43,11 +43,14 @@ namespace R3EHUDManager.profile.command
         public void Execute()
         {
             ProfileModel profile = profileCollection.Get(args.ItemId);
-            BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
             List<PlaceholderModel> placeholders = layoutIO.LoadProfileLayout(profile);
 
-            selectionModel.Unselect();
+            if (placeholders == null)
+                return;
 
+            BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
+
+            selectionModel.Unselect();
             screen.SetBackground(background);
             placeholderCollection.Clear();
             placeholderCollection.AddRange(placeholders);

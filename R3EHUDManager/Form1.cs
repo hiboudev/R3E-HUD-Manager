@@ -10,10 +10,7 @@ using R3EHUDManager.settings.view;
 using R3EHUDManager.background.view;
 using R3EHUDManager.profile.view;
 using R3EHUDManager.location.view;
-using R3EHUDManager.screen.model;
-using System.Diagnostics;
 using R3EHUDManager.huddata.view;
-using R3EHUDManager.layout.view;
 using R3EHUDManager.application.events;
 
 namespace R3EHUDManager
