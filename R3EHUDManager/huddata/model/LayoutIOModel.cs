@@ -162,6 +162,8 @@ namespace R3EHUDManager.huddata.model
                     return false;
                 if(source.SourceType == LayoutSourceType.BACKUP)
                     return AreLayoutEquals(currentLayout, source.Layout) || AreLayoutEquals(currentLayout, r3eLayout.Layout);
+                if (source.SourceType == LayoutSourceType.R3E)
+                    return AreLayoutEquals(currentLayout, source.Layout); // TODO ici on pourrait éventuellement comparer avec le backup
                 return AreLayoutEquals(currentLayout, source.Layout);
             }
 
