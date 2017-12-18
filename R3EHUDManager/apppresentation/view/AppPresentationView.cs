@@ -1,4 +1,5 @@
 ﻿using R3EHUDManager.application.view;
+using R3EHUDManager.userpreferences.model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,10 +18,17 @@ namespace R3EHUDManager.apppresentation.view
         private PictureBox pictureBox;
         private Button nextButton;
         private Button prevButton;
+        private bool alreadyWatched;
+        private string endButtonName;
+        private int minImageIndex;
 
-        public AppPresentationView() : base("Quick presentation")
+        public AppPresentationView(UserPreferencesModel preferences) : base("Quick presentation")
         {
             FormClosed += DisposeForm; // TODO generaliser aux autres form
+
+            alreadyWatched = preferences.UserWatchedPresentation;
+            endButtonName = alreadyWatched ? "Close" : "Thanks ! :)";
+            minImageIndex = alreadyWatched ? 1 : 0;
 
             InitializeBitmaps();
             InitializeUI();
@@ -57,7 +65,7 @@ namespace R3EHUDManager.apppresentation.view
                 @"_graphical_assets\presentation\screen06.jpg",
             };
 
-            currentPathIndex = -1;
+            currentPathIndex = minImageIndex - 1;
         }
 
         private void InitializeUI()
@@ -124,7 +132,7 @@ namespace R3EHUDManager.apppresentation.view
 
         private void OnNextClicked(object sender, EventArgs e)
         {
-            if(nextButton.Text == "Thanks! :)")
+            if(currentPathIndex == paths.Length - 1)
             {
                 DialogResult = DialogResult.OK;
                 return;
@@ -136,9 +144,9 @@ namespace R3EHUDManager.apppresentation.view
 
         private void UpdateButtons()
         {
-            prevButton.Enabled = currentPathIndex > 0;
+            prevButton.Enabled = currentPathIndex > minImageIndex;
 
-            nextButton.Text = currentPathIndex == paths.Length - 1 ? "Thanks! :)" : "Next";
+            nextButton.Text = currentPathIndex == paths.Length - 1 ? endButtonName : "Next";
         }
 
         private void OnCloseClicked(object sender, EventArgs e)
