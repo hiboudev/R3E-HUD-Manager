@@ -31,8 +31,6 @@ namespace R3EHUDManager.huddata.command
 
         public void Execute()
         {
-            selectionModel.Unselect();
-
             List<PlaceholderModel> placeholders = null;
             try
             {
@@ -46,6 +44,7 @@ namespace R3EHUDManager.huddata.command
 
             if (placeholders != null)
             {
+                selectionModel.Unselect();
                 placeHolderCollection.Clear();
                 placeHolderCollection.AddRange(placeholders);
 

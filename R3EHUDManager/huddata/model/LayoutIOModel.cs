@@ -35,6 +35,7 @@ namespace R3EHUDManager.huddata.model
             this.collection = collection;
             this.screenModel = screenModel;
             saveStatus = new SaveStatus();
+            currentR3eLayout = new SourceLayout(LayoutSourceType.R3E, location.HudOptionsFile, parser.Parse(location.HudOptionsFile), -1);
         }
 
         public List<PlaceholderModel> LoadR3eLayout()
@@ -102,8 +103,8 @@ namespace R3EHUDManager.huddata.model
         {
             if (sourceType == LayoutSourceType.R3E)
             {
-                if (currentR3eLayout == null) currentR3eLayout = new SourceLayout(LayoutSourceType.R3E, name, list, backgroundId);
-                else { currentR3eLayout.UpdateLayout(list); currentR3eLayout.UpdateBackgroundId(backgroundId); }
+                currentR3eLayout.UpdateLayout(list);
+                //currentR3eLayout.UpdateBackgroundId(backgroundId);
 
                 source = currentR3eLayout;
             }
@@ -160,7 +161,7 @@ namespace R3EHUDManager.huddata.model
                 if (source == null) return true;
                 if (source.SourceType == LayoutSourceType.PROFILE && source.BackgroundId != screenModel.Background.Id)
                     return false;
-                if(source.SourceType == LayoutSourceType.BACKUP)
+                if (source.SourceType == LayoutSourceType.BACKUP)
                     return AreLayoutEquals(currentLayout, source.Layout) || AreLayoutEquals(currentLayout, r3eLayout.Layout);
                 if (source.SourceType == LayoutSourceType.R3E)
                     return AreLayoutEquals(currentLayout, source.Layout); // TODO ici on pourrait éventuellement comparer avec le backup
@@ -174,8 +175,6 @@ namespace R3EHUDManager.huddata.model
 
                 Dictionary<string, PlaceholderModel> placeholders1 = layout1.ToDictionary(x => x.Name, x => x);
                 Dictionary<string, PlaceholderModel> placeholders2 = layout2.ToDictionary(x => x.Name, x => x);
-
-
 
                 foreach (KeyValuePair<string, PlaceholderModel> keyValue in placeholders1)
                 {
