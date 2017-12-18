@@ -51,5 +51,18 @@ namespace R3EHUDManager.placeholder.model
             ValidationResult = result;
             DispatchEvent(new ValidationChangedEventArgs(EVENT_VALIDATION_CHANGED, this, result));
         }
+
+        public PlaceholderModel Clone()
+        {
+            return new PlaceholderModel()
+            {
+                Id = Id,
+                Name = Name,
+                Position = Position.Clone(),
+                Anchor = Anchor.Clone(),
+                Size = Size.Clone(),
+                ResizeRule = ResizeRule,
+            };
+        }
     }
 }

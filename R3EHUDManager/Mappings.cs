@@ -32,7 +32,6 @@ using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.savestatus.model;
 using R3EHUDManager.savestatus.command;
 using R3EHUDManager.huddata.view;
-using R3EHUDManager.layout.model;
 using R3EHUDManager.layout.view;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.apppresentation.view;
@@ -70,7 +69,6 @@ namespace R3EHUDManager
             Injector.MapType<SupportRuleParser>(true);
             Injector.MapType<SupportRuleValidator>(true);
             Injector.MapType<SaveStatusModel>(true);
-            Injector.MapType<LayoutSourceModel>(true);
             Injector.MapType<PlaceholderBlackListModel>(true);
             Injector.MapType<PlaceholderBlackListView>();
             Injector.MapType<AppPresentationView>();

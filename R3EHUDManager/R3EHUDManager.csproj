@@ -164,11 +164,10 @@
     <Compile Include="huddata\view\ReloadLayoutView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="layout\events\LayoutSourceEventArgs.cs" />
-    <Compile Include="layout\model\LayoutSourceModel.cs" />
-    <Compile Include="layout\model\LayoutSourceType.cs" />
-    <Compile Include="layout\view\LayoutSourceMediator.cs" />
-    <Compile Include="layout\view\LayoutSourceView.cs">
+    <Compile Include="huddata\events\LayoutSourceEventArgs.cs" />
+    <Compile Include="huddata\model\LayoutSourceType.cs" />
+    <Compile Include="huddata\view\LayoutSourceMediator.cs" />
+    <Compile Include="huddata\view\LayoutSourceView.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="location\command\SelectR3eDirectoryCommand.cs" />

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using R3EHUDManager.graphics;
-using R3EHUDManager.layout.model;
+using R3EHUDManager.huddata.model;
 
-namespace R3EHUDManager.layout.view
+namespace R3EHUDManager.huddata.view
 {
     class LayoutSourceView : Label
     {

@@ -1,4 +1,6 @@
-﻿using R3EHUDManager.huddata.parser;
+﻿using da2mvc.core.events;
+using R3EHUDManager.huddata.events;
+using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
@@ -11,10 +13,13 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.huddata.model
 {
-    class LayoutIOModel
+    class LayoutIOModel : EventDispatcher
     {
+        public static readonly int EVENT_SOURCE_CHANGED = EventId.New();
+
         private readonly HudOptionsParser parser;
         private readonly LocationModel location;
+        private SourceLayout source;
 
         public LayoutIOModel(HudOptionsParser parser, LocationModel location)
         {
@@ -24,17 +29,17 @@ namespace R3EHUDManager.huddata.model
 
         public List<PlaceholderModel> LoadR3eLayout()
         {
-            return parser.Parse(location.HudOptionsFile);
+            return SetSource(LayoutSourceType.R3E, location.HudOptionsFile, parser.Parse(location.HudOptionsFile));
         }
 
         public List<PlaceholderModel> LoadDefaultR3eLayout()
         {
-            return parser.Parse(location.HudOptionsBackupFile);
+            return SetSource(LayoutSourceType.BACKUP, location.HudOptionsBackupFile, parser.Parse(location.HudOptionsBackupFile));
         }
 
         public List<PlaceholderModel> LoadProfileLayout(ProfileModel profile)
         {
-            return parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.FileName));
+            return SetSource(LayoutSourceType.PROFILE, profile.Name, parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.FileName)));
         }
 
         public void WriteR3eLayout(List<PlaceholderModel> placeholders)
@@ -45,6 +50,35 @@ namespace R3EHUDManager.huddata.model
         public void WriteProfileLayout(ProfileModel profile, List<PlaceholderModel> placeholders)
         {
             parser.Write(Path.Combine(location.LocalDirectoryProfiles, profile.FileName), placeholders);
+        }
+
+        private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list)
+        {
+            List<PlaceholderModel> newList = new List<PlaceholderModel>();
+            foreach (var placeholder in list)
+                newList.Add(placeholder.Clone());
+
+            source = new SourceLayout(sourceType, name, newList);
+
+            DispatchEvent(new LayoutSourceEventArgs(EVENT_SOURCE_CHANGED, sourceType, name));
+
+            return list;
+        }
+
+
+
+        class SourceLayout
+        {
+            public SourceLayout(LayoutSourceType sourceType, String name, List<PlaceholderModel> layout)
+            {
+                SourceType = sourceType;
+                Name = name;
+                Layout = layout;
+            }
+
+            public LayoutSourceType SourceType { get; }
+            public string Name { get; }
+            public List<PlaceholderModel> Layout { get; }
         }
     }
 }

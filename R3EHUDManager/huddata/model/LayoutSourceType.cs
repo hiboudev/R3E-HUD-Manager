@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R3EHUDManager.layout.model
+namespace R3EHUDManager.huddata.model
 {
     enum LayoutSourceType
     {

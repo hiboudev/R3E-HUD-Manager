@@ -5,12 +5,9 @@ using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
 using R3EHUDManager.huddata.model;
-using R3EHUDManager.huddata.parser;
-using R3EHUDManager.layout.model;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.profile.model;
-using R3EHUDManager.savestatus.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.utils;
 using System;
@@ -29,14 +26,13 @@ namespace R3EHUDManager.profile.command
         private readonly ScreenModel screen;
         private readonly PlaceHolderCollectionModel placeholderCollection;
         private readonly SelectedProfileModel selectedProfile;
-        private readonly LayoutSourceModel layoutSource;
         private readonly LayoutIOModel layoutIO;
 
         public event EventHandler MvcEventHandler;
 
         public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database, 
             LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection,
-            SelectedProfileModel selectedProfile, LayoutSourceModel layoutSource, LayoutIOModel layoutIO)
+            SelectedProfileModel selectedProfile, LayoutIOModel layoutIO)
         {
             this.args = args;
             this.profileCollection = profileCollection;
@@ -45,7 +41,6 @@ namespace R3EHUDManager.profile.command
             this.screen = screen;
             this.placeholderCollection = placeholderCollection;
             this.selectedProfile = selectedProfile;
-            this.layoutSource = layoutSource;
             this.layoutIO = layoutIO;
         }
 
@@ -65,7 +60,6 @@ namespace R3EHUDManager.profile.command
             profileCollection.Add(newProfile);
 
             selectedProfile.SelectProfile(newProfile);
-            layoutSource.SetSource(LayoutSourceType.PROFILE, newProfile.Name);
 
             DispatchEvent(new BaseEventArgs(EVENT_PROFILE_CREATED));
         }
