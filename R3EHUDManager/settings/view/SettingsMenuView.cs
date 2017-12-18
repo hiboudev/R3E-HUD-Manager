@@ -46,7 +46,7 @@ namespace R3EHUDManager.settings.view
             ToolStripMenuItem openHudDirItem = new ToolStripMenuItem("Open HUD directory");
 
             ToolStripItem separator = new ToolStripSeparator();
-            ToolStripMenuItem openFilteredPlaceholders = new ToolStripMenuItem("Placeholder filter");
+            ToolStripMenuItem openFilteredPlaceholders = new ToolStripMenuItem("Manage filtered placeholders");
 
             ToolStripItem separator2 = new ToolStripSeparator();
             ToolStripMenuItem showPresentation = new ToolStripMenuItem("Quick presentation");

@@ -221,7 +221,7 @@ namespace R3EHUDManager.database
                 db.Open();
 
                 NoQuery("INSERT INTO profiles (id, name, backgroundId, fileName) VALUES " +
-                    $"({profile.Id}, '{StringUtils.ToDatabaseUserString(profile.Name)}', {profile.BackgroundId}, '{profile.fileName}')"
+                    $"({profile.Id}, '{StringUtils.ToDatabaseUserString(profile.Name)}', {profile.BackgroundId}, '{profile.FileName}')"
                     , db);
 
                 db.Close();
@@ -235,7 +235,7 @@ namespace R3EHUDManager.database
                 db.Open();
 
                 NoQuery(
-                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.fileName}'" +
+                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.FileName}'" +
                     $"WHERE id = {profile.Id};"
                     , db);
 

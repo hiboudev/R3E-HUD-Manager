@@ -48,7 +48,7 @@ namespace R3EHUDManager.profile.command
         {
             ProfileModel profile = profileCollection.Get(args.ItemId);
             BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
-            List<PlaceholderModel> placeholders = parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.fileName));
+            List<PlaceholderModel> placeholders = parser.Parse(Path.Combine(location.LocalDirectoryProfiles, profile.FileName));
 
             selectionModel.Unselect();
 

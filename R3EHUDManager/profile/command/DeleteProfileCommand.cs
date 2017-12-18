@@ -31,7 +31,7 @@ namespace R3EHUDManager.profile.command
         public void Execute()
         {
             ProfileModel profile = profileCollection.Get(args.Value);
-            String filePath = Path.Combine(location.LocalDirectoryProfiles, profile.fileName);
+            String filePath = Path.Combine(location.LocalDirectoryProfiles, profile.FileName);
 
             if (profileSelection.Selection == profile)
             {

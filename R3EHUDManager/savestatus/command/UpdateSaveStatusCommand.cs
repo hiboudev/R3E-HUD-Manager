@@ -26,7 +26,7 @@ namespace R3EHUDManager.savestatus.command
         {
             actions = new Dictionary<int, SetStatus>
             {
-                {PlaceholderModel.EVENT_UPDATED, (model, selectedProfile) => model.SetChanged(SaveType.PROFILE | SaveType.R3E_HUD) },
+                {PlaceholderModel.EVENT_UPDATED, (model, selectedProfile) => { model.SetChanged(SaveType.R3E_HUD); if(selectedProfile.Selection != null) model.SetChanged(SaveType.PROFILE); } },
                 {SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED, (model, selectedProfile) => model.SetSaved(SaveType.PROFILE) },
                 {SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED, (model, selectedProfile) => model.SetSaved(SaveType.R3E_HUD) },
                 {LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED, (model, selectedProfile) => {model.SetSaved(SaveType.R3E_HUD); if(selectedProfile.Selection != null) model.SetChanged(SaveType.PROFILE); } },

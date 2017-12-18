@@ -39,7 +39,7 @@ namespace R3EHUDManager.profile.command
             if (profileSelection.Selection == null) return;
 
             ProfileModel profile = profileSelection.Selection;
-            string filePath = Path.Combine(location.LocalDirectoryProfiles, profile.fileName);
+            string filePath = Path.Combine(location.LocalDirectoryProfiles, profile.FileName);
             BackgroundModel background = screen.Background;
 
             profile.BackgroundId = background.Id;

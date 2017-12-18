@@ -14,12 +14,12 @@ namespace R3EHUDManager.profile.model
             Id = id;
             Name = name;
             BackgroundId = backgroundId;
-            this.fileName = fileName;
+            this.FileName = fileName;
         }
 
         public int Id { get; }
         public string Name { get; }
         public int BackgroundId { get; internal set; }
-        public string fileName { get; }
+        public string FileName { get; }
     }
 }

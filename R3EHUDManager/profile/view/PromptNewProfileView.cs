@@ -31,7 +31,7 @@ namespace R3EHUDManager.profile.view
 
             foreach (ProfileModel profile in profileCollection.Items) {
                 usedNames.Add(profile.Name);
-                usedFileNames.Add(profile.fileName);
+                usedFileNames.Add(profile.FileName);
             }
 
             InitializeUI();
