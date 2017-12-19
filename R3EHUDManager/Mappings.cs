@@ -36,6 +36,7 @@ using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.userpreferences.command;
 using R3EHUDManager.application.command;
 using R3EHUDManager.apppresentation.command;
+using R3EHUDManager.application.view;
 
 namespace R3EHUDManager
 {
@@ -73,7 +74,8 @@ namespace R3EHUDManager
             Injector.MapType<SettingsView>();
             Injector.MapType<LayoutIOModel>(true);
             Injector.MapType<SaveStatusChecker>(true);
-            
+            Injector.MapType<PromptView>();
+
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<SelectionView, SelectionMediator>(true);
             Injector.MapView<PlaceholdersListView, PlaceholdersListMediator>(true);

@@ -35,7 +35,7 @@ namespace R3EHUDManager.screen.view
                 Dock = DockStyle.Fill,
                 //BackColor = Color.Green,
                 WrapContents = false,
-            };
+        };
 
             Label label = new Label()
             {

@@ -43,7 +43,7 @@ namespace R3EHUDManager.r3esupport.result
 
         public bool HasFix()
         {
-            return fixes.Count > 0;
+            return fixes != null && fixes.Count > 0;
         }
 
         public bool Equals(ValidationResult result)

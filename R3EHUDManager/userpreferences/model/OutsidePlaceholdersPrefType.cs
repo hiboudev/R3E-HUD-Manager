@@ -8,8 +8,8 @@ namespace R3EHUDManager.userpreferences.model
 {
     enum OutsidePlaceholdersPrefType
     {
-        PROMPT,
-        MOVE,
-        DO_NOTHING
+        PROMPT = 0,
+        MOVE = 1,
+        DO_NOTHING = 2
     }
 }

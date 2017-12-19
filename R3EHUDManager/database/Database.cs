@@ -71,6 +71,22 @@ namespace R3EHUDManager.database
                     , db);
 
                 NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_SAVE_PROFILE_LAYOUT_CHANGE}, {1});"
+                    , db);
+
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT}, {1});"
+                    , db);
+
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_APPLY_LAYOUT_LAYOUT_CHANGE}, {1});"
+                    , db);
+
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT}, {1});"
+                    , db);
+
+                NoQuery(
                     $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USER_WATCHED_PRESENTATION}, {0});"
                     , db);
 
@@ -128,10 +144,18 @@ namespace R3EHUDManager.database
                 {
                     while (reader.Read())
                     {
-                        switch ((PreferenceType)reader.GetInt32(0))
+                        PreferenceType prefType = (PreferenceType)reader.GetInt32(0);
+
+                        switch (prefType)
                         {
                             case PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER:
                                 model.PromptOutsidePlaceholders = (OutsidePlaceholdersPrefType)reader.GetInt32(1);
+                                break;
+                            case PreferenceType.PROMPT_SAVE_PROFILE_LAYOUT_CHANGE:
+                            case PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT:
+                            case PreferenceType.PROMPT_APPLY_LAYOUT_LAYOUT_CHANGE:
+                            case PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT:
+                                model.SetPromptPreference(prefType, Convert.ToBoolean(reader.GetInt32(1)));
                                 break;
                             case PreferenceType.USER_WATCHED_PRESENTATION:
                                 model.UserWatchedPresentation = Convert.ToBoolean(reader.GetInt32(1));
@@ -147,6 +171,22 @@ namespace R3EHUDManager.database
             }
         }
 
+        internal void SavePromptSavePref(PreferenceType prefType, bool value)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                NoQuery("begin", db);
+
+                NoQuery(
+                        $"UPDATE userPreferences SET value = {Convert.ToInt32(value)} WHERE type = {(int)prefType};"
+                        , db);
+
+                NoQuery("end", db);
+                db.Close();
+            }
+        }
+
         internal void SaveLastProfilePref(int profileId)
         {
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
@@ -157,7 +197,6 @@ namespace R3EHUDManager.database
                 NoQuery(
                         $"UPDATE userPreferences SET value = {profileId} WHERE type = {(int)PreferenceType.LAST_PROFILE};"
                         , db);
-
 
                 NoQuery("end", db);
                 db.Close();

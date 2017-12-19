@@ -5,6 +5,7 @@ using R3EHUDManager.placeholder.events;
 using R3EHUDManager.r3esupport.result;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,6 @@ namespace R3EHUDManager.placeholder.model
 
         public void Move(R3ePoint position)
         {
-            // TODO limiter la position au background
             Position = position;
             DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this, UpdateType.POSITION));
         }

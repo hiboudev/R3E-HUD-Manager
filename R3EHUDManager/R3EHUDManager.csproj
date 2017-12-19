@@ -120,6 +120,9 @@
     <Compile Include="application\view\BaseModalForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="application\view\PromptView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="apppresentation\command\CheckUserWatchedPresentationCommand.cs" />
     <Compile Include="apppresentation\command\ShowPresentationCommand.cs" />
     <Compile Include="apppresentation\view\AppPresentationView.cs">
@@ -417,22 +420,22 @@
   <ItemGroup>
     <PublishFile Include="_r3eRules\r3e_support_rules.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
     <PublishFile Include="_template\hud_options_template_v6.xml">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

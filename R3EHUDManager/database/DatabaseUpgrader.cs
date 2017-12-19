@@ -80,6 +80,22 @@ namespace R3EHUDManager.database
                 , connection).ExecuteNonQuery();
 
             new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_SAVE_PROFILE_LAYOUT_CHANGE}, {1});"
+                , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT}, {1});"
+                , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_APPLY_LAYOUT_LAYOUT_CHANGE}, {1});"
+                , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT}, {1});"
+                , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
                 $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USER_WATCHED_PRESENTATION}, {0});"
                 , connection).ExecuteNonQuery();
 

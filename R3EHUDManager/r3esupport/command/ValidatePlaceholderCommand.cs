@@ -54,6 +54,8 @@ namespace R3EHUDManager.r3esupport.command
                     result = ValidationResult.GetValid();
 
                 placeholder.SetValidationResult(result);
+
+                //if (result.HasFix()) result.ApplyFixes(placeholder); // TODO experimental autofix, dangerous like it is if a rule doesn't fix the problem => infinite calls to this command
             }
         }
     }
