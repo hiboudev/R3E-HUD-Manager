@@ -176,7 +176,7 @@ namespace R3EHUDManager.selection.view
             RadioButton[] buttons = new RadioButton[] { screenLeftRadio, screenCenterRadio, screenRightRadio };
             int checkedIndex = Array.FindIndex(buttons, x => x.Checked);
 
-            checkedIndex += e.Delta > 0 ? 1 : -1;
+            checkedIndex += e.Delta > 0 ? -1 : 1;
             
             if (checkedIndex >= 0 && checkedIndex < 3)
                 buttons[checkedIndex].Checked = true;

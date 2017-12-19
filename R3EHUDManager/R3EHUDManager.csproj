@@ -213,6 +213,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="r3esupport\command\ApplyLayoutFixCommand.cs" />
+    <Compile Include="r3esupport\command\FixPlaceholderCollectionCommand.cs" />
     <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
     <Compile Include="r3esupport\command\ValidatePlaceholderCollectionCommand.cs" />
     <Compile Include="placeholder\events\ValidationChangedEventArgs.cs" />

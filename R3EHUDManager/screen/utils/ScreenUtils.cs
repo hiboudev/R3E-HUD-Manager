@@ -3,6 +3,7 @@ using R3EHUDManager.application.view;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.database;
 using R3EHUDManager.placeholder.model;
+using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.userpreferences.model;
@@ -194,16 +195,17 @@ namespace R3EHUDManager.screen.utils
 
         private static void MovePlaceholders(PlaceHolderCollectionModel collectionModel)
         {
-            foreach (PlaceholderModel placeholder in collectionModel.Items)
-            {
-                ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
-                if (screen != ScreenPositionType.CENTER)
-                {
-                    R3ePoint offset = ScreenUtils.ToScreenOffset(placeholder, ScreenPositionType.CENTER);
-                    R3ePoint newPosition = new R3ePoint(placeholder.Position.X + offset.X, placeholder.Position.Y + offset.Y);
-                    placeholder.Move(newPosition);
-                }
-            }
+            Injector.ExecuteCommand<FixPlaceholderCollectionCommand>();
+            //foreach (PlaceholderModel placeholder in collectionModel.Items)
+            //{
+            //    ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
+            //    if (screen != ScreenPositionType.CENTER)
+            //    {
+            //        R3ePoint offset = ScreenUtils.ToScreenOffset(placeholder, ScreenPositionType.CENTER);
+            //        R3ePoint newPosition = new R3ePoint(placeholder.Position.X + offset.X, placeholder.Position.Y + offset.Y);
+            //        placeholder.Move(newPosition);
+            //    }
+            //}
         }
     }
 }
