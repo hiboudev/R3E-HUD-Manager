@@ -39,8 +39,7 @@ namespace R3EHUDManager.huddata.command
             {
                 if (profiles.Get(preferences.LastProfileId) == null) return false;
 
-                MenuButtonEventArgs args = new MenuButtonEventArgs(1, preferences.LastProfileId, "");
-                Injector.ExecuteCommand<SelectProfileCommand>(args);
+                Injector.ExecuteCommand<SelectProfileCommand>(new MenuButtonEventArgs(1, preferences.LastProfileId, ""));
                 return true;
             }
             catch
