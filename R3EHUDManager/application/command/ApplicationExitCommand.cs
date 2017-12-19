@@ -36,6 +36,8 @@ namespace R3EHUDManager.application.command
 
             if (selectedProfile.Selection != null)
                 database.SaveLastProfilePref(selectedProfile.Selection.Id);
+            else
+                database.SaveLastProfilePref(-1);
         }
 
         private bool CheckUnsavedChanges()

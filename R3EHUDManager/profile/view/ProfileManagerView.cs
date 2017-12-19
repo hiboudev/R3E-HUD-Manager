@@ -27,7 +27,7 @@ namespace R3EHUDManager.profile.view
         {
             foreach (ProfileModel profile in models)
             {
-                list.Items.Add(profile.Name);
+                names.Add(profile.Name);
                 ids.Add(profile.Name, profile.Id);
             }
 
