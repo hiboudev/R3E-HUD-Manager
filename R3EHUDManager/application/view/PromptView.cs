@@ -23,6 +23,11 @@ namespace R3EHUDManager.application.view
             return checkBoxes[prefType].Checked;
         }
 
+        public bool HasCkeck(PreferenceType prefType)
+        {
+            return checkBoxes.ContainsKey(prefType);
+        }
+
         public void Initialize(string title, string text, CheckBoxData[] checkBoxesData)
         {
             MinimumSize = new Size(50, 20);
