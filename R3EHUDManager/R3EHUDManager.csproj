@@ -315,6 +315,8 @@
     </Compile>
     <Compile Include="userpreferences\command\LoadPreferencesCommand.cs" />
     <Compile Include="userpreferences\command\SaveOutsidePlaceholdersPrefCommand.cs" />
+    <Compile Include="userpreferences\command\SavePromptPrefsCommand.cs" />
+    <Compile Include="userpreferences\events\PromptPrefsEventArgs.cs" />
     <Compile Include="userpreferences\model\OutsidePlaceholdersPrefType.cs" />
     <Compile Include="userpreferences\model\PreferenceType.cs" />
     <Compile Include="userpreferences\model\UserPreferencesModel.cs" />
