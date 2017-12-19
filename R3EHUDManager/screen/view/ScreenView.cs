@@ -104,23 +104,16 @@ namespace R3EHUDManager.screen.view
 
             if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
-                //Scroll -= OnScrollChanged;
                 backgroundView.LocationChanged -= OnScrollChanged;
                 VerticalScroll.Value = HorizontalScroll.Value = 0;
                 AutoScroll = false;
             }
             else
             {
-                //Scroll += OnScrollChanged;
                 backgroundView.LocationChanged += OnScrollChanged;
                 AutoScroll = true;
                 //TODO Gérer le scroll en manuel pour virer la barre verticale qui peut appraître avec la molette souris sur le position preset.
             }
-        }
-
-        private void Test(object sender, EventArgs e)
-        {
-            Debug.WriteLine("SCROOOOOOOOOOOOOOOOOOOOOOOOOLL");
         }
 
         private void OnScrollChanged(object sender, EventArgs e)

@@ -170,6 +170,8 @@ namespace R3EHUDManager.placeholder.view
 
             isDragging = true;
 
+            toolTip.Active = false;
+
             dragStartCursorPosition = Cursor.Position;
             dragStartLocation = Location;
 
@@ -187,6 +189,8 @@ namespace R3EHUDManager.placeholder.view
         {
             if (!isDragging) return;
             isDragging = false;
+
+            toolTip.Active = true;
 
             ((Control)sender).MouseUp -= StopDrag;
             ((Control)sender).MouseMove -= Drag;
@@ -230,7 +234,7 @@ namespace R3EHUDManager.placeholder.view
 
             MouseDown += StartDrag;
             label.MouseDown += StartDrag;
-
+            
             InitializeToolTip();
             InitializeContextMenu();
         }
@@ -254,7 +258,7 @@ namespace R3EHUDManager.placeholder.view
         {
             toolTip = new ToolTip
             {
-                AutoPopDelay = 5000,
+                AutoPopDelay = 8000,
                 InitialDelay = 750,
                 ReshowDelay = 500,
                 ShowAlways = true,

@@ -42,7 +42,7 @@ namespace R3EHUDManager.selection.view
 
                 SetValidationResult(model, model.ValidationResult);
                 item.ToolTipText = validations[model.Id].Description;
-
+                
                 list.Items.Add(item);
                 items.Add(model.Id, item);
             }
