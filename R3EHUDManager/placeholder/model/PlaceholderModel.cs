@@ -32,7 +32,7 @@ namespace R3EHUDManager.placeholder.model
         // TODO refaire le parsing xml pour que tous les params soient immutables.
         public int Id { get; internal set; }
         public string Name { get; internal set; }
-        public R3ePoint Position { get; internal set; } = new R3ePoint(0,0);
+        public R3ePoint Position { get; internal set; } = new R3ePoint(0, 0);
 
         public R3ePoint Anchor { get; internal set; } = new R3ePoint(0, 0);
         public R3ePoint Size { get; internal set; } = new R3ePoint(1, 1);
@@ -81,9 +81,9 @@ namespace R3EHUDManager.placeholder.model
             PlaceholderGeom geom = GetGeom();
             ValidationResult.ApplyFixes(geom, screenModel, ResizeRule);
 
-            Move(geom.Position);
-            MoveAnchor(geom.Anchor);
-            Resize(geom.Size);
+            if (!geom.Position.Equals(Position)) Move(geom.Position);
+            if (!geom.Anchor.Equals(Anchor)) MoveAnchor(geom.Anchor);
+            if (!geom.Size.Equals(Size)) Resize(geom.Size);
         }
 
         public PlaceholderGeom GetGeom()

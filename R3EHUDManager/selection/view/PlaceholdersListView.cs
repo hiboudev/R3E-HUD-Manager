@@ -21,6 +21,7 @@ namespace R3EHUDManager.selection.view
         private bool bypassSelectedEvent = false;
         public event EventHandler MvcEventHandler;
         public static readonly int EVENT_PLACEHOLDER_SELECTED = EventId.New();
+        public static readonly int EVENT_PLACEHOLDER_UNSELECTED = EventId.New();
         public static readonly int EVENT_REQUEST_LAYOUT_FIX = EventId.New();
         private Dictionary<int, ListViewItem> items = new Dictionary<int, ListViewItem>();
         private Dictionary<int, ValidationResult> validations = new Dictionary<int, ValidationResult>();
@@ -108,7 +109,7 @@ namespace R3EHUDManager.selection.view
             if (selected)
             {
                 e.Graphics.FillRectangle(new SolidBrush(Colors.PLACEHOLDER_LIST_SELECTION),
-                    new Rectangle(e.Bounds.X + thickness, e.Bounds.Y + spacing, e.Bounds.Width - thickness, e.Bounds.Height - 2 * spacing));
+                    new Rectangle(e.Bounds.X + thickness + 1, e.Bounds.Y + spacing, e.Bounds.Width - thickness - 1, e.Bounds.Height - 2 * spacing));
                 //e.DrawFocusRectangle();
             }
             else
@@ -136,6 +137,8 @@ namespace R3EHUDManager.selection.view
 
             if (list.SelectedItems.Count > 0)
                 DispatchEvent(new IntEventArgs(EVENT_PLACEHOLDER_SELECTED, (int)list.SelectedItems[0].Tag));
+            else
+                DispatchEvent(new BaseEventArgs(EVENT_PLACEHOLDER_UNSELECTED));
         }
 
         private void InitializeUI()
