@@ -51,7 +51,7 @@ namespace R3EHUDManager.application.view
                 //BackColor = Color.Blue,
                 AutoSize = true,
                 Anchor = AnchorStyles.Left | AnchorStyles.Right,
-                Margin = new Padding(0, 0, 0, 8)
+                Margin = new Padding(0, 0, 0, 16)
             };
 
             Button yesButton = new Button()
@@ -88,6 +88,8 @@ namespace R3EHUDManager.application.view
                 {
                     AutoSize = true,
                     Text = checkBoxData.Text,
+                    Margin = new Padding(),
+                    ForeColor = Color.FromArgb(66, 66, 66),
                 };
                 checkBoxes.Add(checkBoxData.PrefType, checkBox);
                 layout.Controls.Add(checkBox);

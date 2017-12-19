@@ -35,13 +35,13 @@ namespace R3EHUDManager.huddata.command
             {
                 case UnsavedChangeType.PROFILE:
                     DisplayPrompt(PreferenceType.PROMPT_SAVE_PROFILE_LAYOUT_CHANGE, 
-                        "Unsaved profile", $"There's unsaved changes in profile \"{args.SourceName}\", continue anyway?",
+                        "Unsaved profile", $"Profile \"{args.SourceName}\" has unsaved changes, continue anyway?\n",
                         "Don't ask for unsaved profile when loading a new layout");
                     break;
 
                 case UnsavedChangeType.R3E:
                     DisplayPrompt(PreferenceType.PROMPT_APPLY_LAYOUT_LAYOUT_CHANGE,
-                        "Unsaved layout", $"There's unsaved changes in this layout, continue anyway?",
+                        "Unsaved layout", $"Current layout has unsaved changes, continue anyway?\n",
                         "Don't ask for unsaved layout when loading a new one");
                     break;
             }

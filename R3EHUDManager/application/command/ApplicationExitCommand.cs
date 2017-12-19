@@ -47,7 +47,7 @@ namespace R3EHUDManager.application.command
 
         private bool CheckUnsavedChanges()
         {
-            string text = "There's unsaved changes:\n\n";
+            string text = "";
             bool promptUser = false;
             List<CheckBoxData> checkData = new List<CheckBoxData>();
 
@@ -59,15 +59,15 @@ namespace R3EHUDManager.application.command
                 // TODO check background
                 checkData.Add(new CheckBoxData(PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT, "Don't ask for unsaved profile when exiting application"));
 
-                text += $"* Current profile \"{selectedProfile.Selection.Name}\" has changed.\n";
+                text += $"Profile \"{selectedProfile.Selection.Name}\" has unsaved changes.\n";
                 promptUser = true;
             }
 
             if (!saved.HasFlag(UnsavedChangeType.R3E) && preferences.GetPromptPreference(PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT))
             {
-                checkData.Add(new CheckBoxData(PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT, "Don't ask for unsaved layout when exiting application"));
+                checkData.Add(new CheckBoxData(PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT, "Don't ask for unapplied layout when exiting application"));
 
-                text += "* Current layout is not applied to R3E.\n";
+                text += "Current layout is not applied to R3E.\n";
                 promptUser = true;
             }
 
