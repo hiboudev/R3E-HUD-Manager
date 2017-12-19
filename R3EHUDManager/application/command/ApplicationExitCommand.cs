@@ -18,15 +18,12 @@ namespace R3EHUDManager.application.command
         private readonly ApplicationExitEventArgs args;
         private readonly LayoutIOModel layoutIO;
         private readonly SelectedProfileModel selectedProfile;
-        private readonly HudOptionsParser parser;
-        private readonly LocationModel locationModel;
-        private readonly PlaceHolderCollectionModel collectionModel;
-        private readonly ScreenModel screenModel;
 
-        public ApplicationExitCommand(ApplicationExitEventArgs args, LayoutIOModel layoutIO)
+        public ApplicationExitCommand(ApplicationExitEventArgs args, LayoutIOModel layoutIO, SelectedProfileModel selectedProfile)
         {
             this.args = args;
             this.layoutIO = layoutIO;
+            this.selectedProfile = selectedProfile;
         }
 
         public void Execute()

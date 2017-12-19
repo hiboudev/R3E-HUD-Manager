@@ -18,7 +18,7 @@ namespace R3EHUDManager.huddata.model
             this.layoutIO = layoutIO;
             timer = new Timer()
             {
-                Interval = 200,
+                Interval = 1000,
             };
             timer.Tick += TimerElapsed;
         }

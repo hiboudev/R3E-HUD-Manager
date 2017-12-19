@@ -101,11 +101,13 @@ namespace R3EHUDManager.profile.view
             {
                 Font = Fonts.SAVED_FONT;
                 itemSaveProfile.Font = Fonts.SAVED_FONT;
+                itemSaveProfile.Enabled = false;
             }
             else
             {
                 Font = Fonts.UNSAVED_FONT;
                 itemSaveProfile.Font = Fonts.UNSAVED_FONT;
+                itemSaveProfile.Enabled = true;
             }
         }
 
