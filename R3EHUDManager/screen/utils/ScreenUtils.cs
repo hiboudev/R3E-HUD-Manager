@@ -142,10 +142,10 @@ namespace R3EHUDManager.screen.utils
             return a;
         }
 
-        public static void PromptUserIfOutsideOfCenterScreenPlaceholders(PlaceHolderCollectionModel collectionModel, UserPreferencesModel preferences, Database database)
+        public static bool PromptUserIfOutsideOfCenterScreenPlaceholders(PlaceHolderCollectionModel collectionModel, UserPreferencesModel preferences, Database database)
         {
             if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.DO_NOTHING)
-                return;
+                return false;
 
             bool outsidePlaceholder = false;
 
@@ -158,8 +158,7 @@ namespace R3EHUDManager.screen.utils
                     break;
                 }
             }
-
-            // TODO use validation rules and the corresponding fix.
+            
             if (outsidePlaceholder)
             {
                 if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.MOVE)
@@ -188,9 +187,13 @@ namespace R3EHUDManager.screen.utils
                     }
 
                     if (result == DialogResult.Yes)
+                    {
                         MovePlaceholders(collectionModel);
+                        return true;
+                    }
                 }
             }
+            return false;
         }
 
         private static void MovePlaceholders(PlaceHolderCollectionModel collectionModel)

@@ -41,9 +41,11 @@ namespace R3EHUDManager.background.command
 
             screenModel.SetBackground(background);
 
+            bool layoutFixed = false;
             if (currentLayout == ScreenLayoutType.TRIPLE && background.Layout == ScreenLayoutType.SINGLE)
-                ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection, preferences, database);
-            else
+                layoutFixed = ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection, preferences, database);
+            
+            if(!layoutFixed)
                 Injector.ExecuteCommand<ValidatePlaceholderCollectionCommand>(new CollectionEventArgs<PlaceholderModel>(0, placeholderCollection, placeholderCollection.Items.ToArray()));
         }
     }

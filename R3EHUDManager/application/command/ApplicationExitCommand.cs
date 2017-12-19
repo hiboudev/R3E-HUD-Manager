@@ -49,12 +49,16 @@ namespace R3EHUDManager.application.command
             // TODO rename UnsavedChangeType to SavedChangeType ?
             UnsavedChangeType saved = layoutIO.GetSaveStatus();
 
+            bool twoPrompts = !saved.HasFlag(UnsavedChangeType.PROFILE) && preferences.GetPromptPreference(PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT) && !saved.HasFlag(UnsavedChangeType.R3E) && preferences.GetPromptPreference(PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT);
+            string listHeader = twoPrompts ? "* " : "";
+
+
             if (!saved.HasFlag(UnsavedChangeType.PROFILE) && preferences.GetPromptPreference(PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT))
             {
                 // TODO check background
                 checkData.Add(new CheckBoxData(PreferenceType.PROMPT_SAVE_PROFILE_APP_EXIT, "Don't ask for unsaved profile when exiting application"));
 
-                text += $"Profile \"{selectedProfile.Selection.Name}\" has unsaved changes.\n";
+                text += $"{listHeader}Profile \"{selectedProfile.Selection.Name}\" has unsaved changes.\n";
                 promptUser = true;
             }
 
@@ -62,7 +66,7 @@ namespace R3EHUDManager.application.command
             {
                 checkData.Add(new CheckBoxData(PreferenceType.PROMPT_APPLY_LAYOUT_APP_EXIT, "Don't ask for unapplied layout when exiting application"));
 
-                text += "Current layout is not applied to R3E.\n";
+                text += $"{listHeader}Current layout is not applied to R3E.\n";
                 promptUser = true;
             }
 
