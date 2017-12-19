@@ -26,7 +26,7 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand<InitializeSupportRulesCommand>();
             Injector.ExecuteCommand<InitializeBackgroundsCommand>();
             Injector.ExecuteCommand<InitializeProfilesCommand>();
-            Injector.ExecuteCommand<LoadHudDataCommand>();
+            Injector.ExecuteCommand<LoadFirstHudCommand>();
             Injector.ExecuteCommand<CheckUserWatchedPresentationCommand>();
         }
     }

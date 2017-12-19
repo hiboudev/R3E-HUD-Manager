@@ -74,6 +74,10 @@ namespace R3EHUDManager.database
                     $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USER_WATCHED_PRESENTATION}, {0});"
                     , db);
 
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.LAST_PROFILE}, {-1});"
+                    , db);
+
                 NoQuery("end", db);
 
                 db.Close();
@@ -132,10 +136,30 @@ namespace R3EHUDManager.database
                             case PreferenceType.USER_WATCHED_PRESENTATION:
                                 model.UserWatchedPresentation = Convert.ToBoolean(reader.GetInt32(1));
                                 break;
+                            case PreferenceType.LAST_PROFILE:
+                                model.LastProfileId = reader.GetInt32(1);
+                                break;
                         }
                     }
                     reader.Close();
                 }
+                db.Close();
+            }
+        }
+
+        internal void SaveLastProfilePref(int profileId)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                NoQuery("begin", db);
+
+                NoQuery(
+                        $"UPDATE userPreferences SET value = {profileId} WHERE type = {(int)PreferenceType.LAST_PROFILE};"
+                        , db);
+
+
+                NoQuery("end", db);
                 db.Close();
             }
         }

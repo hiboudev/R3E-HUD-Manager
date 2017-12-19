@@ -11,5 +11,6 @@ namespace R3EHUDManager.userpreferences.model
 
         public OutsidePlaceholdersPrefType PromptOutsidePlaceholders { get; internal set; }
         public bool UserWatchedPresentation { get; internal set; }
+        public int LastProfileId { get; internal set; }
     }
 }

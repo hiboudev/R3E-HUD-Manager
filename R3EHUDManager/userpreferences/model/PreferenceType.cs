@@ -10,5 +10,6 @@ namespace R3EHUDManager.userpreferences.model
     {
         PROMPT_OUTSIDE_PLACEHOLDER,
         USER_WATCHED_PRESENTATION, // not really a preference
+        LAST_PROFILE
     }
 }

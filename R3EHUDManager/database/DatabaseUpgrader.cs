@@ -82,6 +82,10 @@ namespace R3EHUDManager.database
             new SQLiteCommand(
                 $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USER_WATCHED_PRESENTATION}, {0});"
                 , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.LAST_PROFILE}, {-1});"
+                , connection).ExecuteNonQuery();
         }
     }
 }

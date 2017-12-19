@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.command;
 using R3EHUDManager.application.events;
+using R3EHUDManager.database;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
@@ -18,18 +19,27 @@ namespace R3EHUDManager.application.command
         private readonly ApplicationExitEventArgs args;
         private readonly LayoutIOModel layoutIO;
         private readonly SelectedProfileModel selectedProfile;
+        private readonly Database database;
 
-        public ApplicationExitCommand(ApplicationExitEventArgs args, LayoutIOModel layoutIO, SelectedProfileModel selectedProfile)
+        public ApplicationExitCommand(ApplicationExitEventArgs args, LayoutIOModel layoutIO, SelectedProfileModel selectedProfile,
+            Database database)
         {
             this.args = args;
             this.layoutIO = layoutIO;
             this.selectedProfile = selectedProfile;
+            this.database = database;
         }
 
         public void Execute()
         {
-            //if (saveStatus.IsSaved(SaveType.PROFILE) && saveStatus.IsSaved(SaveType.R3E_HUD)) return; // Here I prefer not to rely on it.
+            if (!CheckUnsavedChanges()) return;
 
+            if (selectedProfile.Selection != null)
+                database.SaveLastProfilePref(selectedProfile.Selection.Id);
+        }
+
+        private bool CheckUnsavedChanges()
+        {
             string text = "There's unsaved changes:\n\n";
             bool promptUser = false;
 
@@ -54,7 +64,10 @@ namespace R3EHUDManager.application.command
             if (promptUser && DialogResult.No == MessageBox.Show(text, "Unsaved changes", MessageBoxButtons.YesNo))
             {
                 args.FormArgs.Cancel = true;
+                return false;
             }
+
+            return true;
         }
     }
 }

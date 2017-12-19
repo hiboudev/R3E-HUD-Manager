@@ -47,7 +47,7 @@ namespace R3EHUDManager.profile.command
 
             if (placeholders == null)
                 return;
-
+            // TODO gestion des erreurs, chargemetn de fichiers, bitmaps...
             BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
 
             selectionModel.Unselect();

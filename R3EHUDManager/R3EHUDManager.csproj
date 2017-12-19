@@ -154,6 +154,7 @@
     <Compile Include="graphics\Fonts.cs" />
     <Compile Include="huddata\command\CheckSaveStatusCommand.cs" />
     <Compile Include="huddata\command\LoadFiltersCommand.cs" />
+    <Compile Include="huddata\command\LoadFirstHudCommand.cs" />
     <Compile Include="huddata\command\PromptUnsavedChangesCommand.cs" />
     <Compile Include="huddata\command\UpdateFiltersCommand.cs" />
     <Compile Include="huddata\events\FiltersChangedEventArgs.cs" />
