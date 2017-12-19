@@ -1,7 +1,9 @@
 ﻿using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.rule;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,10 +37,10 @@ namespace R3EHUDManager.r3esupport.result
             Description = "";
         }
 
-        public void ApplyFixes(PlaceholderGeom geom)
+        public void ApplyFixes(PlaceholderGeom geom, ScreenModel screenModel, IResizeRule resizeRule)
         {
             foreach (Fix fix in fixes)
-                fix.Apply(geom);
+                fix.Apply(geom, screenModel, resizeRule);
         }
 
         public bool HasFix()

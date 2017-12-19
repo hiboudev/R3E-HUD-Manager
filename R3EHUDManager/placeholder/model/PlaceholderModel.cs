@@ -5,6 +5,7 @@ using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.r3esupport.rule;
+using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,10 +21,12 @@ namespace R3EHUDManager.placeholder.model
         public static readonly int EVENT_UPDATED = EventId.New();
         public static readonly int EVENT_VALIDATION_CHANGED = EventId.New();
         private readonly SupportRuleValidator layoutValidator;
+        private readonly ScreenModel screenModel;
 
-        public PlaceholderModel(SupportRuleValidator layoutValidator)
+        public PlaceholderModel(SupportRuleValidator layoutValidator, ScreenModel screenModel)
         {
             this.layoutValidator = layoutValidator;
+            this.screenModel = screenModel;
         }
 
         // TODO refaire le parsing xml pour que tous les params soient immutables.
@@ -76,7 +79,7 @@ namespace R3EHUDManager.placeholder.model
             if (!ValidationResult.HasFix()) return;
 
             PlaceholderGeom geom = GetGeom();
-            ValidationResult.ApplyFixes(geom);
+            ValidationResult.ApplyFixes(geom, screenModel, ResizeRule);
 
             Move(geom.Position);
             MoveAnchor(geom.Anchor);
@@ -90,7 +93,7 @@ namespace R3EHUDManager.placeholder.model
 
         public PlaceholderModel Clone() // TODO utiliser le Geom
         {
-            return new PlaceholderModel(layoutValidator)
+            return new PlaceholderModel(layoutValidator, screenModel)
             {
                 Id = Id,
                 Name = Name,

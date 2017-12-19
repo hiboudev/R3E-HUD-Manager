@@ -1,6 +1,7 @@
 ﻿using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.model;
+using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.view;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace R3EHUDManager.r3esupport.rule
             this.property = property;
         }
 
-        public void Apply(PlaceholderGeom geom)
+        public void Apply(PlaceholderGeom geom, ScreenModel screenModel, IResizeRule resizeRule)
         {
             switch (property)
             {
@@ -42,11 +43,15 @@ namespace R3EHUDManager.r3esupport.rule
                     geom.MoveAnchor(new R3ePoint(geom.Anchor.X, value));
                     break;
                 case FixPropertyType.WIDTH:
-                    double r3eWidth = 2 * value * geom.BitmapSize.Width / ScreenView.BASE_RESOLUTION.Width;
+                    Size backgroundSize = screenModel.GetBackgroundImage().PhysicalDimension.ToSize();
+                    float bitmapWidth = resizeRule.GetSize(ScreenView.BASE_RESOLUTION, backgroundSize, geom.BitmapSize, screenModel.Layout == ScreenLayoutType.TRIPLE).Width;
+                    double r3eWidth = 2 * value * bitmapWidth / backgroundSize.Width;
                     geom.Move(new R3ePoint(geom.Position.X + r3eWidth, geom.Position.Y));
                     break;
                 case FixPropertyType.HEIGHT:
-                    double r3eHeight = 2 * value * geom.BitmapSize.Height / ScreenView.BASE_RESOLUTION.Height;
+                    backgroundSize = screenModel.GetBackgroundImage().PhysicalDimension.ToSize();
+                    float bitmapHeight = resizeRule.GetSize(ScreenView.BASE_RESOLUTION, backgroundSize, geom.BitmapSize, screenModel.Layout == ScreenLayoutType.TRIPLE).Height;
+                    double r3eHeight = 2 * value * bitmapHeight / backgroundSize.Height;
                     geom.Move(new R3ePoint(geom.Position.X, geom.Position.Y + r3eHeight));
                     break;
 
