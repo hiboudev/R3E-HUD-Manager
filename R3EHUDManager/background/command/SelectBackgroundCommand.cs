@@ -44,7 +44,7 @@ namespace R3EHUDManager.background.command
             if (currentLayout == ScreenLayoutType.TRIPLE && background.Layout == ScreenLayoutType.SINGLE)
                 ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection, preferences, database);
 
-            Injector.ExecuteCommand<ValidatePlaceholderCommand>(new CollectionEventArgs<PlaceholderModel>(0, placeholderCollection, placeholderCollection.Items.ToArray()));
+            Injector.ExecuteCommand<ValidatePlaceholderCollectionCommand>(new CollectionEventArgs<PlaceholderModel>(0, placeholderCollection, placeholderCollection.Items.ToArray()));
         }
     }
 }

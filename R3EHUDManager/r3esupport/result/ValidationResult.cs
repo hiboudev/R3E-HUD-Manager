@@ -35,10 +35,10 @@ namespace R3EHUDManager.r3esupport.result
             Description = "";
         }
 
-        public void ApplyFixes(PlaceholderModel placeholder)
+        public void ApplyFixes(PlaceholderGeom geom)
         {
             foreach (Fix fix in fixes)
-                fix.Apply(placeholder);
+                fix.Apply(geom);
         }
 
         public bool HasFix()

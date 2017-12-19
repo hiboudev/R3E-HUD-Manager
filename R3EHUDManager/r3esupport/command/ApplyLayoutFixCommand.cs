@@ -24,7 +24,7 @@ namespace R3EHUDManager.r3esupport.command
         {
             PlaceholderModel placeholder = placeholderCollection.Get(args.Value);
             if (placeholder.ValidationResult.HasFix())
-                placeholder.ValidationResult.ApplyFixes(placeholder);
+                placeholder.ApplyLayoutFix();
         }
     }
 }

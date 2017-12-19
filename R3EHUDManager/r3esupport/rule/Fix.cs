@@ -22,34 +22,32 @@ namespace R3EHUDManager.r3esupport.rule
             this.property = property;
         }
 
-        public void Apply(PlaceholderModel placeholder)
+        public void Apply(PlaceholderGeom geom)
         {
             switch (property)
             {
                 case FixPropertyType.X:
-                    placeholder.Move(new R3ePoint(value, placeholder.Position.Y));
+                    geom.Move(new R3ePoint(value, geom.Position.Y));
                     break;
                 case FixPropertyType.Y:
-                    placeholder.Move(new R3ePoint(placeholder.Position.X, value));
+                    geom.Move(new R3ePoint(geom.Position.X, value));
                     break;
                 case FixPropertyType.SIZE:
-                    placeholder.Resize(new R3ePoint(value, value));
+                    geom.Resize(new R3ePoint(value, value));
                     break;
                 case FixPropertyType.ANCHOR_X:
-                    placeholder.MoveAnchor(new R3ePoint(value, placeholder.Anchor.Y));
+                    geom.MoveAnchor(new R3ePoint(value, geom.Anchor.Y));
                     break;
                 case FixPropertyType.ANCHOR_Y:
-                    placeholder.MoveAnchor(new R3ePoint(placeholder.Anchor.X, value));
+                    geom.MoveAnchor(new R3ePoint(geom.Anchor.X, value));
                     break;
                 case FixPropertyType.WIDTH:
-                    int width = GraphicalAsset.GetPlaceholderSize(placeholder.Name).Width;
-                    double r3eWidth = 2 * value * width / ScreenView.BASE_RESOLUTION.Width;
-                    placeholder.Move(new R3ePoint(placeholder.Position.X + r3eWidth, placeholder.Position.Y));
+                    double r3eWidth = 2 * value * geom.BitmapSize.Width / ScreenView.BASE_RESOLUTION.Width;
+                    geom.Move(new R3ePoint(geom.Position.X + r3eWidth, geom.Position.Y));
                     break;
                 case FixPropertyType.HEIGHT:
-                    int height = GraphicalAsset.GetPlaceholderSize(placeholder.Name).Height;
-                    double r3eHeight = 2 * value * height / ScreenView.BASE_RESOLUTION.Height;
-                    placeholder.Move(new R3ePoint(placeholder.Position.X, placeholder.Position.Y + r3eHeight));
+                    double r3eHeight = 2 * value * geom.BitmapSize.Height / ScreenView.BASE_RESOLUTION.Height;
+                    geom.Move(new R3ePoint(geom.Position.X, geom.Position.Y + r3eHeight));
                     break;
 
                 default:

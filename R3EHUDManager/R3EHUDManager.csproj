@@ -214,7 +214,7 @@
     </Compile>
     <Compile Include="r3esupport\command\ApplyLayoutFixCommand.cs" />
     <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
-    <Compile Include="r3esupport\command\ValidatePlaceholderCommand.cs" />
+    <Compile Include="r3esupport\command\ValidatePlaceholderCollectionCommand.cs" />
     <Compile Include="placeholder\events\ValidationChangedEventArgs.cs" />
     <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
     <Compile Include="r3esupport\result\ResultType.cs" />
