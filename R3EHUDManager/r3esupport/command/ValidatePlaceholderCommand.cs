@@ -21,14 +21,12 @@ namespace R3EHUDManager.r3esupport.command
 
         private readonly BaseEventArgs args;
         private readonly SupportRuleValidator validator;
-        private readonly ScreenModel screenModel;
 
         // TODO improve commands in MVC by choosing the ctor depending of event arg type.
-        public ValidatePlaceholderCommand(BaseEventArgs args, SupportRuleValidator validator, ScreenModel screenModel)
+        public ValidatePlaceholderCommand(BaseEventArgs args, SupportRuleValidator validator)
         {
             this.args = args;
             this.validator = validator;
-            this.screenModel = screenModel;
         }
 
         public void Execute()
@@ -43,15 +41,7 @@ namespace R3EHUDManager.r3esupport.command
         {
             foreach(var placeholder in placeholders)
             {
-                string description = "";
-                ValidationResult result;
-
-                List<Fix> fixes = new List<Fix>();
-
-                if (validator.Matches(placeholder, screenModel.Layout, ref description, fixes))
-                    result = ValidationResult.GetInvalid(description, fixes);
-                else
-                    result = ValidationResult.GetValid();
+                ValidationResult result = validator.Matches(placeholder);
 
                 placeholder.SetValidationResult(result);
 

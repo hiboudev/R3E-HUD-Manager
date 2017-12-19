@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.command;
 using da2mvc.core.injection;
+using da2mvc.framework.collection.events;
 using da2mvc.framework.collection.model;
 using da2mvc.framework.menubutton.events;
 using R3EHUDManager.background.model;
@@ -43,7 +44,7 @@ namespace R3EHUDManager.background.command
             if (currentLayout == ScreenLayoutType.TRIPLE && background.Layout == ScreenLayoutType.SINGLE)
                 ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection, preferences, database);
 
-            Injector.ExecuteCommand<ValidateCollectionCommand>();
+            Injector.ExecuteCommand<ValidatePlaceholderCommand>(new CollectionEventArgs<PlaceholderModel>(0, placeholderCollection, placeholderCollection.Items.ToArray()));
         }
     }
 }
