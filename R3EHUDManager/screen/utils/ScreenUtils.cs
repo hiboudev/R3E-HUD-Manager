@@ -1,5 +1,7 @@
 ﻿using da2mvc.core.injection;
+using R3EHUDManager.application.view;
 using R3EHUDManager.coordinates;
+using R3EHUDManager.database;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.view;
@@ -139,7 +141,7 @@ namespace R3EHUDManager.screen.utils
             return a;
         }
 
-        public static void PromptUserIfOutsideOfCenterScreenPlaceholders(PlaceHolderCollectionModel collectionModel, UserPreferencesModel preferences)
+        public static void PromptUserIfOutsideOfCenterScreenPlaceholders(PlaceHolderCollectionModel collectionModel, UserPreferencesModel preferences, Database database)
         {
             if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.DO_NOTHING)
                 return;
@@ -165,10 +167,26 @@ namespace R3EHUDManager.screen.utils
                 }
                 else if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.PROMPT)
                 {
-                    var dialog = Injector.GetInstance<PromptOutsidePlaceholderView>();
-                    if(dialog.ShowDialog() == DialogResult.Yes)
-                    //DialogResult result = MessageBox.Show("Some placeholders are now outside of the center screen, move them to center screen?", "Placeholders outside of center screen", MessageBoxButtons.YesNo);
-                    //if (result == DialogResult.Yes)
+                    PromptView prompt = Injector.GetInstance<PromptView>();
+                    CheckBoxData checkData = new CheckBoxData(PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER, "Remember my choice");
+                    prompt.Initialize("Placeholder(s) outside of center screen", "Some placeholders are now outside of the screen, move them to center screen?", new CheckBoxData[] { checkData });
+
+                    DialogResult result = prompt.ShowDialog();
+                    if (prompt.GetChecked(PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER))
+                    {
+                        if (result == DialogResult.Yes)
+                        {
+                            preferences.PromptOutsidePlaceholders = OutsidePlaceholdersPrefType.MOVE;
+                            database.SaveOutsidePlaceholdersPref(OutsidePlaceholdersPrefType.MOVE);
+                        }
+                        else
+                        {
+                            preferences.PromptOutsidePlaceholders = OutsidePlaceholdersPrefType.DO_NOTHING;
+                            database.SaveOutsidePlaceholdersPref(OutsidePlaceholdersPrefType.DO_NOTHING);
+                        }
+                    }
+
+                    if (result == DialogResult.Yes)
                         MovePlaceholders(collectionModel);
                 }
             }

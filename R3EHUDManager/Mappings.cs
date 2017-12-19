@@ -70,7 +70,6 @@ namespace R3EHUDManager
             Injector.MapType<PlaceholderBlackListView>();
             Injector.MapType<AppPresentationView>();
             Injector.MapType<UserPreferencesModel>(true);
-            Injector.MapType<PromptOutsidePlaceholderView>();
             Injector.MapType<SettingsView>();
             Injector.MapType<LayoutIOModel>(true);
             Injector.MapType<SaveStatusChecker>(true);
@@ -120,22 +119,8 @@ namespace R3EHUDManager
             Injector.MapCommand<PlaceholderModel, ValidatePlaceholderCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<PlaceHolderCollectionModel, ValidatePlaceholderCommand>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED);
             Injector.MapCommand<PlaceholderBlackListView, UpdateFiltersCommand>(PlaceholderBlackListView.EVENT_FILTERS_CHANGED);
-            Injector.MapCommand<PromptOutsidePlaceholderView, SaveOutsidePlaceholdersPrefCommand>(PromptOutsidePlaceholderView.EVENT_REMEMBER_CHOICE);
             Injector.MapCommand<SettingsView, SaveOutsidePlaceholdersPrefCommand>(SettingsView.EVENT_OUTSIDE_PLACEHOLDERS_PREF_CHANGED);
             Injector.MapCommand<LayoutIOModel, PromptUnsavedChangesCommand>(LayoutIOModel.EVENT_UNSAVED_CHANGES);
-
-            // Save status
-            //Injector.MapCommand<SaveProfileCommand, UpdateSaveStatusCommand>(SaveProfileCommand.EVENT_PROFILE_CHANGES_SAVED);
-            //Injector.MapCommand<SaveHudCommand, UpdateSaveStatusCommand>(SaveHudCommand.EVENT_HUD_LAYOUT_APPLIED);
-            //Injector.MapCommand<LoadHudDataCommand, UpdateSaveStatusCommand>(LoadHudDataCommand.EVENT_HUD_LAYOUT_LOADED);
-            //Injector.MapCommand<ReloadDefaultHudDataCommand, UpdateSaveStatusCommand>(ReloadDefaultHudDataCommand.EVENT_DEFAULT_HUD_LAYOUT_LOADED);
-            //Injector.MapCommand<PlaceholderModel, UpdateSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
-            //Injector.MapCommand<CreateProfileCommand, UpdateSaveStatusCommand>(CreateProfileCommand.EVENT_PROFILE_CREATED);
-            //Injector.MapCommand<ScreenModel, UpdateSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
-            //Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CHANGED);
-            //Injector.MapCommand<SelectedProfileModel, UpdateSaveStatusCommand>(SelectedProfileModel.EVENT_SELECTION_CLEARED);
-
-            // New save status
             Injector.MapCommand<PlaceholderModel, CheckSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<ScreenModel, CheckSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
         }
