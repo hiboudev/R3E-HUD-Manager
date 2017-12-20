@@ -84,7 +84,6 @@ ANY
     
     <invalid>
       <check property="x" value="1"><![CDATA[>]]></check>
-      <check property="x" value="3"><![CDATA[<=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=1 (left edge).]]></description>
       <fix>
         <property name="x" value="1"/>
@@ -94,7 +93,6 @@ ANY
     
     <invalid>
       <check property="x" value="-1"><![CDATA[<]]></check>
-      <check property="x" value="-3"><![CDATA[>=]]></check>
       <description><![CDATA[This placeholder will be displayed by R3E at X=-1 (right edge).]]></description>
       <fix>
         <property name="x" value="-1"/>
@@ -209,7 +207,7 @@ ANY
     </invalid>
   </rule>
 
-  <rule name="Outside of screen range, all except FFB and mirror." layout="triple">
+  <!--rule name="Outside of screen range, all except FFB and mirror." layout="triple">
     <placeholder name="MoTeC" />
     <placeholder name="Mini MoTeC" />
     <placeholder name="Position Bar" />
@@ -254,7 +252,7 @@ ANY
         <property name="ay" value="1"/>
       </fix>
     </invalid>
-  </rule>
+  </rule-->
 
   <rule name="Outside of screen range, all except FFB and mirror." layout="single">
     <placeholder name="MoTeC" />
@@ -601,8 +599,7 @@ ANY
       <check property="x" value="3"><![CDATA[>]]></check>
       <description><![CDATA[This placeholder X is outside of any screen.]]></description>
       <fix>
-        <property name="x" value="3"/>
-        <property name="w" value="-1"/>
+        <property name="x" value="-3"/>
         <property name="ax" value="-1"/>
       </fix>
     </invalid>

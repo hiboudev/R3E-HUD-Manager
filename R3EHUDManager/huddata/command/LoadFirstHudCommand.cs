@@ -18,17 +18,22 @@ namespace R3EHUDManager.huddata.command
     {
         private readonly UserPreferencesModel preferences;
         private readonly CollectionModel<ProfileModel> profiles;
+        private readonly Database database;
 
-        public LoadFirstHudCommand(UserPreferencesModel preferences, CollectionModel<ProfileModel> profiles)
+        public LoadFirstHudCommand(UserPreferencesModel preferences, CollectionModel<ProfileModel> profiles, Database database)
         {
             this.preferences = preferences;
             this.profiles = profiles;
+            this.database = database;
         }
 
         public void Execute()
         {
             if (!LoadLastProfile())
+            {
+                database.SaveLastProfilePref(-1);
                 Injector.ExecuteCommand<LoadHudDataCommand>();
+            }
         }
 
         private bool LoadLastProfile()
