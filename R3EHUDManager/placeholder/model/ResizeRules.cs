@@ -39,6 +39,7 @@ namespace R3EHUDManager.placeholder.model
 
     interface IResizeRule
     {
+        // TODO take Model.Size into account here and not everywhere else.
         SizeF GetSize(Size referenceScreenSize, Size targetScreenSize, Size placeholderOriginalSize, bool isTripleScreen);
     }
     /**
@@ -48,14 +49,18 @@ namespace R3EHUDManager.placeholder.model
     {
         public SizeF GetSize(Size referenceScreenSize, Size targetScreenSize, Size placeholderOriginalSize, bool isTripleScreen)
         {
-            if (isTripleScreen)
-                targetScreenSize = new Size(targetScreenSize.Width / 3, targetScreenSize.Height);
+            SizeF targetScreenSizeF;
 
-            double widthFactor = (double)targetScreenSize.Width / referenceScreenSize.Width;
-            double heightFactor = Math.Sqrt(targetScreenSize.Width * targetScreenSize.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
+            if (isTripleScreen)
+                targetScreenSizeF = new SizeF((float)targetScreenSize.Width / 3, targetScreenSize.Height);
+            else
+                targetScreenSizeF = new SizeF(targetScreenSize.Width, targetScreenSize.Height);
+
+            double widthFactor = (double)targetScreenSizeF.Width / referenceScreenSize.Width;
+            double heightFactor = Math.Sqrt(targetScreenSizeF.Width * targetScreenSizeF.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
 
             return new SizeF(
-                (float)(widthFactor * placeholderOriginalSize.Width),
+                (float)widthFactor * placeholderOriginalSize.Width,
                 (float)heightFactor * placeholderOriginalSize.Height
                 );
         }
@@ -68,10 +73,14 @@ namespace R3EHUDManager.placeholder.model
     {
         public SizeF GetSize(Size referenceScreenSize, Size targetScreenSize, Size placeholderOriginalSize, bool isTripleScreen)
         {
-            if (isTripleScreen)
-                targetScreenSize = new Size(targetScreenSize.Width / 3, targetScreenSize.Height);
+            SizeF targetScreenSizeF;
 
-            double factor = Math.Sqrt(targetScreenSize.Width * targetScreenSize.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
+            if (isTripleScreen)
+                targetScreenSizeF = new SizeF((float)targetScreenSize.Width / 3, targetScreenSize.Height);
+            else
+                targetScreenSizeF = new SizeF(targetScreenSize.Width, targetScreenSize.Height);
+
+            double factor = Math.Sqrt(targetScreenSizeF.Width * targetScreenSizeF.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
 
             return new SizeF(
                 (float)(factor * placeholderOriginalSize.Width),
@@ -87,10 +96,14 @@ namespace R3EHUDManager.placeholder.model
     {
         public SizeF GetSize(Size referenceScreenSize, Size targetScreenSize, Size placeholderOriginalSize, bool isTripleScreen)
         {
-            if (isTripleScreen)
-                targetScreenSize = new Size(targetScreenSize.Width / 3, targetScreenSize.Height);
+            SizeF targetScreenSizeF;
 
-            double factor = Math.Sqrt(targetScreenSize.Width * targetScreenSize.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
+            if (isTripleScreen)
+                targetScreenSizeF = new SizeF((float)targetScreenSize.Width / 3, targetScreenSize.Height);
+            else
+                targetScreenSizeF = new SizeF(targetScreenSize.Width, targetScreenSize.Height);
+
+            double factor = Math.Sqrt(targetScreenSizeF.Width * targetScreenSizeF.Height) / Math.Sqrt(referenceScreenSize.Width * referenceScreenSize.Height);
 
             return new SizeF(
                 (float)(factor * placeholderOriginalSize.Width) * (isTripleScreen ? 3 : 1),

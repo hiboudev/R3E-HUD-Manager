@@ -23,5 +23,12 @@ namespace R3EHUDManager.coordinates
             double y = size.Height - size.Height * (point.Y + 1) / 2;
             return new Point((int)Math.Round(x), (int)Math.Round(y));
         }
+
+        public static PointF FromR3eF(R3ePoint point, SizeF size)
+        {
+            float x = size.Width * ((float)point.X + 1) / 2;
+            float y = size.Height - size.Height * ((float)point.Y + 1) / 2;
+            return new PointF(x, y);
+        }
     }
 }

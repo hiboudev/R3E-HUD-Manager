@@ -96,7 +96,8 @@ namespace R3EHUDManager
             Injector.MapCommand<PlaceholderView, SelectPlaceholderCommand>(PlaceholderView.EVENT_REQUEST_SELECTION);
             Injector.MapCommand<PlaceholderView, MovePlaceholderCommand>(PlaceholderView.EVENT_REQUEST_MOVE);
             Injector.MapCommand<PlaceholderView, ApplyLayoutFixCommand>(PlaceholderView.EVENT_REQUEST_LAYOUT_FIX);
-            Injector.MapCommand<ScreenView, SelectNoneCommand>(ScreenView.EVENT_BACKGROUND_CLICKED);
+            Injector.MapCommand<ScreenView, SelectNoneCommand>(ScreenView.EVENT_REQUEST_DESELECTION);
+            Injector.MapCommand<ScreenView, SelectPlaceholderCommand>(ScreenView.EVENT_REQUEST_SELECTION);
             Injector.MapCommand<SelectionView, MoveSelectedPlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_MOVED);
             Injector.MapCommand<SelectionView, MoveSelectedAnchorCommand>(SelectionView.EVENT_ANCHOR_MOVED);
             Injector.MapCommand<SelectionView, ResizeSelectedPlaceholderCommand>(SelectionView.EVENT_PLACEHOLDER_RESIZED);

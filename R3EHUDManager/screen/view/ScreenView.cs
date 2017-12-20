@@ -18,6 +18,7 @@ using da2mvc.core.injection;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using System.Runtime.InteropServices;
+using System.Drawing.Drawing2D;
 
 namespace R3EHUDManager.screen.view
 {
@@ -26,21 +27,24 @@ namespace R3EHUDManager.screen.view
         private Dictionary<string, PlaceholderView> views = new Dictionary<string, PlaceholderView>();
         private const int SCREEN_MARGIN = 30;
         public event EventHandler MvcEventHandler;
-        
+
         public static Size BASE_RESOLUTION = new Size(1920, 1080);
         public static decimal BASE_ASPECT_RATIO = (decimal)BASE_RESOLUTION.Width / BASE_RESOLUTION.Height;
 
-        public static readonly int EVENT_BACKGROUND_CLICKED = EventId.New();
+        public static readonly int EVENT_REQUEST_DESELECTION = EventId.New();
+        public static readonly int EVENT_REQUEST_SELECTION = EventId.New();
 
         private BackgroundView backgroundView;
         private bool isTripleScreen;
         private ZoomLevel zoomLevel = ZoomLevel.FIT_TO_WINDOW;
+        private bool inPreviewMode;
 
         public Rectangle ScreenArea { get => new Rectangle(backgroundView.Location, backgroundView.Size); }
 
         public ScreenView()
         {
             InitializeUI();
+            SetPreviewMode(true);
         }
 
         internal void DisplayPlaceHolders(PlaceholderModel[] placeHolders)
@@ -51,6 +55,7 @@ namespace R3EHUDManager.screen.view
             {
                 PlaceholderView view = Injector.GetInstance<PlaceholderView>();
                 view.Initialize(model, backgroundView.Size, new Point(backgroundView.Location.X, backgroundView.Location.Y), isTripleScreen);
+                view.Visible = !inPreviewMode;
 
                 view.Dragging += OnPlaceholderDragging;
 
@@ -116,6 +121,61 @@ namespace R3EHUDManager.screen.view
             }
         }
 
+        internal void PlaceholderSelected()
+        {
+            SetPreviewMode(false);
+        }
+
+        internal void PlaceholderUnselected()
+        {
+            SetPreviewMode(true);
+        }
+
+        private void SetPreviewMode(bool value)
+        {
+            if (inPreviewMode == value) return;
+            inPreviewMode = value;
+
+            foreach (var view in views.Values)
+                view.Visible = !inPreviewMode;
+
+            if (value)
+            {
+                backgroundView.DrawHook = BackgroundDrawHook;
+                backgroundView.MouseDown += OnMouseDownInvisible;
+            }
+            else
+            {
+                backgroundView.DrawHook = null;
+                backgroundView.MouseDown -= OnMouseDownInvisible;
+            }
+
+            backgroundView.Invalidate();
+        }
+
+        private void OnMouseDownInvisible(object sender, MouseEventArgs e)
+        {
+            PlaceholderView[] orderedViews = views.Values.OrderBy(x => Controls.GetChildIndex(x)).ToArray();
+
+            foreach (var view in orderedViews)
+            {
+                if (new Rectangle(view.Location.X - backgroundView.Location.X, view.Location.Y - backgroundView.Location.Y, view.Size.Width, view.Size.Height)
+                    .Contains(e.Location))
+                {
+                    Bitmap bitmap = GraphicalAsset.GetPlaceholderImage(view.Model.Name);
+                    float widthRatio = (float)bitmap.Width / view.Width;
+                    float heightRatio = (float)bitmap.Height / view.Height;
+                    PointF clickPoint = new PointF(widthRatio * (e.X - view.Location.X + backgroundView.Location.X), heightRatio * (e.Y - view.Location.Y + backgroundView.Location.Y));
+                    Color pixelColor = bitmap.GetPixel((int)clickPoint.X, (int)clickPoint.Y);
+                    
+                    if (pixelColor.A == 0) continue;
+
+                    DispatchEvent(new IntEventArgs(EVENT_REQUEST_SELECTION, view.Model.Id));
+                    return;
+                }
+            }
+        }
+
         private void OnScrollChanged(object sender, EventArgs e)
         {
             foreach (PlaceholderView view in views.Values)
@@ -148,7 +208,7 @@ namespace R3EHUDManager.screen.view
             backgroundView.SetScreenArea(screenArea, zoomLevel);
 
             // Center background
-            if(zoomLevel == ZoomLevel.FIT_TO_WINDOW)
+            if (zoomLevel == ZoomLevel.FIT_TO_WINDOW)
             {
                 Point location = new Point(
                     SCREEN_MARGIN + (screenArea.Width - backgroundView.Width) / 2,
@@ -166,6 +226,36 @@ namespace R3EHUDManager.screen.view
             Update();
         }
 
+        private void BackgroundDrawHook(Graphics graphics)
+        {
+            PlaceholderView[] orderedViews = views.Values.OrderByDescending(x => Controls.GetChildIndex(x)).ToArray();
+
+            graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            //graphics.CompositingQuality = CompositingQuality.HighQuality;
+
+            // TODO: simplifier 
+            foreach (var view in orderedViews)
+            {
+                var model = view.Model;
+
+                Image originalImage = GraphicalAsset.GetPlaceholderImage(model.Name);
+                SizeF newSize = model.ResizeRule.GetSize(BASE_RESOLUTION, backgroundView.Size, originalImage.PhysicalDimension.ToSize(), isTripleScreen);
+                newSize = new SizeF(newSize.Width * (float)model.Size.X, newSize.Height * (float)model.Size.Y);
+
+                R3ePoint modelLocation = model.Position.Clone();
+                if (isTripleScreen)
+                    modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
+
+                PointF location = Coordinates.FromR3eF(modelLocation, new Size(backgroundView.Width, backgroundView.Height));
+                PointF anchor = Coordinates.FromR3eF(model.Anchor, newSize);
+                location = new PointF(location.X - anchor.X, location.Y - anchor.Y);
+
+                graphics.DrawImage(originalImage, new RectangleF(location.X, location.Y, newSize.Width, newSize.Height));
+            }
+        }
+
         private void InitializeUI()
         {
             //DoubleBuffered = true;
@@ -174,8 +264,8 @@ namespace R3EHUDManager.screen.view
             backgroundView = Injector.GetInstance<BackgroundView>();
             backgroundView.Location = new Point(SCREEN_MARGIN, SCREEN_MARGIN);
 
-            Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
-            backgroundView.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_BACKGROUND_CLICKED));
+            Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_REQUEST_DESELECTION));
+            backgroundView.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_REQUEST_DESELECTION)); // TODO small bug: mouseDown in item, move out, release => deselection
 
             Controls.Add(backgroundView);
         }

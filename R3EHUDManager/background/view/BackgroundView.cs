@@ -22,6 +22,10 @@ namespace R3EHUDManager.background.view
         private Size screenArea;
         private bool isTripleScreen;
 
+        public delegate void BackgroundDrawHook (Graphics graphics);
+
+        public BackgroundDrawHook DrawHook;
+
         public BackgroundView()
         {
             DoubleBuffered = true;
@@ -79,6 +83,8 @@ namespace R3EHUDManager.background.view
                     new Pen(lineColor, 2) { Alignment = PenAlignment.Center },
                     new Point(centerRight, 0), new Point(centerRight, Height));
             }
+
+            DrawHook?.Invoke(e.Graphics);
         }
 
         private void ComputeSize()
@@ -128,6 +134,7 @@ namespace R3EHUDManager.background.view
 
         private void OnDispose(object sender, EventArgs e)
         {
+            if (displayedBitmap != null) displayedBitmap.Dispose();
         }
     }
 }

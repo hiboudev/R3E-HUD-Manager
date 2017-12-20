@@ -7,6 +7,7 @@ using da2mvc.core.view;
 using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
 using da2mvc.framework.collection.events;
+using System;
 
 namespace R3EHUDManager.screen.view
 {
@@ -20,6 +21,19 @@ namespace R3EHUDManager.screen.view
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_ZOOM_LEVEL_CHANGED, OnZoomLevelChanged);
+
+            HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
+            HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
+        }
+
+        private void OnPlaceholderSelected(SelectionModelEventArgs args)
+        {
+            View.PlaceholderSelected();
+        }
+
+        private void OnPlaceholderUnselected(SelectionModelEventArgs args)
+        {
+            View.PlaceholderUnselected();
         }
 
         private void OnZoomLevelChanged(ScreenModelEventArgs args)
