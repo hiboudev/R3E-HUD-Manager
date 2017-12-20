@@ -44,15 +44,10 @@ namespace R3EHUDManager.settings.view
             ToolStripMenuItem openDataDirItem = new ToolStripMenuItem("Open application data directory");
             ToolStripMenuItem openInstallDirItem = new ToolStripMenuItem("Open application install directory");
             ToolStripMenuItem openHudDirItem = new ToolStripMenuItem("Open HUD directory");
-
-            ToolStripItem separator = new ToolStripSeparator();
-            ToolStripMenuItem openFilteredPlaceholders = new ToolStripMenuItem("Manage filtered placeholders");
-
-            ToolStripItem separator2 = new ToolStripSeparator();
+            
+            ToolStripMenuItem openFilteredPlaceholders = new ToolStripMenuItem("Manage filtered placeholders...");
             ToolStripMenuItem showPresentation = new ToolStripMenuItem("Quick presentation");
-
-            ToolStripItem separator3 = new ToolStripSeparator();
-            ToolStripMenuItem openSettings = new ToolStripMenuItem("Settings");
+            ToolStripMenuItem openSettings = new ToolStripMenuItem("Settings...");
 
             openHudDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_HUD_DIRECTORY));
             openDataDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_DATA_DIRECTORY));
@@ -62,14 +57,13 @@ namespace R3EHUDManager.settings.view
             openSettings.Click += OpenSettings;
 
             return new List<ToolStripItem>(new ToolStripItem[] {
-                openFilteredPlaceholders,
-                separator,
                 openHudDirItem,
                 openDataDirItem,
                 openInstallDirItem,
-                separator2,
+                new ToolStripSeparator(),
                 showPresentation,
-                separator3,
+                new ToolStripSeparator(),
+                openFilteredPlaceholders,
                 openSettings
             });
         }

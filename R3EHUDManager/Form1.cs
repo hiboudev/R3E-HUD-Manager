@@ -12,6 +12,8 @@ using R3EHUDManager.profile.view;
 using R3EHUDManager.location.view;
 using R3EHUDManager.huddata.view;
 using R3EHUDManager.application.events;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace R3EHUDManager
 {
@@ -22,7 +24,6 @@ namespace R3EHUDManager
 
         public Form1()
         {
-            //CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             Mappings.InitializeMappings(this);
 
             InitializeComponent();

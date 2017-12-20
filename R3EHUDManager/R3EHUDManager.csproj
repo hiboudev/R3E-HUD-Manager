@@ -314,6 +314,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="userpreferences\command\LoadPreferencesCommand.cs" />
+    <Compile Include="userpreferences\command\SaveCulturePrefCommand.cs" />
     <Compile Include="userpreferences\command\SaveOutsidePlaceholdersPrefCommand.cs" />
     <Compile Include="userpreferences\command\SavePromptPrefsCommand.cs" />
     <Compile Include="userpreferences\events\PromptPrefsEventArgs.cs" />

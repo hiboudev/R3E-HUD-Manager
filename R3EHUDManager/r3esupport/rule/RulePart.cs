@@ -29,37 +29,5 @@ namespace R3EHUDManager.r3esupport.rule
 
             return true;
         }
-
-        //private double GetPropertyValue(PlaceholderModel placeholder)
-        //{
-        //    switch (property)
-        //    {
-        //        case PropertyType.X:
-        //        case PropertyType.Y:
-        //            return (double)placeholder.Position.GetType().GetProperty(GetPropertyName(property)).GetValue(placeholder.Position);
-        //        case PropertyType.SIZE:
-        //            return placeholder.Size.X;
-        //        case PropertyType.ANCHOR_X:
-        //            return placeholder.Anchor.X;
-        //        case PropertyType.ANCHOR_Y:
-        //            return placeholder.Anchor.Y;
-
-        //    }
-        //    throw new Exception("Unsupported property type.");
-        //}
-
-        //private string GetPropertyName(PropertyType type)
-        //{
-        //    switch (type)
-        //    {
-        //        case PropertyType.X:
-        //            return "X";
-        //        case PropertyType.Y:
-        //            return "Y";
-        //        case PropertyType.SIZE:
-        //            return "Size";
-        //    }
-        //    throw new Exception("Unsupported property type.");
-        //}
     }
 }

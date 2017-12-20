@@ -94,6 +94,10 @@ namespace R3EHUDManager.database
                     $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.LAST_PROFILE}, {-1});"
                     , db);
 
+                NoQuery(
+                    $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USE_INVARIANT_CULTURE}, {0});"
+                    , db);
+
                 NoQuery("end", db);
 
                 db.Close();
@@ -135,7 +139,7 @@ namespace R3EHUDManager.database
             }
         }
 
-        public void GetPreferences(UserPreferencesModel model)
+        public void LoadPreferences(UserPreferencesModel model)
         {
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
@@ -163,10 +167,25 @@ namespace R3EHUDManager.database
                             case PreferenceType.LAST_PROFILE:
                                 model.LastProfileId = reader.GetInt32(1);
                                 break;
+                            case PreferenceType.USE_INVARIANT_CULTURE:
+                                model.UseInvariantCulture= Convert.ToBoolean(reader.GetInt32(1));
+                                break;
                         }
                     }
                     reader.Close();
                 }
+                db.Close();
+            }
+        }
+
+        internal void SaveUseInvariantCulture(bool value)
+        {
+            using (SQLiteConnection db = new SQLiteConnection(dbArgs))
+            {
+                db.Open();
+                NoQuery(
+                        $"UPDATE userPreferences SET value = {Convert.ToInt32(value)} WHERE type = {(int)PreferenceType.USE_INVARIANT_CULTURE};"
+                        , db);
                 db.Close();
             }
         }
@@ -176,13 +195,9 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                NoQuery("begin", db);
-
                 NoQuery(
                         $"UPDATE userPreferences SET value = {Convert.ToInt32(value)} WHERE type = {(int)prefType};"
                         , db);
-
-                NoQuery("end", db);
                 db.Close();
             }
         }
@@ -192,13 +207,9 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                NoQuery("begin", db);
-
                 NoQuery(
                         $"UPDATE userPreferences SET value = {profileId} WHERE type = {(int)PreferenceType.LAST_PROFILE};"
                         , db);
-
-                NoQuery("end", db);
                 db.Close();
             }
         }
@@ -208,14 +219,9 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                NoQuery("begin", db);
-
                 NoQuery(
                         $"UPDATE userPreferences SET value = {(int)prefValue} WHERE type = {(int)PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER};"
                         , db);
-
-
-                NoQuery("end", db);
                 db.Close();
             }
         }
@@ -225,14 +231,9 @@ namespace R3EHUDManager.database
             using (SQLiteConnection db = new SQLiteConnection(dbArgs))
             {
                 db.Open();
-                NoQuery("begin", db);
-
                 NoQuery(
                         $"UPDATE userPreferences SET value = {Convert.ToInt32(prefValue)} WHERE type = {(int)PreferenceType.USER_WATCHED_PRESENTATION};"
                         , db);
-
-
-                NoQuery("end", db);
                 db.Close();
             }
         }

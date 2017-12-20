@@ -88,7 +88,7 @@ namespace R3EHUDManager.profile.view
 
             okButton = new Button()
             {
-                Text = "Save",
+                Text = "Create",
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
             };
 

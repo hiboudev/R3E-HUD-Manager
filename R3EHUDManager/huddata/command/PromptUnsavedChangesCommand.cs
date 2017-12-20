@@ -49,7 +49,7 @@ namespace R3EHUDManager.huddata.command
 
         private void DisplayPrompt(PreferenceType preferenceType, string title, string text, string checkText)
         {
-            if (!preferences.GetPromptPreference(preferenceType)) return;
+            if (!preferences.GetSavePromptPreference(preferenceType)) return;
 
             PromptView prompt = Injector.GetInstance<PromptView>();
             CheckBoxData checkData = new CheckBoxData(preferenceType, checkText);

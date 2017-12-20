@@ -102,6 +102,10 @@ namespace R3EHUDManager.database
             new SQLiteCommand(
                 $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.LAST_PROFILE}, {-1});"
                 , connection).ExecuteNonQuery();
+
+            new SQLiteCommand(
+                $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USE_INVARIANT_CULTURE}, {0});"
+                , connection).ExecuteNonQuery();
         }
     }
 }
