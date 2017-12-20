@@ -45,13 +45,13 @@ namespace R3EHUDManager.r3esupport.rule
                 case FixPropertyType.WIDTH:
                     Size backgroundSize = screenModel.GetBackgroundImage().PhysicalDimension.ToSize();
                     float bitmapWidth = resizeRule.GetSize(ScreenView.BASE_RESOLUTION, backgroundSize, geom.BitmapSize, screenModel.Layout == ScreenLayoutType.TRIPLE).Width;
-                    double r3eWidth = 2 * value * bitmapWidth / backgroundSize.Width;
+                    double r3eWidth = geom.Size.X * 2 * value * bitmapWidth / backgroundSize.Width;
                     geom.Move(new R3ePoint(geom.Position.X + r3eWidth, geom.Position.Y));
                     break;
                 case FixPropertyType.HEIGHT:
                     backgroundSize = screenModel.GetBackgroundImage().PhysicalDimension.ToSize();
                     float bitmapHeight = resizeRule.GetSize(ScreenView.BASE_RESOLUTION, backgroundSize, geom.BitmapSize, screenModel.Layout == ScreenLayoutType.TRIPLE).Height;
-                    double r3eHeight = 2 * value * bitmapHeight / backgroundSize.Height;
+                    double r3eHeight = geom.Size.Y * 2 * value * bitmapHeight / backgroundSize.Height;
                     geom.Move(new R3ePoint(geom.Position.X, geom.Position.Y + r3eHeight));
                     break;
 
