@@ -66,11 +66,7 @@ namespace R3EHUDManager.huddata.model
         public void WriteProfileLayout(ProfileModel profile, List<PlaceholderModel> placeholders)
         {
             parser.Write(Path.Combine(location.LocalDirectoryProfiles, profile.FileName), placeholders);
-            if (source.SourceType == LayoutSourceType.PROFILE) // TODO faudrait pas checher l'id du profil ?
-            {
-                source.UpdateLayout(placeholders);
-                source.UpdateBackgroundId(profile.BackgroundId);
-            }
+            SetSource(LayoutSourceType.PROFILE, profile.Name, placeholders, profile.BackgroundId);
         }
 
         private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path, int backgroundId = -1)

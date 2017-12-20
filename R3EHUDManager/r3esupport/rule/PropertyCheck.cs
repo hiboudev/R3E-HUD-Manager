@@ -28,29 +28,20 @@ namespace R3EHUDManager.r3esupport.rule
             switch (property)
             {
                 case CheckPropertyType.X:
+                    return placeholder.Position.X;
+
                 case CheckPropertyType.Y:
-                    return (double)placeholder.Position.GetType().GetProperty(GetPropertyName(property)).GetValue(placeholder.Position);
+                    return placeholder.Position.Y;
+
                 case CheckPropertyType.SIZE:
                     return placeholder.Size.X;
+
                 case CheckPropertyType.ANCHOR_X:
                     return placeholder.Anchor.X;
+
                 case CheckPropertyType.ANCHOR_Y:
                     return placeholder.Anchor.Y;
 
-            }
-            throw new Exception("Unsupported property type.");
-        }
-
-        private string GetPropertyName(CheckPropertyType type)
-        {
-            switch (type)
-            {
-                case CheckPropertyType.X:
-                    return "X";
-                case CheckPropertyType.Y:
-                    return "Y";
-                case CheckPropertyType.SIZE:
-                    return "Size";
             }
             throw new Exception("Unsupported property type.");
         }
