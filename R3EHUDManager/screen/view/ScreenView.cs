@@ -133,7 +133,8 @@ namespace R3EHUDManager.screen.view
 
         internal void PlaceHolderUpdated()
         {
-            backgroundView.Invalidate();
+            if (inPreviewMode)
+                backgroundView.Invalidate();
         }
 
         private void SetPreviewMode(bool value)
