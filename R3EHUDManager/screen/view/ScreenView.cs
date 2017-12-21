@@ -191,6 +191,8 @@ namespace R3EHUDManager.screen.view
         {
             foreach (PlaceholderView view in views.Values)
                 view.OnScreenScrolled(backgroundView.Location);
+            // Avoid graphical artefact (horizontal lines) while scrolling fast with views visible and big image.
+            Update();
         }
 
         protected override void OnSizeChanged(EventArgs e)

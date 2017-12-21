@@ -17,6 +17,7 @@ namespace R3EHUDManager.placeholder.view
 
         private void InitializeUI()
         {
+            //DoubleBuffered = true;
             Size = new Size(4, 4);
             BackColor = Color.FromArgb(54,42,212);
         }
