@@ -24,6 +24,13 @@ namespace R3EHUDManager.screen.view
 
             HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_SELECTED, OnPlaceholderSelected);
             HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
+
+            HandleEvent<PlaceholderModel, PlaceHolderUpdatedEventArgs>(PlaceholderModel.EVENT_UPDATED, OnPlaceholderUpdated);
+        }
+
+        private void OnPlaceholderUpdated(PlaceHolderUpdatedEventArgs args)
+        {
+            View.PlaceHolderUpdated();
         }
 
         private void OnPlaceholderSelected(SelectionModelEventArgs args)

@@ -131,13 +131,20 @@ namespace R3EHUDManager.screen.view
             SetPreviewMode(true);
         }
 
+        internal void PlaceHolderUpdated()
+        {
+            backgroundView.Invalidate();
+        }
+
         private void SetPreviewMode(bool value)
         {
             if (inPreviewMode == value) return;
             inPreviewMode = value;
 
             foreach (var view in views.Values)
+            {
                 view.Visible = !inPreviewMode;
+            }
 
             if (value)
             {
@@ -162,13 +169,17 @@ namespace R3EHUDManager.screen.view
                 if (new Rectangle(view.Location.X - backgroundView.Location.X, view.Location.Y - backgroundView.Location.Y, view.Size.Width, view.Size.Height)
                     .Contains(e.Location))
                 {
-                    Bitmap bitmap = GraphicalAsset.GetPlaceholderImage(view.Model.Name);
-                    float widthRatio = (float)bitmap.Width / view.Width;
-                    float heightRatio = (float)bitmap.Height / view.Height;
-                    PointF clickPoint = new PointF(widthRatio * (e.X - view.Location.X + backgroundView.Location.X), heightRatio * (e.Y - view.Location.Y + backgroundView.Location.Y));
-                    Color pixelColor = bitmap.GetPixel((int)clickPoint.X, (int)clickPoint.Y);
-                    
-                    if (pixelColor.A == 0) continue;
+                    // Too hard to click the track map if we can't click transparent pixel, but for position bar we don't want the big gray part to capture click.
+                    if (view.Model.Name != PlaceholderName.TRACK_MAP)
+                    {
+                        Bitmap bitmap = GraphicalAsset.GetPlaceholderImage(view.Model.Name);
+                        float widthRatio = (float)bitmap.Width / view.Width;
+                        float heightRatio = (float)bitmap.Height / view.Height;
+                        PointF clickPoint = new PointF(widthRatio * (e.X - view.Location.X + backgroundView.Location.X), heightRatio * (e.Y - view.Location.Y + backgroundView.Location.Y));
+                        Color pixelColor = bitmap.GetPixel((int)clickPoint.X, (int)clickPoint.Y);
+
+                        if (pixelColor.A == 0) continue;
+                    }
 
                     DispatchEvent(new IntEventArgs(EVENT_REQUEST_SELECTION, view.Model.Id));
                     return;

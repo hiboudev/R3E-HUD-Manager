@@ -95,8 +95,8 @@ namespace R3EHUDManager.placeholder.view
         internal void OnScreenScrolled(Point screenOffset)
         {
             this.screenOffset = screenOffset;
-            //RefreshLocation();
-            //Invalidate();
+            RefreshLocation();
+            Invalidate();
         }
 
         internal void Update(UpdateType updateType)
@@ -267,7 +267,8 @@ namespace R3EHUDManager.placeholder.view
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            base.OnPaintBackground(e); e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            base.OnPaintBackground(e);
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
 
             e.Graphics.DrawImage(
                 GraphicalAsset.GetPlaceholderImage(Model.Name),
