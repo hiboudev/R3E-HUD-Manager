@@ -52,7 +52,7 @@ namespace R3EHUDManager.r3esupport.result
         {
             return
                 Type == result.Type &&
-                Description == result.Description;
+                Description == result.Description; // TODO bofbof le Equals
         }
 
         public ResultType Type { get; }
