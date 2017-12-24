@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3EHUDManager", "R3EHUDManager\R3EHUDManager.csproj", "{0AB4C7A0-06A8-47B6-932D-D0CB51010730}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "R3E HUD Manager Installer", "R3E HUD Manager Installer\R3E HUD Manager Installer.vdproj", "{70A7D37C-ED7B-41D8-96F5-77BD22F8E303}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3EHUDManager", "R3EHUDManager\R3EHUDManager.csproj", "{133AC405-3B87-4C09-BE43-0918DB2F8C87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,17 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AB4C7A0-06A8-47B6-932D-D0CB51010730}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70A7D37C-ED7B-41D8-96F5-77BD22F8E303}.Debug|Any CPU.ActiveCfg = Debug
-		{70A7D37C-ED7B-41D8-96F5-77BD22F8E303}.Release|Any CPU.ActiveCfg = Release
+		{133AC405-3B87-4C09-BE43-0918DB2F8C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{133AC405-3B87-4C09-BE43-0918DB2F8C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{133AC405-3B87-4C09-BE43-0918DB2F8C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{133AC405-3B87-4C09-BE43-0918DB2F8C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {35961FCD-2DE2-4619-8E74-851A836CBA79}
+		SolutionGuid = {9C6482C6-EE6E-44A2-B999-6035A5B53959}
 	EndGlobalSection
 EndGlobal
