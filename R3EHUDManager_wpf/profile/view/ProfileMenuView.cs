@@ -15,7 +15,7 @@ using R3EHUDManager_wpf.profile.view;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileMenuView : MenuButtonView<ProfileModel>
+    public class ProfileMenuView : MenuButtonView<ProfileModel>
     {
         public static readonly int EVENT_CREATE_NEW_PROFILE = EventId.New();
         public static readonly int EVENT_SAVE_PROFILE = EventId.New();

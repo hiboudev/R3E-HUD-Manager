@@ -10,7 +10,7 @@
 
     <DockPanel>
         <ScrollBar Name="scrollBar" Orientation="Horizontal" DockPanel.Dock="Bottom" />
-        <view:AppView ViewType="local:ScreenView" />
+        <view:AppView ViewType="{x:Type local:ScreenView}" />
     </DockPanel>
 
 </UserControl>
