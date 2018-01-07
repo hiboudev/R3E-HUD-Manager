@@ -6,6 +6,8 @@
              xmlns:view1="clr-namespace:R3EHUDManager.background.view"
              xmlns:view2="clr-namespace:R3EHUDManager.profile.view"
              xmlns:view3="clr-namespace:R3EHUDManager.settings.view"
+             xmlns:view4="clr-namespace:R3EHUDManager_wpf.selection.view"
+             xmlns:view5="clr-namespace:R3EHUDManager_wpf.application.view"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 

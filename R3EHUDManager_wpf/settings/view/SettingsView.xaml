@@ -1,5 +1,5 @@
-﻿<view11:ModalWindow
-        xmlns:view11="clr-namespace:R3EHUDManager_wpf.application.view"
+﻿<view:ModalWindow
+    xmlns:view="clr-namespace:da2mvc.framework.application.view;assembly=da2MVC_wpf"
         x:Class="R3EHUDManager_wpf.settings.view.SettingsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R3EHUDManager_wpf.settings.view"
         mc:Ignorable="d"
-        Title="SettingsView"
+        Title="Settings"
         Width="auto" Height="auto" SizeToContent="WidthAndHeight"
         >
 
@@ -25,4 +25,4 @@
         <Button Name="applyButton">Apply</Button>
     </StackPanel>
 
-</view11:ModalWindow>
+</view:ModalWindow>

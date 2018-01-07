@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.events;
+using da2mvc.framework.application.view;
 using da2mvc.framework.collection.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.profile.model;
@@ -20,7 +21,7 @@ namespace R3EHUDManager_wpf.profile.view
         private Dictionary<string, int> ids = new Dictionary<string, int>();
         List<string> names = new List<string>();
 
-        public ProfileManagerView() : base("Manage profiles")
+        public ProfileManagerView()
         {
             InitializeComponent();
             InitializeUI();

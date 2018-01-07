@@ -1,4 +1,5 @@
-﻿using da2mvc.framework.collection.model;
+﻿using da2mvc.framework.application.view;
+using da2mvc.framework.collection.model;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
@@ -21,7 +22,7 @@ namespace R3EHUDManager_wpf.background.view
         private HashSet<string> usedNames;
         private Size bitmapSize;
 
-        public BackgroundImporterView(CollectionModel<BackgroundModel> collectionModel) : base("Import background")
+        public BackgroundImporterView(CollectionModel<BackgroundModel> collectionModel)
         {
             // TODO Generic font instead of Courier New, how in WPF?
             InitializeComponent();

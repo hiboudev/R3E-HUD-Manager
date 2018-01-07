@@ -1,8 +1,11 @@
-﻿using da2mvc.core.injection;
+﻿using da2mvc.core.events;
+using da2mvc.core.injection;
 using R3EHUDManager.application.command;
+using R3EHUDManager.application.events;
 using R3EHUDManager.selection.view;
 using R3EHUDManager_wpf.screen.view;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
@@ -11,11 +14,14 @@ namespace R3EHUDManager_wpf
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IEventDispatcher
     {
+        public event EventHandler MvcEventHandler;
+        public static readonly int EVENT_APP_EXIT = EventId.New();
+
         public MainWindow()
         {
-            Mappings.Initialize();
+            Mappings.Initialize(this);
 
             InitializeComponent();
 
@@ -26,6 +32,17 @@ namespace R3EHUDManager_wpf
         {
             Loaded -= OnLoaded;
             Injector.ExecuteCommand<StartApplicationCommand>();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            DispatchEvent(new ApplicationExitEventArgs(EVENT_APP_EXIT, e));
+        }
+
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

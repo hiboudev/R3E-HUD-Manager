@@ -1,6 +1,7 @@
 ﻿using da2mvc.core.events;
 using da2mvc.core.injection;
 using da2mvc.framework.menubutton.view;
+using da2mvc.framework.utils;
 using R3EHUDManager.graphics;
 using R3EHUDManager_wpf.huddata.view;
 using R3EHUDManager_wpf.settings.view;

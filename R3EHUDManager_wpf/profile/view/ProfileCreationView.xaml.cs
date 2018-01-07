@@ -1,4 +1,5 @@
-﻿using da2mvc.framework.collection.model;
+﻿using da2mvc.framework.application.view;
+using da2mvc.framework.collection.model;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
@@ -20,7 +21,7 @@ namespace R3EHUDManager_wpf.profile.view
         private string backgroundName;
         public string ProfileName { get => nameField.Text; }
 
-        public ProfileCreationView(CollectionModel<ProfileModel> profileCollection, ScreenModel screen) : base("Profile creation")
+        public ProfileCreationView(CollectionModel<ProfileModel> profileCollection, ScreenModel screen)
         {
             usedNames = new HashSet<string>();
             usedFileNames = new HashSet<string>();

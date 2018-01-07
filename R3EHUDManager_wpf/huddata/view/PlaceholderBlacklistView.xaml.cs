@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.events;
+using da2mvc.framework.application.view;
 using R3EHUDManager.huddata.events;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.placeholder.model;
@@ -16,7 +17,7 @@ namespace R3EHUDManager_wpf.huddata.view
         public event EventHandler MvcEventHandler;
         public static readonly int EVENT_FILTERS_CHANGED = EventId.New();
 
-        public PlaceholderBlacklistView(PlaceholderBlackListModel blacklistModel) :base("Filtered placeholders")
+        public PlaceholderBlacklistView(PlaceholderBlackListModel blacklistModel)
         {
             InitializeComponent();
             InitializeUI(blacklistModel);

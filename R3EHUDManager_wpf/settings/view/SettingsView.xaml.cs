@@ -1,4 +1,5 @@
 ﻿using da2mvc.core.events;
+using da2mvc.framework.application.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.userpreferences.events;
 using R3EHUDManager.userpreferences.model;
@@ -22,7 +23,7 @@ namespace R3EHUDManager_wpf.settings.view
         public static readonly int EVENT_CULTURE_PREF_CHANGED = EventId.New();
         private Dictionary<PreferenceType, CheckBox> promptCheckBoxes;
 
-        public SettingsView(UserPreferencesModel preferences) : base("Settings")
+        public SettingsView(UserPreferencesModel preferences)
         {
             InitializeComponent();
             InitializeUI(preferences);

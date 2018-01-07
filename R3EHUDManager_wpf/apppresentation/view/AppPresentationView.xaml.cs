@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.userpreferences.model;
+﻿using da2mvc.framework.application.view;
+using R3EHUDManager.userpreferences.model;
 using R3EHUDManager_wpf.application.view;
 using System;
 using System.IO;
@@ -18,7 +19,7 @@ namespace R3EHUDManager_wpf.apppresentation.view
         private int currentPathIndex;
         private BitmapImage currentImage;
 
-        public AppPresentationView(UserPreferencesModel preferences) : base("Quick presentation")
+        public AppPresentationView(UserPreferencesModel preferences)
         {
             InitializeComponent();
             InitializeUI(preferences);

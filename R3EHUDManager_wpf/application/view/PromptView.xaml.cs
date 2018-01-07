@@ -1,4 +1,5 @@
-﻿using R3EHUDManager.userpreferences.model;
+﻿using da2mvc.framework.application.view;
+using R3EHUDManager.userpreferences.model;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace R3EHUDManager_wpf.application.view
     {
         private Dictionary<PreferenceType, CheckBox> checkBoxes = new Dictionary<PreferenceType, CheckBox>();
 
-        public PromptView() : base("Prompt")
+        public PromptView()
         {
             InitializeComponent();
         }

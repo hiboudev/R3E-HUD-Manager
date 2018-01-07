@@ -93,7 +93,7 @@ namespace R3EHUDManager_wpf
             Injector.MapType<PlaceholderBlacklistView>();
             Injector.MapType<AppPresentationView>();
             Injector.MapType<SupportRuleParser>(true);
-            //Injector.MapType<SaveStatusChecker>(true);
+            Injector.MapType<SaveStatusChecker>(true);
             Injector.MapType<PromptView>();
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
@@ -101,7 +101,7 @@ namespace R3EHUDManager_wpf
             Injector.MapView<BackgroundManagerView, CollectionMediator<CollectionModel<BackgroundModel>, BackgroundModel, BackgroundManagerView>>();
             Injector.MapView<BackgroundMenuView, BackgroundMenuMediator>(true);
             Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);
-            //Injector.MapView<ProfileManagerView, CollectionMediator<CollectionModel<ProfileModel>, ProfileModel, ProfileManagerView>>();
+            Injector.MapView<ProfileManagerView, CollectionMediator<CollectionModel<ProfileModel>, ProfileModel, ProfileManagerView>>();
             Injector.MapView<SelectionView, SelectionMediator>(true);
             Injector.MapView<LayoutLoadSaveView, LayoutLoadSaveMediator>(true);
             Injector.MapView<R3eDirectoryMenuView, R3eDirectoryMenuMediator>(true);
@@ -149,14 +149,14 @@ namespace R3EHUDManager_wpf
             Injector.MapCommand<ZoomView, ChangeZoomLevelCommand>(ZoomView.EVENT_ZOOM_LEVEL_CHANGED);
 
 
-            //Injector.MapCommand<PlaceholderModel, CheckSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
-            //Injector.MapCommand<ScreenModel, CheckSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
+            Injector.MapCommand<PlaceholderModel, CheckSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
+            Injector.MapCommand<ScreenModel, CheckSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
 
             Injector.MapCommand<ProfileMenuView, SaveProfileCommand>(ProfileMenuView.EVENT_SAVE_PROFILE);
-            //Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);
+            Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);
 
-            //Injector.MapCommand<LayoutIOModel, PromptUnsavedChangesCommand>(LayoutIOModel.EVENT_UNSAVED_CHANGES);
-            //Injector.MapCommand<MainWindow, ApplicationExitCommand>(MainWindow.EVENT_APP_EXIT);
+            Injector.MapCommand<LayoutIOModel, PromptUnsavedChangesCommand>(LayoutIOModel.EVENT_UNSAVED_CHANGES);
+            Injector.MapCommand<MainWindow, ApplicationExitCommand>(MainWindow.EVENT_APP_EXIT);
         }
     }
 }
