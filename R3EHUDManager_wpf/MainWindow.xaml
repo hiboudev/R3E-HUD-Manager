@@ -4,9 +4,40 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R3EHUDManager_wpf"
+        xmlns:view="clr-namespace:R3EHUDManager_wpf.selection.view"
+        xmlns:view5="clr-namespace:R3EHUDManager.background.view"
+        xmlns:view3="clr-namespace:R3EHUDManager_wpf.application.view"
+        xmlns:view2="clr-namespace:R3EHUDManager_wpf.screen.view"
+        xmlns:view1="clr-namespace:R3EHUDManager.profile.view"
+        xmlns:view4="clr-namespace:R3EHUDManager_wpf.huddata.view"
+        xmlns:view6="clr-namespace:R3EHUDManager.location.view"
+        xmlns:view7="clr-namespace:R3EHUDManager.huddata.view"
+        xmlns:view8="clr-namespace:R3EHUDManager.settings.view"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="620" Width="1020">
+
+    <DockPanel Background="WhiteSmoke">
+
+        <DockPanel Name="leftToolBar" DockPanel.Dock="Left"  Margin="4,0,4,4" >
+            <view3:AppView ViewType="view:SelectionView" DockPanel.Dock="Top" Background="{StaticResource ColorGray}" />
+            <view3:AppView ViewType="view8:SettingsMenuView" HorizontalAlignment="Left" DockPanel.Dock="Bottom" />
+            <view3:AppView ViewType="view6:R3eDirectoryMenuView" DockPanel.Dock="Bottom" Margin="0,6,0,6"/>
+            <view3:AppView ViewType="view4:LayoutLoadSaveView" DockPanel.Dock="Bottom"/>
+            <view3:AppView ViewType="view:PlaceholderListView" Margin="0,0,0,6" />
+        </DockPanel>
+
+        <StackPanel Name="topToolBar" DockPanel.Dock="Top" Orientation="Horizontal">
+            <view3:AppView ViewType="view5:BackgroundMenuView" Margin="0,0,4,0" />
+            <view3:AppView ViewType="view1:ProfileMenuView" />
+        </StackPanel>
+
+        <DockPanel Name="bottomToolBar" DockPanel.Dock="Bottom" >
+            <view3:AppView DockPanel.Dock="Left" ViewType="view2:ZoomView" Margin="0,0,10,0" />
+            <view3:AppView ViewType="view7:LayoutSourceView" HorizontalAlignment="Right" />
+        </DockPanel>
+
+        <view3:AppView ViewType="view2:ScreenScrollerView" />
+
+    </DockPanel>
+
 </Window>

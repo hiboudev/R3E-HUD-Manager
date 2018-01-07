@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using da2mvc.core.injection;
+using R3EHUDManager.application.command;
+using R3EHUDManager.selection.view;
+using R3EHUDManager_wpf.screen.view;
+using System;
+using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace R3EHUDManager_wpf
 {
@@ -22,7 +15,17 @@ namespace R3EHUDManager_wpf
     {
         public MainWindow()
         {
+            Mappings.Initialize();
+
             InitializeComponent();
+
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnLoaded;
+            Injector.ExecuteCommand<StartApplicationCommand>();
         }
     }
 }
