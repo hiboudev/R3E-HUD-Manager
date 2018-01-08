@@ -204,7 +204,11 @@ namespace R3EHUDManager_wpf.placeholder.view
             if (showDecoration || isSelected)
             {
                 Typeface typeface = new Typeface(new FontFamily(), FontStyles.Normal, FontWeights.Bold, new FontStretch());
-                FormattedText text = new FormattedText(Model.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, new SolidColorBrush(Colors.Black));
+                FormattedText text = new FormattedText(Model.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, new SolidColorBrush(Colors.Black))
+                {
+                    MaxTextWidth = rect.Width,
+                    MaxTextHeight = rect.Height
+                };
 
                 labelHitTestRect = new Rect(rect.X + validationWidth, rect.Y, text.Width, text.Height);
 

@@ -127,6 +127,16 @@ namespace R3EHUDManager.graphics
             byte[] pixels = new byte[height * stride];
 
             return BitmapSource.Create(200, 200, 96, 96, PixelFormats.Pbgra32, palette, pixels, stride);
+
+            //var visual = new DrawingVisual();
+            //using (var context = visual.RenderOpen())
+            //{
+            //    Typeface typeface = new Typeface(new FontFamily(), FontStyles.Normal, FontWeights.Bold, new FontStretch());
+            //    context.DrawText(new FormattedText("Missing bitmap", CultureInfo.DefaultThreadCurrentCulture, FlowDirection.LeftToRight, typeface, 16, new SolidColorBrush(Colors.OrangeRed)), new Point(10, 100));
+            //}
+            //RenderTargetBitmap bitmap = new RenderTargetBitmap(200, 200, 96, 96, PixelFormats.Default);
+            //bitmap.Render(visual);
+            //return bitmap;
         }
     }
 }
