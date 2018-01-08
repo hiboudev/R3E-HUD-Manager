@@ -1,5 +1,4 @@
 ﻿using da2mvc.core.events;
-using da2mvc.core.injection;
 using da2mvc.core.view;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.placeholder.events;
@@ -9,22 +8,12 @@ using R3EHUDManager.screen.utils;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.view;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
+using Xceed.Wpf.Toolkit.Primitives;
 
 namespace R3EHUDManager_wpf.selection.view
 {
@@ -39,7 +28,6 @@ namespace R3EHUDManager_wpf.selection.view
         public static readonly int EVENT_PLACEHOLDER_RESIZED = EventId.New();
         public static readonly int EVENT_MOVE_TO_SCREEN = EventId.New();
 
-        // TODO toujours nécessaires?
         private bool holdStepperEvent = false;
         private bool holdScreenEvent = false;
         private bool holdPresetEvent = false;
@@ -153,13 +141,12 @@ namespace R3EHUDManager_wpf.selection.view
 
             stepperX.Increment = stepperY.Increment = stepperSize.Increment = 0.001;
 
-            stepperX.GotFocus += SelectStepperText;
-            stepperY.GotFocus += SelectStepperText;
-            stepperSize.GotFocus += SelectStepperText;
-
-            //stepperX.MouseWheel += OnStepperMouseWheel; // TODO mousewheel faster
-            //stepperY.MouseWheel += OnStepperMouseWheel;
-            //stepperSize.MouseWheel += OnStepperMouseWheel;
+            stepperX.MouseWheelActiveTrigger =
+                stepperY.MouseWheelActiveTrigger =
+                stepperSize.MouseWheelActiveTrigger = MouseWheelActiveTrigger.Disabled;
+            stepperX.MouseWheel += OnStepperMouseWheel;
+            stepperY.MouseWheel += OnStepperMouseWheel;
+            stepperSize.MouseWheel += OnStepperMouseWheel;
 
             foreach (string presetName in R3ePointPreset.presets.Keys)
             {
@@ -238,7 +225,7 @@ namespace R3EHUDManager_wpf.selection.view
             R3ePoint anchor = R3ePointPreset.GetPreset(name);
             if (anchor != null)
             {
-                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED,  anchor));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED, anchor));
             }
         }
 
@@ -256,7 +243,7 @@ namespace R3EHUDManager_wpf.selection.view
             }
             else if (sender == stepperSize)
             {
-                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED,new R3ePoint(Convert.ToDouble(stepperSize.Value), Convert.ToDouble(stepperSize.Value))));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED, new R3ePoint(Convert.ToDouble(stepperSize.Value), Convert.ToDouble(stepperSize.Value))));
             }
         }
 
@@ -278,20 +265,12 @@ namespace R3EHUDManager_wpf.selection.view
         //    }
         //}
 
-        private void SelectStepperText(object sender, EventArgs e)
+        private void OnStepperMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            //TODO select whole text when focused with TAB
-            //var stepper = (DecimalUpDown)sender;
-            //stepper.Select(0, stepper.Text.Length);
+            var stepper = (DoubleUpDown)sender;
+            stepper.Value += (e.Delta > 0 ? 1 : -1) * stepper.Increment * 20;
+            e.Handled = true;
         }
-
-        //private void OnStepperMouseWheel(object sender, MouseEventArgs e)
-        //{
-        //    HandledMouseEventArgs handledArgs = (HandledMouseEventArgs)e;
-        //    handledArgs.Handled = true;
-        //    var stepper = (NumericUpDown)sender;
-        //    stepper.Value += (e.Delta > 0 ? 1 : -1) * stepper.Increment * 20;
-        //}
 
         public event EventHandler Disposed;
         public event EventHandler MvcEventHandler;
