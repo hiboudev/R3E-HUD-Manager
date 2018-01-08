@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Title="Import background" Height="450" Width="500"
         FocusManager.FocusedElement="{Binding ElementName=inputField}"
+        ResizeMode="CanResize"
         >
 
     <Grid>
