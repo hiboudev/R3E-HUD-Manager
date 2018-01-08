@@ -26,7 +26,6 @@ namespace R3EHUDManager.selection.view
             HandleEvent<PlaceholderModel, PlaceHolderUpdatedEventArgs>(PlaceholderModel.EVENT_UPDATED, OnPlaceholderUpdated);
 
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-            //HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
 
             HandleEvent<UserPreferencesModel, BaseEventArgs>(UserPreferencesModel.EVENT_CULTURE_CHANGED, OnCultureChanged);
         }
@@ -35,11 +34,6 @@ namespace R3EHUDManager.selection.view
         {
             View.RefreshCulture();
         }
-
-        //private void OnTripleScreenChanged(ScreenModelEventArgs args)
-        //{
-        //    View.TripleScreenChanged(args.ScreenModel.Layout);
-        //}
 
         private void OnBackgroundChanged(ScreenModelEventArgs args)
         {

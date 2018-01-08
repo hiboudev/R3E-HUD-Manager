@@ -186,16 +186,6 @@ namespace R3EHUDManager.screen.utils
         private static void MovePlaceholders(PlaceHolderCollectionModel collectionModel)
         {
             Injector.ExecuteCommand<FixPlaceholderCollectionCommand>();
-            //foreach (PlaceholderModel placeholder in collectionModel.Items)
-            //{
-            //    ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
-            //    if (screen != ScreenPositionType.CENTER)
-            //    {
-            //        R3ePoint offset = ScreenUtils.ToScreenOffset(placeholder, ScreenPositionType.CENTER);
-            //        R3ePoint newPosition = new R3ePoint(placeholder.Position.X + offset.X, placeholder.Position.Y + offset.Y);
-            //        placeholder.Move(newPosition);
-            //    }
-            //}
         }
     }
 }

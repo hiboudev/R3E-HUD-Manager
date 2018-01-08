@@ -23,13 +23,8 @@ namespace R3EHUDManager.huddata.view
             // Force autosize now.
             Text = "";
             VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            //AutoSize = true;
-            //TextAlign = ContentAlignment.BottomRight;
-            //Font = new Font(Font.FontFamily, 7);
             FontSize = 10;
             Foreground = new SolidColorBrush(Color.FromArgb(255,150,162,168));
-            //Dock = DockStyle.Fill;
-            //Margin = new Padding();
         }
 
         internal void SetSource(LayoutSourceType sourceType, string name)

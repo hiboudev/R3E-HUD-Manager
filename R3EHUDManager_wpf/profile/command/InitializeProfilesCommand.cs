@@ -24,11 +24,6 @@ namespace R3EHUDManager.profile.command
             List<ProfileModel> profiles = database.GetAllProfiles();
             collection.Clear();
             collection.AddRange(profiles);
-
-            //if(profiles.Count > 0)
-            //{
-            //    Injector.ExecuteCommand(typeof(SelectProfileCommand), new ContextMenuEventArgs("", profiles[0].Id, ""));
-            //}
         }
     }
 }

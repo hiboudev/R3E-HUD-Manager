@@ -8,7 +8,7 @@ using R3EHUDManager_wpf.placeholder.view;
 
 namespace R3EHUDManager.placeholder.view
 {
-    class PlaceholderMediator : BaseMediator<PlaceholderView_new>
+    class PlaceholderMediator : BaseMediator<PlaceholderView>
     {
         public PlaceholderMediator()
         {

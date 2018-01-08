@@ -97,7 +97,7 @@ namespace R3EHUDManager_wpf
             Injector.MapType<PromptView>();
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
-            Injector.MapView<PlaceholderView_new, PlaceholderMediator>();
+            Injector.MapView<PlaceholderView, PlaceholderMediator>();
             Injector.MapView<BackgroundManagerView, CollectionMediator<CollectionModel<BackgroundModel>, BackgroundModel, BackgroundManagerView>>();
             Injector.MapView<BackgroundMenuView, BackgroundMenuMediator>(true);
             Injector.MapView<ProfileMenuView, ProfileMenuMediator>(true);
@@ -144,7 +144,7 @@ namespace R3EHUDManager_wpf
             Injector.MapCommand<PlaceholderListView, SelectNoneCommand>(PlaceholderListView.EVENT_PLACEHOLDER_UNSELECTED);
 
             Injector.MapCommand<PlaceHolderCollectionModel, ValidatePlaceholderCollectionCommand>(PlaceHolderCollectionModel.EVENT_ITEMS_ADDED);
-            Injector.MapCommand<PlaceholderView_new, ApplyLayoutFixCommand>(PlaceholderView_new.EVENT_REQUEST_LAYOUT_FIX);
+            Injector.MapCommand<PlaceholderView, ApplyLayoutFixCommand>(PlaceholderView.EVENT_REQUEST_LAYOUT_FIX);
 
             Injector.MapCommand<ZoomView, ChangeZoomLevelCommand>(ZoomView.EVENT_ZOOM_LEVEL_CHANGED);
 

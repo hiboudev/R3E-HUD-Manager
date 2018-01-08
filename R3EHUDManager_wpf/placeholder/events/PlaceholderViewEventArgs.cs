@@ -6,13 +6,13 @@ namespace R3EHUDManager.placeholder.events
 {
     class PlaceholderViewEventArgs : BaseEventArgs
     {
-        public PlaceholderViewEventArgs(int eventId, PlaceholderView_new view, Point point) : base(eventId)
+        public PlaceholderViewEventArgs(int eventId, PlaceholderView view, Point point) : base(eventId)
         {
             View = view;
             Point = point;
         }
 
-        public PlaceholderView_new View { get; }
+        public PlaceholderView View { get; }
         public Point Point { get; }
     }
 }

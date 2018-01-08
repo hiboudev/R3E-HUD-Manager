@@ -34,14 +34,7 @@ namespace R3EHUDManager.settings.view
                 Content = new Image() { Source = GraphicalAsset.GetPreferencesIcon() }; // TODO éventuel problème avec le title de la super-classe ?
 
             Width = Height = 20;
-
-            //Disposed += OnDispose;
         }
-
-        //private void OnDispose(object sender, EventArgs e)
-        //{
-        //    Image.Dispose(); // TODO WPF?
-        //}
 
         protected override List<MenuItem> GetBuiltInItems()
         {
@@ -97,7 +90,6 @@ namespace R3EHUDManager.settings.view
             if (dialog.ShowDialog() == true)
             {
             }
-            //dialog.Dispose();
         }
 
         private void OpenFiltersManager(object sender, EventArgs e)
@@ -107,7 +99,6 @@ namespace R3EHUDManager.settings.view
             if (dialog.ShowDialog() == true)
             {
             }
-            //dialog.Dispose();
         }
     }
 }

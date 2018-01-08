@@ -52,7 +52,7 @@ namespace R3EHUDManager_wpf.screen.view
 
             private void RightButtonClicked(object sender, MouseButtonEventArgs e)
             {
-                PlaceholderView_new view = screenView.GetViewUnder(Mouse.GetPosition(screenView));
+                PlaceholderView view = screenView.GetViewUnder(Mouse.GetPosition(screenView));
                 if (view == null) return;
 
                 view.ShowLayoutFixMenu();
@@ -66,7 +66,7 @@ namespace R3EHUDManager_wpf.screen.view
             private readonly ScreenView screenView;
             private readonly ScreenViewMouseInteraction interaction;
             private readonly DispatcherTimer timer;
-            private PlaceholderView_new toolTipView;
+            private PlaceholderView toolTipView;
             private Point mouseTriggerPosition;
 
             public ToolTipManager(ScreenView screenView, ScreenViewMouseInteraction interaction)
@@ -108,7 +108,7 @@ namespace R3EHUDManager_wpf.screen.view
 
             private void DisplayTooltip()
             {
-                PlaceholderView_new view = screenView.GetViewUnder(Mouse.GetPosition(screenView));
+                PlaceholderView view = screenView.GetViewUnder(Mouse.GetPosition(screenView));
                 if (view == null) return;
 
                 if (!view.GetLabelHitTestRect().Contains(Mouse.GetPosition(screenView))) return;
@@ -129,7 +129,7 @@ namespace R3EHUDManager_wpf.screen.view
         {
             private readonly ScreenView screenView;
             private readonly ScreenViewMouseInteraction interaction;
-            private PlaceholderView_new draggingView;
+            private PlaceholderView draggingView;
             private Point dragMouseStart;
             private Point dragViewOffset;
 
@@ -143,7 +143,7 @@ namespace R3EHUDManager_wpf.screen.view
             private void OnMouseDown(object sender, MouseButtonEventArgs e)
             {
                 Point mousePosition = e.GetPosition(screenView);
-                PlaceholderView_new view = screenView.GetViewUnder(mousePosition);
+                PlaceholderView view = screenView.GetViewUnder(mousePosition);
 
                 if (view == null)
                 {
@@ -157,7 +157,7 @@ namespace R3EHUDManager_wpf.screen.view
                     interaction.DispatchEvent(new IntEventArgs(ScreenViewMouseInteraction.EVENT_REQUEST_SELECTION, view.Model.Id));
             }
 
-            private void StartDrag(MouseButtonEventArgs e, PlaceholderView_new view)
+            private void StartDrag(MouseButtonEventArgs e, PlaceholderView view)
             {
                 draggingView = view;
 

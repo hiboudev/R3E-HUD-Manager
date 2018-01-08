@@ -12,6 +12,7 @@
             Foreground="{StaticResource GrayText}" Margin="0,4,0,0">Placeholders</TextBlock>
 
         <ListBox Name="list" Background="WhiteSmoke">
+            <!-- All this stuff cause I don't want a barely visible gray background when list isn't focused.-->
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="SnapsToDevicePixels" Value="True" />

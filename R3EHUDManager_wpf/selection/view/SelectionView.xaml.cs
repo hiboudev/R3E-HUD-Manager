@@ -211,7 +211,7 @@ namespace R3EHUDManager_wpf.selection.view
             if (holdScreenEvent) return;
 
             ScreenPositionType screenType = (ScreenPositionType)((RadioButton)sender).Tag;
-            DispatchEvent(new PlaceholderScreenEventArgs(EVENT_MOVE_TO_SCREEN, Selection.Name, screenType));
+            DispatchEvent(new PlaceholderScreenEventArgs(EVENT_MOVE_TO_SCREEN, Selection.Id, screenType));
         }
 
         private void OnPositionPresetSelected(object sender, SelectionChangedEventArgs e)

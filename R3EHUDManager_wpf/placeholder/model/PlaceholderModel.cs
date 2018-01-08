@@ -72,7 +72,6 @@ namespace R3EHUDManager.placeholder.model
 
         internal void UpdateLayoutValidation()
         {
-            // TODO pas besoin d'envoyer un event car les vues n'ont pas encore affiché les placeholders. Revoir tout ça.
             SetValidationResult(layoutValidator.Matches(this));
         }
 

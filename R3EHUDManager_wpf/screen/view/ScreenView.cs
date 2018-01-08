@@ -51,7 +51,7 @@ namespace R3EHUDManager_wpf.screen.view
         {
             foreach (var model in models)
             {
-                PlaceholderView_new view = Injector.GetInstance<PlaceholderView_new>();
+                PlaceholderView view = Injector.GetInstance<PlaceholderView>();
                 view.Initialize(model, isTripleScreen);
                 views.Add(view);
             }
@@ -60,7 +60,7 @@ namespace R3EHUDManager_wpf.screen.view
 
         internal void RemovePlaceholders()
         {
-            foreach (PlaceholderView_new view in views)
+            foreach (PlaceholderView view in views)
                 view.Dispose();
 
             views.Clear();
@@ -69,9 +69,9 @@ namespace R3EHUDManager_wpf.screen.view
 
         internal void PlaceholderSelected(PlaceholderModel model)
         {
-            PlaceholderView_new selectedView = null;
+            PlaceholderView selectedView = null;
 
-            foreach (PlaceholderView_new view in views)
+            foreach (PlaceholderView view in views)
             {
                 view.ShowDecoration = true;
                 if (view.Model.Id == model.Id)
@@ -96,7 +96,7 @@ namespace R3EHUDManager_wpf.screen.view
             InvalidateVisual();
         }
 
-        private void BringToFront(PlaceholderView_new view)
+        private void BringToFront(PlaceholderView view)
         {
             views.Remove(view);
             views.Add(view);
@@ -104,7 +104,7 @@ namespace R3EHUDManager_wpf.screen.view
 
         internal void PlaceholderUnselected()
         {
-            foreach (PlaceholderView_new view in views)
+            foreach (PlaceholderView view in views)
                 view.ShowDecoration = false;
         }
 
@@ -118,21 +118,15 @@ namespace R3EHUDManager_wpf.screen.view
         private void SetTripleScreen(bool isTripleScreen)
         {
             this.isTripleScreen = isTripleScreen;
-            foreach (PlaceholderView_new view in views)
+            foreach (PlaceholderView view in views)
                 view.IsTripleScreen = isTripleScreen;
         }
 
-        //internal void TripleScreenChanged(ScreenModel screenModel)
-        //{
-        //    isTripleScreen = screenModel.Layout == ScreenLayoutType.TRIPLE;
-        //    InvalidateVisual();
-        //}
-
-        internal PlaceholderView_new GetViewUnder(Point mousePosition)
+        internal PlaceholderView GetViewUnder(Point mousePosition)
         {
             for (int index = views.Count - 1; index >= 0; index--)
             {
-                PlaceholderView_new view = (PlaceholderView_new)views[index];
+                PlaceholderView view = (PlaceholderView)views[index];
 
                 Rect bounds = view.ContentBounds;
                 if (!bounds.Contains(mousePosition)) continue;
@@ -166,7 +160,7 @@ namespace R3EHUDManager_wpf.screen.view
 
             ScreenAreaChanged?.Invoke(this, new BaseEventArgs(EVENT_SCREEN_AREA_CHANGED));
 
-            foreach (PlaceholderView_new view in views)
+            foreach (PlaceholderView view in views)
             {
                 view.ScreenArea = screenArea;
                 view.Render();
