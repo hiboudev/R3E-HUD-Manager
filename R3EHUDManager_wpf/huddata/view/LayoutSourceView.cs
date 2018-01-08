@@ -45,6 +45,10 @@ namespace R3EHUDManager.huddata.view
                 case LayoutSourceType.PROFILE:
                     sourceText = "Profile";
                     break;
+
+                case LayoutSourceType.DELETED_PROFILE:
+                    sourceText = "Deleted profile";
+                    break;
             }
 
             Text = $"{headerText}: {sourceText} \"{TroncateText(name)}\"";

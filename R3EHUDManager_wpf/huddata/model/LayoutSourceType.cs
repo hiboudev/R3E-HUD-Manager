@@ -10,6 +10,7 @@ namespace R3EHUDManager.huddata.model
     {
         PROFILE,
         R3E,
-        BACKUP
+        BACKUP,
+        DELETED_PROFILE // When user deleted the current layout profile.
     }
 }

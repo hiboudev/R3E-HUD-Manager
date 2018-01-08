@@ -2,6 +2,7 @@
 using da2mvc.framework.collection.model;
 using R3EHUDManager.application.events;
 using R3EHUDManager.database;
+using R3EHUDManager.huddata.model;
 using R3EHUDManager.location.model;
 using R3EHUDManager.profile.model;
 using System;
@@ -16,15 +17,17 @@ namespace R3EHUDManager.profile.command
         private readonly SelectedProfileModel profileSelection;
         private readonly Database database;
         private readonly LocationModel location;
+        private readonly LayoutIOModel layoutIO;
 
         public DeleteProfileCommand(IntEventArgs args, CollectionModel<ProfileModel> profileCollection, SelectedProfileModel profileSelection,
-                                    Database database, LocationModel location)
+                                    Database database, LocationModel location, LayoutIOModel layoutIO)
         {
             this.args = args;
             this.profileCollection = profileCollection;
             this.profileSelection = profileSelection;
             this.database = database;
             this.location = location;
+            this.layoutIO = layoutIO;
         }
 
         public void Execute()
@@ -40,6 +43,8 @@ namespace R3EHUDManager.profile.command
             profileCollection.Remove(profile);
             database.DeleteProfile(profile);
             File.Delete(filePath);
+            layoutIO.ProfileDeleted(profile);
+            layoutIO.DispatchSaveStatus();
         }
     }
 }

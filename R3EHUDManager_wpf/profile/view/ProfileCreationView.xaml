@@ -19,5 +19,4 @@
         <Button IsDefault="True" Name="okButton" Margin="0,4,0,0">Create</Button>
     </StackPanel>
     
-   
 </view1:ModalWindow>
