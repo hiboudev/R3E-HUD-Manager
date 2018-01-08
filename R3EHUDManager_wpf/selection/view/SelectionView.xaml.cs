@@ -221,12 +221,12 @@ namespace R3EHUDManager_wpf.selection.view
             string name = positionPresets.SelectedItem.ToString();
             R3ePoint position = isTripleScreen ? R3ePointPreset.GetPreset(name, ScreenUtils.GetScreen(Selection)) : R3ePointPreset.GetPreset(name);
 
-            DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, position));
+            DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, position));
 
             if (linkAnchorsCheck.IsChecked == true)
             {
                 anchorPresets.SelectedItem = position;
-                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED, UpdateType.ANCHOR, R3ePointPreset.GetPreset(name)));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED, R3ePointPreset.GetPreset(name)));
             }
         }
 
@@ -238,7 +238,7 @@ namespace R3EHUDManager_wpf.selection.view
             R3ePoint anchor = R3ePointPreset.GetPreset(name);
             if (anchor != null)
             {
-                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED, UpdateType.ANCHOR, anchor));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_ANCHOR_MOVED,  anchor));
             }
         }
 
@@ -248,15 +248,15 @@ namespace R3EHUDManager_wpf.selection.view
 
             if (sender == stepperX)
             {
-                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, new R3ePoint(Convert.ToDouble(stepperX.Value), Selection.Position.Y)));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, new R3ePoint(Convert.ToDouble(stepperX.Value), Selection.Position.Y)));
             }
             else if (sender == stepperY)
             {
-                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, new R3ePoint(Selection.Position.X, Convert.ToDouble(stepperY.Value))));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, new R3ePoint(Selection.Position.X, Convert.ToDouble(stepperY.Value))));
             }
             else if (sender == stepperSize)
             {
-                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED, UpdateType.SIZE, new R3ePoint(Convert.ToDouble(stepperSize.Value), Convert.ToDouble(stepperSize.Value))));
+                DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED,new R3ePoint(Convert.ToDouble(stepperSize.Value), Convert.ToDouble(stepperSize.Value))));
             }
         }
 

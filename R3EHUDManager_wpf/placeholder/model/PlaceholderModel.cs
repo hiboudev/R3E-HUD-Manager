@@ -43,21 +43,21 @@ namespace R3EHUDManager.placeholder.model
         public void Move(R3ePoint position)
         {
             Position = position;
-            DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this, UpdateType.POSITION));
+            DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this));
             SetValidationResult(layoutValidator.Matches(this));
         }
 
         public void MoveAnchor(R3ePoint position)
         {
             Anchor = position;
-            DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this, UpdateType.ANCHOR));
+            DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this));
             SetValidationResult(layoutValidator.Matches(this));
         }
 
         public void Resize(R3ePoint position)
         {
             Size = position;
-            DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this, UpdateType.SIZE));
+            DispatchEvent(new PlaceHolderUpdatedEventArgs(EVENT_UPDATED, this));
             SetValidationResult(layoutValidator.Matches(this));
         }
 

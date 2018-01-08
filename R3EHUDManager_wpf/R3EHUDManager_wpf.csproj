@@ -167,8 +167,6 @@
     <Compile Include="huddata\view\PlaceholderBlacklistView.xaml.cs">
       <DependentUpon>PlaceholderBlacklistView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="huddata\view\PlaceholderBlackListView_old.cs" />
-    <Compile Include="huddata\view\ReloadLayoutView.cs" />
     <Compile Include="location\command\FindR3eHomeDirectoryCommand.cs" />
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
     <Compile Include="location\command\SelectR3eDirectoryCommand.cs" />
@@ -196,12 +194,9 @@
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
     <Compile Include="placeholder\model\ResizeRules.cs" />
-    <Compile Include="placeholder\model\UpdateType.cs" />
     <Compile Include="placeholder\validator\PlaceholderUserChangeValidator.cs" />
-    <Compile Include="placeholder\view\AnchorView.cs" />
     <Compile Include="placeholder\view\PlaceholderMediator.cs" />
     <Compile Include="placeholder\view\PlaceholderView.cs" />
-    <Compile Include="placeholder\view\PlaceholderView_new.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />
     <Compile Include="profile\command\DeleteProfileCommand.cs" />
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
@@ -217,7 +212,6 @@
     <Compile Include="profile\view\ProfileManagerView.xaml.cs">
       <DependentUpon>ProfileManagerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="profile\view\ProfileManagerView_old.cs" />
     <Compile Include="profile\view\ProfileMenuMediator.cs" />
     <Compile Include="profile\view\ProfileMenuView.cs" />
     <Compile Include="r3esupport\command\ApplyLayoutFixCommand.cs" />
@@ -237,7 +231,6 @@
     <Compile Include="r3esupport\rule\RulePart.cs" />
     <Compile Include="r3esupport\rule\SupportRule.cs" />
     <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
-    <Compile Include="screen\command\ChangeScreenLayoutCommand.cs" />
     <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
     <Compile Include="screen\events\ScreenModelEventArgs.cs" />
     <Compile Include="screen\model\ScreenLayoutType.cs" />
@@ -252,12 +245,10 @@
     </Compile>
     <Compile Include="screen\view\ScreenView.cs" />
     <Compile Include="screen\view\ScreenViewMouseInteraction.cs" />
-    <Compile Include="screen\view\ScreenView_old.cs" />
     <Compile Include="screen\view\ZoomMediator.cs" />
     <Compile Include="screen\view\ZoomView.xaml.cs">
       <DependentUpon>ZoomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="screen\view\ZoomView_old.cs" />
     <Compile Include="selection\command\SelectNoneCommand.cs" />
     <Compile Include="selection\command\SelectPlaceholderCommand.cs" />
     <Compile Include="selection\events\SelectionModelEventArgs.cs" />
@@ -268,7 +259,6 @@
       <DependentUpon>PlaceholderListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="selection\view\PlaceholdersListMediator.cs" />
-    <Compile Include="selection\view\PlaceholdersListView_old.cs" />
     <Compile Include="selection\view\SelectionMediator.cs" />
     <Compile Include="selection\view\SelectionView.xaml.cs">
       <DependentUpon>SelectionView.xaml</DependentUpon>
@@ -277,7 +267,6 @@
     <Compile Include="settings\view\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="settings\view\SettingsView_old.cs" />
     <Compile Include="userpreferences\command\LoadPreferencesCommand.cs" />
     <Compile Include="userpreferences\command\SaveCulturePrefCommand.cs" />
     <Compile Include="userpreferences\command\SaveOutsidePlaceholdersPrefCommand.cs" />
@@ -367,9 +356,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="placeholder\view\PlaceholderView.resx">
-      <DependentUpon>PlaceholderView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
