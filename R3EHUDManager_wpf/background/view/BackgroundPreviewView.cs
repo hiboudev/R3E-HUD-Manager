@@ -46,7 +46,7 @@ namespace R3EHUDManager_wpf.background.view
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
 
             double panelRatio = RenderSize.Width / RenderSize.Height;
-            double bitmapRatio = (bitmap.PixelWidth / bitmap.PixelHeight);
+            double bitmapRatio = (double)bitmap.PixelWidth / bitmap.PixelHeight;
 
             Size bitmapSize = new Size();
             if (bitmapRatio > panelRatio)
@@ -69,6 +69,7 @@ namespace R3EHUDManager_wpf.background.view
                 return;
             }
 
+            drawingContext.DrawRectangle(new SolidColorBrush(Colors.Azure),null, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
             drawingContext.DrawImage(bitmap, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
 
             double rectOverlayWidth = bitmapSize.Width / 3;
