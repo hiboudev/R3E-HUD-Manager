@@ -18,13 +18,23 @@
         >
     
     <DockPanel Background="WhiteSmoke">
-
+        
         <DockPanel Name="leftToolBar" DockPanel.Dock="Left"  Margin="4,0,4,4" >
-            <view3:AppView ViewType="{x:Type view:SelectionView}" DockPanel.Dock="Top" Background="{StaticResource ColorGray}" />
-            <view3:AppView ViewType="{x:Type view8:SettingsMenuView}" HorizontalAlignment="Left" DockPanel.Dock="Bottom" />
-            <view3:AppView ViewType="{x:Type view6:R3eDirectoryMenuView}" DockPanel.Dock="Bottom" Margin="0,6,0,6"/>
-            <view3:AppView ViewType="{x:Type view4:LayoutLoadSaveView}" DockPanel.Dock="Bottom"/>
-            <view3:AppView ViewType="{x:Type view:PlaceholderListView}" Margin="0,0,0,6" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <view3:AppView ViewType="{x:Type view:SelectionView}" Grid.Row="0" Background="{StaticResource ColorGray}" />
+                <view3:AppView ViewType="{x:Type view:PlaceholderListView}" Grid.Row="1" Margin="0,0,0,6" />
+                <view3:AppView ViewType="{x:Type view4:LayoutLoadSaveView}" Grid.Row="2" />
+                <view3:AppView ViewType="{x:Type view6:R3eDirectoryMenuView}" Grid.Row="3"  Margin="0,6,0,6"/>
+                <view3:AppView ViewType="{x:Type view8:SettingsMenuView}" HorizontalAlignment="Left" Grid.Row="4" />
+            </Grid>
         </DockPanel>
         
         <StackPanel Name="topToolBar" DockPanel.Dock="Top" Orientation="Horizontal">
