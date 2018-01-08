@@ -13,10 +13,10 @@
     <StackPanel>
         <Label>Profile name</Label>
         <TextBox Name="nameField" />
-        <Label Name="backgroundField" Foreground="Gray" />
-        <Label Name="fileNameField" Foreground="Gray" />
-        <Label Name="errorField" Foreground="OrangeRed" />
-        <Button IsDefault="True" Name="okButton">Create</Button>
+        <TextBlock Name="backgroundField" Foreground="Gray" />
+        <TextBlock Name="fileNameField" Foreground="Gray" />
+        <TextBlock Name="errorField" Foreground="OrangeRed" />
+        <Button IsDefault="True" Name="okButton" Margin="0,4,0,0">Create</Button>
     </StackPanel>
     
    

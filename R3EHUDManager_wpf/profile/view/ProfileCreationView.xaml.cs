@@ -40,9 +40,9 @@ namespace R3EHUDManager_wpf.profile.view
         private void InitializeUI()
         {
             // Autosize this fields immediatly.
-            fileNameField.Content = errorField.Content = "";
+            fileNameField.Text = errorField.Text = "";
 
-            backgroundField.Content = $"Background: {backgroundName}";
+            backgroundField.Text = $"Background: {backgroundName}";
             nameField.TextChanged += CheckText;
 
             okButton.Click += (sender, args) => DialogResult = true;
@@ -52,24 +52,22 @@ namespace R3EHUDManager_wpf.profile.view
         private void CheckText(object sender, EventArgs e)
         {
             string fileName = CreateProfileCommand.ToFileName(nameField.Text);
-            // WTF this "access key" concept that removes underscores by default... Need to start text with "_" to use the Label like it should work.
-            // TODO Ban Label from the app and use only TextBlock?
-            fileNameField.Content = $"_File name: {fileName}";
+            fileNameField.Text = $"File name: {fileName}";
 
             bool nameIsValid = Regex.Replace(nameField.Text, @"\s+", "").Length > 0;
 
             if (usedNames.Contains(nameField.Text))
             {
-                errorField.Content = "This name is already used by another profile.";
+                errorField.Text = "This name is already used by another profile.";
                 nameIsValid = false;
             }
             else if (usedFileNames.Contains(fileName))
             {
-                errorField.Content = "This file name is already used by another profile.";
+                errorField.Text = "This file name is already used by another profile.";
                 nameIsValid = false;
             }
             else
-                errorField.Content = "";
+                errorField.Text = "";
 
             okButton.IsEnabled = nameIsValid;
         }
