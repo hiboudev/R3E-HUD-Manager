@@ -102,6 +102,9 @@
     <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
     <Compile Include="application\view\AppView.cs" />
+    <Compile Include="application\view\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="application\view\PromptView.xaml.cs">
       <DependentUpon>PromptView.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
     <Compile Include="userpreferences\model\UserPreferencesModel.cs" />
     <Compile Include="utils\BitmapUtils.cs" />
     <Compile Include="utils\StringUtils.cs" />
+    <Page Include="application\view\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="application\view\PromptView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
