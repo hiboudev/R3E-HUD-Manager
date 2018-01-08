@@ -164,6 +164,7 @@ namespace R3EHUDManager_wpf.screen.view
                 dragMouseStart = e.GetPosition(screenView); // TODO sert à rien de le stocker
                 dragViewOffset = new Point(dragMouseStart.X - view.ContentBounds.X, dragMouseStart.Y - view.ContentBounds.Y);
 
+                screenView.CaptureMouse();
                 screenView.MouseMove += OnMouseMove;
                 screenView.MouseUp += OnMouseUp;
             }
@@ -190,6 +191,7 @@ namespace R3EHUDManager_wpf.screen.view
 
             private void ReleaseDrag()
             {
+                screenView.ReleaseMouseCapture();
                 screenView.MouseMove -= OnMouseMove;
                 screenView.MouseUp -= OnMouseUp;
                 draggingView = null;
