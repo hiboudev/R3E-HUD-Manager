@@ -9,7 +9,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <DockPanel>
-        <ScrollBar Name="scrollBar" Orientation="Horizontal" DockPanel.Dock="Bottom" />
+        <ScrollBar Name="scrollBar" Orientation="Horizontal" DockPanel.Dock="Bottom"
+                   SmallChange="10" LargeChange="150" />
         <view:AppView ViewType="{x:Type local:ScreenView}" />
     </DockPanel>
 
