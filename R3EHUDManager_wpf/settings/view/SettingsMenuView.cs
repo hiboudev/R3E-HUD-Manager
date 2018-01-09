@@ -8,7 +8,10 @@ using R3EHUDManager_wpf.settings.view;
 using R3EHUDManager_wpf.utils;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace R3EHUDManager.settings.view
 {
@@ -28,10 +31,12 @@ namespace R3EHUDManager.settings.view
 
         private void InitializeUI()
         {
+            // Note : Si on appelle SetSelectedItem le Content va être remplacé.
+            ContentTemplate = new ButtonContentTemplate();
             DrawArrow = false;
 
             if (!WpfUtils.IsInDesignMode())
-                Content = new Image() { Source = GraphicalAsset.GetPreferencesIcon() }; // TODO éventuel problème avec le title de la super-classe ?
+                Content = GraphicalAsset.GetPreferencesIcon();
 
             Width = Height = 20;
         }
@@ -99,6 +104,18 @@ namespace R3EHUDManager.settings.view
             if (dialog.ShowDialog() == true)
             {
             }
+        }
+    }
+
+    class ButtonContentTemplate : DataTemplate
+    {
+        public ButtonContentTemplate()
+        {
+            var image = new FrameworkElementFactory(typeof(Image));
+            image.SetValue(Image.SourceProperty, new Binding());
+            image.SetValue(Image.StretchProperty, Stretch.Uniform);
+
+            VisualTree = image;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace R3EHUDManager.location.view
 
         public R3eDirectoryMenuView()
         {
+            
         }
 
         protected override string Title => "Dir";
