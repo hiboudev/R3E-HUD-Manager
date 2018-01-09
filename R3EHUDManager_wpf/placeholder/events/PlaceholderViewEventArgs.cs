@@ -1,5 +1,5 @@
 ﻿using da2mvc.core.events;
-using R3EHUDManager_wpf.placeholder.view;
+using R3EHUDManager.placeholder.view;
 using System.Windows;
 
 namespace R3EHUDManager.placeholder.events

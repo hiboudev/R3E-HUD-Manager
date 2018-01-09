@@ -2,7 +2,7 @@
 using R3EHUDManager.application.events;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.r3esupport.result;
-using R3EHUDManager_wpf.placeholder.view;
+using R3EHUDManager.placeholder.view;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace R3EHUDManager_wpf.screen.view
+namespace R3EHUDManager.screen.view
 {
     public class ScreenViewMouseInteraction : IEventDispatcher
     {

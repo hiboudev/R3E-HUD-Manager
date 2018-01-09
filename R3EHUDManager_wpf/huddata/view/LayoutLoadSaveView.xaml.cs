@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace R3EHUDManager_wpf.huddata.view
+namespace R3EHUDManager.huddata.view
 {
     /// <summary>
     /// Logique d'interaction pour LayoutLoadSaveView.xaml

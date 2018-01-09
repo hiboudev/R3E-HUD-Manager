@@ -3,11 +3,11 @@ using da2mvc.framework.application.view;
 using R3EHUDManager.huddata.events;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.placeholder.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Collections.Generic;
 
-namespace R3EHUDManager_wpf.huddata.view
+namespace R3EHUDManager.huddata.view
 {
     /// <summary>
     /// Logique d'interaction pour PlaceholderBlacklistView.xaml

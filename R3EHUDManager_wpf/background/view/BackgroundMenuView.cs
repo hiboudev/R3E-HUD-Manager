@@ -4,7 +4,7 @@ using da2mvc.framework.menubutton.view;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
-using R3EHUDManager_wpf.background.view;
+using R3EHUDManager.background.view;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
@@ -18,7 +18,7 @@ namespace R3EHUDManager.background.view
 
         public BackgroundMenuView()
         {
-            Width = 190;
+            Width = 200;
         }
 
         protected override string Title => "Background";

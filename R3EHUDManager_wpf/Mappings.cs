@@ -35,17 +35,17 @@ using R3EHUDManager.selection.view;
 using R3EHUDManager.settings.view;
 using R3EHUDManager.userpreferences.command;
 using R3EHUDManager.userpreferences.model;
-using R3EHUDManager_wpf.application.view;
-using R3EHUDManager_wpf.apppresentation.view;
-using R3EHUDManager_wpf.background.view;
-using R3EHUDManager_wpf.huddata.view;
-using R3EHUDManager_wpf.placeholder.view;
-using R3EHUDManager_wpf.profile.view;
-using R3EHUDManager_wpf.screen.view;
-using R3EHUDManager_wpf.selection.view;
-using R3EHUDManager_wpf.settings.view;
+using R3EHUDManager.application.view;
+using R3EHUDManager.apppresentation.view;
+using R3EHUDManager.background.view;
+using R3EHUDManager.huddata.view;
+using R3EHUDManager.placeholder.view;
+using R3EHUDManager.profile.view;
+using R3EHUDManager.screen.view;
+using R3EHUDManager.selection.view;
+using R3EHUDManager.settings.view;
 
-namespace R3EHUDManager_wpf
+namespace R3EHUDManager
 {
     class Mappings
     {

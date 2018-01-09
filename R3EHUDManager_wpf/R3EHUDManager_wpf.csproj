@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D940D917-CE99-4493-9243-B9FC7F7D89DA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>R3EHUDManager_wpf</RootNamespace>
+    <RootNamespace>R3EHUDManager</RootNamespace>
     <AssemblyName>R3EHUDManager_wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

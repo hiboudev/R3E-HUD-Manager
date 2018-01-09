@@ -10,7 +10,7 @@ using R3EHUDManager.placeholder.events;
 using da2mvc.core.view;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.events;
-using R3EHUDManager_wpf.selection.view;
+using R3EHUDManager.selection.view;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.userpreferences.model;
 

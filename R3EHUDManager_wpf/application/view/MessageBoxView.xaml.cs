@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace R3EHUDManager_wpf.application.view
+namespace R3EHUDManager.application.view
 {
     /// <summary>
     /// Logique d'interaction pour MessageBoxView.xaml

@@ -15,7 +15,7 @@ using System.Windows.Input;
 using Xceed.Wpf.Toolkit;
 using Xceed.Wpf.Toolkit.Primitives;
 
-namespace R3EHUDManager_wpf.selection.view
+namespace R3EHUDManager.selection.view
 {
     /// <summary>
     /// Logique d'interaction pour SelectionView.xaml

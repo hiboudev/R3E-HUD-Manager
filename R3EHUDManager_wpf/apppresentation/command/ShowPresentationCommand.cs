@@ -1,7 +1,7 @@
 ﻿using da2mvc.core.command;
 using R3EHUDManager.database;
 using R3EHUDManager.userpreferences.model;
-using R3EHUDManager_wpf.apppresentation.view;
+using R3EHUDManager.apppresentation.view;
 using System.Windows.Forms;
 
 namespace R3EHUDManager.apppresentation.command

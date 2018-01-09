@@ -3,11 +3,11 @@ using da2mvc.framework.application.view;
 using da2mvc.framework.collection.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.background.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Collections.Generic;
 
-namespace R3EHUDManager_wpf.background.view
+namespace R3EHUDManager.background.view
 {
     /// <summary>
     /// Logique d'interaction pour BackgroundManagerView.xaml

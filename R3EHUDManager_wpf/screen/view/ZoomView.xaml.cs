@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace R3EHUDManager_wpf.screen.view
+namespace R3EHUDManager.screen.view
 {
     /// <summary>
     /// Logique d'interaction pour ZoomView.xaml

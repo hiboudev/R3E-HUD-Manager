@@ -3,11 +3,11 @@ using da2mvc.framework.application.view;
 using da2mvc.framework.collection.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.profile.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Collections.Generic;
 
-namespace R3EHUDManager_wpf.profile.view
+namespace R3EHUDManager.profile.view
 {
     /// <summary>
     /// Logique d'interaction pour ProfileManagerView.xaml

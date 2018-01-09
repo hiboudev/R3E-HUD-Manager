@@ -3,12 +3,12 @@ using da2mvc.framework.collection.model;
 using R3EHUDManager.profile.command;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace R3EHUDManager_wpf.profile.view
+namespace R3EHUDManager.profile.view
 {
     /// <summary>
     /// Logique d'interaction pour ProfileCreationView.xaml

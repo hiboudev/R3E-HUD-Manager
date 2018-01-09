@@ -2,7 +2,7 @@
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
-using R3EHUDManager_wpf.screen.view;
+using R3EHUDManager.screen.view;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

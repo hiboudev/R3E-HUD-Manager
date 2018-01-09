@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace R3EHUDManager_wpf.utils
+namespace R3EHUDManager.utils
 {
     class BitmapUtils
     {

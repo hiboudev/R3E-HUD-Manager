@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace R3EHUDManager_wpf.background.view
+namespace R3EHUDManager.background.view
 {
     public class BackgroundPreviewView : FrameworkElement
     {

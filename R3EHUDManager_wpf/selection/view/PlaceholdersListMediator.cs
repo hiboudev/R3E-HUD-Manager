@@ -5,7 +5,7 @@ using R3EHUDManager.selection.events;
 using da2mvc.framework.collection.view;
 using System;
 using R3EHUDManager.placeholder.events;
-using R3EHUDManager_wpf.selection.view;
+using R3EHUDManager.selection.view;
 
 namespace R3EHUDManager.selection.view
 {

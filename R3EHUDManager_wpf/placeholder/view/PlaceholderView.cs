@@ -5,7 +5,7 @@ using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.result;
-using R3EHUDManager_wpf.screen.view;
+using R3EHUDManager.screen.view;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace R3EHUDManager_wpf.placeholder.view
+namespace R3EHUDManager.placeholder.view
 {
     class PlaceholderView : DrawingVisual, IView, IEventDispatcher
     {

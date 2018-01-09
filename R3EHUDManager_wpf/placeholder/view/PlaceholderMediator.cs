@@ -4,7 +4,7 @@ using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.model;
-using R3EHUDManager_wpf.placeholder.view;
+using R3EHUDManager.placeholder.view;
 
 namespace R3EHUDManager.placeholder.view
 {

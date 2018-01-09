@@ -8,7 +8,7 @@ using R3EHUDManager.screen.events;
 using R3EHUDManager.screen.model;
 using da2mvc.framework.collection.events;
 using System;
-using R3EHUDManager_wpf.screen.view;
+using R3EHUDManager.screen.view;
 
 namespace R3EHUDManager.screen.view
 {

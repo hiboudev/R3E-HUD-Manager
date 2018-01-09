@@ -3,14 +3,14 @@ using da2mvc.framework.application.view;
 using R3EHUDManager.application.events;
 using R3EHUDManager.userpreferences.events;
 using R3EHUDManager.userpreferences.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace R3EHUDManager_wpf.settings.view
+namespace R3EHUDManager.settings.view
 {
     /// <summary>
     /// Logique d'interaction pour SettingsView.xaml

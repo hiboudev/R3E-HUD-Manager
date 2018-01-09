@@ -3,13 +3,13 @@ using da2mvc.core.injection;
 using R3EHUDManager.application.command;
 using R3EHUDManager.application.events;
 using R3EHUDManager.selection.view;
-using R3EHUDManager_wpf.screen.view;
+using R3EHUDManager.screen.view;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
-namespace R3EHUDManager_wpf
+namespace R3EHUDManager
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml

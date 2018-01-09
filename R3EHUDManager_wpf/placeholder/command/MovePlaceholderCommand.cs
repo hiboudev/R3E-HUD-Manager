@@ -6,7 +6,7 @@ using System.Drawing;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.placeholder.validator;
-using R3EHUDManager_wpf.screen.view;
+using R3EHUDManager.screen.view;
 using System.Windows;
 
 namespace R3EHUDManager.placeholder.command

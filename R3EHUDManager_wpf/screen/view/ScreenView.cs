@@ -5,9 +5,9 @@ using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
-using R3EHUDManager_wpf.application.view;
-using R3EHUDManager_wpf.placeholder.view;
-using R3EHUDManager_wpf.utils;
+using R3EHUDManager.application.view;
+using R3EHUDManager.placeholder.view;
+using R3EHUDManager.utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace R3EHUDManager_wpf.screen.view
+namespace R3EHUDManager.screen.view
 {
     public class ScreenView : FrameworkElement, IView, IEventDispatcher
     {

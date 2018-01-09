@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace R3EHUDManager_wpf.screen.view
+namespace R3EHUDManager.screen.view
 {
     class ScreenScrollerMediator : BaseMediator<ScreenScrollerView>
     {

@@ -6,7 +6,7 @@ using R3EHUDManager.database;
 using R3EHUDManager.location.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System.IO;
 using System.Windows.Forms;
 

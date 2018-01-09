@@ -3,7 +3,7 @@ using da2mvc.framework.collection.model;
 using R3EHUDManager.background.model;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace R3EHUDManager_wpf.background.view
+namespace R3EHUDManager.background.view
 {
     /// <summary>
     /// Logique d'interaction pour BackgroundImporterView.xaml

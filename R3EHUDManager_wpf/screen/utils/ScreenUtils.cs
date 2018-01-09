@@ -5,7 +5,7 @@ using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.userpreferences.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.Windows;
 using System.Windows.Forms;

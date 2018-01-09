@@ -1,11 +1,11 @@
 ﻿using da2mvc.framework.application.view;
 using R3EHUDManager.userpreferences.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace R3EHUDManager_wpf.apppresentation.view
+namespace R3EHUDManager.apppresentation.view
 {
     /// <summary>
     /// Logique d'interaction pour AppPresentationView.xaml

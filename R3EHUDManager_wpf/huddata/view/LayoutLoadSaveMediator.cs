@@ -1,7 +1,7 @@
 ﻿using da2mvc.core.view;
 using R3EHUDManager.huddata.events;
 using R3EHUDManager.huddata.model;
-using R3EHUDManager_wpf.huddata.view;
+using R3EHUDManager.huddata.view;
 using System;
 using System.Collections.Generic;
 using System.Linq;

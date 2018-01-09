@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace R3EHUDManager_wpf.selection.view
+namespace R3EHUDManager.selection.view
 {
     /// <summary>
     /// Logique d'interaction pour PlaceholderListView.xaml

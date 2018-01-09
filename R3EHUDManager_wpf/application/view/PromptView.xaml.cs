@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace R3EHUDManager_wpf.application.view
+namespace R3EHUDManager.application.view
 {
     /// <summary>
     /// Logique d'interaction pour PromptView.xaml

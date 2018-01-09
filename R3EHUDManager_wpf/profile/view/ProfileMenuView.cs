@@ -11,7 +11,7 @@ using da2mvc.framework.menubutton.view;
 using System.Drawing;
 using System.Windows.Controls;
 using System.Windows;
-using R3EHUDManager_wpf.profile.view;
+using R3EHUDManager.profile.view;
 
 namespace R3EHUDManager.profile.view
 {
@@ -25,7 +25,7 @@ namespace R3EHUDManager.profile.view
 
         public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection)
         {
-            Width = 170;
+            Width = 200;
             this.backgroundCollection = backgroundCollection;
         }
 

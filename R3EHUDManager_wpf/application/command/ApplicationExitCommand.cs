@@ -5,7 +5,7 @@ using R3EHUDManager.database;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.userpreferences.model;
-using R3EHUDManager_wpf.application.view;
+using R3EHUDManager.application.view;
 using System.Collections.Generic;
 
 namespace R3EHUDManager.application.command
