@@ -40,7 +40,7 @@ namespace R3EHUDManager.huddata.command
                 int r3eVersion = parser.GetVersion(locationModel.HudOptionsFile);
                 int backupVersion = parser.GetVersion(locationModel.HudOptionsBackupFile);
 
-                if(r3eVersion > backupVersion)
+                if (r3eVersion > backupVersion)
                 {
                     Debug.WriteLine("New version found for the HUD options file.");
 

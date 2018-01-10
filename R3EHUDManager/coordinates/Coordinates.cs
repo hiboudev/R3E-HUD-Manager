@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace R3EHUDManager.coordinates
 {
@@ -11,8 +12,8 @@ namespace R3EHUDManager.coordinates
     {
         public static R3ePoint ToR3e(Point point, Size size)
         {
-            double x = ((double)point.X / size.Width) * 2 - 1;
-            double y = ((double)(size.Height - point.Y) / size.Height) * 2 - 1;
+            double x = (point.X / size.Width) * 2 - 1;
+            double y = ((size.Height - point.Y) / size.Height) * 2 - 1;
 
             return new R3ePoint(x, y);
         }
@@ -21,14 +22,7 @@ namespace R3EHUDManager.coordinates
         {
             double x = size.Width * (point.X + 1) / 2;
             double y = size.Height - size.Height * (point.Y + 1) / 2;
-            return new Point((int)Math.Round(x), (int)Math.Round(y));
-        }
-
-        public static PointF FromR3eF(R3ePoint point, SizeF size)
-        {
-            float x = size.Width * ((float)point.X + 1) / 2;
-            float y = size.Height - size.Height * ((float)point.Y + 1) / 2;
-            return new PointF(x, y);
+            return new Point(x, y);
         }
     }
 }

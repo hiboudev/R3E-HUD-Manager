@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    class SupportRule
+    public class SupportRule
     {
         private RulePart[] parts = new RulePart[] { };
         private HashSet<string> targets = new HashSet<string>();
@@ -50,7 +50,7 @@ namespace R3EHUDManager.r3esupport.rule
                 if (part.Matches(placeholder))
                 {
                     isMatch = true;
-                    
+
                     description += (description.Length > 0 ? Environment.NewLine : "") + part.Description;
                     fixes.AddRange(part.Fixes);
                 }

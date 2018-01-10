@@ -10,7 +10,7 @@ namespace R3EHUDManager.profile.events
 {
     class ProfileEventArgs : BaseEventArgs
     {
-        public ProfileEventArgs(int  eventId, ProfileModel profile) : base(eventId)
+        public ProfileEventArgs(int eventId, ProfileModel profile) : base(eventId)
         {
             Profile = profile;
         }

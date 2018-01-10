@@ -6,9 +6,11 @@ using R3EHUDManager.database;
 using R3EHUDManager.location.model;
 using R3EHUDManager.screen.model;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
+using System.Diagnostics;
 using System.IO;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace R3EHUDManager.background.command
 {
@@ -41,18 +43,11 @@ namespace R3EHUDManager.background.command
             string destinationFileName = $"{Path.GetFileNameWithoutExtension(fileName)}.jpg";
             string destinationPath = Path.Combine(locationModel.LocalDirectoryBackgrounds, destinationFileName);
 
-            Bitmap originalBitmap = new Bitmap(args.FilePath);
-            Bitmap destinationBitmap;
+            BitmapImage originalBitmap = new BitmapImage(new Uri(args.FilePath));
 
             if (!args.CropArea.IsEmpty)
             {
-                destinationBitmap = new Bitmap(args.CropArea.Width, args.CropArea.Height);
-                using (Graphics g = Graphics.FromImage(destinationBitmap))
-                {
-                    g.DrawImage(originalBitmap, new Rectangle(0, 0, destinationBitmap.Width, destinationBitmap.Height),
-                                     args.CropArea, GraphicsUnit.Pixel);
-                }
-                SaveJpeg(destinationBitmap, destinationPath);
+                SaveJpeg(CropBitmap(originalBitmap, args.CropArea), destinationPath);
             }
             else
                 SaveJpeg(originalBitmap, destinationPath);
@@ -75,25 +70,21 @@ namespace R3EHUDManager.background.command
             return $"{nameOnly}({counter}){extension}";
         }
 
-        private void SaveJpeg(Bitmap bitmap, string path)
+        private void SaveJpeg(BitmapSource bitmap, string path)
         {
-            EncoderParameters parameters = new EncoderParameters(1);
-            parameters.Param[0] = new EncoderParameter(Encoder.Quality, 70L);
-
-            bitmap.Save(path, GetEncoderInfo("image/jpeg"), parameters);
+            Debug.WriteLine(path);
+            using (FileStream stream = new FileStream(path, FileMode.Create))
+            {
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.QualityLevel = 70;
+                encoder.Frames.Add(BitmapFrame.Create(bitmap));
+                encoder.Save(stream);
+            }
         }
 
-        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        private BitmapSource CropBitmap(BitmapImage bitmap, Rect rect)
         {
-            int j;
-            ImageCodecInfo[] encoders;
-            encoders = ImageCodecInfo.GetImageEncoders();
-            for (j = 0; j < encoders.Length; ++j)
-            {
-                if (encoders[j].MimeType == mimeType)
-                    return encoders[j];
-            }
-            return null;
+            return new CroppedBitmap(bitmap, new Int32Rect((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height));
         }
     }
 }

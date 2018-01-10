@@ -3,7 +3,7 @@ using R3EHUDManager.profile.events;
 
 namespace R3EHUDManager.profile.model
 {
-    class SelectedProfileModel:EventDispatcher
+    class SelectedProfileModel : EventDispatcher
     {
         public ProfileModel Selection { get; private set; }
         public static readonly int EVENT_SELECTION_CHANGED = EventId.New();

@@ -6,6 +6,7 @@ using R3EHUDManager.database;
 using R3EHUDManager.location.model;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.screen.model;
+using R3EHUDManager.application.view;
 using System.IO;
 using System.Windows.Forms;
 
@@ -38,7 +39,7 @@ namespace R3EHUDManager.background.command
             string parentProfileNames = GetParentProfileNames(background);
             if (parentProfileNames != null)
             {
-                MessageBox.Show($"This background is used by one or more profiles ({parentProfileNames}), you can't delete it.", "Can't delete this background");
+                MessageBoxView.Show("Can't delete this background", $"This background is used by one or more profiles ({parentProfileNames}), you can't delete it.");
                 return;
             }
 

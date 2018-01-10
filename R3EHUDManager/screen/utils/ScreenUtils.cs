@@ -1,19 +1,13 @@
 ﻿using da2mvc.core.injection;
-using R3EHUDManager.application.view;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.database;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.screen.model;
-using R3EHUDManager.screen.view;
 using R3EHUDManager.userpreferences.model;
+using R3EHUDManager.application.view;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace R3EHUDManager.screen.utils
@@ -117,13 +111,6 @@ namespace R3EHUDManager.screen.utils
             }
         }
 
-        public static string GetFormattedAspectRatio(Size size)
-        {
-            int denominator = GetHighestDenominator(size.Width, size.Height);
-
-            return $"{size.Width / denominator}/{size.Height / denominator}";
-        }
-
         public static string GetFormattedAspectRatio(int width, int height)
         {
             int denominator = GetHighestDenominator(width, height);
@@ -158,7 +145,7 @@ namespace R3EHUDManager.screen.utils
                     break;
                 }
             }
-            
+
             if (outsidePlaceholder)
             {
                 if (preferences.PromptOutsidePlaceholders == OutsidePlaceholdersPrefType.MOVE)
@@ -169,12 +156,12 @@ namespace R3EHUDManager.screen.utils
                 {
                     PromptView prompt = Injector.GetInstance<PromptView>();
                     CheckBoxData checkData = new CheckBoxData(PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER, "Remember my choice");
-                    prompt.Initialize("Placeholder(s) outside of center screen", "Some placeholders are now outside of the screen, move them to center screen?", new CheckBoxData[] { checkData });
+                    prompt.Initialize("Placeholder(s) outside of center screen", "Some placeholders are now outside of the screen.\nMove them to center screen?", new CheckBoxData[] { checkData });
 
-                    DialogResult result = prompt.ShowDialog();
-                    if (prompt.GetChecked(PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER))
+                    bool result = (bool)prompt.ShowDialog();
+                    if (prompt.RememberChoice && prompt.GetChecked(PreferenceType.PROMPT_OUTSIDE_PLACEHOLDER))
                     {
-                        if (result == DialogResult.Yes)
+                        if (result)
                         {
                             preferences.PromptOutsidePlaceholders = OutsidePlaceholdersPrefType.MOVE;
                             database.SaveOutsidePlaceholdersPref(OutsidePlaceholdersPrefType.MOVE);
@@ -186,7 +173,7 @@ namespace R3EHUDManager.screen.utils
                         }
                     }
 
-                    if (result == DialogResult.Yes)
+                    if (result)
                     {
                         MovePlaceholders(collectionModel);
                         return true;
@@ -199,16 +186,6 @@ namespace R3EHUDManager.screen.utils
         private static void MovePlaceholders(PlaceHolderCollectionModel collectionModel)
         {
             Injector.ExecuteCommand<FixPlaceholderCollectionCommand>();
-            //foreach (PlaceholderModel placeholder in collectionModel.Items)
-            //{
-            //    ScreenPositionType screen = ScreenUtils.GetScreen(placeholder);
-            //    if (screen != ScreenPositionType.CENTER)
-            //    {
-            //        R3ePoint offset = ScreenUtils.ToScreenOffset(placeholder, ScreenPositionType.CENTER);
-            //        R3ePoint newPosition = new R3ePoint(placeholder.Position.X + offset.X, placeholder.Position.Y + offset.Y);
-            //        placeholder.Move(newPosition);
-            //    }
-            //}
         }
     }
 }

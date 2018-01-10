@@ -1,12 +1,6 @@
 ﻿using da2mvc.core.events;
-using R3EHUDManager.coordinates;
 using R3EHUDManager.placeholder.view;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace R3EHUDManager.placeholder.events
 {

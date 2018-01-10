@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.userpreferences.model
 {
-    enum OutsidePlaceholdersPrefType
+    public enum OutsidePlaceholdersPrefType
     {
         PROMPT = 0,
         MOVE = 1,

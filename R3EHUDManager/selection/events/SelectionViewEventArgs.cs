@@ -12,13 +12,11 @@ namespace R3EHUDManager.selection.events
     class SelectionViewEventArgs : BaseEventArgs
     {
 
-        public SelectionViewEventArgs(int eventId, UpdateType updateType, R3ePoint point) : base(eventId)
+        public SelectionViewEventArgs(int eventId,R3ePoint point) : base(eventId)
         {
-            UpdateType = updateType;
             Point = point;
         }
-
-        public UpdateType UpdateType { get; }
+        
         public R3ePoint Point { get; }
     }
 }

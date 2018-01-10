@@ -4,14 +4,11 @@ using da2mvc.framework.menubutton.view;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
-using R3EHUDManager.screen.model;
+using R3EHUDManager.background.view;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace R3EHUDManager.background.view
 {
@@ -21,26 +18,33 @@ namespace R3EHUDManager.background.view
 
         public BackgroundMenuView()
         {
-            Width = 190;
+            Width = 200;
         }
 
         protected override string Title => "Background";
 
-        protected override ToolStripMenuItem ModelToItem(BackgroundModel model)
+        protected override MenuItem ModelToItem(BackgroundModel model)
         {
             var item = base.ModelToItem(model);
-            item.Image = GraphicalAsset.GetLayoutIcon(model.Layout);
+            item.Icon = new Image() { Source = GraphicalAsset.GetLayoutIcon(model.Layout) };
+
             return item;
         }
 
-        protected override List<ToolStripItem> GetBuiltInItems()
+        protected override List<MenuItem> GetBuiltInItems()
         {
-            List<ToolStripItem> builtInItems = new List<ToolStripItem>();
+            List<MenuItem> builtInItems = new List<MenuItem>();
 
-            ToolStripMenuItem itemImport = new ToolStripMenuItem("<Import new background>");
+            MenuItem itemImport = new MenuItem
+            {
+                Header = "<Import new background>"
+            };
             itemImport.Click += OnImportBackgroundClicked;
 
-            ToolStripMenuItem itemManage = new ToolStripMenuItem("<Manage backgrounds>");
+            MenuItem itemManage = new MenuItem
+            {
+                Header = "<Manage backgrounds>"
+            };
             itemManage.Click += OnManageBackgroundClicked;
 
             builtInItems.Add(itemImport);
@@ -50,29 +54,27 @@ namespace R3EHUDManager.background.view
 
         private void OnManageBackgroundClicked(object sender, EventArgs e)
         {
-            var backgroundManager = Injector.GetInstance< BackgroundManagerView>();
-
+            var backgroundManager = Injector.GetInstance<BackgroundManagerView>();
             backgroundManager.ShowDialog();
-
             backgroundManager.Dispose();
         }
 
         private void OnImportBackgroundClicked(object sender, EventArgs e)
         {
-            var fileDialog = new OpenFileDialog()
+            var fileDialog = new System.Windows.Forms.OpenFileDialog()
             {
                 Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp",
             };
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                var backgroundDialog = Injector.GetInstance< PromptNewBackgroundView>();
-                backgroundDialog.SetBitmap(new Bitmap(fileDialog.FileName));
+                var backgroundDialog = Injector.GetInstance<BackgroundImporterView>();
+                backgroundDialog.SetBitmap(new BitmapImage(new Uri(fileDialog.FileName)));
 
-                if (backgroundDialog.ShowDialog() == DialogResult.OK)
+                if (backgroundDialog.ShowDialog() == true)
                 {
-                    DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, backgroundDialog.BackgroundName, backgroundDialog.BackgroundLayout, backgroundDialog.CropRect, fileDialog.FileName));
+                    DispatchEvent(new ImportBackgroundEventArgs(EVENT_IMPORT_BACKGROUND, backgroundDialog.BackgroundName,
+                        backgroundDialog.BackgroundLayout, backgroundDialog.CropRect, fileDialog.FileName));
                 }
-                backgroundDialog.Dispose();
             }
 
             fileDialog.Dispose();

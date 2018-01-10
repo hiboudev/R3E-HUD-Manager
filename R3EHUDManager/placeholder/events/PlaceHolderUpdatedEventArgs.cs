@@ -10,13 +10,11 @@ namespace R3EHUDManager.placeholder.events
 {
     class PlaceHolderUpdatedEventArgs : BaseEventArgs
     {
-        public PlaceHolderUpdatedEventArgs(int eventId, PlaceholderModel placeholder, UpdateType updateType) : base(eventId)
+        public PlaceHolderUpdatedEventArgs(int eventId, PlaceholderModel placeholder) : base(eventId)
         {
             Placeholder = placeholder;
-            UpdateType = updateType;
         }
 
         public PlaceholderModel Placeholder { get; }
-        public UpdateType UpdateType { get; }
     }
 }

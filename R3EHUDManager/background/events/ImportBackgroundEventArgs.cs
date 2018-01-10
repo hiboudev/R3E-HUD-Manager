@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace R3EHUDManager.background.events
 {
     class ImportBackgroundEventArgs : BaseEventArgs
     {
-
-        public ImportBackgroundEventArgs(int eventId, string name, ScreenLayoutType layout, Rectangle cropArea, string filePath) : base(eventId)
+        public ImportBackgroundEventArgs(int eventId, string name, ScreenLayoutType layout, Rect cropArea, string filePath) : base(eventId)
         {
             Name = name;
             Layout = layout;
@@ -23,6 +23,6 @@ namespace R3EHUDManager.background.events
         public string Name { get; }
         public ScreenLayoutType Layout { get; }
         public string FilePath { get; }
-        public Rectangle CropArea { get; }
+        public Rect CropArea { get; }
     }
 }

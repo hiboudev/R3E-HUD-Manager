@@ -1,0 +1,15 @@
+﻿<view:ModalWindow
+        x:Class="R3EHUDManager.application.view.MessageBoxView"
+        xmlns:view="clr-namespace:da2mvc.framework.application.view;assembly=da2MVC_wpf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:R3EHUDManager.application.view"
+        mc:Ignorable="d"
+        Title="MessageBoxView" Height="auto" Width="300" SizeToContent="Height">
+    <StackPanel>
+        <TextBlock Name="textBlock" TextWrapping="Wrap" />
+        <Button Name="button" HorizontalAlignment="Right" MinWidth="80" Margin="0,10,0,0">OK</Button>
+    </StackPanel>
+</view:ModalWindow>

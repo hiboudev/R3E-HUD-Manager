@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    class SupportRuleValidator
+    public class SupportRuleValidator
     {
         private SupportRule[] rules = new SupportRule[] { };
         private readonly ScreenModel screenModel;
@@ -24,7 +24,7 @@ namespace R3EHUDManager.r3esupport.rule
             this.rules = rules;
         }
 
-        public ValidationResult Matches(PlaceholderModel placeholder)
+        public LayoutValidationResult Matches(PlaceholderModel placeholder)
         {
             bool isMatch = false;
 
@@ -40,9 +40,9 @@ namespace R3EHUDManager.r3esupport.rule
             }
 
             if (isMatch)
-                return ValidationResult.GetInvalid(description, fixes);
+                return LayoutValidationResult.GetInvalid(description, fixes);
             else
-                return ValidationResult.GetValid();
+                return LayoutValidationResult.GetValid();
         }
     }
 }

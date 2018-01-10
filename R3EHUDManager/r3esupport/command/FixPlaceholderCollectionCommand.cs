@@ -20,7 +20,7 @@ namespace R3EHUDManager.r3esupport.command
 
         public void Execute()
         {
-            foreach(var placeholder in collection.Items)
+            foreach (var placeholder in collection.Items)
             {
                 placeholder.UpdateLayoutValidation();
                 placeholder.ApplyLayoutFix();

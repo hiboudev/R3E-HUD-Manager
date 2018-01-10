@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using da2mvc.core.events;
 using R3EHUDManager.screen.events;
+using R3EHUDManager.screen.view;
 
 namespace R3EHUDManager.screen.view
 {

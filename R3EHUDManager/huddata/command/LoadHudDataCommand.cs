@@ -20,7 +20,7 @@ namespace R3EHUDManager.huddata.command
         private readonly LayoutIOModel layoutIO;
         private readonly SelectedProfileModel selectedProfile;
 
-        public LoadHudDataCommand(LocationModel locationModel,  PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel,
+        public LoadHudDataCommand(LocationModel locationModel, PlaceHolderCollectionModel placeHolderCollection, SelectionModel selectionModel,
             LayoutIOModel layoutIO, SelectedProfileModel selectedProfile)
         {
             this.locationModel = locationModel;
@@ -29,7 +29,7 @@ namespace R3EHUDManager.huddata.command
             this.layoutIO = layoutIO;
             this.selectedProfile = selectedProfile;
         }
-        
+
         public void Execute()
         {
             List<PlaceholderModel> placeholders = null;

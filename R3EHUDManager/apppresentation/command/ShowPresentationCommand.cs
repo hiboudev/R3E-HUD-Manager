@@ -1,12 +1,7 @@
 ﻿using da2mvc.core.command;
-using R3EHUDManager.apppresentation.view;
 using R3EHUDManager.database;
 using R3EHUDManager.userpreferences.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using R3EHUDManager.apppresentation.view;
 using System.Windows.Forms;
 
 namespace R3EHUDManager.apppresentation.command
@@ -26,12 +21,12 @@ namespace R3EHUDManager.apppresentation.command
 
         public void Execute()
         {
-            if (presentation.ShowDialog() == DialogResult.OK)
+            if (presentation.ShowDialog() == true)
             {
                 preferences.UserWatchedPresentation = true;
                 database.SaveUserWatchedPresentationPref(true);
             }
-            presentation.Dispose();
+            //presentation.Dispose(); // TODO check memory
         }
     }
 }

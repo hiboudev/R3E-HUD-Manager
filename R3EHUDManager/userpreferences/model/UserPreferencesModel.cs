@@ -10,8 +10,11 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.userpreferences.model
 {
-    class UserPreferencesModel
+    public class UserPreferencesModel : IEventDispatcher
     {
+        public event EventHandler MvcEventHandler;
+        public static readonly int EVENT_CULTURE_CHANGED = EventId.New();
+
         public OutsidePlaceholdersPrefType PromptOutsidePlaceholders { get; internal set; }
 
         private Dictionary<PreferenceType, bool> savePromptPreferences = new Dictionary<PreferenceType, bool>
@@ -34,15 +37,23 @@ namespace R3EHUDManager.userpreferences.model
 
         public bool UserWatchedPresentation { get; internal set; }
         public int LastProfileId { get; internal set; }
-        
+
         private bool useInvariantCulture = false;
-        public bool UseInvariantCulture {
+
+        public bool UseInvariantCulture
+        {
             get => useInvariantCulture;
             set
             {
                 useInvariantCulture = value;
                 CultureInfo.DefaultThreadCurrentCulture = useInvariantCulture ? CultureInfo.InvariantCulture : CultureInfo.InstalledUICulture;
+                DispatchEvent(new BaseEventArgs(EVENT_CULTURE_CHANGED));
             }
+        }
+
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
         }
 
     }

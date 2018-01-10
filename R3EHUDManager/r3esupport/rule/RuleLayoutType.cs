@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    enum RuleLayoutType
+    public enum RuleLayoutType
     {
         SINGLE,
         TRIPLE,

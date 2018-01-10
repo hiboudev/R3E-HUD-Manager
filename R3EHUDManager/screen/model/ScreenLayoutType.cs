@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.screen.model
 {
-    enum ScreenLayoutType
+    public enum ScreenLayoutType
     {
         SINGLE,
         TRIPLE

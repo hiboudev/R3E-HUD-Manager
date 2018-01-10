@@ -17,7 +17,6 @@ namespace R3EHUDManager.profile.command
 {
     class CreateProfileCommand : ICommand
     {
-
         private readonly StringEventArgs args;
         private readonly CollectionModel<ProfileModel> profileCollection;
         private readonly Database database;
@@ -27,7 +26,7 @@ namespace R3EHUDManager.profile.command
         private readonly SelectedProfileModel selectedProfile;
         private readonly LayoutIOModel layoutIO;
 
-        public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database, 
+        public CreateProfileCommand(StringEventArgs args, CollectionModel<ProfileModel> profileCollection, Database database,
             LocationModel location, ScreenModel screen, PlaceHolderCollectionModel placeholderCollection,
             SelectedProfileModel selectedProfile, LayoutIOModel layoutIO)
         {
@@ -46,7 +45,7 @@ namespace R3EHUDManager.profile.command
             string fileName = ToFileName(args.Value);
             string filePath = Path.Combine(location.LocalDirectoryProfiles, fileName); // TODO tester les noms de fichier
             File.Copy(location.HudTemplateFile, filePath);
-            
+
             BackgroundModel background = screen.Background;
 
             ProfileModel newProfile = ProfileFactory.NewProfileModel(args.Value, background.Id, fileName);

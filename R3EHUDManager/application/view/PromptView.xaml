@@ -1,0 +1,26 @@
+﻿<view:ModalWindow
+    xmlns:view="clr-namespace:da2mvc.framework.application.view;assembly=da2MVC_wpf"
+    x:Class="R3EHUDManager.application.view.PromptView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:R3EHUDManager.application.view"
+    mc:Ignorable="d"
+    Title="Prompt" Height="auto" Width="auto" SizeToContent="WidthAndHeight"
+    FocusManager.FocusedElement="{Binding ElementName=noButton}"
+    >
+
+    <StackPanel>
+        <TextBlock Name="label" TextWrapping="Wrap" />
+
+        <StackPanel Name="checkBoxesContainer" Orientation="Vertical"
+                    Margin="0,8,0,4" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="yesButton" MinWidth="50" Margin="0,0,8,0">Yes</Button>
+            <Button Name="noButton" MinWidth="50">No</Button>
+        </StackPanel>
+    </StackPanel>
+
+</view:ModalWindow>

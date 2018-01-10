@@ -10,8 +10,7 @@ namespace R3EHUDManager.location.view
 
         public R3eDirectoryMenuView()
         {
-            Font = new Font(Font.FontFamily, 7);
-            AutoSize = false;
+            
         }
 
         protected override string Title => "Dir";

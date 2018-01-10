@@ -25,7 +25,7 @@ namespace R3EHUDManager.userpreferences.command
 
         public void Execute()
         {
-            foreach(KeyValuePair<PreferenceType, bool> keyValue in args.Preferences)
+            foreach (KeyValuePair<PreferenceType, bool> keyValue in args.Preferences)
             {
                 preferences.SetPromptPreference(keyValue.Key, keyValue.Value);
                 database.SavePromptSavePref(keyValue.Key, keyValue.Value);

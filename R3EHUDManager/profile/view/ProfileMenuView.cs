@@ -3,27 +3,29 @@ using da2mvc.core.injection;
 using R3EHUDManager.application.events;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using R3EHUDManager.profile.model;
 using R3EHUDManager.background.model;
 using R3EHUDManager.graphics;
 using da2mvc.framework.collection.model;
 using da2mvc.framework.menubutton.view;
 using System.Drawing;
+using System.Windows.Controls;
+using System.Windows;
+using R3EHUDManager.profile.view;
 
 namespace R3EHUDManager.profile.view
 {
-    class ProfileMenuView : MenuButtonView<ProfileModel>
+    public class ProfileMenuView : MenuButtonView<ProfileModel>
     {
         public static readonly int EVENT_CREATE_NEW_PROFILE = EventId.New();
         public static readonly int EVENT_SAVE_PROFILE = EventId.New();
 
-        private ToolStripMenuItem itemSaveProfile;
+        private MenuItem itemSaveProfile;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
 
         public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection)
         {
-            Width = 170;
+            Width = 200;
             this.backgroundCollection = backgroundCollection;
         }
 
@@ -31,18 +33,27 @@ namespace R3EHUDManager.profile.view
 
         internal bool HasSelection { get; private set; }
 
-        protected override List<ToolStripItem> GetBuiltInItems()
+        protected override List<MenuItem> GetBuiltInItems()
         {
-            var list = new List<ToolStripItem>();
+            var list = new List<MenuItem>();
 
-            itemSaveProfile = new ToolStripMenuItem("<Save profile>");
+            itemSaveProfile = new MenuItem()
+            {
+                Header = "<Save profile>",
+            };
             itemSaveProfile.Click += OnSaveProfileClicked;
-            itemSaveProfile.Enabled = false;
+            itemSaveProfile.IsEnabled = false;
 
-            ToolStripMenuItem itemSaveToNewProfile = new ToolStripMenuItem("<Save to new profile>");
+            MenuItem itemSaveToNewProfile = new MenuItem()
+            {
+                Header = "<Save to new profile>",
+            };
             itemSaveToNewProfile.Click += OnSaveToNewProfileClicked;
 
-            ToolStripMenuItem manageProfiles = new ToolStripMenuItem("<Manage profiles>");
+            MenuItem manageProfiles = new MenuItem()
+            {
+                Header = "<Manage profiles>",
+            };
             manageProfiles.Click += OnManageProfileClicked;
 
             list.Add(itemSaveProfile);
@@ -52,11 +63,11 @@ namespace R3EHUDManager.profile.view
             return list;
         }
 
-        protected override ToolStripMenuItem ModelToItem(ProfileModel model)
+        protected override MenuItem ModelToItem(ProfileModel model)
         {
             var item = base.ModelToItem(model);
             BackgroundModel background = backgroundCollection.Get(model.BackgroundId);
-            item.Image = GraphicalAsset.GetLayoutIcon(background.Layout);
+            item.Icon = new Image() { Source = GraphicalAsset.GetLayoutIcon(background.Layout) };
             return item;
         }
 
@@ -65,31 +76,31 @@ namespace R3EHUDManager.profile.view
             if (SetSelectedItem(profile.Id))
             {
                 HasSelection = true;
-                itemSaveProfile.Enabled = true;
+                itemSaveProfile.IsEnabled = true;
             }
             else
                 HasSelection = false;
 
-            itemSaveProfile.Text = $"<Save profile '{profile.Name}'>";
+            itemSaveProfile.Header = $"<Save profile '{profile.Name}'>";
         }
 
         internal void UnselectProfile()
         {
             SetSelectedItem(null);
             HasSelection = false;
-            itemSaveProfile.Enabled = false;
-            itemSaveProfile.Text = "<Save profile>";
+            itemSaveProfile.IsEnabled = false;
+            itemSaveProfile.Header = "<Save profile>";
         }
 
         internal void UpdateProfile(ProfileModel profile)
         {
             // TODO Add update management to abstract class?
-            foreach (ToolStripMenuItem item in ContextMenuStrip.Items)
+            foreach (MenuItem item in ContextMenu.Items)
             {
                 if ((int)item.Tag == profile.Id)
                 {
                     BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
-                    item.Image = GraphicalAsset.GetLayoutIcon(background.Layout);
+                    item.Icon = new Image() { Source = GraphicalAsset.GetLayoutIcon(background.Layout) };
                     break;
                 }
             }
@@ -99,28 +110,28 @@ namespace R3EHUDManager.profile.view
         {
             if (isSaved)
             {
-                Font = Fonts.SAVED_FONT;
-                itemSaveProfile.Font = Fonts.SAVED_FONT;
-                itemSaveProfile.Enabled = false;
+                FontStyle = AppFontStyles.SAVED_FONT_STYLE;
+                itemSaveProfile.FontStyle = AppFontStyles.SAVED_FONT_STYLE;
+                itemSaveProfile.IsEnabled = false;
             }
             else
             {
-                Font = Fonts.UNSAVED_FONT;
-                itemSaveProfile.Font = Fonts.UNSAVED_FONT;
-                itemSaveProfile.Enabled = true;
+                FontStyle = AppFontStyles.UNSAVED_FONT_STYLE;
+                itemSaveProfile.FontStyle = AppFontStyles.UNSAVED_FONT_STYLE;
+                itemSaveProfile.IsEnabled = true;
             }
         }
 
         private void OnSaveToNewProfileClicked(object sender, EventArgs e)
         {
-            var newProfileDialog = Injector.GetInstance<PromptNewProfileView>();
+            var newProfileDialog = Injector.GetInstance<ProfileCreationView>();
 
-            if (newProfileDialog.ShowDialog() == DialogResult.OK)
+            if (newProfileDialog.ShowDialog() == true)
             {
                 DispatchEvent(new StringEventArgs(EVENT_CREATE_NEW_PROFILE, newProfileDialog.ProfileName));
             }
 
-            newProfileDialog.Dispose();
+            //newProfileDialog.Dispose();
         }
 
         private void OnSaveProfileClicked(object sender, EventArgs e)
@@ -132,9 +143,7 @@ namespace R3EHUDManager.profile.view
         {
             var profileDialog = Injector.GetInstance<ProfileManagerView>();
 
-            if (profileDialog.ShowDialog() == DialogResult.OK)
-            {
-            }
+            profileDialog.ShowDialog();
 
             profileDialog.Dispose();
         }

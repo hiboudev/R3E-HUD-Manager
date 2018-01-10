@@ -20,7 +20,7 @@ namespace R3EHUDManager.location.command
 
         public void Execute()
         {
-            foreach(var dir in locationModel.LocalDirectories)
+            foreach (var dir in locationModel.LocalDirectories)
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);
         }

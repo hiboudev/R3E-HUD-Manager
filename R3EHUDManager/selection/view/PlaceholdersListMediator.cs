@@ -5,10 +5,11 @@ using R3EHUDManager.selection.events;
 using da2mvc.framework.collection.view;
 using System;
 using R3EHUDManager.placeholder.events;
+using R3EHUDManager.selection.view;
 
 namespace R3EHUDManager.selection.view
 {
-    class PlaceholdersListMediator : CollectionMediator<PlaceHolderCollectionModel, PlaceholderModel, PlaceholdersListView>
+    class PlaceholdersListMediator : CollectionMediator<PlaceHolderCollectionModel, PlaceholderModel, PlaceholderListView>
     {
         public PlaceholdersListMediator()
         {

@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3EHUDManager", "R3EHUDManager\R3EHUDManager.csproj", "{133AC405-3B87-4C09-BE43-0918DB2F8C87}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3EHUDManager_wpf", "R3EHUDManager_wpf\R3EHUDManager_wpf.csproj", "{3773478E-2734-4287-8622-9CC7061D7582}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3EHUDManager", "R3EHUDManager\R3EHUDManager.csproj", "{3773478E-2734-4287-8622-9CC7061D7582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

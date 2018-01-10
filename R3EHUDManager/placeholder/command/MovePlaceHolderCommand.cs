@@ -6,6 +6,8 @@ using System.Drawing;
 using R3EHUDManager.screen.view;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.placeholder.validator;
+using R3EHUDManager.screen.view;
+using System.Windows;
 
 namespace R3EHUDManager.placeholder.command
 {
@@ -35,7 +37,7 @@ namespace R3EHUDManager.placeholder.command
 
         private R3ePoint GetR3eLocation(Point location)
         {
-            SizeF objectScreenRatio = new SizeF((float)args.View.Width / screenView.ScreenArea.Width, (float)args.View.Height / screenView.ScreenArea.Height);
+            Size objectScreenRatio = new Size(args.View.ContentBounds.Width / screenView.ScreenArea.Width, args.View.ContentBounds.Height / screenView.ScreenArea.Height);
 
             R3ePoint anchorSize = new R3ePoint(
                 objectScreenRatio.Width * (args.View.Model.Anchor.X + 1),

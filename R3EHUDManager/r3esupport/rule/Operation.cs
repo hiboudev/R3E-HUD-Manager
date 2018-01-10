@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    class Operation
+    public class Operation
     {
         private readonly double referenceValue;
         private readonly OperatorType operatorType;

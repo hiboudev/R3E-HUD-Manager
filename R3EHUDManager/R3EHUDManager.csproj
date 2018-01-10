@@ -4,17 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{133AC405-3B87-4C09-BE43-0918DB2F8C87}</ProjectGuid>
+    <ProjectGuid>{0AB4C7A0-06A8-47B6-932D-D0CB51010730}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>R3EHUDManager</RootNamespace>
-    <AssemblyName>R3EHUDManager</AssemblyName>
+    <AssemblyName>R3E HUD Manager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>ftp://damien%4054.37.159.200/R3EHUDManager_install_files/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -26,13 +26,15 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://54.37.159.200/R3EHUDManager_update/</InstallUrl>
+    <TargetCulture>en</TargetCulture>
     <ProductName>R3E HUD Manager</ProductName>
     <PublisherName>ChatCureuil</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>0.6.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -45,6 +47,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -54,12 +57,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C3DBC89148EE94A149105188D18EAC208460322F</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>27B6B7BA5CDDAB133BDEFEBF9EF4158CE43FE7AF</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>R3EHUDManager_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>R3EHUDManager_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -67,22 +71,18 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
-  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>test_icon.ico</ApplicationIcon>
+    <ApplicationIcon>app_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="da2MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\da2MVC\da2MVC\bin\Release\da2MVC.dll</HintPath>
+    <Reference Include="da2MVC_wpf">
+      <HintPath>..\..\da2MVC\da2MVC\bin\Release\da2MVC_wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -94,24 +94,49 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
     <Compile Include="application\command\ApplicationExitCommand.cs" />
     <Compile Include="application\command\StartApplicationCommand.cs" />
     <Compile Include="application\events\ApplicationExitEventArgs.cs" />
     <Compile Include="application\events\BooleanEventArgs.cs" />
     <Compile Include="application\events\IntEventArgs.cs" />
     <Compile Include="application\events\StringEventArgs.cs" />
-    <Compile Include="application\view\BaseModalForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="application\view\AppView.cs" />
+    <Compile Include="application\view\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="application\view\PromptView.cs">
-      <SubType>Form</SubType>
+    <Compile Include="application\view\PromptView.xaml.cs">
+      <DependentUpon>PromptView.xaml</DependentUpon>
     </Compile>
     <Compile Include="apppresentation\command\CheckUserWatchedPresentationCommand.cs" />
     <Compile Include="apppresentation\command\ShowPresentationCommand.cs" />
-    <Compile Include="apppresentation\view\AppPresentationView.cs">
-      <SubType>Form</SubType>
+    <Compile Include="apppresentation\view\AppPresentationView.xaml.cs">
+      <DependentUpon>AppPresentationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="background\command\DeleteBackgroundCommand.cs" />
     <Compile Include="background\command\ImportBackgroundCommand.cs" />
@@ -121,23 +146,15 @@
     <Compile Include="background\model\BackgroundFactory.cs" />
     <Compile Include="background\model\BackgroundModel.cs" />
     <Compile Include="background\model\BaseDirectoryType.cs" />
-    <Compile Include="background\view\BackgroundManagerView.cs">
-      <SubType>Form</SubType>
+    <Compile Include="background\view\BackgroundImporterView.xaml.cs">
+      <DependentUpon>BackgroundImporterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="background\view\BackgroundMediator.cs" />
+    <Compile Include="background\view\BackgroundManagerView.xaml.cs">
+      <DependentUpon>BackgroundManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="background\view\BackgroundMenuMediator.cs" />
-    <Compile Include="background\view\BackgroundMenuView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="background\view\BackgroundPreviewView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="background\view\BackgroundView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="background\view\PromptNewBackgroundView.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="background\view\BackgroundMenuView.cs" />
+    <Compile Include="background\view\BackgroundPreviewView.cs" />
     <Compile Include="coordinates\Coordinates.cs" />
     <Compile Include="coordinates\R3ePoint.cs" />
     <Compile Include="database\command\InitializeDatabaseCommand.cs" />
@@ -147,14 +164,8 @@
     <Compile Include="fileexplorer\command\OpenAppDataDirectoryCommand.cs" />
     <Compile Include="fileexplorer\command\OpenAppInstallDirectoryCommand.cs" />
     <Compile Include="fileexplorer\command\OpenHudDirectoryCommand.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
+    <Compile Include="graphics\AppFontStyles.cs" />
     <Compile Include="graphics\Colors.cs" />
-    <Compile Include="graphics\Fonts.cs" />
     <Compile Include="graphics\GraphicalAsset.cs" />
     <Compile Include="huddata\command\CheckSaveStatusCommand.cs" />
     <Compile Include="huddata\command\LoadFiltersCommand.cs" />
@@ -175,16 +186,14 @@
     <Compile Include="huddata\model\SaveStatusChecker.cs" />
     <Compile Include="huddata\model\UnsavedChangeType.cs" />
     <Compile Include="huddata\parser\HudOptionsParser.cs" />
+    <Compile Include="huddata\view\LayoutLoadSaveMediator.cs" />
+    <Compile Include="huddata\view\LayoutLoadSaveView.xaml.cs">
+      <DependentUpon>LayoutLoadSaveView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="huddata\view\LayoutSourceMediator.cs" />
-    <Compile Include="huddata\view\LayoutSourceView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="huddata\view\PlaceholderBlackListView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="huddata\view\ReloadLayoutMediator.cs" />
-    <Compile Include="huddata\view\ReloadLayoutView.cs">
-      <SubType>Component</SubType>
+    <Compile Include="huddata\view\LayoutSourceView.cs" />
+    <Compile Include="huddata\view\PlaceholderBlacklistView.xaml.cs">
+      <DependentUpon>PlaceholderBlacklistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="location\command\FindR3eHomeDirectoryCommand.cs" />
     <Compile Include="location\command\InitializeLocalDirectoriesCommand.cs" />
@@ -195,9 +204,7 @@
     <Compile Include="location\model\R3eDirectoryModel.cs" />
     <Compile Include="location\model\SelectedR3eDirectoryModel.cs" />
     <Compile Include="location\view\R3eDirectoryMenuMediator.cs" />
-    <Compile Include="location\view\R3eDirectoryMenuView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="location\view\R3eDirectoryMenuView.cs" />
     <Compile Include="log\command\InitializeLoggerCommand.cs" />
     <Compile Include="log\Logger.cs" />
     <Compile Include="Mappings.cs" />
@@ -215,15 +222,9 @@
     <Compile Include="placeholder\model\PlaceholderModel.cs" />
     <Compile Include="placeholder\model\PlaceholderName.cs" />
     <Compile Include="placeholder\model\ResizeRules.cs" />
-    <Compile Include="placeholder\model\UpdateType.cs" />
     <Compile Include="placeholder\validator\PlaceholderUserChangeValidator.cs" />
-    <Compile Include="placeholder\view\AnchorView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="placeholder\view\PlaceholderMediator.cs" />
-    <Compile Include="placeholder\view\PlaceholderView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="placeholder\view\PlaceholderView.cs" />
     <Compile Include="profile\command\CreateProfileCommand.cs" />
     <Compile Include="profile\command\DeleteProfileCommand.cs" />
     <Compile Include="profile\command\InitializeProfilesCommand.cs" />
@@ -233,17 +234,147 @@
     <Compile Include="profile\model\ProfileFactory.cs" />
     <Compile Include="profile\model\ProfileModel.cs" />
     <Compile Include="profile\model\SelectedProfileModel.cs" />
-    <Compile Include="profile\view\ProfileManagerView.cs">
-      <SubType>Form</SubType>
+    <Compile Include="profile\view\ProfileCreationView.xaml.cs">
+      <DependentUpon>ProfileCreationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="profile\view\ProfileManagerView.xaml.cs">
+      <DependentUpon>ProfileManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="profile\view\ProfileMenuMediator.cs" />
-    <Compile Include="profile\view\ProfileMenuView.cs">
-      <SubType>Component</SubType>
+    <Compile Include="profile\view\ProfileMenuView.cs" />
+    <Compile Include="r3esupport\command\ApplyLayoutFixCommand.cs" />
+    <Compile Include="r3esupport\command\FixPlaceholderCollectionCommand.cs" />
+    <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
+    <Compile Include="r3esupport\command\ValidatePlaceholderCollectionCommand.cs" />
+    <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
+    <Compile Include="r3esupport\result\LayoutValidationResult.cs" />
+    <Compile Include="r3esupport\result\ResultType.cs" />
+    <Compile Include="r3esupport\rule\CheckPropertyType.cs" />
+    <Compile Include="r3esupport\rule\Fix.cs" />
+    <Compile Include="r3esupport\rule\FixPropertyType.cs" />
+    <Compile Include="r3esupport\rule\Operation.cs" />
+    <Compile Include="r3esupport\rule\OperatorType.cs" />
+    <Compile Include="r3esupport\rule\PropertyCheck.cs" />
+    <Compile Include="r3esupport\rule\RuleLayoutType.cs" />
+    <Compile Include="r3esupport\rule\RulePart.cs" />
+    <Compile Include="r3esupport\rule\SupportRule.cs" />
+    <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
+    <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
+    <Compile Include="screen\events\ScreenModelEventArgs.cs" />
+    <Compile Include="screen\model\ScreenLayoutType.cs" />
+    <Compile Include="screen\model\ScreenModel.cs" />
+    <Compile Include="screen\model\ScreenPositionType.cs" />
+    <Compile Include="screen\model\ZoomLevel.cs" />
+    <Compile Include="screen\utils\ScreenUtils.cs" />
+    <Compile Include="screen\view\ScreenMediator.cs" />
+    <Compile Include="screen\view\ScreenScrollerMediator.cs" />
+    <Compile Include="screen\view\ScreenScrollerView.xaml.cs">
+      <DependentUpon>ScreenScrollerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="profile\view\PromptNewProfileView.cs">
-      <SubType>Form</SubType>
+    <Compile Include="screen\view\ScreenView.cs" />
+    <Compile Include="screen\view\ScreenViewMouseInteraction.cs" />
+    <Compile Include="screen\view\ZoomMediator.cs" />
+    <Compile Include="screen\view\ZoomView.xaml.cs">
+      <DependentUpon>ZoomView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="selection\command\SelectNoneCommand.cs" />
+    <Compile Include="selection\command\SelectPlaceholderCommand.cs" />
+    <Compile Include="selection\events\SelectionModelEventArgs.cs" />
+    <Compile Include="selection\events\SelectionViewEventArgs.cs" />
+    <Compile Include="selection\model\SelectionModel.cs" />
+    <Compile Include="selection\view\AnchorPreset.cs" />
+    <Compile Include="selection\view\PlaceholderListView.xaml.cs">
+      <DependentUpon>PlaceholderListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="selection\view\PlaceholdersListMediator.cs" />
+    <Compile Include="selection\view\SelectionMediator.cs" />
+    <Compile Include="selection\view\SelectionView.xaml.cs">
+      <DependentUpon>SelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="settings\view\SettingsMenuView.cs" />
+    <Compile Include="settings\view\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="userpreferences\command\LoadPreferencesCommand.cs" />
+    <Compile Include="userpreferences\command\SaveCulturePrefCommand.cs" />
+    <Compile Include="userpreferences\command\SaveOutsidePlaceholdersPrefCommand.cs" />
+    <Compile Include="userpreferences\command\SavePromptPrefsCommand.cs" />
+    <Compile Include="userpreferences\events\PromptPrefsEventArgs.cs" />
+    <Compile Include="userpreferences\model\OutsidePlaceholdersPrefType.cs" />
+    <Compile Include="userpreferences\model\PreferenceType.cs" />
+    <Compile Include="userpreferences\model\UserPreferencesModel.cs" />
+    <Compile Include="utils\BitmapUtils.cs" />
+    <Compile Include="utils\StringUtils.cs" />
+    <Page Include="application\view\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="application\view\PromptView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="apppresentation\view\AppPresentationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="background\view\BackgroundImporterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="background\view\BackgroundManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="huddata\view\LayoutLoadSaveView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="huddata\view\PlaceholderBlacklistView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="profile\view\ProfileCreationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="profile\view\ProfileManagerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="screen\view\ScreenScrollerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="screen\view\ZoomView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="selection\view\PlaceholderListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="selection\view\SelectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="settings\view\SettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -257,74 +388,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="r3esupport\command\ApplyLayoutFixCommand.cs" />
-    <Compile Include="r3esupport\command\FixPlaceholderCollectionCommand.cs" />
-    <Compile Include="r3esupport\command\InitializeSupportRulesCommand.cs" />
-    <Compile Include="r3esupport\command\ValidatePlaceholderCollectionCommand.cs" />
-    <Compile Include="r3esupport\parser\SupportRuleParser.cs" />
-    <Compile Include="r3esupport\result\ResultType.cs" />
-    <Compile Include="r3esupport\result\ValidationResult.cs" />
-    <Compile Include="r3esupport\rule\CheckPropertyType.cs" />
-    <Compile Include="r3esupport\rule\Fix.cs" />
-    <Compile Include="r3esupport\rule\FixPropertyType.cs" />
-    <Compile Include="r3esupport\rule\Operation.cs" />
-    <Compile Include="r3esupport\rule\OperatorType.cs" />
-    <Compile Include="r3esupport\rule\PropertyCheck.cs" />
-    <Compile Include="r3esupport\rule\RuleLayoutType.cs" />
-    <Compile Include="r3esupport\rule\RulePart.cs" />
-    <Compile Include="r3esupport\rule\SupportRule.cs" />
-    <Compile Include="r3esupport\rule\SupportRuleValidator.cs" />
-    <Compile Include="screen\command\ChangeScreenLayoutCommand.cs" />
-    <Compile Include="screen\command\ChangeZoomLevelCommand.cs" />
-    <Compile Include="screen\events\ScreenModelEventArgs.cs" />
-    <Compile Include="screen\model\ScreenLayoutType.cs" />
-    <Compile Include="screen\model\ScreenModel.cs" />
-    <Compile Include="screen\model\ScreenPositionType.cs" />
-    <Compile Include="screen\model\ZoomLevel.cs" />
-    <Compile Include="screen\utils\ScreenUtils.cs" />
-    <Compile Include="screen\view\ScreenMediator.cs" />
-    <Compile Include="screen\view\ScreenView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="screen\view\ZoomMediator.cs" />
-    <Compile Include="screen\view\ZoomView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="selection\command\SelectNoneCommand.cs" />
-    <Compile Include="selection\command\SelectPlaceholderCommand.cs" />
-    <Compile Include="selection\events\SelectionModelEventArgs.cs" />
-    <Compile Include="selection\events\SelectionViewEventArgs.cs" />
-    <Compile Include="selection\model\SelectionModel.cs" />
-    <Compile Include="selection\view\AnchorPreset.cs" />
-    <Compile Include="selection\view\PlaceholdersListMediator.cs" />
-    <Compile Include="selection\view\PlaceholdersListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="selection\view\SelectionMediator.cs" />
-    <Compile Include="selection\view\SelectionView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="settings\view\SettingsMenuView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="settings\view\SettingsView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="userpreferences\command\LoadPreferencesCommand.cs" />
-    <Compile Include="userpreferences\command\SaveCulturePrefCommand.cs" />
-    <Compile Include="userpreferences\command\SaveOutsidePlaceholdersPrefCommand.cs" />
-    <Compile Include="userpreferences\command\SavePromptPrefsCommand.cs" />
-    <Compile Include="userpreferences\events\PromptPrefsEventArgs.cs" />
-    <Compile Include="userpreferences\model\OutsidePlaceholdersPrefType.cs" />
-    <Compile Include="userpreferences\model\PreferenceType.cs" />
-    <Compile Include="userpreferences\model\UserPreferencesModel.cs" />
-    <Compile Include="utils\StringUtils.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="placeholder\view\PlaceholderView.resx">
-      <DependentUpon>PlaceholderView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -334,19 +397,55 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="R3EHUDManager_TemporaryKey.pfx" />
+    <None Include="R3EHUDManager_1_TemporaryKey.pfx" />
+    <None Include="R3EHUDManager_wpf_TemporaryKey.pfx" />
+    <None Include="_graphical_assets\.git\COMMIT_EDITMSG" />
+    <None Include="_graphical_assets\.git\config" />
+    <None Include="_graphical_assets\.git\description" />
+    <None Include="_graphical_assets\.git\FETCH_HEAD" />
+    <None Include="_graphical_assets\.git\HEAD" />
+    <None Include="_graphical_assets\.git\hooks\applypatch-msg.sample" />
+    <None Include="_graphical_assets\.git\hooks\commit-msg.sample" />
+    <None Include="_graphical_assets\.git\hooks\post-update.sample" />
+    <None Include="_graphical_assets\.git\hooks\pre-applypatch.sample" />
+    <None Include="_graphical_assets\.git\hooks\pre-commit.sample" />
+    <None Include="_graphical_assets\.git\hooks\pre-push.sample" />
+    <None Include="_graphical_assets\.git\hooks\pre-rebase.sample" />
+    <None Include="_graphical_assets\.git\hooks\pre-receive.sample" />
+    <None Include="_graphical_assets\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="_graphical_assets\.git\hooks\update.sample" />
+    <None Include="_graphical_assets\.git\index" />
+    <None Include="_graphical_assets\.git\info\exclude" />
+    <None Include="_graphical_assets\.git\logs\HEAD" />
+    <None Include="_graphical_assets\.git\logs\refs\heads\master" />
+    <None Include="_graphical_assets\.git\objects\09\89a5941ab46838f095d686a26fc871d334a436" />
+    <None Include="_graphical_assets\.git\objects\0f\0d8a6697c82061a345eeee20bfb8dfa26c55b6" />
+    <None Include="_graphical_assets\.git\objects\1c\7e2425144d5d46bc317e551fd50fb2b44e6a8c" />
+    <None Include="_graphical_assets\.git\objects\32\10c8b15c5d477a5766b82096d31fb3bc7215ab" />
+    <None Include="_graphical_assets\.git\objects\33\f4e849fdf86c2c17f482c17e9184d6299b9755" />
+    <None Include="_graphical_assets\.git\objects\35\aba1c09db8b5be17b51972e82fdfd3522f6b82" />
+    <None Include="_graphical_assets\.git\objects\3b\c5e51ad905d8f420db97b640da7ffb22c84418" />
+    <None Include="_graphical_assets\.git\objects\3f\63b8ca5db77ed5328aefe06868785def20ff30" />
+    <None Include="_graphical_assets\.git\objects\71\2934043308981c674c326b44a22a25d9a66dc3" />
+    <None Include="_graphical_assets\.git\objects\77\1e2f9732f84f04907480d6d852b2313248050a" />
+    <None Include="_graphical_assets\.git\objects\87\6af291fefc77ab50a6683fec04f750a7f9399c" />
+    <None Include="_graphical_assets\.git\objects\97\bae9cc820735d42c8d8572c5b19b088e8486dd" />
+    <None Include="_graphical_assets\.git\objects\9a\a748fc861980f74fdefe2636a88918e19483d8" />
+    <None Include="_graphical_assets\.git\objects\c6\fe9eddaf87b575a03185c9dea94c3099b3cd5b" />
+    <None Include="_graphical_assets\.git\objects\cd\41b75f960dff4fd320798936da16739dec4c57" />
+    <None Include="_graphical_assets\.git\objects\de\7bf2f5f2971556a1e37c3136b84be9117f69ba" />
+    <None Include="_graphical_assets\.git\objects\e1\d5ffc75cf0aabde9b677005f553852fdcea22c" />
+    <None Include="_graphical_assets\.git\objects\e4\d085148b211710853ecbbdff17364890d7e21a" />
+    <None Include="_graphical_assets\.git\objects\f7\f4f28d70876e2d936588c1c74ade17674d9bb4" />
+    <None Include="_graphical_assets\.git\objects\fc\edc8ce7908c7fe0955677173519cf22e0b2ec1" />
+    <None Include="_graphical_assets\.git\ORIG_HEAD" />
+    <None Include="_graphical_assets\.git\refs\heads\master" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="test_icon.ico" />
-    <Content Include="x64\SQLite.Interop.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\SQLite.Interop.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="app_icon.ico" />
     <Content Include="_graphical_assets\background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -397,9 +496,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="publish\" />
-  </ItemGroup>
-  <ItemGroup>
     <PublishFile Include="_r3eRules\r3e_support_rules.xml">
       <Visible>False</Visible>
       <Group>
@@ -427,6 +523,19 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_graphical_assets\.git\objects\info\" />
+    <Folder Include="_graphical_assets\.git\objects\pack\" />
+    <Folder Include="_graphical_assets\.git\refs\tags\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" />

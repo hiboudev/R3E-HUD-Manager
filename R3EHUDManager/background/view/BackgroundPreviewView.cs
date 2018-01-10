@@ -1,161 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace R3EHUDManager.background.view
 {
-    class BackgroundPreviewView : Panel
+    public class BackgroundPreviewView : FrameworkElement
     {
-        private float internalScale;
-        private Bitmap bitmap;
-        private Size bitmapSize;
-        private float rectangleRightRatio = 0;
-        private float rectangleXRatio;
-        private Size originalBitmapSize;
-        private const int MAX_BITMAP_SIZE = 1280;
+        private BitmapSource bitmap;
         private bool lineStyle;
+        private bool drawRectOverlay;
 
-        public BackgroundPreviewView()
+        internal void SetBitmap(BitmapSource bitmap)
         {
-            DoubleBuffered = true;
-            Disposed += OnDispose;
-            SizeChanged += (sender, args) => RefreshBackground();
+            this.bitmap = bitmap;
+            InvalidateVisual();
         }
 
-        internal void SetBitmap(Bitmap bitmap)
-        {
-            originalBitmapSize = new Size(bitmap.Width, bitmap.Height);
-
-            Size newSize = new Size();
-            float bitmapRatio = bitmap.PhysicalDimension.Width / bitmap.PhysicalDimension.Height;
-
-            if(bitmapRatio > 1)
-            {
-                newSize.Width = MAX_BITMAP_SIZE;
-                newSize.Height = (int)(MAX_BITMAP_SIZE / bitmapRatio);
-            } 
-            else
-            {
-                newSize.Height = MAX_BITMAP_SIZE;
-                newSize.Width = (int)(MAX_BITMAP_SIZE * bitmapRatio);
-            }
-
-            internalScale = (float)newSize.Width / originalBitmapSize.Width;
-
-            this.bitmap = new Bitmap(bitmap, newSize);
-            bitmap.Dispose();
-
-            RefreshBackground();
-        }
-
-        private void RefreshBackground()
+        internal void DrawRectangle(bool lineStyle)
         {
             if (bitmap == null) return;
 
-            decimal panelRatio = (decimal)Width / Height;
-            decimal bitmapRatio = (decimal)(bitmap.PhysicalDimension.Width / bitmap.PhysicalDimension.Height);
-            bitmapSize = new Size();
-            if(bitmapRatio > panelRatio)
-            {
-                bitmapSize.Width = Width;
-                bitmapSize.Height = (int) (Width / bitmapRatio);
-            }
-            else
-            {
-                bitmapSize.Height = Height;
-                bitmapSize.Width = (int)(Height * bitmapRatio);
-            }
-
-            Invalidate();
-        }
-
-        internal void DrawRectangle(int x, int width, bool lineStyle)
-        {
-            if (bitmap == null) return;
-
-            rectangleXRatio = (float)x / originalBitmapSize.Width;
-            rectangleRightRatio = (float)(x + width) / originalBitmapSize.Width;
-
+            drawRectOverlay = true;
             this.lineStyle = lineStyle;
 
-            Invalidate();
+            InvalidateVisual();
         }
 
         internal void ClearRectangle()
         {
-            rectangleRightRatio = 0;
-            Invalidate();
+            drawRectOverlay = false;
+            InvalidateVisual();
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnRender(DrawingContext drawingContext)
         {
-            base.OnPaint(e);
+            base.OnRender(drawingContext);
 
-            if (bitmap == null || bitmapSize == null) return;
+            if (bitmap == null) return;
 
-            int marginX = (Width - bitmapSize.Width) / 2;
-            int marginY = (Height - bitmapSize.Height) / 2;
+            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
 
-            if (rectangleRightRatio <= 0)
+            double panelRatio = RenderSize.Width / RenderSize.Height;
+            double bitmapRatio = (double)bitmap.PixelWidth / bitmap.PixelHeight;
+
+            Size bitmapSize = new Size();
+            if (bitmapRatio > panelRatio)
             {
-                e.Graphics.DrawImage(bitmap, new Rectangle(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
-                return;
-            }
-
-            Bitmap paintBitmap = new Bitmap(bitmap);
-            Graphics paintSurface = Graphics.FromImage(paintBitmap);
-
-            int areaLeft = (int)Math.Round(rectangleXRatio * bitmap.Width);
-            int areaRight = (int)Math.Round(rectangleRightRatio * bitmap.Width);
-
-            if (lineStyle)
-            {
-                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.White), 3) { Alignment = PenAlignment.Center },
-                    new Point(areaLeft, 0),
-                    new Point(areaLeft, paintBitmap.Height));
-
-                paintSurface.DrawLine(new Pen(Color.FromArgb(255, Color.White), 3) { Alignment = PenAlignment.Center },
-                    new Point(areaRight, 0),
-                    new Point(areaRight, paintBitmap.Height));
+                bitmapSize.Width = RenderSize.Width;
+                bitmapSize.Height = RenderSize.Width / bitmapRatio;
             }
             else
             {
-                paintSurface.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
-                    new Rectangle(
-                        0,
-                        0,
-                        areaLeft,
-                        paintBitmap.Height));
-
-                paintSurface.FillRectangle(new SolidBrush(Color.FromArgb(140, Color.Black)),
-                    new Rectangle(
-                        areaRight,
-                        0,
-                        paintBitmap.Width - areaRight,
-                        paintBitmap.Height));
+                bitmapSize.Height = RenderSize.Height;
+                bitmapSize.Width = RenderSize.Height * bitmapRatio;
             }
 
+            double marginX = (RenderSize.Width - bitmapSize.Width) / 2;
+            double marginY = (RenderSize.Height - bitmapSize.Height) / 2;
 
-
-            e.Graphics.DrawImage(paintBitmap, new Rectangle(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
-
-            paintSurface.Dispose();
-            paintBitmap.Dispose();
-        }
-
-        private void OnDispose(object sender, EventArgs e)
-        {
-            // TODO Called 2 times
-            if (bitmap != null)
+            if (!drawRectOverlay)
             {
-                bitmap.Dispose();
-                bitmap = null;
+                drawingContext.DrawImage(bitmap, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
+                return;
+            }
+
+            drawingContext.DrawRectangle(new SolidColorBrush(Colors.Azure),null, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
+            drawingContext.DrawImage(bitmap, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
+
+            double rectOverlayWidth = bitmapSize.Width / 3;
+
+            if (lineStyle)
+            {
+                drawingContext.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)), 2),
+                    new Point(marginX + rectOverlayWidth, marginY),
+                    new Point(marginX + rectOverlayWidth, marginY + bitmapSize.Height));
+
+                drawingContext.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)), 2),
+                    new Point(marginX + rectOverlayWidth * 2, marginY),
+                    new Point(marginX + rectOverlayWidth * 2, marginY + bitmapSize.Height));
+            }
+            else
+            {
+                drawingContext.DrawRectangle(new SolidColorBrush(Color.FromArgb(140, 0, 0, 0)), null,
+                    new Rect(
+                        marginX,
+                        marginY,
+                        rectOverlayWidth,
+                        bitmapSize.Height));
+
+                drawingContext.DrawRectangle(new SolidColorBrush(Color.FromArgb(140, 0, 0, 0)), null,
+                    new Rect(
+                        marginX + rectOverlayWidth * 2,
+                        marginY,
+                        rectOverlayWidth,
+                        bitmapSize.Height));
             }
         }
     }

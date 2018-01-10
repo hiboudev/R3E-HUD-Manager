@@ -1,16 +1,10 @@
-﻿using da2mvc.core.view;
-using R3EHUDManager.application.events;
+﻿using System;
+using da2mvc.core.view;
 using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
-using R3EHUDManager.r3esupport.command;
-using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using R3EHUDManager.placeholder.view;
 
 namespace R3EHUDManager.placeholder.view
 {
@@ -36,20 +30,21 @@ namespace R3EHUDManager.placeholder.view
 
         private void OnPlaceholderSelected(SelectionModelEventArgs args)
         {
-            if(args.Placeholder.Id == View.Model.Id)
-                View.SetSelected(true);
+            if (args.Placeholder.Id == View.Model.Id)
+                View.IsSelected = true;
         }
 
         private void OnPlaceholderUnselected(SelectionModelEventArgs args)
         {
             if (args.Placeholder.Id == View.Model.Id)
-                View.SetSelected(false);
+                View.IsSelected = false;
         }
 
         private void OnPlaceholderUpdated(PlaceHolderUpdatedEventArgs args)
         {
             if (args.Placeholder.Id == View.Model.Id)
-                View.Update(args.UpdateType);
+                //View.Update(args.UpdateType); // TODO WPF encore besoin de l'update type?
+                View.Render();
         }
     }
 }

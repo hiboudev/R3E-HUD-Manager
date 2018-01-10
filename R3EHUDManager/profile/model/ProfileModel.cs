@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.profile.model
 {
-    class ProfileModel:IModel
+    public class ProfileModel : IModel
     {
         public ProfileModel(int id, string name, int backgroundId, string fileName)
         {

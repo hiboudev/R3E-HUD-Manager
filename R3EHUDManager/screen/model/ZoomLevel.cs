@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.screen.model
 {
-    enum ZoomLevel
+    public enum ZoomLevel
     {
         FIT_TO_WINDOW,
         FIT_TO_HEIGHT

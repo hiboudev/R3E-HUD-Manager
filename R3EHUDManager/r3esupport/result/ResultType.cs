@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.result
 {
-    enum ResultType
+    public enum ResultType
     {
         VALID,
         INVALID

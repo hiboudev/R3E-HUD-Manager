@@ -10,7 +10,6 @@ using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.utils;
 using R3EHUDManager.userpreferences.model;
-using System.Diagnostics;
 
 namespace R3EHUDManager.background.command
 {
@@ -44,8 +43,8 @@ namespace R3EHUDManager.background.command
             bool layoutFixed = false;
             if (currentLayout == ScreenLayoutType.TRIPLE && background.Layout == ScreenLayoutType.SINGLE)
                 layoutFixed = ScreenUtils.PromptUserIfOutsideOfCenterScreenPlaceholders(placeholderCollection, preferences, database);
-            
-            if(!layoutFixed)
+
+            if (!layoutFixed)
                 Injector.ExecuteCommand<ValidatePlaceholderCollectionCommand>(new CollectionEventArgs<PlaceholderModel>(0, placeholderCollection, placeholderCollection.Items.ToArray()));
         }
     }

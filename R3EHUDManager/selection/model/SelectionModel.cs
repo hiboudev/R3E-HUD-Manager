@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.selection.model
 {
-    class SelectionModel:EventDispatcher
+    class SelectionModel : EventDispatcher
     {
         private PlaceholderModel selection;
         public static readonly int EVENT_SELECTED = EventId.New();

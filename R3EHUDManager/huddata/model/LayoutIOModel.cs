@@ -69,6 +69,16 @@ namespace R3EHUDManager.huddata.model
             SetSource(LayoutSourceType.PROFILE, profile.Name, placeholders, profile.BackgroundId);
         }
 
+        public void ProfileDeleted(ProfileModel profile)
+        {
+            // TODO pas top de reposer sur le Name.
+            if (source.SourceType == LayoutSourceType.PROFILE && source.Name == profile.Name)
+            {
+                // TODO Actuellement pas de prompt pour unsaved.
+                SetSource(LayoutSourceType.DELETED_PROFILE, profile.Name, source.Layout, -1);
+            }
+        }
+
         private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path, int backgroundId = -1)
         {
             // TODO quand on recharge l'original on devrait comparer le layout actuel avec le R3E et non l'original.
@@ -91,6 +101,7 @@ namespace R3EHUDManager.huddata.model
 
                 case LayoutSourceType.R3E:
                 case LayoutSourceType.BACKUP:
+                case LayoutSourceType.DELETED_PROFILE:
                     return UnsavedChangeType.R3E;
 
                 default:
@@ -98,6 +109,7 @@ namespace R3EHUDManager.huddata.model
             }
         }
 
+        // TODO nullable backgroundId
         private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list, int backgroundId)
         {
             if (sourceType == LayoutSourceType.R3E)

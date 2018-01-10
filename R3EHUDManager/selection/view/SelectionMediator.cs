@@ -1,5 +1,4 @@
-﻿using R3EHUDManager.selection.model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +10,9 @@ using R3EHUDManager.placeholder.events;
 using da2mvc.core.view;
 using R3EHUDManager.screen.model;
 using R3EHUDManager.screen.events;
+using R3EHUDManager.selection.view;
+using R3EHUDManager.selection.model;
+using R3EHUDManager.userpreferences.model;
 
 namespace R3EHUDManager.selection.view
 {
@@ -24,12 +26,13 @@ namespace R3EHUDManager.selection.view
             HandleEvent<PlaceholderModel, PlaceHolderUpdatedEventArgs>(PlaceholderModel.EVENT_UPDATED, OnPlaceholderUpdated);
 
             HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_BACKGROUND_CHANGED, OnBackgroundChanged);
-            HandleEvent<ScreenModel, ScreenModelEventArgs>(ScreenModel.EVENT_TRIPLE_SCREEN_CHANGED, OnTripleScreenChanged);
+
+            HandleEvent<UserPreferencesModel, BaseEventArgs>(UserPreferencesModel.EVENT_CULTURE_CHANGED, OnCultureChanged);
         }
 
-        private void OnTripleScreenChanged(ScreenModelEventArgs args)
+        private void OnCultureChanged(BaseEventArgs args)
         {
-            View.TripleScreenChanged(args.ScreenModel.Layout);
+            View.RefreshCulture();
         }
 
         private void OnBackgroundChanged(ScreenModelEventArgs args)

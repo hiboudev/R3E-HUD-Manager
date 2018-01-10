@@ -65,7 +65,7 @@ namespace R3EHUDManager.database
                 { PlaceholderName.VIRTUAL_MIRROR, false }
             };
 
-            foreach(KeyValuePair<string, bool> keyValue in values)
+            foreach (KeyValuePair<string, bool> keyValue in values)
                 new SQLiteCommand(
                     $"INSERT INTO placeholderFilter (name, isFiltered) VALUES ('{keyValue.Key}', {Convert.ToInt32(keyValue.Value)});"
                     , connection).ExecuteNonQuery();

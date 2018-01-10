@@ -1,305 +1,264 @@
 ﻿using da2mvc.core.events;
+using da2mvc.core.view;
 using R3EHUDManager.application.events;
-using R3EHUDManager.application.view;
 using R3EHUDManager.coordinates;
 using R3EHUDManager.graphics;
-using R3EHUDManager.placeholder.events;
 using R3EHUDManager.placeholder.model;
 using R3EHUDManager.r3esupport.result;
 using R3EHUDManager.screen.view;
 using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace R3EHUDManager.placeholder.view
 {
-    class PlaceholderView : Panel, IEventDispatcher
+    class PlaceholderView : DrawingVisual, IView, IEventDispatcher
     {
-        public event EventHandler Dragging;
+        public event EventHandler Disposed;
         public event EventHandler MvcEventHandler;
-
-        private Label label;
-        private bool isDragging;
-        private Point dragStartCursorPosition;
-        private Point dragStartLocation;
-        private AnchorView anchor;
-        private Size screenSize;
-        //private double screenRatio;
-        private Point screenOffset;
-        private bool isTripleScreen;
-        private bool selected;
-        private ValidationResult validationResult;
-        private ToolTip toolTip;
-        private MenuItem menuItemFixLayout;
-        private readonly static Color LABEL_BACK_COLOR = Color.LightGray;
-
-        public static readonly int EVENT_REQUEST_SELECTION = EventId.New();
-        public static readonly int EVENT_REQUEST_MOVE = EventId.New();
         public static readonly int EVENT_REQUEST_LAYOUT_FIX = EventId.New();
 
-        public PlaceholderModel Model { get; private set; } // TODO remove model from view
+        public PlaceholderModel Model { get; private set; }
+        private Rect screenArea;
+        private bool isTripleScreen;
+        private ToolTip toolTip;
+        private ContextMenu contextMenu;
+        private bool isSelected;
+        private bool showDecoration;
+        private LayoutValidationResult validationResult;
+        private Rect labelHitTestRect;
+        private MenuItem menuItemFixLayout;
 
-        public void Initialize(PlaceholderModel model, Size screenSize, Point screenOffset, bool isTripleScreen)
+        public PlaceholderView()
         {
-            Model = model;
-            this.isTripleScreen = isTripleScreen;
-
             InitializeUI();
-            SetScreenSize(screenSize, isTripleScreen, screenOffset);
-            SetValidationResult(Model.ValidationResult);
-            Disposed += OnDispose;
-        }
-
-        private Point AnchorPosition
-        {
-            get => new Point(Width * anchor.Location.X / AnchorArea.Width, Height * anchor.Location.Y / AnchorArea.Height);
-            set { anchor.Location = value; }
-        }
-
-        private Size AnchorArea
-        {
-            get => new Size(Width - anchor.Width, Height - anchor.Height);
-        }
-
-        private void RefreshLocation()
-        {
-            //TODO pour plus de précision, faire l'offset avant la conversion de coordonnées
-            R3ePoint modelLocation = Model.Position.Clone();
-            if (isTripleScreen)
-            {
-                modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
-            }
-
-            Point location = Coordinates.FromR3e(modelLocation, new Size(screenSize.Width, screenSize.Height));
-            Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
-
-            location.Offset(new Point(-anchor.X + screenOffset.X, -anchor.Y + screenOffset.Y));
-
-            Location = location;
-
-            AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
-        }
-
-        public void SetScreenSize(Size screenSize, bool isTripleScreen, Point screenOffset)
-        {
-            this.screenOffset = screenOffset;
-            this.screenSize = screenSize;
-            this.isTripleScreen = isTripleScreen;
-            ComputeSize();
-            RefreshLocation();
-            Invalidate();
-        }
-
-        internal void OnScreenScrolled(Point screenOffset)
-        {
-            this.screenOffset = screenOffset;
-            RefreshLocation();
-            Invalidate();
-        }
-
-        internal void Update(UpdateType updateType)
-        {
-            switch (updateType)
-            {
-                case UpdateType.POSITION:
-                    RefreshLocation();
-                    break;
-
-                case UpdateType.ANCHOR:
-                    RefreshLocation();
-                    break;
-
-                case UpdateType.SIZE:
-                    ComputeSize();
-                    RefreshLocation();
-                    Invalidate();
-                    break;
-            }
-        }
-
-        internal void SetSelected(bool selected)
-        {
-            this.selected = selected;
-            label.BackColor = selected ? Colors.PLACEHOLDER_SELECTION : LABEL_BACK_COLOR;
-            label.Font = selected ? new Font(label.Font, FontStyle.Bold) : new Font(label.Font, FontStyle.Regular);
-            if (selected) BringToFront();
-            Invalidate();
-        }
-
-        internal void SetValidationResult(ValidationResult result)
-        {
-            validationResult = result;
-            toolTip.SetToolTip(label, result.Description);
-            if (validationResult.Type == ResultType.INVALID && validationResult.HasFix())
-            {
-                menuItemFixLayout.Text = "Apply layout fix";
-                menuItemFixLayout.Enabled = true;
-            }
-            else
-            {
-                menuItemFixLayout.Text = "No available layout fix";
-                menuItemFixLayout.Enabled = false;
-            }
-
-            Invalidate();
-        }
-
-        private void ComputeSize()
-        {
-            Image originalImage = GraphicalAsset.GetPlaceholderImage(Model.Name);
-            SizeF newSize = Model.ResizeRule.GetSize(ScreenView.BASE_RESOLUTION, screenSize, originalImage.PhysicalDimension.ToSize(), isTripleScreen);
-
-            int width = (int)(newSize.Width * Model.Size.X);
-            int height = (int)(newSize.Height * Model.Size.Y);
-
-            Size = new Size(width, height);
-        }
-
-        void StartDrag(object sender, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left)
-                return;
-
-            if (!selected)
-            {
-                DispatchEvent(new IntEventArgs(EVENT_REQUEST_SELECTION, Model.Id));
-                return;
-            }
-
-            isDragging = true;
-
-            toolTip.Active = false;
-
-            dragStartCursorPosition = Cursor.Position;
-            dragStartLocation = Location;
-
-            ((Control)sender).MouseMove += Drag;
-            ((Control)sender).MouseUp += StopDrag;
-            //MouseClick += StopDrag; // To avoid the item to stay stuck to mouse when a break point triggers while dragging it.
-        }
-
-        void Drag(object sender, EventArgs e)
-        {
-            OnDrag();
-        }
-
-        void StopDrag(object sender, MouseEventArgs e)
-        {
-            if (!isDragging) return;
-            isDragging = false;
-
-            toolTip.Active = true;
-
-            ((Control)sender).MouseUp -= StopDrag;
-            ((Control)sender).MouseMove -= Drag;
-            OnDrag();
-        }
-
-        private void OnDrag()
-        {
-            var requestedLocation = new Point(dragStartLocation.X + Cursor.Position.X - dragStartCursorPosition.X, dragStartLocation.Y + Cursor.Position.Y - dragStartCursorPosition.Y);
-
-            if (!Location.Equals(dragStartCursorPosition))
-            {
-                DispatchEvent(new PlaceholderViewEventArgs(EVENT_REQUEST_MOVE, this, requestedLocation));
-            }
-
-            Dragging?.Invoke(this, EventArgs.Empty);
         }
 
         private void InitializeUI()
         {
-            DoubleBuffered = true;
-            BackColor = Color.FromArgb(0x22, 0x22, 0x22);
-
-            label = new Label()
-            {
-                Text = Model.Name,
-                AutoSize = true,
-                BackColor = LABEL_BACK_COLOR,
-                ForeColor = Color.Black,
-                Location = new Point(3,0),
-                //Enabled = false,
-            };
-
-            anchor = new AnchorView
-            {
-                Enabled = false
-            };
-
-            Controls.Add(anchor);
-            Controls.Add(label);
-
-            MouseDown += StartDrag;
-            label.MouseDown += StartDrag;
-            
-            InitializeToolTip();
-            InitializeContextMenu();
-        }
-
-        private void InitializeContextMenu()
-        {
-            ContextMenu menu = new ContextMenu();
-            menuItemFixLayout = new MenuItem("Apply layout fixes", OnMenuFixLayoutClick);
-            menu.MenuItems.Add(menuItemFixLayout);
-
-            ContextMenu = menu;
+            toolTip = new ToolTip();
+            contextMenu = new ContextMenu();
+            menuItemFixLayout = new MenuItem();
+            menuItemFixLayout.Click += OnMenuFixLayoutClick;
+            contextMenu.Items.Add(menuItemFixLayout);
         }
 
         private void OnMenuFixLayoutClick(object sender, EventArgs e)
         {
-            if (validationResult != null && Model != null && validationResult.HasFix())
+            if (validationResult != null && validationResult.HasFix())
                 DispatchEvent(new IntEventArgs(EVENT_REQUEST_LAYOUT_FIX, Model.Id));
         }
 
-        private void InitializeToolTip()
+        public bool ShowDecoration
         {
-            toolTip = new ToolTip
+            get => showDecoration;
+            set
             {
-                AutoPopDelay = 8000,
-                InitialDelay = 750,
-                ReshowDelay = 500,
-                ShowAlways = true,
-            };
+                showDecoration = value;
+                Render();
+            }
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
+        public bool IsSelected
         {
-            base.OnPaintBackground(e);
-            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
-
-            e.Graphics.DrawImage(
-                GraphicalAsset.GetPlaceholderImage(Model.Name),
-                new Rectangle(0, 0, Size.Width, Size.Height)
-                );
-
-            if (selected)
+            get => isSelected;
+            set
             {
-                Rectangle insideRectangle = new Rectangle(0, 0, Width - 1, Height - 1);
+                isSelected = value;
+                Render();
+            }
+        }
 
-                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, Colors.PLACEHOLDER_SELECTION), 1)
+        public Rect ScreenArea
+        {
+            get => screenArea;
+            set
+            {
+                screenArea = value;
+            }
+        }
+
+        public bool IsTripleScreen
+        {
+            get => isTripleScreen;
+            set
+            {
+                isTripleScreen = value;
+                // TODO invalidate?
+            }
+        }
+
+        internal void Initialize(PlaceholderModel model, bool isTripleScreen)
+        {
+            Model = model;
+            this.isTripleScreen = isTripleScreen;
+            SetValidationResult(model.ValidationResult);
+        }
+
+        public void Render()
+        {
+            if (screenArea == null)
+                return;
+
+            PrivateRender(GetRenderRect());
+        }
+
+        internal void SetValidationResult(LayoutValidationResult result)
+        {
+            validationResult = result;
+
+            if (validationResult.Type == ResultType.VALID)
+            {
+                toolTip.Content = "Layout is valid";
+                menuItemFixLayout.Header = "Layout is valid";
+                menuItemFixLayout.IsEnabled = false;
+                if (toolTip.IsOpen) toolTip.IsOpen = false;
+            }
+            else
+            {
+                toolTip.Content = result.Description;
+
+                if (validationResult.HasFix())
                 {
-                    Alignment = PenAlignment.Inset
-                }, insideRectangle);
+                    menuItemFixLayout.Header = "Apply layout fix";
+                    menuItemFixLayout.IsEnabled = true;
+                }
+                else
+                {
+                    menuItemFixLayout.Header = "No available layout fix";
+                    menuItemFixLayout.IsEnabled = false;
+                }
             }
 
-            Color lineColor;
-            if (validationResult != null && validationResult.Type == ResultType.INVALID)
-                lineColor = validationResult.HasFix() ? Colors.LAYOUT_NOTIFICATION_FIX : Colors.LAYOUT_NOTIFICATION_NO_FIX;
-            else
-                lineColor = Color.Gray;
-
-            e.Graphics.DrawLine(
-                    new Pen(new SolidBrush(lineColor), 3),
-                        new Point(1, 0),
-                        new Point(1, label.DisplayRectangle.Bottom)
-                        );
+            PrivateRender(GetRenderRect()); // TODO est-ce qu'on ne dessinerait pas trop souvent ?
         }
 
-        private void OnDispose(object sender, EventArgs e)
+        public void ShowLayoutFixMenu()
         {
+            if (validationResult != null && validationResult.Type == ResultType.INVALID)
+            {
+                toolTip.IsOpen = false;
+                contextMenu.IsOpen = true;
+            }
+        }
+
+        internal void ShowToolTip(bool show)
+        {
+            if (!show)
+            {
+                toolTip.IsOpen = false;
+                return;
+            }
+
+            if (!contextMenu.IsOpen && !toolTip.IsOpen && validationResult != null && validationResult.Type == ResultType.INVALID)
+                toolTip.IsOpen = true;
+        }
+
+        internal Rect GetLabelHitTestRect()
+        {
+            if (!showDecoration && !isSelected) return new Rect();
+            return labelHitTestRect;
+        }
+
+        private Rect GetRenderRect()
+        {
+            Size size = Model.ResizeRule.GetSize(Model.Size, ScreenView.BASE_RESOLUTION, screenArea.Size, GraphicalAsset.GetPlaceholderSize(Model.Name), isTripleScreen);
+
+            R3ePoint modelLocation = Model.Position.Clone();
+            if (isTripleScreen) modelLocation.X /= 3;
+
+            Point anchor = Coordinates.FromR3e(Model.Anchor, size);
+            Point location = Coordinates.FromR3e(modelLocation, screenArea.Size);
+
+            location.Offset(-anchor.X + screenArea.Location.X, -anchor.Y + screenArea.Location.Y);
+
+            return new Rect(location.X, location.Y, size.Width, size.Height);
+        }
+
+        private void PrivateRender(Rect rect)
+        {
+            DrawingContext drawingContext = RenderOpen();
+
+            // Background
+            if (showDecoration || isSelected)
+            {
+                drawingContext.DrawRectangle(
+                    new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)),
+                    null,
+                    rect
+                    );
+            }
+
+            // Image
+            drawingContext.DrawImage(GraphicalAsset.GetPlaceholderImage(Model.Name), rect);
+
+            int validationWidth = 3;
+
+            // Label
+            if (showDecoration || isSelected)
+            {
+                Typeface typeface = new Typeface(new FontFamily(), FontStyles.Normal, FontWeights.Bold, new FontStretch());
+                FormattedText text = new FormattedText(Model.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, new SolidColorBrush(Colors.Black))
+                {
+                    MaxTextWidth = rect.Width,
+                    MaxTextHeight = rect.Height
+                };
+
+                labelHitTestRect = new Rect(rect.X + validationWidth, rect.Y, text.Width, text.Height);
+
+                drawingContext.DrawRectangle(
+                    new SolidColorBrush(isSelected ? AppColors.PLACEHOLDER_SELECTION : Colors.LightGray),
+                    null,
+                    labelHitTestRect
+                    );
+
+                drawingContext.DrawText(text, new Point(rect.X + validationWidth, rect.Y));
+
+                // Layout validation
+                Color validationColor;
+                if (validationResult != null && validationResult.Type == ResultType.INVALID)
+                    validationColor = validationResult.HasFix() ? AppColors.LAYOUT_NOTIFICATION_FIX : AppColors.LAYOUT_NOTIFICATION_NO_FIX;
+                else
+                    validationColor = Colors.Gray;
+
+                drawingContext.DrawRectangle(
+                    new SolidColorBrush(validationColor),
+                    null,
+                    new Rect(rect.X, rect.Y, validationWidth, text.Height)
+                    );
+            }
+
+            // Selection rectangle
+            if (isSelected)
+            {
+                drawingContext.DrawRectangle(null, new Pen(new SolidColorBrush(AppColors.PLACEHOLDER_SELECTION), 1), rect);
+            }
+
+            // Anchor
+            if (showDecoration || isSelected)
+            {
+                // Anchor
+                double thickness = 4;
+                Size anchorArea = new Size(rect.Width - thickness, rect.Height - thickness);
+                Point anchorPosition = Coordinates.FromR3e(Model.Anchor, anchorArea);
+                anchorPosition.X += rect.X;
+                anchorPosition.Y += rect.Y;
+                drawingContext.DrawRectangle(new SolidColorBrush(Color.FromArgb(255, 54, 42, 212)), null, new Rect(anchorPosition, new Size(thickness, thickness)));
+            }
+
+            drawingContext.Close();
+        }
+
+        public void Dispose()
+        {
+            if (toolTip.IsOpen) toolTip.IsOpen = false;
+            Disposed?.Invoke(this, EventArgs.Empty);
         }
 
         public void DispatchEvent(BaseEventArgs args)
@@ -308,31 +267,3 @@ namespace R3EHUDManager.placeholder.view
         }
     }
 }
-
-
-//private void RefreshLocation()
-//{
-//    R3ePoint modelLocation = Model.Position.Clone();
-
-//    if (isTripleScreen)
-//    {
-//        modelLocation = new R3ePoint(modelLocation.X / 3, modelLocation.Y);
-//    }
-
-//    SizeF objectScreenRatio = new SizeF((float)Width / screenSize.Width, (float)Height / screenSize.Height);
-
-//    R3ePoint r3eLocation = new R3ePoint(
-//        modelLocation.X - objectScreenRatio.Width * (Model.Anchor.X + 1),
-//        modelLocation.Y - objectScreenRatio.Height * (Model.Anchor.Y - 1));
-
-//    Point location = Coordinates.FromR3e(r3eLocation, new Size(screenSize.Width, screenSize.Height));
-//    Point anchor = Coordinates.FromR3e(Model.Anchor, Size);
-
-//    location.Offset(new Point(screenOffset.X, screenOffset.Y));
-
-//    Location = location;
-
-//    AnchorPosition = Coordinates.FromR3e(Model.Anchor, AnchorArea);
-//}
-
-

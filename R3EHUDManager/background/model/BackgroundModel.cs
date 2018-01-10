@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.background.model
 {
-    class BackgroundModel : IModel
+    public class BackgroundModel : IModel
     {
         public BackgroundModel(int id, string name, string fileName, BaseDirectoryType directoryType, bool IsBuiltInt, ScreenLayoutType layout)
         {

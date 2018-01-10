@@ -7,7 +7,7 @@ using R3EHUDManager.placeholder.model;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    class PropertyCheck
+    public class PropertyCheck
     {
         private readonly CheckPropertyType property;
         private readonly Operation operation;

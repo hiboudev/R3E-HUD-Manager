@@ -1,13 +1,17 @@
 ﻿using da2mvc.core.events;
 using da2mvc.core.injection;
 using da2mvc.framework.menubutton.view;
-using R3EHUDManager.apppresentation.view;
+using da2mvc.framework.utils;
 using R3EHUDManager.graphics;
 using R3EHUDManager.huddata.view;
+using R3EHUDManager.settings.view;
+using R3EHUDManager.utils;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace R3EHUDManager.settings.view
 {
@@ -27,27 +31,43 @@ namespace R3EHUDManager.settings.view
 
         private void InitializeUI()
         {
+            // Note : Si on appelle SetSelectedItem le Content va être remplacé.
+            ContentTemplate = new ButtonContentTemplate();
             DrawArrow = false;
-            Image = new Bitmap(GraphicalAsset.GetPreferencesIcon(), 16, 16);
-            Size = new Size(24, 24);
 
-            Disposed += OnDispose;
+            if (!WpfUtils.IsInDesignMode())
+                Content = GraphicalAsset.GetPreferencesIcon();
+
+            Width = Height = 20;
         }
 
-        private void OnDispose(object sender, EventArgs e)
+        protected override List<MenuItem> GetBuiltInItems()
         {
-            Image.Dispose();
-        }
+            var openDataDirItem = new MenuItem()
+            {
+                Header = "Open application data directory",
+            };
+            var openInstallDirItem = new MenuItem()
+            {
+                Header = "Open application install directory"
+            };
+            var openHudDirItem = new MenuItem()
+            {
+                Header = "Open HUD directory"
+            };
 
-        protected override List<ToolStripItem> GetBuiltInItems()
-        {
-            ToolStripMenuItem openDataDirItem = new ToolStripMenuItem("Open application data directory");
-            ToolStripMenuItem openInstallDirItem = new ToolStripMenuItem("Open application install directory");
-            ToolStripMenuItem openHudDirItem = new ToolStripMenuItem("Open HUD directory");
-            
-            ToolStripMenuItem openFilteredPlaceholders = new ToolStripMenuItem("Manage filtered placeholders...");
-            ToolStripMenuItem showPresentation = new ToolStripMenuItem("Quick presentation");
-            ToolStripMenuItem openSettings = new ToolStripMenuItem("Settings...");
+            var openFilteredPlaceholders = new MenuItem()
+            {
+                Header = "Manage filtered placeholders..."
+            };
+            var showPresentation = new MenuItem()
+            {
+                Header = "Quick presentation"
+            };
+            var openSettings = new MenuItem()
+            {
+                Header = "Settings..."
+            };
 
             openHudDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_HUD_DIRECTORY));
             openDataDirItem.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_OPEN_APP_DATA_DIRECTORY));
@@ -56,13 +76,13 @@ namespace R3EHUDManager.settings.view
             showPresentation.Click += (sender, args) => DispatchEvent(new BaseEventArgs(EVENT_SHOW_PRESENTATION));
             openSettings.Click += OpenSettings;
 
-            return new List<ToolStripItem>(new ToolStripItem[] {
+            return new List<MenuItem>(new MenuItem[] {
                 openHudDirItem,
                 openDataDirItem,
                 openInstallDirItem,
-                new ToolStripSeparator(),
+                new MenuItemSeparator(),
                 showPresentation,
-                new ToolStripSeparator(),
+                new MenuItemSeparator(),
                 openFilteredPlaceholders,
                 openSettings
             });
@@ -72,20 +92,30 @@ namespace R3EHUDManager.settings.view
         {
             var dialog = Injector.GetInstance<SettingsView>();
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == true)
             {
             }
-            dialog.Dispose();
         }
 
         private void OpenFiltersManager(object sender, EventArgs e)
         {
-            var dialog = Injector.GetInstance<PlaceholderBlackListView>();
+            var dialog = Injector.GetInstance<PlaceholderBlacklistView>();
 
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == true)
             {
             }
-            dialog.Dispose();
+        }
+    }
+
+    class ButtonContentTemplate : DataTemplate
+    {
+        public ButtonContentTemplate()
+        {
+            var image = new FrameworkElementFactory(typeof(Image));
+            image.SetValue(Image.SourceProperty, new Binding());
+            image.SetValue(Image.StretchProperty, Stretch.Uniform);
+
+            VisualTree = image;
         }
     }
 }

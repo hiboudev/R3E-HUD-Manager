@@ -11,13 +11,13 @@ namespace R3EHUDManager.placeholder.events
 {
     class ValidationChangedEventArgs : BaseEventArgs
     {
-        public ValidationChangedEventArgs(int eventId, PlaceholderModel placeholder, ValidationResult result) : base(eventId)
+        public ValidationChangedEventArgs(int eventId, PlaceholderModel placeholder, LayoutValidationResult result) : base(eventId)
         {
             Placeholder = placeholder;
             Result = result;
         }
 
         public PlaceholderModel Placeholder { get; }
-        public ValidationResult Result { get; }
+        public LayoutValidationResult Result { get; }
     }
 }

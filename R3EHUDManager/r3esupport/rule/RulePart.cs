@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    class RulePart
+    public class RulePart
     {
         private readonly PropertyCheck[] checks;
 

@@ -168,7 +168,7 @@ namespace R3EHUDManager.database
                                 model.LastProfileId = reader.GetInt32(1);
                                 break;
                             case PreferenceType.USE_INVARIANT_CULTURE:
-                                model.UseInvariantCulture= Convert.ToBoolean(reader.GetInt32(1));
+                                model.UseInvariantCulture = Convert.ToBoolean(reader.GetInt32(1));
                                 break;
                         }
                     }

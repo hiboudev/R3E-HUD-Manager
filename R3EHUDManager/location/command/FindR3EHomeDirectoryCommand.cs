@@ -6,10 +6,11 @@ using System.IO;
 using da2mvc.core.command;
 using System.Windows.Forms;
 using da2mvc.framework.collection.model;
+using System.Windows;
 
 namespace R3EHUDManager.location.command
 {
-    class FindR3eHomeDirectoryCommand:ICommand
+    class FindR3eHomeDirectoryCommand : ICommand
     {
         private readonly LocationModel locationModel;
         private readonly R3eHomeDirectoryFinder finder;
@@ -20,10 +21,10 @@ namespace R3EHUDManager.location.command
         {
             this.locationModel = locationModel;
             this.finder = finder;
-            this.r3eDirectoryCollection  = r3eDirectoryCollection;
+            this.r3eDirectoryCollection = r3eDirectoryCollection;
             this.directorySelection = directorySelection;
         }
-        
+
         public void Execute()
         {
             List<string> paths = finder.GetPaths();
@@ -46,7 +47,7 @@ namespace R3EHUDManager.location.command
 
             if (File.Exists(txtFile))
             {
-                if(MessageBox.Show("Use your custom R3E directory?", "Use custom directory?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (System.Windows.MessageBox.Show("Use your custom R3E directory?", "Use custom directory?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     string r3eDirectory = File.ReadAllText(txtFile);
                     locationModel.R3eHomeBaseDirectory = r3eDirectory;
@@ -54,8 +55,10 @@ namespace R3EHUDManager.location.command
                 }
             }
 
-            var dialog = new FolderBrowserDialog();
-            dialog.Description = @"Please select your 'RaceRoom Racing Experience' directory (Documents\My Games\SimBin\RaceRoom Racing Experience). Its name may end with 'Install N'.";
+            var dialog = new FolderBrowserDialog
+            {
+                Description = @"Please select your 'RaceRoom Racing Experience' directory (Documents\My Games\SimBin\RaceRoom Racing Experience). Its name may end with 'Install N'."
+            };
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -64,7 +67,7 @@ namespace R3EHUDManager.location.command
             }
             else
             {
-                MessageBox.Show("Can't find R3E user directory, application will exit.", "Error");
+                System.Windows.MessageBox.Show("Can't find R3E user directory, application will exit.", "Error");
                 Environment.Exit(0);
             }
         }

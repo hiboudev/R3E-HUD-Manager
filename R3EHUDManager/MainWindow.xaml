@@ -1,0 +1,55 @@
+﻿<Window x:Class="R3EHUDManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:R3EHUDManager"
+        xmlns:view="clr-namespace:R3EHUDManager.selection.view"
+        xmlns:background="clr-namespace:R3EHUDManager.background.view"
+        xmlns:view2="clr-namespace:R3EHUDManager.screen.view"
+        xmlns:view4="clr-namespace:R3EHUDManager.huddata.view"
+        xmlns:view6="clr-namespace:R3EHUDManager.location.view"
+        xmlns:view7="clr-namespace:R3EHUDManager.huddata.view"
+        xmlns:view8="clr-namespace:R3EHUDManager.settings.view"
+        xmlns:view3="clr-namespace:R3EHUDManager.application.view"
+        xmlns:view1="clr-namespace:R3EHUDManager.profile.view"
+        mc:Ignorable="d"
+        Title="R3E HUD Manager" Height="620" Width="1020"
+        MinWidth="540" MinHeight="300"
+        >
+    
+    <DockPanel Background="WhiteSmoke">
+        
+        <DockPanel Name="leftToolBar" DockPanel.Dock="Left"  Margin="4,0,4,4" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <view3:AppView ViewType="{x:Type view:SelectionView}" Grid.Row="0" Background="{StaticResource ColorGray}" />
+                <view3:AppView ViewType="{x:Type view:PlaceholderListView}" Grid.Row="1" Margin="0,0,0,6" />
+                <view3:AppView ViewType="{x:Type view4:LayoutLoadSaveView}" Grid.Row="2" />
+                <view3:AppView ViewType="{x:Type view6:R3eDirectoryMenuView}" Grid.Row="3"  Margin="0,6,0,6"/>
+                <view3:AppView ViewType="{x:Type view8:SettingsMenuView}" HorizontalAlignment="Left" Grid.Row="4" />
+            </Grid>
+        </DockPanel>
+        
+        <StackPanel Name="topToolBar" DockPanel.Dock="Top" Orientation="Horizontal">
+            <view3:AppView ViewType="{x:Type background:BackgroundMenuView}" Margin="0,0,4,0" />
+            <view3:AppView ViewType="{x:Type view1:ProfileMenuView}" />
+        </StackPanel>
+
+        <DockPanel Name="bottomToolBar" DockPanel.Dock="Bottom" >
+            <view3:AppView ViewType="{x:Type view2:ZoomView}" DockPanel.Dock="Left"  Margin="0,0,10,0" />
+            <view3:AppView ViewType="{x:Type view7:LayoutSourceView}" HorizontalAlignment="Right" />
+        </DockPanel>
+
+        <view3:AppView ViewType="{x:Type view2:ScreenScrollerView}" />
+        
+    </DockPanel>
+    
+</Window>

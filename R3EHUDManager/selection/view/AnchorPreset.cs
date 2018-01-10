@@ -47,13 +47,13 @@ namespace R3EHUDManager.selection.view
                 case ScreenPositionType.RIGHT:
                     return new R3ePoint(preset.X + 2, preset.Y);
             }
-            
+
             return preset;
         }
 
         public static string GetPresetName(R3ePoint point)
         {
-            foreach(KeyValuePair<string, R3ePoint> entry in presets)
+            foreach (KeyValuePair<string, R3ePoint> entry in presets)
                 if (entry.Value.Equals(point))
                     return entry.Key;
 

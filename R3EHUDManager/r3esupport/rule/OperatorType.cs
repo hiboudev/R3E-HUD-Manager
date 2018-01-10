@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.r3esupport.rule
 {
-    enum OperatorType
+    public enum OperatorType
     {
         GREATER,
         LESS,

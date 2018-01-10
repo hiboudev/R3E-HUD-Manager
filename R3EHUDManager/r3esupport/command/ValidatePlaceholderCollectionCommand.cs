@@ -18,7 +18,6 @@ namespace R3EHUDManager.r3esupport.command
 {
     class ValidatePlaceholderCollectionCommand : ICommand
     {
-
         private readonly CollectionEventArgs<PlaceholderModel> args;
 
         // TODO improve commands in MVC by choosing the ctor depending of event arg type.

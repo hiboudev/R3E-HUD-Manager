@@ -39,7 +39,7 @@ namespace R3EHUDManager.huddata.parser
                     string name = xmlReader.ReadElementContentAsString();
 
                     if (!IsGeometricItem(name)) continue;
-                    
+
                     GeometricItem item = GetGeometricItem(name);
 
                     if (blackList.IsFiltered(item.Name))
@@ -50,7 +50,7 @@ namespace R3EHUDManager.huddata.parser
                         PlaceholderModel placeholder = PlaceholderFactory.NewPlaceholder(item.Name);
                         placeHolders.Add(placeholder.Name, placeholder);
                     }
-                    
+
                     xmlReader.ReadToFollowing("value");
 
                     xmlReader.MoveToFirstAttribute();
@@ -146,7 +146,7 @@ namespace R3EHUDManager.huddata.parser
         {
             Regex regEx = new Regex("[0-9.-]+");
             MatchCollection mc = regEx.Matches(vector);
-            
+
             return new R3ePoint(
                     double.Parse(mc[0].Value, CultureInfo.InvariantCulture),
                     double.Parse(mc[1].Value, CultureInfo.InvariantCulture));
@@ -180,7 +180,7 @@ namespace R3EHUDManager.huddata.parser
         {
             public const string BOOL = "bool";
             public const string VECTOR = "Vector2";
-            public const string INT_32 = "int32"; 
+            public const string INT_32 = "int32";
         }
     }
 }

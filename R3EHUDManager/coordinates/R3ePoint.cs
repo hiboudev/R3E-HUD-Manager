@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.coordinates
 {
-    class R3ePoint
+    public class R3ePoint
     {
-        public double X { get; }
-        public double Y { get; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
         public R3ePoint(double x, double y)
         {

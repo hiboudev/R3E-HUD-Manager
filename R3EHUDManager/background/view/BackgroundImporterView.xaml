@@ -1,0 +1,39 @@
+﻿<view:ModalWindow
+    xmlns:view="clr-namespace:da2mvc.framework.application.view;assembly=da2MVC_wpf"
+    x:Class="R3EHUDManager.background.view.BackgroundImporterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:R3EHUDManager.background.view"
+        mc:Ignorable="d"
+        Title="Import background" Height="450" Width="500"
+        FocusManager.FocusedElement="{Binding ElementName=inputField}"
+        ResizeMode="CanResize"
+        >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0">Background Name</Label>
+        <TextBox Grid.Row="1" Name="inputField" MaxLength="40" />
+        <Label Grid.Row="2" Name="errorField" Foreground="OrangeRed" />
+        <local:BackgroundPreviewView Grid.Row="3" x:Name="preview"/>
+        <Label Grid.Row="4" Name="backgroundInfo" FontFamily="Courier New" />
+        <RadioButton Grid.Row="5" Name="radioSingle" >Single screen</RadioButton>
+        <RadioButton Grid.Row="6" Name="radioTriple" >Triple screen</RadioButton>
+        <RadioButton Grid.Row="7" Name="radioCrop" >Crop triple -> single screen</RadioButton>
+        <Button Grid.Row="8" Name="okButton" IsDefault="True">Import</Button>
+    </Grid>
+    
+</view:ModalWindow>

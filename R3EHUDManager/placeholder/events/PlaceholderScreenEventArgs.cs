@@ -10,14 +10,13 @@ namespace R3EHUDManager.placeholder.events
 {
     class PlaceholderScreenEventArgs : BaseEventArgs
     {
-        // TODO use int
-        public PlaceholderScreenEventArgs(int eventId, string placeholderName, ScreenPositionType screenType) : base(eventId)
+        public PlaceholderScreenEventArgs(int eventId, int placeholderId, ScreenPositionType screenType) : base(eventId)
         {
-            PlaceholderName = placeholderName;
+            PlaceholderId = placeholderId;
             ScreenType = screenType;
         }
 
-        public string PlaceholderName { get; }
+        public int PlaceholderId { get; }
         public ScreenPositionType ScreenType { get; }
     }
 }

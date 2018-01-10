@@ -19,7 +19,7 @@ namespace R3EHUDManager.log
 
         public static void Clear()
         {
-            if(filePath != null)
+            if (filePath != null)
                 File.WriteAllText(filePath, "");
         }
 

@@ -24,7 +24,7 @@ namespace R3EHUDManager.placeholder.command
         {
             if (screenModel.Layout != ScreenLayoutType.TRIPLE) return;
 
-            PlaceholderModel placeholder = collectionModel.Get(args.PlaceholderName);
+            PlaceholderModel placeholder = collectionModel.Get(args.PlaceholderId);
             ScreenPositionType currentScreen = ScreenUtils.GetScreen(placeholder);
 
             R3ePoint screenOffset = ScreenUtils.ToScreenOffset(placeholder, args.ScreenType);

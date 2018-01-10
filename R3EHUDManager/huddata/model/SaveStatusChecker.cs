@@ -4,21 +4,23 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Threading;
 
 namespace R3EHUDManager.huddata.model
 {
     class SaveStatusChecker
     {
         private readonly LayoutIOModel layoutIO;
-        private Timer timer;
+        private readonly DispatcherTimer timer;
 
         public SaveStatusChecker(LayoutIOModel layoutIO)
         {
             this.layoutIO = layoutIO;
-            timer = new Timer()
+
+            timer = new DispatcherTimer()
             {
-                Interval = 1000,
+                Interval = new TimeSpan(0, 0, 0, 1, 0),
+                IsEnabled = true,
             };
             timer.Tick += TimerElapsed;
         }
