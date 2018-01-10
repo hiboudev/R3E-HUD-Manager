@@ -7,11 +7,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R3EHUDManager.huddata.view"
         mc:Ignorable="d"
-        Title="Filtered placeholders" Height="300" Width="300">
+        Title="Filtered placeholders" Height="350" Width="300">
 
     <DockPanel>
-        <TextBlock DockPanel.Dock="Top">Select placeholders to display.<LineBreak/>Changes will be applied on next loaded layout.</TextBlock>
-        <Button Name="applyButton" DockPanel.Dock="Bottom" IsDefault="True">Apply</Button>
+        <TextBlock DockPanel.Dock="Top" Margin="0,0,0,4">Select placeholders to display.<LineBreak/>Changes will be applied on next loaded layout.</TextBlock>
+        <Button Name="applyButton" DockPanel.Dock="Bottom" IsDefault="True" Margin="0,10,0,0">Apply</Button>
         <ListBox Name="list">
             <ListBox.ItemTemplate>
                 <DataTemplate>

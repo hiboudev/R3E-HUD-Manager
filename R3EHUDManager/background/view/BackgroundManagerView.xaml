@@ -7,7 +7,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R3EHUDManager.background.view"
         mc:Ignorable="d"
-        Title="Manage backgrounds" Height="300" Width="300">
+        Title="Manage backgrounds" Height="300" Width="300"
+        ResizeMode="CanResize">
     <DockPanel>
         <Button DockPanel.Dock="Bottom" Name="button">Delete background</Button>
         <ListBox Name="list"/>

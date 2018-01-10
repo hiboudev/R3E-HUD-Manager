@@ -7,7 +7,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:R3EHUDManager.profile.view"
         mc:Ignorable="d"
-        Title="Manage profiles" Height="300" Width="300">
+        Title="Manage profiles" Height="300" Width="300"
+        ResizeMode="CanResize">
     <DockPanel>
         <Button DockPanel.Dock="Bottom" Name="button">Delete profile</Button>
         <ListBox Name="list"/>

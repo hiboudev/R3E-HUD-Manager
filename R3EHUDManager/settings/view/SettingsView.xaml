@@ -22,7 +22,7 @@
         <Label>Culture:</Label>
         <CheckBox Name="useInvariantCulture">Use invariant culture (modify the decimal separator used in numeric up/down controls).</CheckBox>
 
-        <Button Name="applyButton">Apply</Button>
+        <Button Name="applyButton" Margin="0,10,0,0">Apply</Button>
     </StackPanel>
 
 </view:ModalWindow>
