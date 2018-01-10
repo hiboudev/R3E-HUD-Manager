@@ -14,7 +14,7 @@
         xmlns:view3="clr-namespace:R3EHUDManager.application.view"
         xmlns:view1="clr-namespace:R3EHUDManager.profile.view"
         mc:Ignorable="d"
-        Title="MainWindow" Height="620" Width="1020"
+        Title="R3E HUD Manager" Height="620" Width="1020"
         MinWidth="540" MinHeight="300"
         >
     

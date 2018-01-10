@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>publish\</PublishUrlHistory>
-    <InstallUrlHistory />
+    <PublishUrlHistory>ftp://damien%4054.37.159.200/R3EHUDManager_install_files/|ftp://damien%40vs84.evxonline.net/R3EHUDManager_install_files/|ftp://damien%40http://54.37.159.200/R3EHUDManager_install_files/|ftp://damien%40vs84.evxonline.net/R3EHUDManager_beta/|publish\</PublishUrlHistory>
+    <InstallUrlHistory>http://54.37.159.200/R3EHUDManager_update/|http://vs84.evxonline.net/R3EHUDManager_update/|http://vs84.evxonline.net/R3EHUDManager_beta_update/</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>fr-FR</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
 </Project>

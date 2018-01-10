@@ -12,7 +12,7 @@
 
     <StackPanel>
         <Label>Profile name</Label>
-        <TextBox Name="nameField" />
+        <TextBox Name="nameField" MaxLength="40" />
         <TextBlock Name="backgroundField" Foreground="Gray" />
         <TextBlock Name="fileNameField" Foreground="Gray" />
         <TextBlock Name="errorField" Foreground="OrangeRed" />
