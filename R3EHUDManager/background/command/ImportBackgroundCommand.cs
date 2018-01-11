@@ -1,9 +1,13 @@
 ﻿using da2mvc.core.command;
+using da2mvc.core.injection;
+using da2mvc.framework.collection.events;
 using da2mvc.framework.collection.model;
 using R3EHUDManager.background.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
 using R3EHUDManager.location.model;
+using R3EHUDManager.placeholder.model;
+using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.screen.model;
 using System;
 using System.Diagnostics;
@@ -21,14 +25,17 @@ namespace R3EHUDManager.background.command
         private readonly LocationModel locationModel;
         private readonly Database database;
         private readonly CollectionModel<BackgroundModel> collection;
+        private readonly PlaceHolderCollectionModel placeholderCollection;
 
-        public ImportBackgroundCommand(ImportBackgroundEventArgs args, ScreenModel screenModel, LocationModel locationModel, Database database, CollectionModel<BackgroundModel> collection)
+        public ImportBackgroundCommand(ImportBackgroundEventArgs args, ScreenModel screenModel, LocationModel locationModel, Database database, CollectionModel<BackgroundModel> collection,
+            PlaceHolderCollectionModel placeholderCollection)
         {
             this.args = args;
             this.screenModel = screenModel;
             this.locationModel = locationModel;
             this.database = database;
             this.collection = collection;
+            this.placeholderCollection = placeholderCollection;
         }
 
         public void Execute()
@@ -56,6 +63,8 @@ namespace R3EHUDManager.background.command
             database.AddBackground(background);
             collection.Add(background);
             screenModel.SetBackground(background);
+
+            Injector.ExecuteCommand<ValidatePlaceholderCollectionCommand>(new CollectionEventArgs<PlaceholderModel>(0, placeholderCollection, placeholderCollection.Items.ToArray()));
         }
 
         private string GetUnusedName(string path, string fileName)
