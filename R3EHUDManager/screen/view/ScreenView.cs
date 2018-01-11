@@ -224,6 +224,22 @@ namespace R3EHUDManager.screen.view
 
             drawingContext.DrawImage(background, new Rect(backgroundPosition, backgroundSize));
 
+            if (isTripleScreen)
+            {
+                var pen = new Pen(new SolidColorBrush(Color.FromArgb(155, 0, 0, 0)), 2);
+
+                drawingContext.DrawLine(
+                    pen,
+                    new Point(backgroundPosition.X + backgroundSize.Width / 3, backgroundPosition.Y),
+                    new Point(backgroundPosition.X + backgroundSize.Width / 3, backgroundPosition.Y + backgroundSize.Height)
+                    );
+                drawingContext.DrawLine(
+                    pen,
+                    new Point(backgroundPosition.X + 2 * backgroundSize.Width / 3, backgroundPosition.Y),
+                    new Point(backgroundPosition.X + 2 * backgroundSize.Width / 3, backgroundPosition.Y + backgroundSize.Height)
+                    );
+            }
+
             screenArea = new Rect(backgroundPosition, backgroundSize);
         }
 
