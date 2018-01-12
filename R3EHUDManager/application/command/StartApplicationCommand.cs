@@ -9,6 +9,8 @@ using R3EHUDManager.background.command;
 using R3EHUDManager.r3esupport.command;
 using R3EHUDManager.apppresentation.command;
 using R3EHUDManager.log.command;
+using R3EHUDManager.database;
+using R3EHUDManager.motec.command;
 
 namespace R3EHUDManager.application.command
 {
@@ -25,6 +27,7 @@ namespace R3EHUDManager.application.command
             Injector.ExecuteCommand<SaveOriginalFileCommand>();
             Injector.ExecuteCommand<InitializeSupportRulesCommand>();
             Injector.ExecuteCommand<InitializeBackgroundsCommand>();
+            Injector.ExecuteCommand<InitializeMotecsCommand>();
             Injector.ExecuteCommand<InitializeProfilesCommand>();
             Injector.ExecuteCommand<LoadFirstHudCommand>();
             Injector.ExecuteCommand<CheckUserWatchedPresentationCommand>();

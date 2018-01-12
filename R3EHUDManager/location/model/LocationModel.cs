@@ -71,5 +71,8 @@ namespace R3EHUDManager.location.model
 
         // TODO get file depending of current version
         public string HudTemplateFile { get => Path.Combine(AppInstallDirectory, @"_template\hud_options_template_v6.xml"); }
+
+
+        public string MotecXmlFile { get => Path.Combine(AppInstallDirectory, @"_motec_data\motecs.xml"); }
     }
 }

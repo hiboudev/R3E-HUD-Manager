@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<data>
+  <!--
+  * File names must use png extension.
+  -->
+  
+  <motec>
+    <!-- GT3 650S, GT3 MP4 -->
+    <fileName>motec_1</fileName>
+    <carId>5786</carId>
+    <carId>1909</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 Alpina, GT3 Camaro, GT3 Z4 -->
+    <fileName>motec_2</fileName>
+    <carId>1695</carId>
+    <carId>2338</carId>
+    <carId>1738</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 AMG, FR3 -->
+    <fileName>motec_3</fileName>
+    <carId>6168</carId>
+    <carId>5396</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 C7 -->
+    <fileName>motec_4</fileName>
+    <carId>6174</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 GT, GT3 GTR, GT3 Mustang, GT3 P4-5, GT3 Ruf -->
+    <fileName>motec_5</fileName>
+    <carId>3754</carId>
+    <carId>1811</carId>
+    <carId>1782</carId>
+    <carId>1821</carId>
+    <carId>3516</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 M6, GT3 Bentley -->
+    <fileName>motec_6</fileName>
+    <carId>5818</carId>
+    <carId>5170</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 Porsche -->
+    <fileName>motec_7</fileName>
+    <carId>6349</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 LMS Ultra -->
+    <fileName>motec_8</fileName>
+    <carId>2037</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 LMS -->
+    <fileName>motec_9</fileName>
+    <carId>6057</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 SLS -->
+    <fileName>motec_10</fileName>
+    <carId>2533</carId>
+  </motec>
+
+  <motec>
+    <!-- GT3 Z06, FRJ -->
+    <fileName>motec_11</fileName>
+    <carId>3626</carId>
+    <carId>4865</carId>
+  </motec>
+
+  <motec>
+    <!-- Tatuus F4 -->
+    <fileName>motec_12</fileName>
+    <carId>5051</carId>
+  </motec>
+
+  <motec>
+    <!-- FR2 -->
+    <fileName>motec_13</fileName>
+    <carId>4598</carId>
+  </motec>
+
+  <motec>
+    <!-- FRUS -->
+    <fileName>motec_14</fileName>
+    <carId>5348</carId>
+  </motec>
+
+  <motec>
+    <!-- FRX17 -->
+    <fileName>motec_15</fileName>
+    <carId>5821</carId>
+  </motec>
+  
+  
+</data>

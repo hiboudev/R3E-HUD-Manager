@@ -37,13 +37,8 @@ using R3EHUDManager.userpreferences.command;
 using R3EHUDManager.userpreferences.model;
 using R3EHUDManager.application.view;
 using R3EHUDManager.apppresentation.view;
-using R3EHUDManager.background.view;
-using R3EHUDManager.huddata.view;
-using R3EHUDManager.placeholder.view;
-using R3EHUDManager.profile.view;
-using R3EHUDManager.screen.view;
-using R3EHUDManager.selection.view;
-using R3EHUDManager.settings.view;
+using R3EHUDManager.motec.model;
+using R3EHUDManager.motec.parser;
 
 namespace R3EHUDManager
 {
@@ -69,7 +64,6 @@ namespace R3EHUDManager
             Injector.MapType<ScreenModel>(true);
             Injector.MapType<SelectionModel>(true);
             Injector.MapType<PlaceholderModel>();
-            //Injector.MapType<PlaceholderView>();
             Injector.MapType<LocationModel>(true);
             Injector.MapType<Database>(true);
             Injector.MapType<DatabaseUpgrader>(true);
@@ -95,6 +89,9 @@ namespace R3EHUDManager
             Injector.MapType<SupportRuleParser>(true);
             Injector.MapType<SaveStatusChecker>(true);
             Injector.MapType<PromptView>();
+            Injector.MapType<R3eDatabase>(true);
+            Injector.MapType<CollectionModel<MotecModel>>(true);
+            Injector.MapType<MotecParser>(true);
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<PlaceholderView, PlaceholderMediator>();

@@ -160,6 +160,7 @@
     <Compile Include="database\command\InitializeDatabaseCommand.cs" />
     <Compile Include="database\Database.cs" />
     <Compile Include="database\DatabaseUpgrader.cs" />
+    <Compile Include="database\R3eDatabase.cs" />
     <Compile Include="fileexplorer\command\AbstractOpenFileExplorerCommand.cs" />
     <Compile Include="fileexplorer\command\OpenAppDataDirectoryCommand.cs" />
     <Compile Include="fileexplorer\command\OpenAppInstallDirectoryCommand.cs" />
@@ -208,6 +209,9 @@
     <Compile Include="log\command\InitializeLoggerCommand.cs" />
     <Compile Include="log\Logger.cs" />
     <Compile Include="Mappings.cs" />
+    <Compile Include="motec\command\InitializeMotecsCommand.cs" />
+    <Compile Include="motec\model\MotecModel.cs" />
+    <Compile Include="motec\parser\MotecParser.cs" />
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\MoveSelectedAnchorCommand.cs" />
@@ -440,6 +444,56 @@
     <None Include="_graphical_assets\.git\objects\fc\edc8ce7908c7fe0955677173519cf22e0b2ec1" />
     <None Include="_graphical_assets\.git\ORIG_HEAD" />
     <None Include="_graphical_assets\.git\refs\heads\master" />
+    <Resource Include="_graphical_assets\motec\motec_15.png" />
+    <Content Include="_graphical_assets\motec\motec_14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_graphical_assets\motec\motec_11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_motec_data\motecs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="_r3e-data\r3e-database.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
