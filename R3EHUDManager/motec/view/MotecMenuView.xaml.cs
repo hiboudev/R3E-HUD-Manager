@@ -79,6 +79,17 @@ namespace R3EHUDManager.motec.view
             DispatchEvent(new IntEventArgs(EVENT_MOTEC_SELECTED, motec.Id));
         }
 
+        private void OnRequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            //Allows the keyboard to bring the items into view as expected:
+            if (Keyboard.IsKeyDown(Key.Down) || Keyboard.IsKeyDown(Key.Up))
+                return;
+            if (((ComboBoxItem)e.TargetObject).Content == list.SelectedItem)
+                return;
+
+            e.Handled = true;
+        }
+
         public void Dispose()
         {
             Disposed?.Invoke(this, EventArgs.Empty);
