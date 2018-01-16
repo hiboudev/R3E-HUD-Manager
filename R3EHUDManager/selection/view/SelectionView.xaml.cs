@@ -8,6 +8,7 @@ using R3EHUDManager.screen.utils;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.view;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -155,6 +156,8 @@ namespace R3EHUDManager.selection.view
             }
             anchorPresets.SelectionChanged += OnAnchorPresetSelected;
             positionPresets.SelectionChanged += OnPositionPresetSelected;
+            positionPresets.MouseEnter += OnComboBoxMouseEnter;
+            anchorPresets.MouseEnter += OnComboBoxMouseEnter;
 
             screenPanel.Visibility = Visibility.Collapsed;
             screenLeftRadio.Checked += ScreenRadioChecked;
@@ -166,6 +169,12 @@ namespace R3EHUDManager.selection.view
             screenRightRadio.Tag = ScreenPositionType.RIGHT;
 
             screenPanel.MouseWheel += OnRadioMouseWheel;
+        }
+
+        private void OnComboBoxMouseEnter(object sender, MouseEventArgs e)
+        {
+            // Focus on mouseEnter so we can scroll it with mouseWheel without to click beforehand.
+            (sender as ComboBox).Focus();
         }
 
         private void SelectAnchorPreset()
