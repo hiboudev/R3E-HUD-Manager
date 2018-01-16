@@ -17,7 +17,7 @@ namespace R3EHUDManager.database
     class Database
     {
         private string dbArgs;
-        public const int VERSION = 3;
+        public const int VERSION = 4;
 
         public void Initialize(string path)
         {
@@ -38,7 +38,7 @@ namespace R3EHUDManager.database
                 NoQuery(
                     "CREATE TABLE backgrounds (id INT UNIQUE, name TEXT, fileName TEXT, directoryType INT, isBuiltIn INT, layoutType INT);" +
                     "CREATE TABLE config (key TEXT unique, value BLOB);" +
-                    "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT);" +
+                    "CREATE TABLE profiles (id INT UNIQUE, name TEXT, backgroundId INT, fileName TEXT, motecId INT);" +
                     "CREATE TABLE placeholderFilter (name TEXT UNIQUE, isFiltered INT);" +
                     "CREATE TABLE userPreferences (type INT UNIQUE, value BLOB);"
                     , db);
@@ -284,8 +284,8 @@ namespace R3EHUDManager.database
             {
                 db.Open();
 
-                NoQuery("INSERT INTO profiles (id, name, backgroundId, fileName) VALUES " +
-                    $"({profile.Id}, '{StringUtils.ToDatabaseUserString(profile.Name)}', {profile.BackgroundId}, '{profile.FileName}')"
+                NoQuery("INSERT INTO profiles (id, name, backgroundId, fileName, motecId) VALUES " +
+                    $"({profile.Id}, '{StringUtils.ToDatabaseUserString(profile.Name)}', {profile.BackgroundId}, '{profile.FileName}', {profile.MotecId})"
                     , db);
 
                 db.Close();
@@ -299,7 +299,7 @@ namespace R3EHUDManager.database
                 db.Open();
 
                 NoQuery(
-                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.FileName}'" +
+                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.FileName}', motecId = {profile.MotecId}" +
                     $"WHERE id = {profile.Id};"
                     , db);
 
@@ -337,7 +337,8 @@ namespace R3EHUDManager.database
                             reader.GetInt32(0),
                             reader.GetString(1),
                             reader.GetInt32(2),
-                            reader.GetString(3)));
+                            reader.GetString(3),
+                            reader.GetInt32(4)));
                     }
                     reader.Close();
                 }

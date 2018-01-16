@@ -26,6 +26,9 @@ namespace R3EHUDManager.database
                     goto case 2;
                 case 2:
                     UpgradeVersion2To3(connection);
+                    goto case 3;
+                case 3:
+                    UpgradeVersion3To4(connection);
                     break;
             }
 
@@ -105,6 +108,13 @@ namespace R3EHUDManager.database
 
             new SQLiteCommand(
                 $"INSERT INTO userPreferences (type, value) VALUES ({(int)PreferenceType.USE_INVARIANT_CULTURE}, {0});"
+                , connection).ExecuteNonQuery();
+        }
+
+        private void UpgradeVersion3To4(SQLiteConnection connection)
+        {
+            new SQLiteCommand(
+                $"ALTER TABLE profiles ADD COLUMN motecId INTEGER DEFAULT {1}"
                 , connection).ExecuteNonQuery();
         }
     }

@@ -10,16 +10,16 @@ namespace R3EHUDManager.profile.model
     {
         private static int idCounter = 0;
 
-        public static ProfileModel NewProfileModel(string name, int backgroundId, string hudFilePath)
+        public static ProfileModel NewProfileModel(string name, int backgroundId, string hudFilePath, int motecId)
         {
-            return new ProfileModel(++idCounter, name, backgroundId, hudFilePath);
+            return new ProfileModel(++idCounter, name, backgroundId, hudFilePath, motecId);
         }
 
-        public static ProfileModel NewProfileModel(int databaseId, string name, int backgroundId, string hudFilePath)
+        public static ProfileModel NewProfileModel(int databaseId, string name, int backgroundId, string hudFilePath, int motecId)
         {
             if (databaseId > idCounter) idCounter = databaseId;
 
-            return new ProfileModel(databaseId, name, backgroundId, hudFilePath);
+            return new ProfileModel(databaseId, name, backgroundId, hudFilePath, motecId);
         }
     }
 }

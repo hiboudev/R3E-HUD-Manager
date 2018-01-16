@@ -25,12 +25,12 @@ namespace R3EHUDManager.graphics
         public static readonly int EVENT_MOTEC_CHANGED = EventId.New();
         private Dictionary<string, BitmapSource> cache = new Dictionary<string, BitmapSource>();
         private BitmapSource defaultBitmap;
-        private MotecModel _motec;
+        public MotecModel SelectedMotec { get; private set; }
 
         public void SetMotec(MotecModel motecModel)
         {
-            _motec = motecModel;
-            DispatchEvent(new IntEventArgs(EVENT_MOTEC_CHANGED, _motec.Id));
+            SelectedMotec = motecModel;
+            DispatchEvent(new IntEventArgs(EVENT_MOTEC_CHANGED, SelectedMotec.Id));
         }
 
         public BitmapSource GetPlaceholderImage(string placeholderName)
@@ -39,7 +39,7 @@ namespace R3EHUDManager.graphics
             switch (placeholderName)
             {
                 case PlaceholderName.MOTEC:
-                    return GetBitmap(_motec.FilePath);
+                    return GetBitmap(SelectedMotec.FilePath);
 
                 case PlaceholderName.TRACK_MAP:
                     return GetBitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"_graphical_assets\trackmap.png"));
