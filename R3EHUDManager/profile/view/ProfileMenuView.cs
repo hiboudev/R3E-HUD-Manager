@@ -22,11 +22,13 @@ namespace R3EHUDManager.profile.view
 
         private MenuItem itemSaveProfile;
         private readonly CollectionModel<BackgroundModel> backgroundCollection;
+        private readonly GraphicalAssetFactory assetsFactory;
 
-        public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection)
+        public ProfileMenuView(CollectionModel<BackgroundModel> backgroundCollection, GraphicalAssetFactory assetsFactory)
         {
             Width = 200;
             this.backgroundCollection = backgroundCollection;
+            this.assetsFactory = assetsFactory;
         }
 
         protected override string Title => "Profile";
@@ -67,7 +69,7 @@ namespace R3EHUDManager.profile.view
         {
             var item = base.ModelToItem(model);
             BackgroundModel background = backgroundCollection.Get(model.BackgroundId);
-            item.Icon = new Image() { Source = GraphicalAsset.GetLayoutIcon(background.Layout) };
+            item.Icon = new Image() { Source = assetsFactory.GetLayoutIcon(background.Layout) };
             return item;
         }
 
@@ -100,7 +102,7 @@ namespace R3EHUDManager.profile.view
                 if ((int)item.Tag == profile.Id)
                 {
                     BackgroundModel background = backgroundCollection.Get(profile.BackgroundId);
-                    item.Icon = new Image() { Source = GraphicalAsset.GetLayoutIcon(background.Layout) };
+                    item.Icon = new Image() { Source = assetsFactory.GetLayoutIcon(background.Layout) };
                     break;
                 }
             }

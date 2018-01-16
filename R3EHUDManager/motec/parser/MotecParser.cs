@@ -31,7 +31,7 @@ namespace R3EHUDManager.motec.parser
 
         private MotecModel ParseMotecNode(XmlNode motecNode)
         {
-            return new MotecModel(++motecId, motecNode["fileName"].InnerText, GetCarIds(motecNode));
+            return new MotecModel(Convert.ToInt32(motecNode.Attributes["id"].Value), motecNode["fileName"].InnerText, GetCarIds(motecNode));
         }
 
         private int[] GetCarIds(XmlNode motecNode)

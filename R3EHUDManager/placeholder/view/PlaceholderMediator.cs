@@ -5,6 +5,8 @@ using R3EHUDManager.placeholder.model;
 using R3EHUDManager.selection.events;
 using R3EHUDManager.selection.model;
 using R3EHUDManager.placeholder.view;
+using R3EHUDManager.graphics;
+using R3EHUDManager.application.events;
 
 namespace R3EHUDManager.placeholder.view
 {
@@ -18,6 +20,14 @@ namespace R3EHUDManager.placeholder.view
             HandleEvent<SelectionModel, SelectionModelEventArgs>(SelectionModel.EVENT_UNSELECTED, OnPlaceholderUnselected);
 
             HandleEvent<PlaceholderModel, ValidationChangedEventArgs>(PlaceholderModel.EVENT_VALIDATION_CHANGED, OnValidationChanged);
+
+            HandleEvent<GraphicalAssetFactory, IntEventArgs>(GraphicalAssetFactory.EVENT_MOTEC_CHANGED, OnMotecChanged);
+        }
+
+        private void OnMotecChanged(IntEventArgs args)
+        {
+            if (View.Model.Name == PlaceholderName.MOTEC)
+                View.Render();
         }
 
         private void OnValidationChanged(ValidationChangedEventArgs args)

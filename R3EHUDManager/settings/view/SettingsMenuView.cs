@@ -21,9 +21,11 @@ namespace R3EHUDManager.settings.view
         public static readonly int EVENT_OPEN_APP_INSTALL_DIRECTORY = EventId.New();
         public static readonly int EVENT_OPEN_HUD_DIRECTORY = EventId.New();
         public static readonly int EVENT_SHOW_PRESENTATION = EventId.New();
+        private readonly GraphicalAssetFactory assetsFactory;
 
-        public SettingsMenuView()
+        public SettingsMenuView(GraphicalAssetFactory assetsFactory)
         {
+            this.assetsFactory = assetsFactory;
             InitializeUI();
         }
 
@@ -36,7 +38,7 @@ namespace R3EHUDManager.settings.view
             DrawArrow = false;
 
             if (!WpfUtils.IsInDesignMode())
-                Content = GraphicalAsset.GetPreferencesIcon();
+                Content = assetsFactory.GetPreferencesIcon();
 
             Width = Height = 20;
         }

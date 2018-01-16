@@ -24,6 +24,8 @@ namespace R3EHUDManager.screen.view
     {
         public event EventHandler MvcEventHandler;
         public static readonly int EVENT_SCREEN_AREA_CHANGED = EventId.New();
+        private readonly GraphicalAssetFactory assetsFactory;
+
         public event EventHandler ScreenAreaChanged;
         public event EventHandler Disposed;
 
@@ -38,8 +40,9 @@ namespace R3EHUDManager.screen.view
 
         public Rect ScreenArea { get => screenArea; }
 
-        public ScreenView(ScreenViewMouseInteraction mouseInteraction)
+        public ScreenView(ScreenViewMouseInteraction mouseInteraction, GraphicalAssetFactory assetsFactory)
         {
+            this.assetsFactory = assetsFactory;
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
             ClipToBounds = true;
 
@@ -136,7 +139,7 @@ namespace R3EHUDManager.screen.view
                     return view;
 
                 // Transparent pixel detection
-                BitmapSource bitmap = GraphicalAsset.GetPlaceholderImage(view.Model.Name);
+                BitmapSource bitmap = assetsFactory.GetPlaceholderImage(view.Model.Name);
                 double widthRatio = bitmap.Width / bounds.Width;
                 double heightRatio = bitmap.Height / bounds.Height;
                 Point clickPoint = new Point(widthRatio * (mousePosition.X - bounds.X), heightRatio * (mousePosition.Y - bounds.Y));

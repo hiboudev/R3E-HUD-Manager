@@ -1,4 +1,7 @@
-﻿using R3EHUDManager.placeholder.model;
+﻿using da2mvc.core.events;
+using R3EHUDManager.application.events;
+using R3EHUDManager.motec.model;
+using R3EHUDManager.placeholder.model;
 using R3EHUDManager.screen.model;
 using System;
 using System.Collections.Generic;
@@ -14,20 +17,29 @@ using System.Windows.Media.Imaging;
 
 namespace R3EHUDManager.graphics
 {
-    class GraphicalAsset
+    public class GraphicalAssetFactory:IEventDispatcher
     {
         // TODO error management loading
 
-        private static Dictionary<string, BitmapSource> cache = new Dictionary<string, BitmapSource>();
-        private static BitmapSource defaultBitmap;
+        public event EventHandler MvcEventHandler;
+        public static readonly int EVENT_MOTEC_CHANGED = EventId.New();
+        private Dictionary<string, BitmapSource> cache = new Dictionary<string, BitmapSource>();
+        private BitmapSource defaultBitmap;
+        private MotecModel _motec;
 
-        public static BitmapSource GetPlaceholderImage(string placeholderName)
+        public void SetMotec(MotecModel motecModel)
+        {
+            _motec = motecModel;
+            DispatchEvent(new IntEventArgs(EVENT_MOTEC_CHANGED, _motec.Id));
+        }
+
+        public BitmapSource GetPlaceholderImage(string placeholderName)
         {
             // TODO use LocationModel
             switch (placeholderName)
             {
                 case PlaceholderName.MOTEC:
-                    return GetBitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"_graphical_assets\motec.png"));
+                    return GetBitmap(_motec.FilePath);
 
                 case PlaceholderName.TRACK_MAP:
                     return GetBitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"_graphical_assets\trackmap.png"));
@@ -51,13 +63,13 @@ namespace R3EHUDManager.graphics
             }
         }
 
-        public static Size GetPlaceholderSize(string placeholderName)
+        public Size GetPlaceholderSize(string placeholderName)
         {
             BitmapSource image = GetPlaceholderImage(placeholderName);
             return new Size(image.Width, image.Height);
         }
 
-        public static BitmapSource GetNoCache(string path)
+        public BitmapSource GetNoCache(string path)
         {
             BitmapImage image = new BitmapImage();
             image.BeginInit();
@@ -67,12 +79,12 @@ namespace R3EHUDManager.graphics
             return image;
         }
 
-        public static ImageSource GetPreferencesIcon()
+        public ImageSource GetPreferencesIcon()
         {
             return GetBitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"_graphical_assets\preference_icon4_22_alpha85.png"));
         }
 
-        public static ImageSource GetLayoutIcon(ScreenLayoutType layout)
+        public ImageSource GetLayoutIcon(ScreenLayoutType layout)
         {
             string cacheKey = layout == ScreenLayoutType.SINGLE ? "ScreenLayoutType.SINGLE" : "ScreenLayoutType.TRIPLE";
 
@@ -82,7 +94,7 @@ namespace R3EHUDManager.graphics
             return cache[cacheKey];
         }
 
-        private static BitmapSource GetScreenLayoutIcon(ScreenLayoutType layout)
+        private BitmapSource GetScreenLayoutIcon(ScreenLayoutType layout)
         {
             string text = layout == ScreenLayoutType.SINGLE ? "S" : "T";
 
@@ -100,7 +112,7 @@ namespace R3EHUDManager.graphics
             return image;
         }
 
-        private static BitmapSource GetBitmap(string path)
+        private BitmapSource GetBitmap(string path)
         {
             if (cache.ContainsKey(path))
                 return cache[path];
@@ -116,7 +128,7 @@ namespace R3EHUDManager.graphics
             return image;
         }
 
-        private static BitmapSource CreateBlankBitmap(int width, int height)
+        private BitmapSource CreateBlankBitmap(int width, int height)
         {
             List<Color> colors = new List<Color>();
             colors.Add(Colors.Black);
@@ -137,6 +149,11 @@ namespace R3EHUDManager.graphics
             //RenderTargetBitmap bitmap = new RenderTargetBitmap(200, 200, 96, 96, PixelFormats.Default);
             //bitmap.Render(visual);
             //return bitmap;
+        }
+
+        public void DispatchEvent(BaseEventArgs args)
+        {
+            MvcEventHandler?.Invoke(this, args);
         }
     }
 }

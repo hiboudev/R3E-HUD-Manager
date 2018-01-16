@@ -167,7 +167,7 @@
     <Compile Include="fileexplorer\command\OpenHudDirectoryCommand.cs" />
     <Compile Include="graphics\AppFontStyles.cs" />
     <Compile Include="graphics\Colors.cs" />
-    <Compile Include="graphics\GraphicalAsset.cs" />
+    <Compile Include="graphics\GraphicalAssetFactory.cs" />
     <Compile Include="huddata\command\CheckSaveStatusCommand.cs" />
     <Compile Include="huddata\command\LoadFiltersCommand.cs" />
     <Compile Include="huddata\command\LoadFirstHudCommand.cs" />
@@ -210,6 +210,7 @@
     <Compile Include="log\Logger.cs" />
     <Compile Include="Mappings.cs" />
     <Compile Include="motec\command\InitializeMotecsCommand.cs" />
+    <Compile Include="motec\command\SelectMotecCommand.cs" />
     <Compile Include="motec\model\MotecModel.cs" />
     <Compile Include="motec\parser\MotecParser.cs" />
     <Compile Include="motec\view\MotecMenuMediator.cs" />
@@ -517,9 +518,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="_graphical_assets\minimotec.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="_graphical_assets\motec.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="_graphical_assets\positionbar.png">

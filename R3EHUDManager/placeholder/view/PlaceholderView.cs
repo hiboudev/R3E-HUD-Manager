@@ -23,6 +23,7 @@ namespace R3EHUDManager.placeholder.view
         public event EventHandler Disposed;
         public event EventHandler MvcEventHandler;
         public static readonly int EVENT_REQUEST_LAYOUT_FIX = EventId.New();
+        private readonly GraphicalAssetFactory assetsFactory;
 
         public PlaceholderModel Model { get; private set; }
         private Rect screenArea;
@@ -32,11 +33,13 @@ namespace R3EHUDManager.placeholder.view
         private bool isSelected;
         private bool showDecoration;
         private LayoutValidationResult validationResult;
+
         private Rect labelHitTestRect;
         private MenuItem menuItemFixLayout;
 
-        public PlaceholderView()
+        public PlaceholderView(GraphicalAssetFactory assetsFactory)
         {
+            this.assetsFactory = assetsFactory;
             InitializeUI();
         }
 
@@ -168,7 +171,7 @@ namespace R3EHUDManager.placeholder.view
 
         private Rect GetRenderRect()
         {
-            Size size = Model.ResizeRule.GetSize(Model.Size, ScreenView.BASE_RESOLUTION, screenArea.Size, GraphicalAsset.GetPlaceholderSize(Model.Name), isTripleScreen);
+            Size size = Model.ResizeRule.GetSize(Model.Size, ScreenView.BASE_RESOLUTION, screenArea.Size, assetsFactory.GetPlaceholderSize(Model.Name), isTripleScreen);
 
             R3ePoint modelLocation = Model.Position.Clone();
             if (isTripleScreen) modelLocation.X /= 3;
@@ -196,7 +199,7 @@ namespace R3EHUDManager.placeholder.view
             }
 
             // Image
-            drawingContext.DrawImage(GraphicalAsset.GetPlaceholderImage(Model.Name), rect);
+            drawingContext.DrawImage(assetsFactory.GetPlaceholderImage(Model.Name), rect);
 
             int validationWidth = 3;
 

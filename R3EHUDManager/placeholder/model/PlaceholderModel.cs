@@ -23,11 +23,13 @@ namespace R3EHUDManager.placeholder.model
         public static readonly int EVENT_VALIDATION_CHANGED = EventId.New();
         private readonly SupportRuleValidator layoutValidator;
         private readonly ScreenModel screenModel;
+        private readonly GraphicalAssetFactory assetsFactory;
 
-        public PlaceholderModel(SupportRuleValidator layoutValidator, ScreenModel screenModel)
+        public PlaceholderModel(SupportRuleValidator layoutValidator, ScreenModel screenModel, GraphicalAssetFactory assetsFactory)
         {
             this.layoutValidator = layoutValidator;
             this.screenModel = screenModel;
+            this.assetsFactory = assetsFactory;
         }
 
         // TODO refaire le parsing xml pour que tous les params soient immutables.
@@ -89,12 +91,12 @@ namespace R3EHUDManager.placeholder.model
 
         public PlaceholderGeom GetGeom()
         {
-            return new PlaceholderGeom(Position.Clone(), Anchor.Clone(), Size.Clone(), GraphicalAsset.GetPlaceholderSize(Name));
+            return new PlaceholderGeom(Position.Clone(), Anchor.Clone(), Size.Clone(), assetsFactory.GetPlaceholderSize(Name));
         }
 
         public PlaceholderModel Clone() // TODO utiliser le Geom
         {
-            return new PlaceholderModel(layoutValidator, screenModel)
+            return new PlaceholderModel(layoutValidator, screenModel, assetsFactory)
             {
                 Id = Id,
                 Name = Name,

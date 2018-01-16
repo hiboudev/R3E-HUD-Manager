@@ -15,9 +15,11 @@ namespace R3EHUDManager.background.view
     class BackgroundMenuView : MenuButtonView<BackgroundModel>
     {
         public static readonly int EVENT_IMPORT_BACKGROUND = EventId.New();
+        private readonly GraphicalAssetFactory assetsFactory;
 
-        public BackgroundMenuView()
-        {
+        public BackgroundMenuView(GraphicalAssetFactory assetsFactory)
+        { 
+            this.assetsFactory = assetsFactory;
             Width = 200;
         }
 
@@ -26,7 +28,7 @@ namespace R3EHUDManager.background.view
         protected override MenuItem ModelToItem(BackgroundModel model)
         {
             var item = base.ModelToItem(model);
-            item.Icon = new Image() { Source = GraphicalAsset.GetLayoutIcon(model.Layout) };
+            item.Icon = new Image() { Source = assetsFactory.GetLayoutIcon(model.Layout) };
 
             return item;
         }

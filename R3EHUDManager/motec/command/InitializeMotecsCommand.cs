@@ -1,6 +1,7 @@
 ﻿using da2mvc.core.command;
 using da2mvc.framework.collection.model;
 using R3EHUDManager.database;
+using R3EHUDManager.graphics;
 using R3EHUDManager.location.model;
 using R3EHUDManager.motec.model;
 using R3EHUDManager.motec.parser;
@@ -18,13 +19,15 @@ namespace R3EHUDManager.motec.command
         private readonly MotecParser parser;
         private readonly CollectionModel<MotecModel> collection;
         private readonly R3eDatabase r3EDatabase;
+        private readonly GraphicalAssetFactory assetFactory;
 
-        public InitializeMotecsCommand(LocationModel location, MotecParser parser, CollectionModel<MotecModel> collection, R3eDatabase r3eDatabase)
+        public InitializeMotecsCommand(LocationModel location, MotecParser parser, CollectionModel<MotecModel> collection, R3eDatabase r3eDatabase, GraphicalAssetFactory assetFactory)
         {
             this.location = location;
             this.parser = parser;
             this.collection = collection;
             r3EDatabase = r3eDatabase;
+            this.assetFactory = assetFactory;
         }
 
         public void Execute()
@@ -52,6 +55,7 @@ namespace R3EHUDManager.motec.command
             }
 
             collection.AddRange(motecs);
+            assetFactory.SetMotec(collection.Items.First());
         }
     }
 }

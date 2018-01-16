@@ -1,5 +1,7 @@
 ﻿using da2mvc.framework.collection.model;
 using da2mvc.framework.collection.view;
+using R3EHUDManager.application.events;
+using R3EHUDManager.graphics;
 using R3EHUDManager.motec.model;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,12 @@ namespace R3EHUDManager.motec.view
     {
         public MotecMenuMediator()
         {
-            Debug.WriteLine("toto");
+            HandleEvent<GraphicalAssetFactory, IntEventArgs>(GraphicalAssetFactory.EVENT_MOTEC_CHANGED, OnMotecChanged);
+        }
+
+        private void OnMotecChanged(IntEventArgs args)
+        {
+            View.SelectMotec(args.Value);
         }
     }
 }

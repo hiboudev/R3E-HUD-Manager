@@ -25,6 +25,7 @@ namespace R3EHUDManager.screen.model
 
         private BitmapSource bitmap;
         private LocationModel locationModel;
+        private readonly GraphicalAssetFactory assetsFactory;
 
         public ScreenLayoutType Layout
         {
@@ -35,9 +36,10 @@ namespace R3EHUDManager.screen.model
             }
         }
 
-        public ScreenModel(LocationModel locationModel)
+        public ScreenModel(LocationModel locationModel, GraphicalAssetFactory assetsFactory)
         {
             this.locationModel = locationModel;
+            this.assetsFactory = assetsFactory;
         }
 
         public void SetBackground(BackgroundModel background)
@@ -46,7 +48,7 @@ namespace R3EHUDManager.screen.model
 
             string dirPath = locationModel.GetGraphicBasePath(background.DirectoryType);
 
-            bitmap = GraphicalAsset.GetNoCache(Path.Combine(dirPath, Background.FileName));
+            bitmap = assetsFactory.GetNoCache(Path.Combine(dirPath, Background.FileName));
 
             DispatchEvent(new ScreenModelEventArgs(EVENT_BACKGROUND_CHANGED, this));
         }

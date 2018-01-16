@@ -40,6 +40,8 @@ using R3EHUDManager.apppresentation.view;
 using R3EHUDManager.motec.model;
 using R3EHUDManager.motec.parser;
 using R3EHUDManager.motec.view;
+using R3EHUDManager.graphics;
+using R3EHUDManager.motec.command;
 
 namespace R3EHUDManager
 {
@@ -93,6 +95,7 @@ namespace R3EHUDManager
             Injector.MapType<R3eDatabase>(true);
             Injector.MapType<CollectionModel<MotecModel>>(true);
             Injector.MapType<MotecParser>(true);
+            Injector.MapType<GraphicalAssetFactory>(true);
 
             Injector.MapView<ScreenView, ScreenMediator>(true);
             Injector.MapView<PlaceholderView, PlaceholderMediator>();
@@ -156,6 +159,8 @@ namespace R3EHUDManager
 
             Injector.MapCommand<LayoutIOModel, PromptUnsavedChangesCommand>(LayoutIOModel.EVENT_UNSAVED_CHANGES);
             Injector.MapCommand<MainWindow, ApplicationExitCommand>(MainWindow.EVENT_APP_EXIT);
+
+            Injector.MapCommand<MotecMenuView, SelectMotecCommand>(MotecMenuView.EVENT_MOTEC_SELECTED);
         }
     }
 }
