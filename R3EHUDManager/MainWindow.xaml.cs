@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace R3EHUDManager
 {

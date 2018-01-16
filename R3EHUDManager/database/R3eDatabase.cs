@@ -11,9 +11,9 @@ namespace R3EHUDManager.database
     {
         private const string DB_ARGS = @"Data Source=_r3e-data\r3e-database.sqlite";
 
-        public Car[] GetCars(int[] ids)
+        public Dictionary<int, Car> GetCars(int[] ids)
         {
-            var cars = new List<Car>();
+            var cars = new Dictionary<int, Car>();
             var classes = new Dictionary<int, string>();
 
             using (SQLiteConnection db = new SQLiteConnection(DB_ARGS))
@@ -33,14 +33,17 @@ namespace R3EHUDManager.database
                     while (reader.Read())
                     {
                         if (ids.Contains(reader.GetInt32(0)))
-                            cars.Add(new Car(reader.GetInt32(0), reader.GetString(1), classes[reader.GetInt32(2)]));
+                        {
+                            int id = reader.GetInt32(0);
+                            cars.Add(id, new Car(id, reader.GetString(1), classes[reader.GetInt32(2)]));
+                        }
                     }
                 }
 
                 db.Close();
             }
 
-            return cars.ToArray();
+            return cars;
         }
 
         private void NoQuery(string request, SQLiteConnection db)
@@ -49,7 +52,7 @@ namespace R3EHUDManager.database
         }
     }
 
-    class Car
+    public class Car
     {
         public Car(int id, string name, string className)
         {

@@ -39,6 +39,7 @@ using R3EHUDManager.application.view;
 using R3EHUDManager.apppresentation.view;
 using R3EHUDManager.motec.model;
 using R3EHUDManager.motec.parser;
+using R3EHUDManager.motec.view;
 
 namespace R3EHUDManager
 {
@@ -106,6 +107,7 @@ namespace R3EHUDManager
             Injector.MapView<PlaceholderListView, PlaceholdersListMediator>(true);
             Injector.MapView<ZoomView, ZoomMediator>(true);
             Injector.MapView<ScreenScrollerView, ScreenScrollerMediator>(true);
+            Injector.MapView<MotecMenuView, MotecMenuMediator>(true);
 
             Injector.MapCommand<ScreenViewMouseInteraction, MovePlaceholderCommand>(ScreenViewMouseInteraction.EVENT_REQUEST_MOVE);
             Injector.MapCommand<ScreenViewMouseInteraction, SelectPlaceholderCommand>(ScreenViewMouseInteraction.EVENT_REQUEST_SELECTION);

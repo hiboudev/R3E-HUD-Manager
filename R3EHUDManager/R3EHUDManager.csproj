@@ -212,6 +212,10 @@
     <Compile Include="motec\command\InitializeMotecsCommand.cs" />
     <Compile Include="motec\model\MotecModel.cs" />
     <Compile Include="motec\parser\MotecParser.cs" />
+    <Compile Include="motec\view\MotecMenuMediator.cs" />
+    <Compile Include="motec\view\MotecMenuView.xaml.cs">
+      <DependentUpon>MotecMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="placeholder\command\ChangePlaceholderScreenCommand.cs" />
     <Compile Include="placeholder\command\MovePlaceholderCommand.cs" />
     <Compile Include="placeholder\command\MoveSelectedAnchorCommand.cs" />
@@ -349,6 +353,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="motec\view\MotecMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="profile\view\ProfileCreationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -444,7 +452,9 @@
     <None Include="_graphical_assets\.git\objects\fc\edc8ce7908c7fe0955677173519cf22e0b2ec1" />
     <None Include="_graphical_assets\.git\ORIG_HEAD" />
     <None Include="_graphical_assets\.git\refs\heads\master" />
-    <Resource Include="_graphical_assets\motec\motec_15.png" />
+    <Content Include="_graphical_assets\motec\motec_15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="_graphical_assets\motec\motec_14.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
