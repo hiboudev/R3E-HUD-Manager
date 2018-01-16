@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:R3EHUDManager.motec.view"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Height="28" Width="100">
 
     <ComboBox Name="list">
         <ComboBox.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{Binding FilePath}" MaxWidth="70" MaxHeight="70"/>
+                    <Image Source="{Binding FilePath}" MaxWidth="70" MaxHeight="70" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Text="{Binding CarList}"/>
                 </StackPanel>
             </DataTemplate>
