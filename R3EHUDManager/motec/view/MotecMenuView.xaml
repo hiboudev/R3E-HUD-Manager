@@ -11,11 +11,23 @@
         <ComboBox.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
+
                     <Image Source="{Binding FilePath}" MaxWidth="70" MaxHeight="70"
                            RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,10,0"/>
-                    
+
                     <TextBlock Text="{Binding CarList}" TextWrapping="Wrap" MaxWidth="400" MaxHeight="70"
-                               FontSize="10" VerticalAlignment="Center" />
+                               FontSize="10" VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=ComboBoxItem}}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    
                 </StackPanel>
             </DataTemplate>
         </ComboBox.ItemTemplate>

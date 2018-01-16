@@ -139,7 +139,7 @@ namespace R3EHUDManager.placeholder.view
                 }
             }
 
-            PrivateRender(GetRenderRect()); // TODO est-ce qu'on ne dessinerait pas trop souvent ?
+            Render(); // TODO est-ce qu'on ne dessinerait pas trop souvent ?
         }
 
         public void ShowLayoutFixMenu()

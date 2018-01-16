@@ -41,7 +41,7 @@
         
         <StackPanel Name="topToolBar" DockPanel.Dock="Top" Orientation="Horizontal">
             <view3:AppView ViewType="{x:Type background:BackgroundMenuView}" Margin="0,0,4,0" />
-            <view3:AppView ViewType="{x:Type view1:ProfileMenuView}" />
+            <view3:AppView ViewType="{x:Type view1:ProfileMenuView}" Margin="0,0,4,0" />
             <view3:AppView ViewType="{x:Type view5:MotecMenuView}" />
         </StackPanel>
 
