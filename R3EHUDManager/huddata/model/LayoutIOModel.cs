@@ -1,5 +1,6 @@
 ﻿using da2mvc.core.events;
 using R3EHUDManager.application.events;
+using R3EHUDManager.graphics;
 using R3EHUDManager.huddata.events;
 using R3EHUDManager.huddata.parser;
 using R3EHUDManager.location.model;
@@ -27,18 +28,20 @@ namespace R3EHUDManager.huddata.model
         private readonly PlaceHolderCollectionModel collection;
 
         private readonly ScreenModel screenModel;
+        private readonly GraphicalAssetFactory assetFactory;
         private SourceLayout source;
         private SaveStatus saveStatus;
         private SourceLayout currentR3eLayout;
 
-        public LayoutIOModel(HudOptionsParser parser, LocationModel location, PlaceHolderCollectionModel collection, ScreenModel screenModel)
+        public LayoutIOModel(HudOptionsParser parser, LocationModel location, PlaceHolderCollectionModel collection, ScreenModel screenModel, GraphicalAssetFactory assetFactory)
         {
             this.parser = parser;
             this.location = location;
             this.collection = collection;
             this.screenModel = screenModel;
+            this.assetFactory = assetFactory;
             saveStatus = new SaveStatus();
-            currentR3eLayout = new SourceLayout(LayoutSourceType.R3E, location.HudOptionsFile, parser.Parse(location.HudOptionsFile), -1);
+            currentR3eLayout = new SourceLayout(LayoutSourceType.R3E, location.HudOptionsFile, parser.Parse(location.HudOptionsFile), -1, -1);
         }
 
         public List<PlaceholderModel> LoadR3eLayout()
@@ -53,7 +56,7 @@ namespace R3EHUDManager.huddata.model
 
         public List<PlaceholderModel> LoadProfileLayout(ProfileModel profile)
         {
-            return LoadLayout(LayoutSourceType.PROFILE, profile.Name, Path.Combine(location.LocalDirectoryProfiles, profile.FileName), profile.BackgroundId);
+            return LoadLayout(LayoutSourceType.PROFILE, profile.Name, Path.Combine(location.LocalDirectoryProfiles, profile.FileName), profile.BackgroundId, profile.MotecId);
         }
 
         public void WriteR3eLayout(List<PlaceholderModel> placeholders)
@@ -66,7 +69,7 @@ namespace R3EHUDManager.huddata.model
         public void WriteProfileLayout(ProfileModel profile, List<PlaceholderModel> placeholders)
         {
             parser.Write(Path.Combine(location.LocalDirectoryProfiles, profile.FileName), placeholders);
-            SetSource(LayoutSourceType.PROFILE, profile.Name, placeholders, profile.BackgroundId);
+            SetSource(LayoutSourceType.PROFILE, profile.Name, placeholders, profile.BackgroundId, profile.MotecId);
         }
 
         public void ProfileDeleted(ProfileModel profile)
@@ -75,21 +78,42 @@ namespace R3EHUDManager.huddata.model
             if (source.SourceType == LayoutSourceType.PROFILE && source.Name == profile.Name)
             {
                 // TODO Actuellement pas de prompt pour unsaved.
-                SetSource(LayoutSourceType.DELETED_PROFILE, profile.Name, source.Layout, -1);
+                SetSource(LayoutSourceType.DELETED_PROFILE, profile.Name, source.Layout, -1, -1);
             }
         }
 
-        private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path, int backgroundId = -1)
+        public UnsavedChangeType GetSaveStatus()
+        {
+            if (source == null) return UnsavedChangeType.PROFILE | UnsavedChangeType.R3E;
+
+            bool profileIsSaved;
+            bool r3eIsSaved;
+
+            if (source.SourceType == LayoutSourceType.PROFILE)
+            {
+                profileIsSaved = saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel, assetFactory);
+                r3eIsSaved = saveStatus.IsSaved(collection.Items, currentR3eLayout, currentR3eLayout, screenModel, assetFactory);
+            }
+            else
+            {
+                profileIsSaved = true;
+                r3eIsSaved = saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel, assetFactory);
+            }
+
+            return (profileIsSaved ? UnsavedChangeType.PROFILE : 0) | (r3eIsSaved ? UnsavedChangeType.R3E : 0);
+        }
+
+        private List<PlaceholderModel> LoadLayout(LayoutSourceType type, string name, string path, int backgroundId = -1, int motecId = -1)
         {
             // TODO quand on recharge l'original on devrait comparer le layout actuel avec le R3E et non l'original.
-            if (!saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel))
+            if (!saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel, assetFactory))
             {
                 UnsavedChangesEventArgs args = new UnsavedChangesEventArgs(EVENT_UNSAVED_CHANGES, ToUnsavedType(source.SourceType), source.Name);
                 DispatchEvent(args);
                 if (args.IsLoadingCancelled)
                     return null;
             }
-            return SetSource(type, name, parser.Parse(path), backgroundId);
+            return SetSource(type, name, parser.Parse(path), backgroundId, motecId);
         }
 
         private UnsavedChangeType ToUnsavedType(LayoutSourceType sourceType)
@@ -110,7 +134,7 @@ namespace R3EHUDManager.huddata.model
         }
 
         // TODO nullable backgroundId
-        private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list, int backgroundId)
+        private List<PlaceholderModel> SetSource(LayoutSourceType sourceType, String name, List<PlaceholderModel> list, int backgroundId, int motecId)
         {
             if (sourceType == LayoutSourceType.R3E)
             {
@@ -120,32 +144,11 @@ namespace R3EHUDManager.huddata.model
                 source = currentR3eLayout;
             }
             else
-                source = new SourceLayout(sourceType, name, list, backgroundId);
+                source = new SourceLayout(sourceType, name, list, backgroundId, motecId);
 
             DispatchEvent(new LayoutSourceEventArgs(EVENT_SOURCE_CHANGED, sourceType, name));
 
             return list;
-        }
-
-        internal UnsavedChangeType GetSaveStatus()
-        {
-            if (source == null) return UnsavedChangeType.PROFILE | UnsavedChangeType.R3E;
-
-            bool profileIsSaved;
-            bool r3eIsSaved;
-
-            if (source.SourceType == LayoutSourceType.PROFILE)
-            {
-                profileIsSaved = saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel);
-                r3eIsSaved = saveStatus.IsSaved(collection.Items, currentR3eLayout, currentR3eLayout, screenModel);
-            }
-            else
-            {
-                profileIsSaved = true;
-                r3eIsSaved = saveStatus.IsSaved(collection.Items, source, currentR3eLayout, screenModel);
-            }
-
-            return (profileIsSaved ? UnsavedChangeType.PROFILE : 0) | (r3eIsSaved ? UnsavedChangeType.R3E : 0);
         }
 
         internal void DispatchSaveStatus()
@@ -157,12 +160,13 @@ namespace R3EHUDManager.huddata.model
 
         class SourceLayout
         {
-            public SourceLayout(LayoutSourceType sourceType, String name, List<PlaceholderModel> layout, int backgroundId)
+            public SourceLayout(LayoutSourceType sourceType, String name, List<PlaceholderModel> layout, int backgroundId, int motecId)
             {
                 SourceType = sourceType;
                 Name = name;
                 Layout = CloneLayout(layout);
                 BackgroundId = backgroundId;
+                MotecId = motecId;
             }
 
             public void UpdateLayout(List<PlaceholderModel> layout)
@@ -170,10 +174,10 @@ namespace R3EHUDManager.huddata.model
                 Layout = CloneLayout(layout);
             }
 
-            public void UpdateBackgroundId(int backgroundId)
-            {
-                BackgroundId = backgroundId;
-            }
+            //public void UpdateBackgroundId(int backgroundId)
+            //{
+            //    BackgroundId = backgroundId;
+            //}
 
             private List<PlaceholderModel> CloneLayout(List<PlaceholderModel> layout)
             {
@@ -187,16 +191,17 @@ namespace R3EHUDManager.huddata.model
             public string Name { get; }
             public List<PlaceholderModel> Layout { get; private set; }
             public int BackgroundId { get; private set; } = -1;
+            public int MotecId { get; } = -1;
         }
 
 
 
         class SaveStatus
         {
-            public bool IsSaved(List<PlaceholderModel> currentLayout, SourceLayout source, SourceLayout r3eLayout, ScreenModel screenModel)
+            public bool IsSaved(List<PlaceholderModel> currentLayout, SourceLayout source, SourceLayout r3eLayout, ScreenModel screenModel, GraphicalAssetFactory assetFactory)
             {
                 if (source == null) return true;
-                if (source.SourceType == LayoutSourceType.PROFILE && source.BackgroundId != screenModel.Background.Id)
+                if (source.SourceType == LayoutSourceType.PROFILE && (source.BackgroundId != screenModel.Background.Id || source.MotecId != assetFactory.SelectedMotec.Id))
                     return false;
                 if (source.SourceType == LayoutSourceType.BACKUP)
                     return AreLayoutEquals(currentLayout, source.Layout) || AreLayoutEquals(currentLayout, r3eLayout.Layout);

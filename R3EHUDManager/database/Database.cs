@@ -299,7 +299,7 @@ namespace R3EHUDManager.database
                 db.Open();
 
                 NoQuery(
-                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.FileName}', motecId = {profile.MotecId}" +
+                    $"UPDATE profiles SET name = '{StringUtils.ToDatabaseUserString(profile.Name)}', backgroundId = {profile.BackgroundId}, fileName = '{profile.FileName}', motecId = {profile.MotecId} " +
                     $"WHERE id = {profile.Id};"
                     , db);
 

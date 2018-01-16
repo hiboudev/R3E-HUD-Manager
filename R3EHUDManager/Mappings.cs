@@ -153,6 +153,7 @@ namespace R3EHUDManager
 
             Injector.MapCommand<PlaceholderModel, CheckSaveStatusCommand>(PlaceholderModel.EVENT_UPDATED);
             Injector.MapCommand<ScreenModel, CheckSaveStatusCommand>(ScreenModel.EVENT_BACKGROUND_CHANGED);
+            Injector.MapCommand<GraphicalAssetFactory, CheckSaveStatusCommand>(GraphicalAssetFactory.EVENT_MOTEC_CHANGED);
 
             Injector.MapCommand<ProfileMenuView, SaveProfileCommand>(ProfileMenuView.EVENT_SAVE_PROFILE);
             Injector.MapCommand<ProfileManagerView, DeleteProfileCommand>(ProfileManagerView.EVENT_DELETE_PROFILE);

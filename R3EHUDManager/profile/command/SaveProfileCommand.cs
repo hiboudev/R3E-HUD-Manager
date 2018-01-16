@@ -2,6 +2,7 @@
 using da2mvc.core.events;
 using R3EHUDManager.background.model;
 using R3EHUDManager.database;
+using R3EHUDManager.graphics;
 using R3EHUDManager.huddata.model;
 using R3EHUDManager.location.model;
 using R3EHUDManager.placeholder.model;
@@ -20,10 +21,11 @@ namespace R3EHUDManager.profile.command
         private readonly ScreenModel screen;
         private readonly Database database;
         private readonly LayoutIOModel layoutIO;
+        private readonly GraphicalAssetFactory assetFactory;
         public static readonly int EVENT_PROFILE_CHANGES_SAVED = EventId.New();
 
         public SaveProfileCommand(SelectedProfileModel profileSelection, PlaceHolderCollectionModel placeholderCollection,
-            LocationModel location, ScreenModel screen, Database database, LayoutIOModel layoutIO)
+            LocationModel location, ScreenModel screen, Database database, LayoutIOModel layoutIO, GraphicalAssetFactory assetFactory)
         {
             this.profileSelection = profileSelection;
             this.placeholderCollection = placeholderCollection;
@@ -31,6 +33,7 @@ namespace R3EHUDManager.profile.command
             this.screen = screen;
             this.database = database;
             this.layoutIO = layoutIO;
+            this.assetFactory = assetFactory;
         }
 
         public void Execute()
@@ -42,6 +45,7 @@ namespace R3EHUDManager.profile.command
             BackgroundModel background = screen.Background;
 
             profile.BackgroundId = background.Id;
+            profile.MotecId = assetFactory.SelectedMotec.Id;
             database.UpdateProfile(profile);
             layoutIO.WriteProfileLayout(profile, placeholderCollection.Items);
             layoutIO.DispatchSaveStatus();

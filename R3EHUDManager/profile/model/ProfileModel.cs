@@ -22,6 +22,6 @@ namespace R3EHUDManager.profile.model
         public string Name { get; }
         public int BackgroundId { get; internal set; }
         public string FileName { get; }
-        public int MotecId { get; }
+        public int MotecId { get; internal set; }
     }
 }
