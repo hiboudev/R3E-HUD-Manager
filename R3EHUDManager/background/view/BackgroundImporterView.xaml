@@ -34,7 +34,7 @@
         <RadioButton Grid.Row="5" Name="radioSingle" >Single screen</RadioButton>
         <RadioButton Grid.Row="6" Name="radioTriple" >Triple screen</RadioButton>
         <RadioButton Grid.Row="7" Name="radioCrop" >Crop triple -> single screen</RadioButton>
-        <TextBlock Grid.Row="8" TextWrapping="Wrap" Foreground="Gray"  Margin="0,10,0,10">Size and aspect ratio of your background image are critical to render HUD elements to the same size and position as they will appear in-game. Background image should exactly be of the same dimensions as your in-game resolution.</TextBlock>
+        <TextBlock Grid.Row="8" TextWrapping="Wrap" Foreground="Gray"  Margin="0,10,0,10">Size and aspect ratio of your background image are critical to render HUD elements to the same size and position as they will appear in-game. The background image should be exactly the same dimensions as your in-game resolution.</TextBlock>
         <Button Grid.Row="9" Name="okButton" IsDefault="True">Import</Button>
     </Grid>
     

@@ -92,10 +92,6 @@ namespace R3EHUDManager.background.view
                 errorField.Content = "";
         }
 
-        private void OnDispose(object sender, EventArgs e)
-        {
-        }
-
         private void InitializeUI()
         {
             // Force autosize now.
