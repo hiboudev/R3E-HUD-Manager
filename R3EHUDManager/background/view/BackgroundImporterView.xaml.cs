@@ -55,49 +55,28 @@ namespace R3EHUDManager.background.view
             radioSingle.IsChecked = true;
         }
 
-        private void OnRadioLayoutChanged(object sender, EventArgs e)
+        private void OnRadioButtonChanged(object sender, EventArgs e)
         {
             bool check = (bool)((RadioButton)sender).IsChecked;
-            int centerScreenWidth;
+            if (!check) return;
 
             if ((RadioButton)sender == radioCrop)
             {
-                if (check)
-                {
-                    centerScreenWidth = DrawRectangle(false);
-                    backgroundInfo.Content = $"Single screen layout: 1 x [{centerScreenWidth}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio(centerScreenWidth, (int)bitmapSize.Height)})";
-                }
-                else
-                    preview.ClearRectangle();
+                int cropSize = (int)(bitmapSize.Width / 3);
+                cropRect = new Rect(cropSize, 0, cropSize, bitmapSize.Height);
+                backgroundInfo.Content = $"Single screen layout: 1 x [{bitmapSize.Width / 3}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio((int)(bitmapSize.Width / 3), (int)bitmapSize.Height)})";
+                preview.SetCuttingType(CuttingType.CROP_TO_SINGLE);
             }
-            else if (check && (RadioButton)sender == radioSingle)
+            else if ((RadioButton)sender == radioSingle)
             {
                 backgroundInfo.Content = $"Single screen layout: 1 x [{bitmapSize.Width}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio((int)bitmapSize.Width, (int)bitmapSize.Height)})";
+                preview.SetCuttingType(CuttingType.NONE);
             }
             else if ((RadioButton)sender == radioTriple)
             {
-                if (check)
-                {
-                    backgroundInfo.Content = $"Triple screen layout: 3 x [{bitmapSize.Width / 3}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio((int)(bitmapSize.Width / 3), (int)bitmapSize.Height)})";
-                    DrawRectangle(true);
-                }
-                else
-                    preview.ClearRectangle();
+                backgroundInfo.Content = $"Triple screen layout: 3 x [{bitmapSize.Width / 3}x{bitmapSize.Height}] ({ScreenUtils.GetFormattedAspectRatio((int)(bitmapSize.Width / 3), (int)bitmapSize.Height)})";
+                preview.SetCuttingType(CuttingType.TRIPLE_SCREEN);
             }
-        }
-
-        private int DrawRectangle(bool lineStyle)
-        {
-            int screenWidth = (int)Math.Round((decimal)bitmapSize.Width / 3); // TODO revoir tout ça en simplifiant
-            int centerScreenWidth = (int)bitmapSize.Width / 3;
-
-            if (!lineStyle)
-            {
-                cropRect = new Rect(screenWidth, 0, centerScreenWidth, bitmapSize.Height);
-            }
-            preview.DrawRectangle(lineStyle);
-
-            return centerScreenWidth;
         }
 
         private void CheckText(object sender, EventArgs e)
@@ -126,9 +105,9 @@ namespace R3EHUDManager.background.view
             okButton.IsEnabled = false;
             inputField.TextChanged += CheckText;
 
-            radioSingle.Checked += OnRadioLayoutChanged;
-            radioTriple.Checked += OnRadioLayoutChanged;
-            radioCrop.Checked += OnRadioLayoutChanged;
+            radioSingle.Checked += OnRadioButtonChanged;
+            radioTriple.Checked += OnRadioButtonChanged;
+            radioCrop.Checked += OnRadioButtonChanged;
         }
 
     }

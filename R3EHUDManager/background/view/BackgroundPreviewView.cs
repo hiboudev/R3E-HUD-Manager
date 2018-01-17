@@ -12,8 +12,7 @@ namespace R3EHUDManager.background.view
     public class BackgroundPreviewView : FrameworkElement
     {
         private BitmapSource bitmap;
-        private bool lineStyle;
-        private bool drawRectOverlay;
+        private CuttingType cuttingType = CuttingType.NONE;
 
         internal void SetBitmap(BitmapSource bitmap)
         {
@@ -21,19 +20,10 @@ namespace R3EHUDManager.background.view
             InvalidateVisual();
         }
 
-        internal void DrawRectangle(bool lineStyle)
+        internal void SetCuttingType(CuttingType cutting)
         {
-            if (bitmap == null) return;
+            cuttingType = cutting;
 
-            drawRectOverlay = true;
-            this.lineStyle = lineStyle;
-
-            InvalidateVisual();
-        }
-
-        internal void ClearRectangle()
-        {
-            drawRectOverlay = false;
             InvalidateVisual();
         }
 
@@ -63,18 +53,11 @@ namespace R3EHUDManager.background.view
             double marginX = (RenderSize.Width - bitmapSize.Width) / 2;
             double marginY = (RenderSize.Height - bitmapSize.Height) / 2;
 
-            if (!drawRectOverlay)
-            {
-                drawingContext.DrawImage(bitmap, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
-                return;
-            }
-
-            drawingContext.DrawRectangle(new SolidColorBrush(Colors.Azure),null, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
             drawingContext.DrawImage(bitmap, new Rect(marginX, marginY, bitmapSize.Width, bitmapSize.Height));
 
             double rectOverlayWidth = bitmapSize.Width / 3;
 
-            if (lineStyle)
+            if (cuttingType == CuttingType.TRIPLE_SCREEN)
             {
                 drawingContext.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)), 2),
                     new Point(marginX + rectOverlayWidth, marginY),
@@ -84,7 +67,7 @@ namespace R3EHUDManager.background.view
                     new Point(marginX + rectOverlayWidth * 2, marginY),
                     new Point(marginX + rectOverlayWidth * 2, marginY + bitmapSize.Height));
             }
-            else
+            else if (cuttingType == CuttingType.CROP_TO_SINGLE)
             {
                 drawingContext.DrawRectangle(new SolidColorBrush(Color.FromArgb(140, 0, 0, 0)), null,
                     new Rect(
@@ -101,5 +84,12 @@ namespace R3EHUDManager.background.view
                         bitmapSize.Height));
             }
         }
+    }
+
+    enum CuttingType
+    {
+        NONE,
+        TRIPLE_SCREEN,
+        CROP_TO_SINGLE
     }
 }
