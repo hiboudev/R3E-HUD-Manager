@@ -187,76 +187,76 @@ namespace R3EHUDManager.placeholder.view
 
         private void PrivateRender(Rect rect)
         {
-            DrawingContext drawingContext = RenderOpen();
-
-            // Background
-            if (showDecoration || isSelected)
+            using (DrawingContext drawingContext = RenderOpen())
             {
-                drawingContext.DrawRectangle(
-                    new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)),
-                    null,
-                    rect
-                    );
-            }
 
-            // Image
-            drawingContext.DrawImage(assetsFactory.GetPlaceholderImage(Model.Name), rect);
-
-            int validationWidth = 3;
-
-            // Label
-            if (showDecoration || isSelected)
-            {
-                Typeface typeface = new Typeface(new FontFamily(), FontStyles.Normal, FontWeights.Bold, new FontStretch());
-                FormattedText text = new FormattedText(Model.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, new SolidColorBrush(Colors.Black))
+                // Background
+                if (showDecoration || isSelected)
                 {
-                    MaxTextWidth = rect.Width,
-                    MaxTextHeight = rect.Height
-                };
+                    drawingContext.DrawRectangle(
+                        new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)),
+                        null,
+                        rect
+                        );
+                }
 
-                labelHitTestRect = new Rect(rect.X + validationWidth, rect.Y, text.Width, text.Height);
+                // Image
+                drawingContext.DrawImage(assetsFactory.GetPlaceholderImage(Model.Name), rect);
 
-                drawingContext.DrawRectangle(
-                    new SolidColorBrush(isSelected ? AppColors.PLACEHOLDER_SELECTION : Colors.LightGray),
-                    null,
-                    labelHitTestRect
-                    );
+                int validationWidth = 3;
 
-                drawingContext.DrawText(text, new Point(rect.X + validationWidth, rect.Y));
+                // Label
+                if (showDecoration || isSelected)
+                {
+                    Typeface typeface = new Typeface(new FontFamily(), FontStyles.Normal, FontWeights.Bold, new FontStretch());
+                    FormattedText text = new FormattedText(Model.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, new SolidColorBrush(Colors.Black))
+                    {
+                        MaxTextWidth = rect.Width,
+                        MaxTextHeight = rect.Height
+                    };
 
-                // Layout validation
-                Color validationColor;
-                if (validationResult != null && validationResult.Type == ResultType.INVALID)
-                    validationColor = validationResult.HasFix() ? AppColors.LAYOUT_NOTIFICATION_FIX : AppColors.LAYOUT_NOTIFICATION_NO_FIX;
-                else
-                    validationColor = Colors.Gray;
+                    labelHitTestRect = new Rect(rect.X + validationWidth, rect.Y, text.Width, text.Height);
 
-                drawingContext.DrawRectangle(
-                    new SolidColorBrush(validationColor),
-                    null,
-                    new Rect(rect.X, rect.Y, validationWidth, text.Height)
-                    );
-            }
+                    drawingContext.DrawRectangle(
+                        new SolidColorBrush(isSelected ? AppColors.PLACEHOLDER_SELECTION : Colors.LightGray),
+                        null,
+                        labelHitTestRect
+                        );
 
-            // Selection rectangle
-            if (isSelected)
-            {
-                drawingContext.DrawRectangle(null, new Pen(new SolidColorBrush(AppColors.PLACEHOLDER_SELECTION), 1), rect);
-            }
+                    drawingContext.DrawText(text, new Point(rect.X + validationWidth, rect.Y));
 
-            // Anchor
-            if (showDecoration || isSelected)
-            {
+                    // Layout validation
+                    Color validationColor;
+                    if (validationResult != null && validationResult.Type == ResultType.INVALID)
+                        validationColor = validationResult.HasFix() ? AppColors.LAYOUT_NOTIFICATION_FIX : AppColors.LAYOUT_NOTIFICATION_NO_FIX;
+                    else
+                        validationColor = Colors.Gray;
+
+                    drawingContext.DrawRectangle(
+                        new SolidColorBrush(validationColor),
+                        null,
+                        new Rect(rect.X, rect.Y, validationWidth, text.Height)
+                        );
+                }
+
+                // Selection rectangle
+                if (isSelected)
+                {
+                    drawingContext.DrawRectangle(null, new Pen(new SolidColorBrush(AppColors.PLACEHOLDER_SELECTION), 1), rect);
+                }
+
                 // Anchor
-                double thickness = 4;
-                Size anchorArea = new Size(rect.Width - thickness, rect.Height - thickness);
-                Point anchorPosition = Coordinates.FromR3e(Model.Anchor, anchorArea);
-                anchorPosition.X += rect.X;
-                anchorPosition.Y += rect.Y;
-                drawingContext.DrawRectangle(new SolidColorBrush(Color.FromArgb(255, 54, 42, 212)), null, new Rect(anchorPosition, new Size(thickness, thickness)));
+                if (showDecoration || isSelected)
+                {
+                    // Anchor
+                    double thickness = 4;
+                    Size anchorArea = new Size(rect.Width - thickness, rect.Height - thickness);
+                    Point anchorPosition = Coordinates.FromR3e(Model.Anchor, anchorArea);
+                    anchorPosition.X += rect.X;
+                    anchorPosition.Y += rect.Y;
+                    drawingContext.DrawRectangle(new SolidColorBrush(Color.FromArgb(255, 54, 42, 212)), null, new Rect(anchorPosition, new Size(thickness, thickness)));
+                }
             }
-
-            drawingContext.Close();
         }
 
         public void Dispose()
