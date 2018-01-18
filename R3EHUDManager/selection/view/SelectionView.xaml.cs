@@ -69,7 +69,6 @@ namespace R3EHUDManager.selection.view
         {
             Selection = placeholder;
             UpdateData();
-            UpdateTripleScreenUI(); // TODO Is it necessary?
 
             IsEnabled = true;
         }
@@ -145,6 +144,7 @@ namespace R3EHUDManager.selection.view
             stepperX.MouseWheelActiveTrigger =
                 stepperY.MouseWheelActiveTrigger =
                 stepperSize.MouseWheelActiveTrigger = MouseWheelActiveTrigger.Disabled;
+
             stepperX.MouseWheel += OnStepperMouseWheel;
             stepperY.MouseWheel += OnStepperMouseWheel;
             stepperSize.MouseWheel += OnStepperMouseWheel;
@@ -187,7 +187,9 @@ namespace R3EHUDManager.selection.view
         private void SelectPositionPreset()
         {
             holdPresetEvent = true;
-            positionPresets.SelectedItem = R3ePointPreset.GetPresetName(Selection.Position, ScreenUtils.GetScreen(Selection));
+            positionPresets.SelectedItem = isTripleScreen ?
+                R3ePointPreset.GetPresetName(Selection.Position, ScreenUtils.GetScreen(Selection))
+                : R3ePointPreset.GetPresetName(Selection.Position);
             holdPresetEvent = false;
         }
 
