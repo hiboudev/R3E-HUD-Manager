@@ -56,8 +56,6 @@ namespace R3EHUDManager.screen.view
                 if (view == null) return;
 
                 view.ShowLayoutFixMenu();
-
-
             }
         }
 

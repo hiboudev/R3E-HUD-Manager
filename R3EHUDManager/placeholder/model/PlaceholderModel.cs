@@ -32,7 +32,7 @@ namespace R3EHUDManager.placeholder.model
             this.assetsFactory = assetsFactory;
         }
 
-        // TODO refaire le parsing xml pour que tous les params soient immutables.
+
         public int Id { get; internal set; }
         public string Name { get; internal set; }
         public R3ePoint Position { get; internal set; } = new R3ePoint(0, 0);

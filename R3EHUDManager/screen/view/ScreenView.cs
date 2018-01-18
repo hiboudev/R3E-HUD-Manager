@@ -157,7 +157,7 @@ namespace R3EHUDManager.screen.view
             base.OnRender(drawingContext);
 
             if (background != null)
-                DrawBackground(drawingContext);
+                screenArea = DrawBackground(drawingContext);
             else
                 screenArea = new Rect(new Point(), RenderSize);
 
@@ -166,11 +166,10 @@ namespace R3EHUDManager.screen.view
             foreach (PlaceholderView view in views)
             {
                 view.ScreenArea = screenArea;
-                view.Render();
             }
         }
 
-        private void DrawBackground(DrawingContext drawingContext)
+        private Rect DrawBackground(DrawingContext drawingContext)
         {
             drawingContext.DrawRectangle(new SolidColorBrush(AppColors.SCREEN_BACKGROUND), null, new Rect(new Point(), RenderSize));
 
@@ -243,7 +242,7 @@ namespace R3EHUDManager.screen.view
                     );
             }
 
-            screenArea = new Rect(backgroundPosition, backgroundSize);
+            return new Rect(backgroundPosition, backgroundSize);
         }
 
         protected override int VisualChildrenCount

@@ -67,12 +67,7 @@ namespace R3EHUDManager.selection.view
             else if (screenType == ScreenPositionType.RIGHT)
                 point = new R3ePoint(point.X - 2, point.Y);
 
-            foreach (KeyValuePair<string, R3ePoint> entry in presets)
-                if (entry.Value.Equals(point))
-                    return entry.Key;
-
-            return null;
+            return GetPresetName(point);
         }
     }
-
 }

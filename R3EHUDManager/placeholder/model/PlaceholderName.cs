@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R3EHUDManager.placeholder.model
 {
-    class PlaceholderName // TODO this should be dynamic from the XML
+    class PlaceholderName // TODO dynamic from the XML
     {
         public static HashSet<String> GetAll()
         {

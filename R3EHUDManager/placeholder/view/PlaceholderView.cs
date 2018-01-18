@@ -84,6 +84,7 @@ namespace R3EHUDManager.placeholder.view
             set
             {
                 screenArea = value;
+                Render();
             }
         }
 
@@ -93,7 +94,7 @@ namespace R3EHUDManager.placeholder.view
             set
             {
                 isTripleScreen = value;
-                // TODO invalidate?
+                // Render is done later by ScreenView
             }
         }
 

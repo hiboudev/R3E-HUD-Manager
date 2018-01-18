@@ -79,14 +79,11 @@ namespace R3EHUDManager.selection.view
             nameField.Content = "";
 
             holdStepperEvent = true;
-            stepperX.Value = null;
-            stepperY.Value = null;
-            stepperSize.Value = null;
+            stepperX.Value = stepperY.Value = stepperSize.Value = null;
             holdStepperEvent = false;
 
             holdPresetEvent = true;
-            anchorPresets.SelectedItem = null;
-            positionPresets.SelectedItem = null;
+            anchorPresets.SelectedItem = positionPresets.SelectedItem = null;
             holdPresetEvent = false;
 
             IsEnabled = false;
@@ -257,24 +254,6 @@ namespace R3EHUDManager.selection.view
                 DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED, new R3ePoint(Convert.ToDouble(stepperSize.Value), Convert.ToDouble(stepperSize.Value))));
             }
         }
-
-        //private void OnValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        //{
-        //    if (holdStepperEvent) return;
-
-        //    if (sender == stepperX)
-        //    {
-        //        DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, new R3ePoint((double)stepperX.Value, Selection.Position.Y)));
-        //    }
-        //    else if (sender == stepperY)
-        //    {
-        //        DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_MOVED, UpdateType.POSITION, new R3ePoint(Selection.Position.X, (double)stepperY.Value)));
-        //    }
-        //    else if (sender == stepperSize)
-        //    {
-        //        DispatchEvent(new SelectionViewEventArgs(EVENT_PLACEHOLDER_RESIZED, UpdateType.SIZE, new R3ePoint((double)stepperSize.Value, (double)stepperSize.Value)));
-        //    }
-        //}
 
         private void OnStepperMouseWheel(object sender, MouseWheelEventArgs e)
         {
