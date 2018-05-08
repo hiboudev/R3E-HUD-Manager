@@ -35,6 +35,7 @@ namespace R3EHUDManager.placeholder.model
         public const string DRIVER_NAME_TAGS = "Driver Name Tags";
         public const string CAR_STATUS = "Car Status";
         public const string FFB_GRAPH = "FFB Graph";
+        //public const string INPUT_METER = "Input Meter";
 
     }
 }

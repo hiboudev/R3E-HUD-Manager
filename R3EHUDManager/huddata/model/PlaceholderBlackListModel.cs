@@ -22,7 +22,7 @@ namespace R3EHUDManager.huddata.model
 
         public bool IsFiltered(string placeholderName)
         {
-            return Filters[placeholderName];
+            return Filters.ContainsKey(placeholderName) && Filters[placeholderName]; // TODO filters should be dynamicaly added to DB when a HUD element is new/missing.
         }
     }
 }
