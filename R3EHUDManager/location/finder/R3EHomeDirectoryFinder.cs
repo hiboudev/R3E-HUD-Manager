@@ -15,6 +15,7 @@ namespace R3EHUDManager.location.finder
         private const string BASE_R3E_DIR_NAME = "RaceRoom Racing Experience";
         private const string INI_FILE_NAME = "GameInstallDir.ini";
         private const string INI_INSTALL_DIR_KEY = "GameInstallDir=";
+        private static readonly string HUD_FILE_SUBPATH = Path.Combine("UserData", "hud_options.xml");
 
         public List<string> GetPaths()
         {
@@ -57,7 +58,7 @@ namespace R3EHUDManager.location.finder
                         gameInstallDir = match.Groups[1].Value;
                     }
 
-                    if (gameInstallDir != null && Directory.Exists(gameInstallDir))
+                    if (gameInstallDir != null && Directory.Exists(gameInstallDir) && File.Exists(Path.Combine(r3EDirectory, HUD_FILE_SUBPATH)))
                     {
                         directories.Add(r3EDirectory);
                     }

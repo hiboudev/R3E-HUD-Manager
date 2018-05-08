@@ -10,7 +10,6 @@ namespace R3EHUDManager.motec.parser
 {
     class MotecParser
     {
-        private static int motecId = 0;
 
         public MotecParser()
         {
