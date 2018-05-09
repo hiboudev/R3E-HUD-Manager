@@ -29,6 +29,9 @@ namespace R3EHUDManager.database
                     goto case 3;
                 case 3:
                     UpgradeVersion3To4(connection);
+                    goto case 4;
+                case 4:
+                    UpgradeVersion4To5(connection);
                     break;
             }
 
@@ -115,6 +118,13 @@ namespace R3EHUDManager.database
         {
             new SQLiteCommand(
                 $"ALTER TABLE profiles ADD COLUMN motecId INTEGER DEFAULT {1}"
+                , connection).ExecuteNonQuery();
+        }
+
+        private void UpgradeVersion4To5 (SQLiteConnection connection)
+        {
+            new SQLiteCommand(
+                $"INSERT INTO placeholderFilter (name, isFiltered) VALUES ('{PlaceholderName.INPUT_METER}', {Convert.ToInt32(false)});"
                 , connection).ExecuteNonQuery();
         }
     }

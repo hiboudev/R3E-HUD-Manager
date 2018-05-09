@@ -17,7 +17,7 @@ namespace R3EHUDManager.database
     class Database
     {
         private string dbArgs;
-        public const int VERSION = 4;
+        public const int VERSION = 5;
 
         public void Initialize(string path)
         {
@@ -58,7 +58,8 @@ namespace R3EHUDManager.database
                     { PlaceholderName.MOTEC, false },
                     { PlaceholderName.POSITION_BAR, false },
                     { PlaceholderName.TRACK_MAP, false },
-                    { PlaceholderName.VIRTUAL_MIRROR, false }
+                    { PlaceholderName.VIRTUAL_MIRROR, false },
+                    { PlaceholderName.INPUT_METER, false },
                 };
 
                 foreach (KeyValuePair<string, bool> keyValue in values)
