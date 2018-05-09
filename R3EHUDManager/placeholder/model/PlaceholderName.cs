@@ -22,6 +22,7 @@ namespace R3EHUDManager.placeholder.model
                 DRIVER_NAME_TAGS,
                 CAR_STATUS,
                 FFB_GRAPH,
+                INPUT_METER
             };
         }
 
