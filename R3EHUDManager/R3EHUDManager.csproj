@@ -31,7 +31,7 @@
     <PublisherName>ChatCureuil</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>0.7.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -453,6 +453,9 @@
     <None Include="_graphical_assets\.git\objects\fc\edc8ce7908c7fe0955677173519cf22e0b2ec1" />
     <None Include="_graphical_assets\.git\ORIG_HEAD" />
     <None Include="_graphical_assets\.git\refs\heads\master" />
+    <Content Include="_graphical_assets\inputmeter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="_graphical_assets\motec\motec_15.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

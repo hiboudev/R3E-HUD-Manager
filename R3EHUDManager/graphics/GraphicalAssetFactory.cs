@@ -56,6 +56,9 @@ namespace R3EHUDManager.graphics
                 case PlaceholderName.MINI_MOTEC:
                     return GetBitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"_graphical_assets\minimotec.png"));
 
+                case PlaceholderName.INPUT_METER:
+                    return GetBitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"_graphical_assets\inputmeter.png"));
+
                 default:
                     if (defaultBitmap == null)
                         defaultBitmap = CreateBlankBitmap(200, 200);
