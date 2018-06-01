@@ -15,9 +15,14 @@ using R3EHUDManager.huddata.model;
 
 namespace R3EHUDManager.huddata.parser
 {
+    /**
+     * TODO quand on sauvegarde un profile, le faire dans un format perso pour ne pas dépendre des changements de formats quand on recharge un profile.
+     */
     class HudOptionsParser
     {
-        private static Regex ITEM_NAME_EXP = new Regex($"(.*) ({ItemType.POSITION}|{ItemType.SIZE}|{ItemType.ANCHOR})");
+        private const int CURRENT_XML_VERSION = 7;
+
+        private static Regex ITEM_NAME_EXP = new Regex($"(.*) ({ItemType.POSITION}|{ItemType.SIZE}|{ItemType.SIZE_VERSION_7}|{ItemType.ANCHOR})"); // TODO gérer le changement de nom de la version 7 "ITEM SIZE" -> "ITEM SIZE SCALE"
         private readonly PlaceholderBlackListModel blackList;
 
         public HudOptionsParser(PlaceholderBlackListModel blackList)
@@ -27,7 +32,10 @@ namespace R3EHUDManager.huddata.parser
 
         internal List<PlaceholderModel> Parse(string hudOptionsPath)
         {
-            //TODO traiter le numéro de version
+            int xmlVersion = GetXmlVersion(hudOptionsPath);
+            if (xmlVersion < CURRENT_XML_VERSION)
+                UpdateXmlVersion(xmlVersion, hudOptionsPath);
+
             Dictionary<string, PlaceholderModel> placeHolders = new Dictionary<string, PlaceholderModel>();
 
             string fileContent = File.ReadAllText(hudOptionsPath);
@@ -79,6 +87,84 @@ namespace R3EHUDManager.huddata.parser
             return placeHolders.Values.ToList();
         }
 
+        private void UpdateXmlVersion(int xmlVersion, string hudOptionsPath)
+        {
+            switch (xmlVersion)
+            {
+                case 6:
+                    UpdateXmlVersion6To7(hudOptionsPath);
+                    break;
+            }
+        }
+
+        private void UpdateXmlVersion6To7(string hudOptionsPath)
+        {
+            // TODO replace Size by SizeScale
+            XmlDocument doc = new XmlDocument();
+            doc.Load(hudOptionsPath);
+            XmlNode root = doc.DocumentElement;
+            XmlNode version = root.SelectSingleNode("latestVersion");
+            version.InnerText = "7";
+
+            XmlElement show = doc.CreateElement("name", null);
+            show.SetAttribute("type", "string");
+            show.AppendChild(doc.CreateCDataSection("Input Meter Show"));
+            XmlElement showValue = doc.CreateElement("value", null);
+            showValue.SetAttribute("type", "bool");
+            showValue.InnerText = "false";
+            XmlElement showInCockpit = doc.CreateElement("name", null);
+            showInCockpit.SetAttribute("type", "string");
+            showInCockpit.AppendChild(doc.CreateCDataSection("Input Meter Show In Cockpit"));
+            XmlElement showInCockpitValue = doc.CreateElement("value", null);
+            showInCockpitValue.SetAttribute("type", "bool");
+            showInCockpitValue.InnerText = "true";
+
+            XmlElement positionName = doc.CreateElement("name", null);
+            positionName.SetAttribute("type", "string");
+            positionName.AppendChild(doc.CreateCDataSection("Input Meter Position"));
+            XmlElement positionValue = doc.CreateElement("value", null);
+            positionValue.SetAttribute("type", "Vector2");
+            positionValue.InnerText = "{0.000000 0.100000}";
+
+            XmlElement scaleName = doc.CreateElement("name", null);
+            scaleName.SetAttribute("type", "string");
+            scaleName.AppendChild(doc.CreateCDataSection("Input Meter Size Scale"));
+            XmlElement scaleValue = doc.CreateElement("value", null);
+            scaleValue.SetAttribute("type", "Vector2");
+            scaleValue.InnerText = "{1.000000 1.000000}";
+
+            XmlElement anchorName = doc.CreateElement("name", null);
+            anchorName.SetAttribute("type", "string");
+            anchorName.AppendChild(doc.CreateCDataSection("Input Meter Anchor"));
+            XmlElement anchorValue = doc.CreateElement("value", null);
+            anchorValue.SetAttribute("type", "Vector2");
+            anchorValue.InnerText = "{-1.000000 -1.000000}";
+
+            root.InsertAfter(show, root.LastChild);
+            root.InsertAfter(showValue, root.LastChild);
+            root.InsertAfter(showInCockpit, root.LastChild);
+            root.InsertAfter(showInCockpitValue, root.LastChild);
+            root.InsertAfter(positionName, root.LastChild);
+            root.InsertAfter(positionValue, root.LastChild);
+            root.InsertAfter(scaleName, root.LastChild);
+            root.InsertAfter(scaleValue, root.LastChild);
+            root.InsertAfter(anchorName, root.LastChild);
+            root.InsertAfter(anchorValue, root.LastChild);
+
+            doc.Save(hudOptionsPath);
+        }
+
+        private int GetXmlVersion(string hudOptionsPath)
+        {
+            int xmlVersion;
+            using (XmlReader xmlReader = XmlReader.Create(new StringReader(File.ReadAllText(hudOptionsPath))))
+            {
+                xmlReader.ReadToFollowing("latestVersion");
+                xmlVersion = xmlReader.ReadElementContentAsInt();
+            }
+            return xmlVersion;
+        }
+
         internal void Write(string hudOptionsPath, List<PlaceholderModel> placeholders)
         {
             string fileContent = File.ReadAllText(hudOptionsPath);
@@ -87,7 +173,7 @@ namespace R3EHUDManager.huddata.parser
             foreach (PlaceholderModel model in placeholders)
             {
                 elementNames.Add($"{model.Name} {ItemType.POSITION}", GetVector(model.Position));
-                elementNames.Add($"{model.Name} {ItemType.SIZE}", GetVector(model.Size));
+                elementNames.Add($"{model.Name} {ItemType.SIZE_VERSION_7}", GetVector(model.Size));
                 elementNames.Add($"{model.Name} {ItemType.ANCHOR}", GetVector(model.Anchor));
             }
 
@@ -173,6 +259,7 @@ namespace R3EHUDManager.huddata.parser
         {
             public const string POSITION = "Position";
             public const string SIZE = "Size";
+            public const string SIZE_VERSION_7 = "Size Scale";
             public const string ANCHOR = "Anchor";
         }
 

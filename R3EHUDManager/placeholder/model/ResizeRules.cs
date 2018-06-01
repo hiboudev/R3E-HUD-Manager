@@ -23,6 +23,7 @@ namespace R3EHUDManager.placeholder.model
                 case PlaceholderName.MINI_MOTEC:
                 case PlaceholderName.MOTEC:
                 case PlaceholderName.TRACK_MAP:
+                case PlaceholderName.INPUT_METER:
                     return new RegularRule();
 
                 case PlaceholderName.VIRTUAL_MIRROR:
