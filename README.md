@@ -1,6 +1,6 @@
 # R3E-HUD-Manager
 
-**This software is no longer supported!** You can now configure HUD in-game.
+***This software is no longer supported!** You can now configure HUD in-game.*
 
 User interface for editing Raceroom Racing Experience HUD (hud_options.xml file).
 
